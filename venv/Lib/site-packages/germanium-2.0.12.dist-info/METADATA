@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: germanium
+Version: 2.0.12
+Summary: The germanium project: Selenium WebDriver testing API that doesn't disappoint.
+Home-page: UNKNOWN
+Author: Bogdan Mustiata
+Author-email: bogdan.mustiata@gmail.com
+License: BSD
+Platform: UNKNOWN
+Requires-Dist: germaniumdrivers (==2.0.12)
+Requires-Dist: selenium (==3.141.0)
+Requires-Dist: webcolors (==1.5)
+
+germanium 2.0.12
+
+
