@@ -13,7 +13,7 @@ def find_post_backs_received(package_id, trans_id):
     result = []
     five_config = list(filter(lambda x: x == 5, postback_type_config))
     five_notif = list(filter(lambda x: x == 5, postback_type_notif))
-    compare_results("Number of postbacks with type '5'", (len(five_config) == len(five_notif)), True)
+    compare_results("Number of postbacks with type '5'", len(five_config), len(five_notif))
     for element in postback_type_config:
         if element in postback_type_notif:
             result.append(element)
