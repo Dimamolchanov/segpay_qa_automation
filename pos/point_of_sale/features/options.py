@@ -1,4 +1,3 @@
-from pos.point_of_sale.web import web
 from pos.point_of_sale.db_functions import dbs
 import random
 from pos.point_of_sale.verifications import mts as mt
