@@ -1,4 +1,5 @@
 import pymssql
+from pos.point_of_sale import config
 
 
 class DB_connect(object):
@@ -8,12 +9,14 @@ class DB_connect(object):
     @staticmethod
     def get_instance():
         """Returns Cursor instance"""
+        user = "SPStaff"
+        password = 'Toccata200e'
+        server = config.server
         if DB_connect.instance is None and DB_connect.conn is None:
             global conn
             DB_connect()
-            user = "SPStaff"
-            password = 'Toccata200e'
-            conn = pymssql.connect("QADB1", user, password, "SP_Data")
+
+            conn = pymssql.connect(server, user, password, "SP_Data")
             #print("Connection with DB is established")
             cursor = conn.cursor(as_dict=True)
             conn.autocommit(True)

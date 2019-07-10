@@ -64,7 +64,6 @@ class DBActions:
         cursor.execute(sql)
         temp = cursor.fetchone()
         temp = temp['PostData']
-        print(temp)
         return temp
 
     def get_postback_type_by_postback_id(self, postback_id):

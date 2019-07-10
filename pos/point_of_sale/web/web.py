@@ -269,7 +269,7 @@ def FillDefault(url, selected_options):
 		return None
 
 	# C:\segpay\pos\point_of_sale\transguid\TransGuidDecoderApp.exe
-	cc = 5482823237630406 # 4444333322221111
+	cc = 4444333322221111 # 4444333322221111
 	transbin = int(str(cc)[:6])
 	card_encrypted = dbs.encrypt_card(cc)
 	month = ['01', '02', '03', '04']

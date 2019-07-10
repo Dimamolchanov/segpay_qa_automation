@@ -1,7 +1,7 @@
 from datetime import datetime
 from datetime import timedelta
 from termcolor import colored
-from db_functions import dbs
+from pos.point_of_sale.db_functions import dbs
 import copy
 
 

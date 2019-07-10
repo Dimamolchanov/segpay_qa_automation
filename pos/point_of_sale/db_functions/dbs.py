@@ -4,14 +4,7 @@ import pymssql
 import time
 from datetime import datetime
 
-server = ''
-if config.enviroment == 'stage':
-	server = "STGDB1"
-elif config.enviroment == 'qa':
-	server = "QADB1"
-elif config.enviroment == 'stage2':
-	server = "DEVSQL2\stg2db1"
-
+server = config.server
 user = "SPStaff"
 password = 'Toccata200e'
 
