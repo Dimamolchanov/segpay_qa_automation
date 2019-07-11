@@ -69,7 +69,7 @@ def get_post_back_notif_id(trans_id):
 def compare_results(text, actual, expected):
     #print("Verifying {}".format(text))
     if actual != expected:
-        errors_dictionary[text] = "Expected: {}, ==> Actual: {}".format(expected, actual)
+        errors_dictionary[text] = ": Expected: {}, ==> Actual: {}".format(expected, actual)
     #else:
     #   print("Verification of '{}' passed -->OK".format(text))
 
@@ -102,33 +102,33 @@ def verify_postback_url(action, package_id, trans_id):
             expected_stage = "initial"
             expected_payment_account_id = db_agent.get_payment_acct_id(trans_id)
 
-            compare_results("Postback Status", actual_postback_status, expected_postback_status)
+            compare_results("Postback Status for {}".format(id), actual_postback_status, expected_postback_status)
 
             current_config_URL = db_agent.get_url_from_config(id)
             parsed_config_url = parse_post_back_url(current_config_URL)
             parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, trans_id))
             if not parsed_config_url:
                 #print('Default postback config is used')
-                compare_results("TranType", parsed_notif_url.get('trantype'), expected_trantype.lower())
-                compare_results("Action", parsed_notif_url.get('action'), expected_action.lower())
-                compare_results("Stage", parsed_notif_url.get('stage'), expected_stage.lower())
+                compare_results("TranType {}".format(id), parsed_notif_url.get('trantype'), expected_trantype.lower())
+                compare_results("Action {}".format(id), parsed_notif_url.get('action'), expected_action.lower())
+                compare_results("Stage {}".format(id), parsed_notif_url.get('stage'), expected_stage.lower())
                 if postback_type == 5:
-                    compare_results("Payment Account ID", parsed_notif_url.get('paymentaccountid'), expected_payment_account_id)
+                    compare_results("Payment Account ID {}".format(id), parsed_notif_url.get('paymentaccountid'), expected_payment_account_id)
             else:
                 #print('Parameterized postback config is used')
                 #assert compares amount of parameters in config and notification and compares the result with amount of matched parameters
                 #where len(parsed_config_url.keys() & parsed_notif_url.keys()) - number of mathced parameters in both URLs
-                compare_results("Amount of parameters for non-default postback", len(parsed_config_url) == len(parsed_notif_url) == len(parsed_config_url.keys() & parsed_notif_url.keys()), True)
+                compare_results("Amount of parameters for non-default postback {}".format(id), len(parsed_config_url) == len(parsed_notif_url) == len(parsed_config_url.keys() & parsed_notif_url.keys()), True)
                 for key, value in parsed_config_url.items():
                     temp = value[1:-1]
                     if temp == "trantype":
-                        compare_results("TranType", parsed_notif_url.get(key), expected_trantype.lower())
+                        compare_results("TranType {}".format(id), parsed_notif_url.get(key), expected_trantype.lower())
                     if temp == "action":
-                        compare_results("Action", parsed_notif_url.get(key), expected_action.lower())
+                        compare_results("Action {}".format(id), parsed_notif_url.get(key), expected_action.lower())
                     if temp == "stage":
-                        compare_results("Stage", parsed_notif_url.get(key), expected_stage.lower())
+                        compare_results("Stage {}".format(id), parsed_notif_url.get(key), expected_stage.lower())
                     if temp == "paymentaccountid" and postback_type == 5:
-                        compare_results("Payment Account ID", parsed_notif_url.get(key), expected_payment_account_id)
+                        compare_results("Payment Account ID {}".format(id), parsed_notif_url.get(key), expected_payment_account_id)
 
     if not errors_dictionary:
          print(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
