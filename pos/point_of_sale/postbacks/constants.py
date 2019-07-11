@@ -6,3 +6,4 @@ POST_BACK_NOTIF_URL_BY_ID = 'select PostData from PostBackNotifications where Tr
 POST_BACK_TYPE_BY_POSTBACK_ID = 'select PostbackType from PostBackNotifications where PostbackConfigID = {}'
 PAYMENT_ACCT_ID = "select value from multitransvalues where transid = {} and name = 'PAYMENTACCOUNTID'"
 POSTBACK_STATUS_BI_ID = 'select status from PostBackNotifications where PostbackConfigID = {}'
+POS_OR_SERVICE_TRANS_SOURCE = "select * from MultiTransValues where transid = {} and name = 'POSSOURCE'"

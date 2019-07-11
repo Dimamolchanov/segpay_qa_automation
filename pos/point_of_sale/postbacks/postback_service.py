@@ -77,15 +77,17 @@ def compare_results(text, actual, expected):
 def verify_postback_url(action, package_id, trans_id):
     get_collect_user_info_code = get_collect_user_info(package_id)
     matched_postback_types = find_post_backs_received(package_id, trans_id)
+    is_service_transaction = db_agent.get_trans_source(trans_id)
     #print("Matched postback types are: {}".format(matched_postback_types))
 
     if action == "SignUp":
-        if get_collect_user_info_code == 0:
-            compare_results("Collect user info", (1 not in matched_postback_types and 2 not in matched_postback_types), True)
-        elif get_collect_user_info_code == 1:
-            compare_results("Collect user info", (1 in matched_postback_types and 2 in matched_postback_types), True)
-        elif get_collect_user_info_code == 2:
-            compare_results("Collect user info", (1 not in matched_postback_types and 2 in matched_postback_types), True)
+        if is_service_transaction:
+            if get_collect_user_info_code == 0:
+                compare_results("Collect user info", (1 not in matched_postback_types and 2 not in matched_postback_types), True)
+            elif get_collect_user_info_code == 1:
+                compare_results("Collect user info", (1 in matched_postback_types and 2 in matched_postback_types), True)
+            elif get_collect_user_info_code == 2:
+                compare_results("Collect user info", (1 not in matched_postback_types and 2 in matched_postback_types), True)
 
         matched_postback_ids = find_post_backs_ids(package_id, trans_id)
         for id in matched_postback_ids:

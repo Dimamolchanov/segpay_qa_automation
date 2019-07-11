@@ -91,5 +91,13 @@ class DBActions:
         temp = temp['status']
         return temp
 
+    def get_trans_source(self, trans_id):
+        cursor = DB_connect.get_instance()
+        sql = constants.POS_OR_SERVICE_TRANS_SOURCE.format(trans_id)
+        cursor.execute(sql)
+        temp = cursor.fetchone()
+        DB_connect.kill_db_session()
+        return temp
+
 
 
