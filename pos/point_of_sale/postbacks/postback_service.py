@@ -8,8 +8,8 @@ errors_dictionary = {}
 def find_post_backs_received(package_id, trans_id):
     postback_type_config = get_post_back_config_type(package_id)
     postback_type_notif = get_post_back_notif_type(trans_id)
-    print(postback_type_config)
-    print(postback_type_notif)
+    #print(postback_type_config)
+    #print(postback_type_notif)
     result = []
     five_config = list(filter(lambda x: x == 5, postback_type_config))
     five_notif = list(filter(lambda x: x == 5, postback_type_notif))
@@ -26,14 +26,14 @@ def find_post_backs_ids(package_id, trans_id):
     for element in postback_id_config:
         if element in postback_id_notif:
             result.append(element)
-    print("Postbacks IDS are: {}".format(result))
+    #print("Postbacks IDS are: {}".format(result))
     return result
 
 
 
 def get_collect_user_info(package_id):
     get_collect_user_status = db_agent.get_collect_user_info_value(package_id)
-    print("Collect user info code is: {}".format(get_collect_user_status))
+    #print("Collect user info code is: {}".format(get_collect_user_status))
     return get_collect_user_status
 
 
@@ -70,14 +70,14 @@ def compare_results(text, actual, expected):
     #print("Verifying {}".format(text))
     if actual != expected:
         errors_dictionary[text] = "Expected: {}, ==> Actual: {}".format(expected, actual)
-    else:
-        print("Verification of '{}' passed -->OK".format(text))
+    #else:
+    #   print("Verification of '{}' passed -->OK".format(text))
 
 
 def verify_postback_url(action, package_id, trans_id):
     get_collect_user_info_code = get_collect_user_info(package_id)
     matched_postback_types = find_post_backs_received(package_id, trans_id)
-    print("Matched postback types are: {}".format(matched_postback_types))
+    #print("Matched postback types are: {}".format(matched_postback_types))
 
     if action == "SignUp":
         if get_collect_user_info_code == 0:
@@ -108,14 +108,14 @@ def verify_postback_url(action, package_id, trans_id):
             parsed_config_url = parse_post_back_url(current_config_URL)
             parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, trans_id))
             if not parsed_config_url:
-                print('Default postback config is used')
+                #print('Default postback config is used')
                 compare_results("TranType", parsed_notif_url.get('trantype'), expected_trantype.lower())
                 compare_results("Action", parsed_notif_url.get('action'), expected_action.lower())
                 compare_results("Stage", parsed_notif_url.get('stage'), expected_stage.lower())
                 if postback_type == 5:
                     compare_results("Payment Account ID", parsed_notif_url.get('paymentaccountid'), expected_payment_account_id)
             else:
-                print('Parameterized postback config is used')
+                #print('Parameterized postback config is used')
                 #assert compares amount of parameters in config and notification and compares the result with amount of matched parameters
                 #where len(parsed_config_url.keys() & parsed_notif_url.keys()) - number of mathced parameters in both URLs
                 compare_results("Amount of parameters for non-default postback", len(parsed_config_url) == len(parsed_notif_url) == len(parsed_config_url.keys() & parsed_notif_url.keys()), True)
@@ -131,7 +131,7 @@ def verify_postback_url(action, package_id, trans_id):
                         compare_results("Payment Account ID", parsed_notif_url.get(key), expected_payment_account_id)
 
     if not errors_dictionary:
-         print(colored(f"Postback Record Compared =>  Pass", 'green'))
+         print(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
     else:
          print(colored(f"********************* Postbacks MissMatch ****************", 'red'))
          for param, value in errors_dictionary.items():
