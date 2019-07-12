@@ -55,6 +55,7 @@ class DBActions:
         cursor.execute(sql)
         temp = cursor.fetchone()
         temp = temp['PostbackURL']
+        DB_connect.kill_db_session()
         return temp
 
 
@@ -64,6 +65,7 @@ class DBActions:
         cursor.execute(sql)
         temp = cursor.fetchone()
         temp = temp['PostData']
+        DB_connect.kill_db_session()
         return temp
 
     def get_postback_type_by_postback_id(self, postback_id):
@@ -72,6 +74,7 @@ class DBActions:
         cursor.execute(sql)
         temp = cursor.fetchone()
         temp = temp['PostbackType']
+        DB_connect.kill_db_session()
         return temp
 
     def get_payment_acct_id(self, transaction_id):
@@ -80,6 +83,7 @@ class DBActions:
         cursor.execute(sql)
         temp = cursor.fetchone()
         temp = temp['value']
+        DB_connect.kill_db_session()
         return temp
 
 
@@ -89,6 +93,7 @@ class DBActions:
         cursor.execute(sql)
         temp = cursor.fetchone()
         temp = temp['status']
+        DB_connect.kill_db_session()
         return temp
 
     def get_trans_source(self, trans_id):
@@ -98,6 +103,7 @@ class DBActions:
         temp = cursor.fetchone()
         DB_connect.kill_db_session()
         return temp
+
 
 
 

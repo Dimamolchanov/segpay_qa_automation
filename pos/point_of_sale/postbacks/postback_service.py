@@ -13,7 +13,7 @@ def find_post_backs_received(package_id, trans_id):
     result = []
     five_config = list(filter(lambda x: x == 5, postback_type_config))
     five_notif = list(filter(lambda x: x == 5, postback_type_notif))
-    compare_results("Number of postbacks with type '5'", len(five_config), len(five_notif))
+    compare_results("Number of postbacks with type '5'",  len(five_notif), len(five_config))
     for element in postback_type_config:
         if element in postback_type_notif:
             result.append(element)
@@ -75,6 +75,7 @@ def compare_results(text, actual, expected):
 
 
 def verify_postback_url(action, package_id, trans_id):
+    errors_dictionary.clear()
     get_collect_user_info_code = get_collect_user_info(package_id)
     matched_postback_types = find_post_backs_received(package_id, trans_id)
     is_service_transaction = db_agent.get_trans_source(trans_id)

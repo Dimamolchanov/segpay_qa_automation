@@ -311,7 +311,8 @@ def FillDefault(url, selected_options):
 		br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
 	elif config.enviroment == 'stage2':
 		br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-
+	elif config.enviroment == 'stage3':
+		br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
 	br.find_by_id('CCExpMonthDDL').select(expiration_date)
 	br.find_by_id('CCExpYearDDL').select(year)
 	if config.enviroment == 'stage':
@@ -319,6 +320,8 @@ def FillDefault(url, selected_options):
 	elif config.enviroment == 'qa':
 		br.find_by_id('CVVInput').fill(cvv)  # new CVVInputNumeric old CVVInput
 	elif config.enviroment == 'stage2':
+		br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
+	elif config.enviroment == 'stage3':
 		br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
 	br.find_by_id('FirstNameInput').fill(firstname)
 	br.find_by_id('LastNameInput').fill(lastname)
