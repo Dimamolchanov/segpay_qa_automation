@@ -1,35 +1,39 @@
 from pos.point_of_sale.postbacks import constants
 from pos.point_of_sale.postbacks.db_connection import DB_connect
+from pos.point_of_sale.postbacks.Singleton import Singleton
 
 
 class DBActions:
+    cursor = None
+    def __init__(self):
+        self.cursor = Singleton.getInstance()
 
     def get_value_from_postback_configs(self, package_id, column_to_return):
         p_type_list = []
-        cursor = DB_connect.get_instance()
+        #cursor = DB_connect.get_instance()
         sql = constants.POST_BACK_TYPES_FROM_CONFIG.format(package_id)
-        cursor.execute(sql)
-        rows = cursor.fetchall()
+        self.cursor.execute(sql)
+        rows = self.cursor.fetchall()
         for row in rows:
             p_type = row[column_to_return]
             #print(f'Adding {p_type} to the config list')
             p_type_list.append(p_type)
-        DB_connect.kill_db_session()
+        #DB_connect.kill_db_session()
         if not p_type_list:
             print("No values to return")
         return p_type_list
 
     def get_value_from_postback_notif(self, trans_id, column_to_return):
         n_type_list = []
-        cursor = DB_connect.get_instance()
+        #cursor = DB_connect.get_instance()
         sql = constants.POST_BACK_TYPES_FROM_NOTIFICATION.format(trans_id)
-        cursor.execute(sql)
-        rows = cursor.fetchall()
+        self.cursor.execute(sql)
+        rows = self.cursor.fetchall()
         for row in rows:
             p_type = row[column_to_return]
             #print(f'Adding {p_type} to the notification list')
             n_type_list.append(p_type)
-        DB_connect.kill_db_session()
+        #DB_connect.kill_db_session()
         if not n_type_list:
             print("No values to return")
         return n_type_list
@@ -39,8 +43,8 @@ class DBActions:
         #p_type_list = []
         cursor = DB_connect.get_instance()
         sql = constants.COLLECT_USER_INFO_BY_PACKAGE.format(package_id)
-        cursor.execute(sql)
-        rows = cursor.fetchall()
+        self.cursor.execute(sql)
+        rows = self.cursor.fetchall()
         #for row in rows:
         #    p_type = row['CollectUserInfo']
         #    print(f'Adding {p_type} to the list')

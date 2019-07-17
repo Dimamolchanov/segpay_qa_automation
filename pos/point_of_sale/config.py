@@ -1,4 +1,4 @@
-enviroment = 'qa'
+enviroment = 'stage3'
 url = ''
 urlws = ''
 urlic = ''

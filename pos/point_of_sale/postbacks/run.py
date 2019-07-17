@@ -5,10 +5,10 @@ import os
 #from pos.point_of_sale import transactions
 
 merchant_id = 20004
-package_id = 270109
-trans_id = 1534615388
-
-postback_service.verify_postback_url("SignUp", package_id, trans_id)
+package_id = 99
+trans_id = 231231
+#1234634800
+postback_service.verify_postback_url("SignUp", 99, 1234636503 )
 #service.parse_post_back_url(constants.POST_BACK_URL)
 #service.get_post_back_config_url()
 #service.get_post_back_notif_url()

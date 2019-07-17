@@ -18,7 +18,7 @@ enviroment=config.enviroment
 #27001
 merchants = [20004]
 #99
-packageid = 270109
+packageid = 99
 processors = [26]
 pricepoints_options = 'single'
 # ==================================================================> Options
@@ -47,7 +47,7 @@ dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint
 for merchantid in merchants:
 	try:
 		if pricepoints_options == 'single':
-			pricepoints = [27147]
+			pricepoints = [27011]
 		elif pricepoints_options == 'type':
 			pricepoints = dbs.pricepoint_type(merchantid, [501, 502, 503, 504, 505, 506, 510, 511])
 		elif pricepoints_options == 'list':
