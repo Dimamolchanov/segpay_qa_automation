@@ -20,7 +20,7 @@ class DBActions:
             p_type_list.append(p_type)
         #DB_connect.kill_db_session()
         if not p_type_list:
-            print("No values to return")
+            print("No values to return for postback config")
         return p_type_list
 
     def get_value_from_postback_notif(self, trans_id, column_to_return):
@@ -35,7 +35,7 @@ class DBActions:
             n_type_list.append(p_type)
         #DB_connect.kill_db_session()
         if not n_type_list:
-            print("No values to return")
+            print("No values to return for postback notif")
         return n_type_list
 
 
@@ -45,67 +45,50 @@ class DBActions:
         sql = constants.COLLECT_USER_INFO_BY_PACKAGE.format(package_id)
         self.cursor.execute(sql)
         rows = self.cursor.fetchall()
-        #for row in rows:
-        #    p_type = row['CollectUserInfo']
-        #    print(f'Adding {p_type} to the list')
-        #    p_type_list.append(p_type)
-        DB_connect.kill_db_session()
         return rows[0]['CollectUserInfo']
 
 
     def get_url_from_config(self, postback_id):
-        cursor = DB_connect.get_instance()
         sql = constants.POST_BACK_CINFIG_URL_BY_ID.format(postback_id)
-        cursor.execute(sql)
-        temp = cursor.fetchone()
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
         temp = temp['PostbackURL']
-        DB_connect.kill_db_session()
         return temp
 
 
     def get_url_from_notif(self, postback_id, trans_id):
-        cursor = DB_connect.get_instance()
         sql = constants.POST_BACK_NOTIF_URL_BY_ID.format(trans_id, postback_id)
-        cursor.execute(sql)
-        temp = cursor.fetchone()
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
         temp = temp['PostData']
-        DB_connect.kill_db_session()
         return temp
 
     def get_postback_type_by_postback_id(self, postback_id):
-        cursor = DB_connect.get_instance()
         sql = constants.POST_BACK_TYPE_BY_POSTBACK_ID.format(postback_id)
-        cursor.execute(sql)
-        temp = cursor.fetchone()
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
         temp = temp['PostbackType']
-        DB_connect.kill_db_session()
         return temp
 
     def get_payment_acct_id(self, transaction_id):
-        cursor = DB_connect.get_instance()
         sql = constants.PAYMENT_ACCT_ID.format(transaction_id)
-        cursor.execute(sql)
-        temp = cursor.fetchone()
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
         temp = temp['value']
-        DB_connect.kill_db_session()
         return temp
 
 
     def get_postback_status_by_id(self, postback_id):
-        cursor = DB_connect.get_instance()
         sql = constants.POSTBACK_STATUS_BI_ID.format(postback_id)
-        cursor.execute(sql)
-        temp = cursor.fetchone()
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
         temp = temp['status']
-        DB_connect.kill_db_session()
         return temp
 
     def get_trans_source(self, trans_id):
-        cursor = DB_connect.get_instance()
         sql = constants.POS_OR_SERVICE_TRANS_SOURCE.format(trans_id)
-        cursor.execute(sql)
-        temp = cursor.fetchone()
-        DB_connect.kill_db_session()
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
         return temp
 
 
