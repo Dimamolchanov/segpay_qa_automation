@@ -1,25 +1,27 @@
-import config
-import random, decimal, string
-import string
-from features import options
-from verifications import asset
-from verifications import emails
-from verifications import mts as mt
-from termcolor import colored
-from db_functions import dbs
-from web import web
-import requests
+import random
+import decimal
+from datetime import datetime
 
+from pos.point_of_sale.postbacks import postback_service
+from pos.point_of_sale import config
+from pos.point_of_sale.utils import options
+from pos.point_of_sale.verifications import asset
+from pos.point_of_sale.verifications import emails
+from pos.point_of_sale.verifications import mts as mt
+from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.web import web
+
+
+db_agent = DBActions()
+current_date = (datetime.now().date())
 pricepoints = []
 report = {}
 # ==================================================================> Configuration
 #config.enviroment = 'stage'
 enviroment=config.enviroment
-#27001
-merchants = [20004]
-#99
+merchants = [27001]
 packageid = 99
-processors = [26]
+processors = [65]
 pricepoints_options = 'single'
 # ==================================================================> Options
 refurl = options.refurl()
@@ -27,52 +29,66 @@ ref_variables = options.ref_variables()
 template = ''  # '&template=defaultnopaypal'
 url_options = ref_variables + refurl + template
 
-available_currencies = ['CAD']#, 'USD', 'CHF',  "CAD"] #, "CHF",  "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"] # "DKK",
+available_currencies = ['USD', "AUD", "CHF",  "EUR", "GBP"]#, "HKD", "JPY", "NOK", "SEK"] # "DKK",
 available_languages = ['EN']#, "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-selected_currency = random.choice(available_currencies)
-selected_language = random.choice(available_languages)
-selected_options = [selected_currency, selected_language]
+
 one_click_pos = True
-one_click_ws = True
+one_click_ws = False
+process_captures = False
+process_rebills = False
+process_refund = False
 instant_coversion_pos = True
-instant_coversion_ws = True
+instant_coversion_ws = False
 single_use_promo = False
 
 # ==================================================================> for 511 and 510
 pricingguid = {}
+transids = []
+rebills_pids = []
+
 pricepoint_type = 0
 dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
+merchantbillconfig = []
+
+
+
+
+
+
+
 
 # ==================================================================================================> Begining of the script
 for merchantid in merchants:
 	try:
 		if pricepoints_options == 'single':
-			pricepoints = [27011]
+			pricepoints = [27005]
 		elif pricepoints_options == 'type':
-			pricepoints = dbs.pricepoint_type(merchantid, [501, 502, 503, 504, 505, 506, 510, 511])
+			pricepoints = db_agent.pricepoint_type(merchantid, [501, 502, 503, 504, 505, 506, 510, 511])
 		elif pricepoints_options == 'list':
-			pricepoints = dbs.pricepoint_list(merchantid)
+			pricepoints = db_agent.pricepoint_list(merchantid)
 		for pricepoint in pricepoints:
-
+			selected_currency = random.choice(available_currencies)
+			selected_language = random.choice(available_languages)
+			selected_options = [selected_currency, selected_language]
 			try:
 
 				eticket = str(packageid) + ':' + str(pricepoint)
 				# ========================================================================> preparing package processor
-				merchantbillconfig = dbs.merchantbillconfig(pricepoint)
+				merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
 				if one_click_pos or one_click_ws:
-					dbs.update_merchantbillconfig_oneclick(pricepoint, 1)  # enabling 1click if its not enabled
+					db_agent.update_merchantbillconfig_oneclick(pricepoint, 1)  # enabling 1click if its not enabled
 
 				if single_use_promo:
-					dbs.update_pp_singleuse_promo(pricepoint, 1, 1)
+					db_agent.update_pp_singleuse_promo(pricepoint, 1, 1)
 				else:
-					dbs.update_pp_singleuse_promo(pricepoint, 1, 0)  # feature 1 is single use promo
+					db_agent.update_pp_singleuse_promo(pricepoint, 1, 0)  # feature 1 is single use promo
 				pricepoint_type = merchantbillconfig[0]['Type']
-				package = dbs.package(packageid)
-				dbs.update_processor(processors[0], packageid)
-				dbs.update_package(packageid, merchantid, pricepoint)
+				package = db_agent.package(packageid)
+				db_agent.update_processor(processors[0], packageid)
+				db_agent.update_package(packageid, merchantid, pricepoint)
 
 				transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options, enviroment,
-				                                            merchantid, url_options, 26)
+				                                            merchantid, url_options, processors[0])
 				multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 				                                             url_options)
 				differences_multitrans = mt.multitrans_compare(multitrans_base_record,
@@ -83,8 +99,16 @@ for merchantid in merchants:
 				differences_asset = asset.asset_compare(asset_base_record)
 
 				check_email_differences = emails.check_email_que(pricepoint_type, multitrans_base_record, 'signup')
+
+				postback_service.verify_postback_url("SignUp", packageid, transaction_record['TransID'])
+
+				transids.append(transaction_record['TransID'])
+				if pricepoint_type in [501,505,506,511]:
+					rebills_pids.append(transaction_record['PurchaseID'])
+
 				print('*********************SignUp Transaction Verification Complete*********************')
 				print()
+
 
 				if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and one_click_pos:
 					one_click_pos_record = web.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
@@ -95,6 +119,10 @@ for merchantid in merchants:
 					differences_asset = asset.asset_compare(asset_base_record_onelick)
 					check_email = emails.check_email_que(pricepoint_type, multitrans_base_record, 'signup')
 					report['pos' + str(eticket)] = [differences_multitrans, differences_asset, check_email]
+					postback_service.verify_postback_url("SignUp", packageid, one_click_pos_record[1][0]['TransID'])
+					transids.append(one_click_pos_record[1][0]['TransID'])
+					if pricepoint_type in [501, 505, 506, 511]:
+						rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
 					print('*********************OneClick POS Transaction Verification Complete*********************')
 					print()
 				if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and one_click_ws:
@@ -105,7 +133,11 @@ for merchantid in merchants:
 					                                                 one_click_ws_record[1])
 					differences_asset = asset.asset_compare(asset_base_record_onelick)
 					check_email = emails.check_email_que(pricepoint_type, one_click_ws_record[0], 'signup')
+					postback_service.verify_postback_url("SignUp", packageid, one_click_ws_record[1][0]['TransID'])
 					report['ws' + str(eticket)] = [differences_multitrans, differences_asset, check_email]
+					transids.append(one_click_ws_record[1][0]['TransID'])
+					if pricepoint_type in [501, 505, 506, 511]:
+						rebills_pids.append(one_click_ws_record[1][0]['PurchaseID'])
 					print('*********************OneClick WS Transaction Verification Complete*********************')
 					print()
 				report[eticket] = [differences_multitrans, differences_asset, check_email_differences]
@@ -119,16 +151,22 @@ for merchantid in merchants:
 					                                                 ic_pos_record[1])
 					differences_asset = asset.asset_compare(asset_ic_record)
 					check_email = emails.check_email_que(pricepoint_type, ic_pos_record[1][0], 'signup')
+					#postback_service.verify_postback_url("SignUp", packageid, ic_pos_record[1]['TransID'])
+					transids.append(ic_pos_record[1][0]['TransID'])
+					rebills_pids.append(ic_pos_record[1][0]['PurchaseID'])
 					report['pos' + str(eticket)] = [differences_ic_pos, differences_asset, check_email]
 					print('*********************Instant Conversion Transaction Verification Complete*********************')
 					print()
 
-
-
 			except Exception as ex:
 				print(ex)
+		# --------------------------------------------------------------------------------------------------------------BEP
+		# x = bep.process_captures()
+		# d = bep.process_refund(transids)
+		# f = bep.process_rebills(rebills_pids)
 
 
+		# --------------------------------------------------------------------------------------------------------------BEP
 
 	except Exception as ex:
 		print(ex)

@@ -1,7 +1,10 @@
-from pos.point_of_sale.db_functions import dbs
 import random
-from pos.point_of_sale.verifications import mts as mt
 import string
+
+from pos.point_of_sale.db_functions.dbactions import DBActions
+
+
+db_agent = DBActions()
 
 
 def randomString(stringLength=10):
@@ -14,8 +17,8 @@ def refurl():
     refurl = '&refurl=wwww.test.com/' + tmpurl
     return refurl
 
-def ref_variables():
 
+def ref_variables():
     refs = f"&ref1={randomString(5)}&ref2={randomString(4)}&ref3={randomString(5)}&ref4={randomString(4)}" \
            f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}" \
            f"&ref9={randomString(5)}&ref10={randomString(4)}"
@@ -33,15 +36,17 @@ def ref_variables():
     # ref10 = randomString(8)
     # return ref1,ref4
 
+
 def pricepoints_options(pricepoints_options,merchantid):
     pricepoints = []
     if pricepoints_options == 'single':
         pricepoints = [100120]
     elif pricepoints_options == 'type':
-        pricepoints = dbs.pricepoint_type(merchantid, [501, 502, 503, 504, 505, 506, 510, 511])
+        pricepoints = db_agent.pricepoint_type(merchantid, [501, 502, 503, 504, 505, 506, 510, 511])
     elif pricepoints_options == 'list':
-        pricepoints = dbs.pricepoint_list(merchantid)
+        pricepoints = db_agent.pricepoint_list(merchantid)
     return pricepoints
+
 
 def string_after(value, a):
     # Find and validate first part.

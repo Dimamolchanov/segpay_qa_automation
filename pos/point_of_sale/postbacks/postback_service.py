@@ -1,7 +1,8 @@
-from pos.point_of_sale.postbacks.dbactions import DBActions
 from termcolor import colored
 
-merchant_id = 20004
+from pos.point_of_sale.db_functions.dbactions import DBActions
+
+
 db_agent = DBActions()
 errors_dictionary = {}
 
@@ -99,7 +100,7 @@ def verify_postback_url(action, package_id, trans_id):
                 expected_action = "Enable"
             else:
                 expected_action = "auth"
-            actual_postback_status = db_agent.get_postback_status_by_id(id)
+            actual_postback_status = db_agent.get_postback_status_by_id(id, trans_id)
             expected_postback_status = 863
             expected_trantype = "sale"
             expected_stage = "initial"

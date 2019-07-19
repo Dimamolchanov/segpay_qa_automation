@@ -1,5 +1,9 @@
-from pos.point_of_sale.db_functions import dbs
 from termcolor import colored
+
+from pos.point_of_sale.db_functions.dbactions import DBActions
+
+
+db_agent = DBActions()
 
 
 def check_email_que(pricepoint_type, multitrans_base_record, action):
@@ -10,7 +14,7 @@ def check_email_que(pricepoint_type, multitrans_base_record, action):
 	else:
 		transid = multitrans_base_record['TransID']
 
-	check_email = dbs.check_email_que(transid)
+	check_email = db_agent.check_email_que(transid)
 	if check_email == 'noemail':
 		return "Could not find the email or error"
 	else:
@@ -24,14 +28,3 @@ def check_email_que(pricepoint_type, multitrans_base_record, action):
 			return "Warning - Email is in que but status is not completed (861) => Recheck for Status"
 		else:
 			return "Could not find the email or error"
-
-# multitrans_base_record['RelatedTransID']
-
-
-# if check_email == 1:
-#     print(colored(f"Email is in que => Correct", 'green'))
-# elif check_email == 2:
-#     print(colored(f"Warning - Email is in que but status not completed => Need longer time", 'blue'))
-# else:
-#     print(colored(f"Email is not in the que or something wrong  => Check Data mannualy", 'red'))
-# print('**************************************************************************************')

@@ -1,12 +1,15 @@
-from pos.point_of_sale.db_functions import dbs
 from datetime import datetime
 from datetime import timedelta
 from termcolor import colored
+from decimal import Decimal
 
+from pos.point_of_sale.db_functions.dbactions import DBActions
+
+db_agent = DBActions()
 
 def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
 	transdate = (datetime.now().date())
-	url = dbs.url(package['URLID'])
+	url = db_agent.url(package['URLID'])
 	multitrans = {
 		'PurchaseID': data_from_paypage['PurchaseID'],
 		'TransID': data_from_paypage['TransID'],
@@ -48,34 +51,34 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 	for var in url_parameters:
 		tmp = var.split('=')
 		if tmp[0] == 'ref1':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF1'] = val
 		elif tmp[0] == 'ref2':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF2'] = val = val
 		elif tmp[0] == 'ref3':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF3'] = val
 		elif tmp[0] == 'ref4':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF4'] = val
 		elif tmp[0] == 'ref5':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF5'] = val
 		elif tmp[0] == 'ref6':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF6'] = val
 		elif tmp[0] == 'ref7':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF7'] = val
 		elif tmp[0] == 'ref8':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF8'] = val
 		elif tmp[0] == 'ref9':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF9'] = val
 		elif tmp[0] == 'ref10':
-			val = dbs.encrypt_string(tmp[1])
+			val = db_agent.encrypt_string(tmp[1])
 			multitrans['REF10'] = val
 		elif tmp[0] == 'refurl':
 			val = tmp[1][:256]
@@ -86,9 +89,10 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 	if merchantbillconfig['Currency'] == data_from_paypage['merchant_currency']:
 		exchange_rate = 1
 	else:
-		exchange_rate = dbs.exc_rate(data_from_paypage['merchant_currency'], merchantbillconfig['Currency'])
-		if data_from_paypage['merchant_currency'] != 'JPY':
-			exchange_rate = round(exchange_rate, 2)
+		exchange_rate = db_agent.exc_rate(data_from_paypage['merchant_currency'], merchantbillconfig['Currency'])
+		# if data_from_paypage['merchant_currency'] != 'JPY':
+		# 	exchange_rate = round(exchange_rate, 2)
+	exchange_rate = round(exchange_rate, 2)
 	multitrans['ExchRate'] = exchange_rate
 
 	multitrans['TxStatus'] = 2
@@ -111,7 +115,7 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 			multitrans['TransAmount'] = merchantbillconfig['RebillPrice']
 			multitrans['TransDate'] = transdate + timedelta(days=merchantbillconfig['InitialLen'])
 			sql = f"select  RelatedTransID  from multitrans where PurchaseID = {data_from_paypage['PurchaseID']}  and TransSource = 121 "
-			multitrans['RelatedTransID'] = dbs.sql(sql)[0]['RelatedTransID']
+			multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
 		else:
 			multitrans['TransDate'] = transdate
 			multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
@@ -150,3 +154,95 @@ def multitrans_compare(multitrans_base_record, live_record):
 		for k, v in differences.items():
 			print(k, v)
 	return differences
+
+
+
+
+def multitrans_check_conversion(rebills):
+	rkeys = rebills.keys()
+	rebills_completed_mt = []
+	rebills_failed_mt = []
+
+	for pid in rkeys:
+		differences = {}
+		base_record = rebills[pid]
+
+		base_record['TxStatus'] = 6
+		base_record['TransStatus'] = 186
+		base_record['TransSource'] = 122
+		sql = "Select RecurringAmount from Assets where PurchaseID = {}"
+		rebill_amount = db_agent.execute_select_one_parameter(sql, pid)
+		base_record['TransAmount'] = rebill_amount['RecurringAmount']
+
+		base_record['ProcessorTransID'] = ''
+		base_record['TransID'] = 0
+		base_record['SOURCEMACHINE'] = ''
+		base_record['TransDate'] = datetime.date(base_record['TransDate'])
+		base_record['TransTime'] = datetime.date(base_record['TransTime'])
+		base_record['PCID'] = None
+		base_record['TRANSGUID'] = ''
+		base_record['IPCountry'] = 'N/A'
+		base_record['BinCountry'] = 'N/A'
+		base_record['AffiliateID'] = None
+		base_record['RefURL'] = None
+
+		sql = "select TOP 1 Rate from ExchangeRates as rate where ConsumerIso = '{}' " \
+			"and   MerchantIso = '{}' order by importdatetime desc"
+		#print(sql)
+		exchange_rate = db_agent.execute_select_two_parameters(sql, base_record['MerchantCurrency'], base_record['ProcessorCurrency'])
+		#exchange_rate = xyz['Rate']
+
+		if base_record['MerchantCurrency'] == 'JPY':
+			excr = round((base_record['TransAmount'] * exchange_rate['Rate']), 2)
+			excr = round((excr))
+			excr = str(excr) + '.00'
+			excr = Decimal(excr)
+			base_record['Markup'] = excr #Decimal(round((base_record['TransAmount'] * exchange_rate['Rate']), 2))
+		else:
+			base_record['Markup'] = round((base_record['TransAmount'] * exchange_rate['Rate']), 2)
+
+
+		#print(xyz['Rate'])
+
+
+
+		sql = "Select * from multitrans where PurchaseID = {} and TransSource = 122"
+		live_record = db_agent.execute_select_one_parameter(sql, pid)
+
+		if base_record['TransType'] == 1011:
+			base_record['TransType'] = 101
+			base_record['RelatedTransID'] = 0
+
+
+
+		live_record['ProcessorTransID'] = ''
+		tid = live_record['TransID']
+		live_record['TransID'] = 0
+		live_record['SOURCEMACHINE'] = ''
+		live_record['TransDate'] = datetime.date(live_record['TransDate'])
+		live_record['TransTime'] = datetime.date(live_record['TransTime'])
+		live_record['TRANSGUID'] = ''
+		live_record['RefURL'] = None
+		for key in base_record:
+			live_value = live_record[key]
+			base_value = base_record[key]
+			if base_value != live_value:
+				differences[key] = f"Base:{base_value} => Live:{live_value}"
+
+		if len(differences) == 0:
+			rebills_completed_mt.append(live_record)
+			#print(colored(f"Asset Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
+		else:
+			rebills_failed_mt.append(live_record)
+			print(colored(f"********************* Rebill Multitrans MissMatch Beginning****************", 'red'))
+			print(f"PurchaseID = {pid} | TransID: {tid}")
+			for k, v in differences.items():
+				print(k, v)
+			print(colored(f"********************* Rebill Multitrans MissMatch End ****************", 'red'))
+
+	if len(rebills_failed_mt) == 0:
+		print(colored(f"Rebills => Multitrans Records Compared => Pass ", 'green'))
+	else:
+		print(colored(f"********************* Rebills => Multitrans MissMatch => CHeck Manually ****************", 'blue'))
+
+	return [rebills_completed_mt,rebills_failed_mt]

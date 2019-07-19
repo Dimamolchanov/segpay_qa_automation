@@ -1,9 +1,11 @@
 from datetime import datetime
 from datetime import timedelta
 from termcolor import colored
-from pos.point_of_sale.db_functions import dbs
 import copy
 
+from pos.point_of_sale.db_functions.dbactions import DBActions
+
+db_agent = DBActions()
 
 def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_live_record):
 	type = merchantbillconfig['Type']
@@ -94,10 +96,10 @@ def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_li
 		asset['Purchases'] = 1
 
 	else:
-		assets['PurchStatus'] = 806
-		assets['LastResult'] = 'Declined'
-		assets['PurchTotal'] = 0
-		assets['Purchases'] = 0
+		asset['PurchStatus'] = 806
+		asset['LastResult'] = 'Declined'
+		asset['PurchTotal'] = 0
+		asset['Purchases'] = 0
 		asset['StatusDate'] = current_date
 		asset['PurchDate'] = current_date
 		asset['NextDate'] = None
@@ -107,7 +109,6 @@ def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_li
 		asset['LastDate'] = current_date
 
 	return asset
-
 
 def asset_oneclick(merchantbillconfig, asset_base_record, multitrans_live_record):
 	type = merchantbillconfig['Type']
@@ -237,7 +238,7 @@ def asset_instant_conversion(merchantbillconfig, asset_base_record, multitrans_l
 def asset_compare(asset_base_record):
 	differences = {}
 	purchaseid = asset_base_record['PurchaseID']
-	asset_live_record = dbs.asset_full_record(purchaseid)[0]
+	asset_live_record = db_agent.asset_full_record(purchaseid)[0]
 	for key in asset_base_record:
 		live_value = asset_live_record[key]
 		base_value = asset_base_record[key]
@@ -251,9 +252,64 @@ def asset_compare(asset_base_record):
 			differences[key] = f"Base:{base_value} => Live:{live_value}"
 
 	if len(differences) == 0:
-		print(colored(f" Asset Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
+		print(colored(f"Asset Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
 	else:
 		print(colored(f"********************* Asset MissMatch ****************", 'red'))
 		for k, v in differences.items():
 			print(k, v)
 	return differences
+
+
+def asseets_check_rebills(rebills):
+	rkeys = rebills.keys()
+	rebills_completed = []
+	rebills_failed = []
+	#REFACTOR SQL:
+	sql = "Select * from Assets where PurchaseID = {}"
+	for pid in rkeys:
+		differences = {}
+		base_record = rebills[pid]
+		base_record['Purchases'] = base_record['Purchases'] + 1
+		base_record['PurchTotal'] = base_record['PurchTotal'] + base_record['RecurringAmount']
+		base_record['ConvDate'] = (datetime.now().date())
+		base_record['LastDate'] = (datetime.now().date())
+		# sql = f"Select RebillLen from Merchantbillconfig where billconfigid = {base_record['BillConfigID']}"
+		# cursor.execute(sql)
+		# rebill_lenght = cursor.fetchone()
+		# tmp = base_record['NextDate'] + timedelta(days=rebill_lenght['RebillLen'])
+		tmp = base_record['NextDate'] + timedelta(days=base_record['PurchPeriod'])
+		base_record['NextDate'] =  datetime.date(tmp)
+		base_record['ExpiredDate'] = datetime.date(tmp)
+		base_record['LastResult'] = 'OK:0'
+		base_record['Retries'] = 0
+		base_record['ModBy'] = 'Rebiller'
+		#refactor SQL:
+		live_record = db_agent.execute_select_one_parameter(sql, pid)
+		live_record['ConvDate'] = (datetime.now().date())
+		live_record['LastDate'] = (datetime.now().date())
+		live_record['NextDate'] = datetime.date(tmp)
+		live_record['ExpiredDate'] = datetime.date(tmp)
+
+		for key in base_record:
+			live_value = live_record[key]
+			base_value = base_record[key]
+			if base_value != live_value:
+				differences[key] = f"Base:{base_value} => Live:{live_value}"
+
+		if len(differences) == 0:
+			rebills_completed.append(live_record)
+			#print(colored(f"Asset Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
+		else:
+			rebills_failed.append(live_record)
+			print(colored(f"********************* Rebill Asset MissMatch Beginning****************", 'red'))
+			print(f"PurchaseID = {pid}")
+			for k, v in differences.items():
+				print(k, v)
+			print(colored(f"********************* Rebill Asset MissMatch End ****************", 'red'))
+
+	if len(rebills_failed) == 0:
+		print(colored(f"Rebills => Assets Records Compared => Pass ", 'green'))
+	else:
+		print(colored(f"********************* Rebills => Asset MissMatch => CHeck Manually ****************", 'blue'))
+
+	return [rebills_completed,rebills_failed]
