@@ -246,3 +246,77 @@ def multitrans_check_conversion(rebills):
 		print(colored(f"********************* Rebills => Multitrans MissMatch => CHeck Manually ****************", 'blue'))
 
 	return [rebills_completed_mt,rebills_failed_mt]
+
+def multitrans_check_refunds(refunds, capture):
+	rkeys = refunds.keys()
+	refunds_completed_mt = []
+	refunds_failed_mt = []
+	live_record = ''
+
+	pid = ''
+	for tid in rkeys:
+		try:
+			differences = {}
+			base_record = refunds[tid]
+			pid = base_record['PurchaseID']
+			tasks_type_status = db_agent.tasks_table(tid)
+			sql = ''
+			if tasks_type_status[0] == 842 and capture == False and base_record['TransType'] == 101:
+				sql = "Select * from multitrans where PurchaseID = {} and TransType = 107"
+				base_record['TransType'] = 107
+				base_record['TxStatus'] = 8
+				base_record['TransStatus'] = 182
+			elif (tasks_type_status[0] == 842 and capture == True) or base_record['TransType'] == 1011:
+				sql = "Select * from multitrans where PurchaseID = {} and TransType = 102"
+				base_record['TransType'] = 102
+				base_record['TxStatus'] = 7
+				base_record['TransStatus'] = 186
+				base_record['IPCountry'] = 'N/A'
+				base_record['BinCountry'] = 'N/A'
+				base_record['RefURL'] = None
+				base_record['AffiliateID'] = None
+
+			base_record['PCID'] = None
+			base_record['TransSource'] = 125
+			base_record['TRANSGUID'] = ''
+			base_record['ProcessorTransID'] = ''
+			base_record['SOURCEMACHINE'] = ''
+			base_record['TransTime'] = datetime.date(base_record['TransTime'])
+			base_record['TransAmount'] = (-base_record['TransAmount'])
+			base_record['Markup'] = (-base_record['Markup'])
+
+			print(sql)
+			live_record = db_agent.execute_select_one_parameter(sql, tid)
+			live_record['TransTime'] = datetime.date(live_record['TransTime'])
+			live_record['TRANSGUID'] = ''
+			live_record['ProcessorTransID'] = ''
+			live_record['SOURCEMACHINE'] = ''
+			live_record['PCID'] = None
+			base_record['RelatedTransID'] = base_record['TransID']
+			base_record['TransID'] = live_record['TransID']
+
+			for key in base_record:
+				live_value = live_record[key]
+				base_value = base_record[key]
+				if base_value != live_value:
+					differences[key] = f"Base:{base_value} => Live:{live_value}"
+
+			if len(differences) == 0:
+				refunds_completed_mt.append(live_record)
+			else:
+				refunds_completed_mt.append(live_record)
+				print(colored(f"********************* Refund Multitrans MissMatch Beginning****************", 'red'))
+				print(f"PurchaseID = {pid} | TransID: {tid}")
+				for k, v in differences.items():
+					print(k, v)
+				print(colored(f"******************** Refund Multitrans MissMatch End ***************", 'red'))
+		except Exception as ex:
+			print(ex)
+			pass
+
+	if len(refunds_failed_mt) == 0:
+		print(colored(f"Refund => Multitrans Records Compared => Pass ", 'green'))
+	else:
+		print(colored(f"******************** Refund => Multitrans MissMatch => Check Manually ***************", 'blue'))
+
+	return [refunds_completed_mt, refunds_failed_mt]
