@@ -90,10 +90,8 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		exchange_rate = 1
 	else:
 		exchange_rate = db_agent.exc_rate(data_from_paypage['merchant_currency'], merchantbillconfig['Currency'])
-		# if data_from_paypage['merchant_currency'] != 'JPY':
-		# 	exchange_rate = round(exchange_rate, 2)
-	exchange_rate = round(exchange_rate, 2)
-	multitrans['ExchRate'] = exchange_rate
+
+
 
 	multitrans['TxStatus'] = 2
 	if merchantbillconfig['Type'] == 505:
@@ -125,7 +123,8 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 	if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
 		multitrans['TransStatus'] = 186
 		multitrans['TransAmount'] = 1.00
-
+	exchange_rate = round(exchange_rate, 2)
+	multitrans['ExchRate'] = exchange_rate
 	return multitrans
 
 
@@ -286,7 +285,7 @@ def multitrans_check_refunds(refunds, capture):
 			base_record['Markup'] = (-base_record['Markup'])
 
 			print(sql)
-			live_record = db_agent.execute_select_one_parameter(sql, tid)
+			live_record = db_agent.execute_select_one_parameter(sql, pid)
 			live_record['TransTime'] = datetime.date(live_record['TransTime'])
 			live_record['TRANSGUID'] = ''
 			live_record['ProcessorTransID'] = ''
