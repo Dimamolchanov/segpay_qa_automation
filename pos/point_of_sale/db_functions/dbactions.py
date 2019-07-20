@@ -25,6 +25,11 @@ class DBActions:
         response = self.cursor.fetchone()
         return response
 
+    def execute_select_with_no_params(self, sql):
+        self.cursor.execute(sql)
+        response = self.cursor.fetchone()
+        return response
+
     def get_value_from_postback_configs(self, package_id, column_to_return):
         p_type_list = []
         sql = constants.POST_BACK_TYPES_FROM_CONFIG.format(package_id)

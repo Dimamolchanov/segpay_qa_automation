@@ -130,16 +130,16 @@ for merchantid in config.merchants:
 			except Exception as ex:
 				print(ex)
 		# --------------------------------------------------------------------------------------------------------------BEP
-		# captures = bep.process_captures()
-		# if captures == 'Captured':
-		# 	check_captures = db_agent.verify_captures(transids)
+		captures = bep.process_captures()
+		if captures == 'Captured':
+		 	check_captures = db_agent.verify_captures(transids)
 
 		conversion = bep.process_rebills(rebills_pids) #bep.process_rebills(rebills_pids)
 		if conversion:
 		    check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
 		    check_rebills_asset = asset.asseets_check_rebills(conversion[0])
 		refunds = bep.process_refund(transids,0) # 841 refund expire  842 refund and cancel
-		reactivate = web.reactivate(transguids)
+		reactivate = web.reactivate(transids)
 
 
 	# --------------------------------------------------------------------------------------------------------------BEP
