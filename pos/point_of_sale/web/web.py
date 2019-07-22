@@ -14,15 +14,12 @@ import copy
 from pos.point_of_sale import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 
-
 db_agent = DBActions()
 
-
 chrome_options = webdriver.ChromeOptions()
-#chrome_options.add_argument("--window-position=-1400,0")
+chrome_options.add_argument("--window-position=-1400,0")
 
 fake = Faker()
-
 
 # def start_browser():
 br = Browser(driver_name='chrome', options=chrome_options)
@@ -39,7 +36,7 @@ def navigate_to_url(url):
 			return True
 
 		except:
-			#print("Retry after 1 sec navigating to url")
+			# print("Retry after 1 sec navigating to url")
 			retry_count = retry_count + 1
 			time.sleep(1)
 
@@ -74,7 +71,8 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
 				transguid = subprocess.run(
-					['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+
 					stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
 			else:
@@ -171,7 +169,7 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
 				transguid = subprocess.run(
-					['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
 					stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
 			else:
@@ -246,9 +244,9 @@ def FillDefault(url, selected_options):
 	page_loaded = navigate_to_url(url)
 	if page_loaded == False:
 		return None
-	#email = 'qateam@segpay.com'  # fake.email()
+	# email = 'qateam@segpay.com'  # fake.email()
 	email = fake.email()
-	email = email.replace(email.split("@", 1)[1], "yopmail.com")
+	# email = email.replace(email.split("@", 1)[1], "yopmail.com")
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
 		transguid = br.find_by_id('TransGUID').value
@@ -256,11 +254,10 @@ def FillDefault(url, selected_options):
 		transguid = subprocess.run(['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
 		                           stdout=subprocess.PIPE)
 		transguid = transguid.stdout.decode('utf-8')
-	# print (transguid)
 	else:
 		print("Transguid not Found ")
 		return None
-	cc = 4444333322221111 #4024007102361424
+	cc = 4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
 	month = ['01', '02', '03', '04']
@@ -384,8 +381,8 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		print(ex)
 		print(f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
 
-def reactivate(transids):
 
+def reactivate(transids):
 	transguids = []
 	reactivated = []
 	not_reactivated = []
@@ -436,16 +433,17 @@ def reactivate(transids):
 	except Exception as ex:
 		print(ex)
 
+
 # ==========================================================================================================================BEP
 def rebill(pids):
 	rebill_dates = {}
 	before_rebill = {}
-	#REFACTOR SQL:
+	# REFACTOR SQL:
 	sql = "Select * from Assets where PurchaseID = {}"
 	for pid in pids:
-		#REFACTOR SQL:
+		# REFACTOR SQL:
 		temp = db_agent.execute_select_one_parameter(sql, pid)
-		#print(temp)
+		# print(temp)
 		before_rebill[pid] = temp
 		temp = datetime.date(temp['NextDate'])
 		if temp not in rebill_dates:
@@ -455,7 +453,7 @@ def rebill(pids):
 	for rebill_date in rebill_dates:
 		rebill_url = config.rebill_url + str(rebill_date) + '%2023:59:59'
 		print(rebill_url)
-		#br.driver.set_page_load_timeout(600)
+		# br.driver.set_page_load_timeout(600)
 		br.visit(rebill_url)
 		while br.url != rebill_url:
 			time.sleep(1)
@@ -464,9 +462,9 @@ def rebill(pids):
 	end_time = datetime.now()
 	print('Duration: {}'.format(end_time - start_time))
 	if 'Rebills processing is done.' in br.html:
-		return ['RebillsFinished',before_rebill]
+		return ['RebillsFinished', before_rebill]
 	else:
-		return ['Rebill=>SomethingWrong',before_rebill]
+		return ['Rebill=>SomethingWrong', before_rebill]
 
 
 def captures(capture_date):

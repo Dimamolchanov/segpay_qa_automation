@@ -8,10 +8,10 @@ rebill_url = ''
 captures_url = ''
 server = ''
 
-merchants = [20004]
-pricepoints = [100140]
-processors = [26]
-packageid = 192304
+merchants = [27001]
+pricepoints = [27011]
+processors = [65]
+packageid = 99
 template = ''  # '&template=defaultnopaypal'
 report = {}
 available_currencies = ['AUD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
@@ -22,6 +22,7 @@ one_click_ws = True
 instant_coversion_pos = False
 instant_coversion_ws = False
 single_use_promo = False
+refund_rebills = True
 
 
 
