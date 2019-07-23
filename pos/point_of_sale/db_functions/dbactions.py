@@ -283,7 +283,7 @@ class DBActions:
     def package(self, package):
         retry_flag = True
         retry_count = 0
-        sql = f"select * from package where packageid = {package}"
+        sql = f"select * from package where packageid ={package}"
         while retry_flag and retry_count < 30:
             try:
                 self.cursor.execute(sql)
