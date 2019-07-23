@@ -9,12 +9,12 @@ captures_url = ''
 server = ''
 
 merchants = [27001]
-pricepoints = [27011]
+pricepoints = [27003]
 processors = [65]
 packageid = 99
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['AUD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
+available_currencies = ['AUD',"CHF"]#,"AUD","EUR", "GBP", "HKD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 
 one_click_pos = False
@@ -22,7 +22,7 @@ one_click_ws = True
 instant_coversion_pos = False
 instant_coversion_ws = False
 single_use_promo = False
-refund_rebills = True
+
 
 
 

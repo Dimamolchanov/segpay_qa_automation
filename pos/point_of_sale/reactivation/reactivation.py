@@ -25,9 +25,7 @@ pricepoint_type = 0
 dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
 merchantbillconfig = []
 
-# rb = web.rebill([1000050007])
 
-# reactivate = web.reactivate(['fbdf81d2-febb-4406-bb80-37d66d2420c2'])
 
 # ==================================================================================================> Begining of the script
 for merchantid in config.merchants:
@@ -79,7 +77,6 @@ for merchantid in config.merchants:
 							else:
 								rebills_pids.append(transaction_record['PurchaseID'])
 
-
 						print('*********************SignUp Transaction Verification Complete*********************')
 						print()
 
@@ -99,7 +96,7 @@ for merchantid in config.merchants:
 									print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
 								else:
 									rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
-								#rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
+							# rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
 							print('*********************OneClick POS Transaction Verification Complete*********************')
 							print()
 						if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and config.one_click_ws:
@@ -118,7 +115,7 @@ for merchantid in config.merchants:
 									print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
 								else:
 									rebills_pids.append(one_click_ws_record[1][0]['PurchaseID'])
-								#rebills_pids.append(one_click_ws_record[1][0]['PurchaseID'])
+							# rebills_pids.append(one_click_ws_record[1][0]['PurchaseID'])
 							print('*********************OneClick WS Transaction Verification Complete*********************')
 							print()
 						config.report[eticket] = [differences_multitrans, differences_asset, check_email_differences]
@@ -145,24 +142,20 @@ for merchantid in config.merchants:
 			except Exception as ex:
 				print(ex)
 		# --------------------------------------------------------------------------------------------------------------BEP
-		# captures = bep.process_captures()
-		# if captures == 'Captured':
-		# 	check_captures = db_agent.verify_captures(transids)
-		conversion = bep.process_rebills(rebills_pids)  # bep.process_rebills(rebills_pids)
+		captures = bep.process_captures()
+		if captures == 'Captured':
+			check_captures = db_agent.verify_captures(transids)
+		conversion = bep.process_rebills(transids)  # bep.process_rebills(rebills_pids)
 		if conversion:
-			check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
 			check_rebills_asset = asset.asseets_check_rebills(conversion[0])
-		if config.refund_rebills:
-			transids = transids + conversion[2]
+			check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
+
 		refunds = bep.process_refund(transids, 841)  # 841 refund expire  842 refund and cancel
+		if refunds:
+			check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
+			#check_refunds_asset = mt.multitrans_check_refunds(refunds[0])
 
-		captured = False
-		# if captures:
-		# 	captured = True
-
-		check_refunds_mt = mt.multitrans_check_refunds(refunds[0],captured)
-		#reactivate = web.reactivate(transids)
-
+		reactivate = web.reactivate(transids)
 
 	# --------------------------------------------------------------------------------------------------------------BEP
 
