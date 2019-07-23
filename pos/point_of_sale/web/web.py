@@ -250,8 +250,7 @@ def FillDefault(url, selected_options):
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
 		transguid = br.find_by_id('TransGUID').value
-		# print(transguid)
-		transguid = subprocess.run(['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+		transguid = subprocess.run(['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
 		                           stdout=subprocess.PIPE)
 		transguid = transguid.stdout.decode('utf-8')
 	else:
