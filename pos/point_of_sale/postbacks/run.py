@@ -1,4 +1,4 @@
-from pos.point_of_sale.postbacks import postback_service
+from pos.point_of_sale.verifications import postback_service
 
 #from pos.point_of_sale import transactions
 

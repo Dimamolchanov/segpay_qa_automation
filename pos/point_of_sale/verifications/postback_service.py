@@ -119,10 +119,9 @@ def verify_postback_url(action, package_id, trans_id):
                 if postback_type == 5:
                     compare_results("Payment Account ID {}".format(id), parsed_notif_url.get('paymentaccountid'), expected_payment_account_id)
             else:
-                #print('Parameterized postback config is used')
-                #assert compares amount of parameters in config and notification and compares the result with amount of matched parameters
-                #where len(parsed_config_url.keys() & parsed_notif_url.keys()) - number of mathced parameters in both URLs
-                compare_results("Amount of parameters for non-default postback {}".format(id), len(parsed_config_url) == len(parsed_notif_url) == len(parsed_config_url.keys() & parsed_notif_url.keys()), True)
+                add_to_number = 3 if postback_type == 5 else 0
+                compare_results("Number of parameters for non-default postback {}".format(id), len(parsed_config_url)+add_to_number, len(parsed_notif_url))
+                compare_results("Parameters keys for non-default postback {}".format(id), len(parsed_config_url), len(parsed_config_url.keys() & parsed_notif_url.keys()))
                 for key, value in parsed_config_url.items():
                     temp = value[1:-1]
                     if temp == "trantype":

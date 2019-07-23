@@ -7,21 +7,27 @@ refund_url = ''
 rebill_url = ''
 captures_url = ''
 server = ''
-
+# provide merchant ID
 merchants = [20004]
+# type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
 pricepoints = [100140]
+#Processeor ID
 processors = [26]
+#PAckage ID
 packageid = 192304
 template = ''  # '&template=defaultnopaypal'
 report = {}
 available_currencies = ['AUD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+transaction_record = []
+test_data = {}
 
 one_click_pos = False
 one_click_ws = True
 instant_coversion_pos = False
 instant_coversion_ws = False
-single_use_promo = False
+#1 - TRUE, 0 - FALSE
+single_use_promo = 0
 
 
 
@@ -33,7 +39,7 @@ if enviroment == 'stage':
    urlic = 'https://stgs2.segpay.com/billing/InstantConv.aspx?ICToken='   # Instant Conversion POS
    urlicws = 'https://stgsvc.segpay.com/ICService.asmx/InstantConversionService?ICToken=' # Instant Conversion service
    refund_url = 'http://stgbep:54908/jobs/execute/tasks'
-   rebill = 'http://stgbep:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
+   rebill = 'http://stgbep:54908/jobs/execute/rebills?Time={}%2023:59:59'  # time format 2019-07-10%2023:59:59
    captures_url = 'http://stg3bep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
 elif enviroment == 'qa':
    server = "QADB1"
@@ -42,7 +48,7 @@ elif enviroment == 'qa':
    urlic = 'https://qas2.segpay.com/billing/InstantConv.aspx?ICToken='   # Instant Conversion POS
    urlicws = 'https://qasvc.segpay.com/ICService.asmx/InstantConversionService?ICToken=' # Instant Conversion service
    refund_url = 'http://qabep1:54908/jobs/execute/tasks'
-   rebill_url = 'http://qabep1p:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
+   rebill_url = 'http://qabep1p:54908/jobs/execute/rebills?Time={}%2023:59:59'  # time format 2019-07-10%2023:59:59
    captures_url = 'http://qabep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
 elif enviroment == 'stage2':
    server = "DEVSQL2\stg2db1"
@@ -51,7 +57,7 @@ elif enviroment == 'stage2':
    urlic = 'https://stg2s2.segpay.com/billing/InstantConv.aspx?ICToken='   # Instant Conversion POS
    urlicws = 'https://stg2svc.segpay.com/ICService.asmx/InstantConversionService?ICToken=' # Instant Conversion service
    refund_url = 'http://stg2bep:54908/jobs/execute/tasks'
-   rebill_url = 'http://stg2bep:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
+   rebill_url = 'http://stg2bep:54908/jobs/execute/rebills?Time={}%2023:59:59'  # time format 2019-07-10%2023:59:59
    captures_url = 'http://stg2bep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
 elif enviroment == 'stage3':
    server = "STGDB1\STG3DB1"
@@ -61,5 +67,5 @@ elif enviroment == 'stage3':
    urlic = 'https://stg3s2.segpay.com/billing/InstantConv.aspx?ICToken='  # Instant Conversion POS
    urlicws = 'https://stg3svc.segpay.com/ICService.asmx/InstantConversionService?ICToken='  # Instant Conversion service
    refund_url = 'http://stg3bep1:54908/jobs/execute/tasks'
-   rebill_url = 'http://stg3bep1:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
+   rebill_url = 'http://stg3bep1:54908/jobs/execute/rebills?Time={}%2023:59:59'  # time format 2019-07-10%2023:59:59
    captures_url = 'http://stg3bep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates='  # 2019-07-07

@@ -2,10 +2,9 @@ import random
 import decimal
 from datetime import datetime
 
-from pos.point_of_sale.postbacks import postback_service
-from pos.point_of_sale import config
+from pos.point_of_sale.config import config
 from pos.point_of_sale.utils import options
-from pos.point_of_sale.verifications import asset
+from pos.point_of_sale.verifications import asset, postback_service
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.db_functions.dbactions import DBActions
@@ -18,7 +17,7 @@ pricepoints = []
 report = {}
 # ==================================================================> Configuration
 #config.enviroment = 'stage'
-enviroment=config.enviroment
+enviroment= config.enviroment
 merchants = [27001]
 packageid = 99
 processors = [65]

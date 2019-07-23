@@ -11,7 +11,7 @@ import simplexml
 import requests
 import copy
 
-from pos.point_of_sale import config
+from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 
 
@@ -384,8 +384,8 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		print(ex)
 		print(f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
 
-def reactivate(transids):
 
+def reactivate(transids):
 	transguids = []
 	reactivated = []
 	not_reactivated = []
