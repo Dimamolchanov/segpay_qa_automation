@@ -11,7 +11,7 @@ import simplexml
 import requests
 import copy
 
-from pos.point_of_sale import config
+from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 
 db_agent = DBActions()

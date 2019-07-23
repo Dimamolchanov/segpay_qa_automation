@@ -1,5 +1,5 @@
 import pymssql
-from pos.point_of_sale import config
+from pos.point_of_sale.config import config
 import traceback
 
 

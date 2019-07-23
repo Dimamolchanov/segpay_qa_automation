@@ -1,13 +1,9 @@
-import time
 import random
 from datetime import datetime
 from datetime import timedelta
 import traceback
-import requests
-import traceback
 
-from pos.point_of_sale import config
-from pos.point_of_sale.web import web
+from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import web_service
 
@@ -60,22 +56,17 @@ def get_data_before_action(tids,action):
 
 
 def process_captures():
-	current_date = (datetime.now().date())
-	captures_url = config.captures_url + str(current_date)
-	print("Starting Captures")
-	complete_scrub = db_agent.fraud_scrub(current_date + timedelta(days=1))
-	print(captures_url)
-	start_time = datetime.now()
-	response = web_service.process_request("Captures", captures_url, 200)
-	end_time = datetime.now()
-	print('Duration: {}'.format(end_time - start_time))
-	print("End Captures")
-	if response:
-		return 'Captured'
-	else:
-		return 'Captures=>SomethingWrong'
-
-
+    current_date = (datetime.now().date())
+    captures_url = config.captures_url + str(current_date)
+    print("Starting Captures")
+    db_agent.fraud_scrub(current_date + timedelta(days=1))
+    print(captures_url)
+    response = web_service.process_request("Captures", captures_url, 200)
+    print("End Captures")
+    if response:
+        return 'Captured'
+    else:
+        return 'Captures=>SomethingWrong'
 
 
 def process_refund(transids, taskid=0):
@@ -92,9 +83,8 @@ def process_refund(transids, taskid=0):
 				tasktype = taskid
 			tasks.append(tasktype)
 			refund_tasks = db_agent.refund_task(tasktype, tid)
-
 		print(f"Tasks inserted : {tasks}")
-		refund = web.refund()
+		refund = refund = web_service.process_request("Refund", config.refund_url, 200)
 		return refunds[0], refunds[1],not_processed
 	except Exception as ex:
 		print(ex)
@@ -105,20 +95,15 @@ def process_refund(transids, taskid=0):
 
 
 def process_rebills(tids):
-
 	resp = ''
 	data_before_action = get_data_before_action(tids,'rebill')
 	rebill_dates = data_before_action[2]
 	print("Starting Rebill")
-	start_time = datetime.now()
 	for rebill_date in rebill_dates:
 		rebill_url = config.rebill_url + str(rebill_date) + '%2023:59:59'
 		print(rebill_url)
 		resp = web_service.process_request("Rebill", rebill_url, 300)
-
 	print("All Finished Rebill")
-	end_time = datetime.now()
-	print('Duration: {}'.format(end_time - start_time))
 	if resp:
 		return data_before_action[0], data_before_action[1]
 	else:

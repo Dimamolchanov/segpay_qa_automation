@@ -7,22 +7,27 @@ refund_url = ''
 rebill_url = ''
 captures_url = ''
 server = ''
-
-merchants = [27001]
-pricepoints = [27003]
-processors = [65]
-packageid = 99
+# provide merchant ID
+merchants = [20004]
+# type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
+pricepoints = [100140]
+#Processeor ID
+processors = [26]
+#PAckage ID
+packageid = 192304
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['AUD',"CHF"]#,"AUD","EUR", "GBP", "HKD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
+available_currencies = ['AUD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+transaction_record = []
+test_data = {}
 
 one_click_pos = False
 one_click_ws = True
 instant_coversion_pos = False
 instant_coversion_ws = False
+#1 - TRUE, 0 - FALSE - to DO refactor
 single_use_promo = False
-
 
 
 
