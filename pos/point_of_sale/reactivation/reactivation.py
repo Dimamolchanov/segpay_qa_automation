@@ -2,8 +2,8 @@ import random
 import decimal
 from datetime import datetime
 
-from pos.point_of_sale import config
-from pos.point_of_sale.postbacks import postback_service
+from pos.point_of_sale.config import config
+from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.utils import options
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
@@ -24,6 +24,9 @@ rebills_pids = []
 pricepoint_type = 0
 dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
 merchantbillconfig = []
+
+
+
 
 
 
@@ -56,6 +59,7 @@ for merchantid in config.merchants:
 						eticket = str(config.packageid) + ':' + str(pricepoint)
 						# ========================================================================> preparing package processor
 						selected_options = [dmc, selected_language]
+
 						# =======================================================================================================Starting Transactions
 						transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options,
 						                                            merchantid, url_options, config.processors[0])
@@ -71,11 +75,11 @@ for merchantid in config.merchants:
 						check_email_differences = emails.check_email_que(pricepoint_type, multitrans_base_record, 'signup')
 						postback_service.verify_postback_url("SignUp", config.packageid, transaction_record['TransID'])
 						transids.append(transaction_record['TransID'])
-						if pricepoint_type in [501, 505, 506, 511]:
-							if transaction_record['PurchaseID'] in rebills_pids:
-								print(f"Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
-							else:
-								rebills_pids.append(transaction_record['PurchaseID'])
+						# if pricepoint_type in [501, 505, 506, 511]:
+						# 	if transaction_record['PurchaseID'] in rebills_pids:
+						# 		print(f"Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
+						# 	else:
+						# 		rebills_pids.append(transaction_record['PurchaseID'])
 
 						print('*********************SignUp Transaction Verification Complete*********************')
 						print()
@@ -91,11 +95,11 @@ for merchantid in config.merchants:
 							config.report['pos' + str(eticket)] = [differences_multitrans, differences_asset, check_email]
 							postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
 							transids.append(one_click_pos_record[1][0]['TransID'])
-							if pricepoint_type in [501, 505, 506, 511]:
-								if one_click_pos_record[1][0]['PurchaseID'] in rebills_pids:
-									print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
-								else:
-									rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
+							# if pricepoint_type in [501, 505, 506, 511]:
+							# 	if one_click_pos_record[1][0]['PurchaseID'] in rebills_pids:
+							# 		print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
+							# 	else:
+							# 		rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
 							# rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
 							print('*********************OneClick POS Transaction Verification Complete*********************')
 							print()
@@ -153,9 +157,11 @@ for merchantid in config.merchants:
 		refunds = bep.process_refund(transids, 841)  # 841 refund expire  842 refund and cancel
 		if refunds:
 			check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
-			#check_refunds_asset = mt.multitrans_check_refunds(refunds[0])
+			check_refunds_asset = asset.asseets_check_refunds(refunds[0])
 
-		reactivate = web.reactivate(transids)
+		reactivate = web.reactivate(transids) #   (conversion[1])
+		check_asset_after_reactivation = asset.assets_check_reactivation(reactivate[0])
+		check_mt_after_reactivation = mt.mt_check_reactivation(reactivate[1])
 
 	# --------------------------------------------------------------------------------------------------------------BEP
 
