@@ -3,6 +3,7 @@ from datetime import timedelta
 from termcolor import colored
 from pos.point_of_sale.bep import bep
 import copy
+import traceback
 
 from pos.point_of_sale.db_functions.dbactions import DBActions
 
@@ -139,26 +140,17 @@ def asset_instant_conversion(merchantbillconfig, asset_base_record, multitrans_l
 	return updated_record
 
 
-def asset_compare(asset_base_record):
+def asset_compare(asset_base_record): # signup
 	differences = {}
 	purchaseid = asset_base_record['PurchaseID']
 	asset_live_record = db_agent.asset_full_record(purchaseid)[0]
-	for key in asset_base_record:
-		live_value = asset_live_record[key]
-		base_value = asset_base_record[key]
-		asset_dates = ['StatusDate', 'PurchDate', 'NextDate', 'ExpiredDate', 'CancelDate', 'ConvDate', 'LastDate']
-		if key in asset_dates and asset_live_record[key] != None:
-			live_value = asset_live_record[key].date()
 
-		if base_value != live_value:
-			# print(f" Key:{key}   miss: Base:{base_value} Live:{live_value}")
-			# differences[key] = f" Key:{key}   miss: Base:{base_value} Live:{live_value}"
-			differences[key] = f"Base:{base_value} => Live:{live_value}"
+	differences = bep.dictionary_compare(asset_base_record, asset_live_record)
 
 	if len(differences) == 0:
-		print(colored(f"Asset Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
+		print(colored(f"Asset SignUp Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
 	else:
-		print(colored(f"********************* Asset MissMatch ****************", 'red'))
+		print(colored(f"********************* Asset SignUp MissMatch ****************", 'red'))
 		for k, v in differences.items():
 			print(k, v)
 	return differences
@@ -187,11 +179,11 @@ def asseets_check_rebills(rebills):
 		base_record['ModBy'] = 'Rebiller'
 
 		live_record = db_agent.execute_select_one_parameter(sql, pid)
-		live_record['ConvDate'] = (datetime.now().date())
-		live_record['LastDate'] = (datetime.now().date())
-		tmp = live_record['NextDate']
-		live_record['NextDate'] =  datetime.date(tmp) # (datetime.now().date()) #datetime.date(date_fromat)
-		live_record['ExpiredDate'] = datetime.date(tmp)# datetime.date(date_fromat)
+		# live_record['ConvDate'] = (datetime.now().date())
+		# live_record['LastDate'] = (datetime.now().date())
+		# tmp = live_record['NextDate']
+		# live_record['NextDate'] =  datetime.date(tmp) # (datetime.now().date()) #datetime.date(date_fromat)
+		# live_record['ExpiredDate'] = datetime.date(tmp)# datetime.date(date_fromat)
 
 		differences = bep.dictionary_compare(base_record,live_record)
 
@@ -212,3 +204,96 @@ def asseets_check_rebills(rebills):
 		print(colored(f"Warning ************* Rebills {len(rebills_failed)} records => Asset MissMatch => CHeck Manually ****************", 'blue'))
 
 	return [rebills_completed,rebills_failed]
+
+def asseets_check_refunds(refunds):
+	rkeys = refunds.keys()
+	rebills_completed = []
+	rebills_failed = []
+
+	sql = "Select * from Assets where PurchaseID = {}"
+	print("Checking asset after refund")
+	for pid in rkeys:
+		differences = {}
+		base_record = refunds[pid]
+		if refunds[pid]['PurchType'] in [501,505,506,511]:
+			base_record['PurchStatus'] = 803
+			base_record['ModBy'] = 'automation'
+		else:
+			base_record['PurchStatus'] = 804
+			base_record['ModBy'] = 'SIGNUP'
+
+		base_record['CancelDate'] = (datetime.now().date())
+		base_record['ExpiredDate'] = (datetime.now().date())
+
+		live_record = db_agent.execute_select_one_parameter(sql, pid)
+
+		differences = bep.dictionary_compare(base_record,live_record)
+
+		if len(differences) == 0:
+			rebills_completed.append(live_record)
+		else:
+			rebills_failed.append(live_record)
+			print(colored(f"********************* Refunds Asset MissMatch Beginning****************", 'red'))
+			print(f"PurchaseID = {pid}")
+			for k, v in differences.items():
+				print(k, v)
+			print(colored(f"********************* Refunds Asset MissMatch End ****************", 'red'))
+
+	if len(rebills_failed) == 0:
+		print(colored(f"Refunds {len(rebills_completed)} records  => Assets Records Compared => Pass ", 'green'))
+	else:
+		print(colored(f"Refunds {len(rebills_completed)} records  => Assets Records Compared => Pass ", 'green'))
+		print(colored(f"Warning ************* Refunds {len(rebills_failed)} records => Asset MissMatch => CHeck Manually ****************", 'blue'))
+
+	return [rebills_completed,rebills_failed]
+
+def assets_check_reactivation(reactivated):
+	rkeys = reactivated.keys()
+	reactivation_completed = []
+	reactivation_completed_failed = []
+	current_date = (datetime.now().date())
+	sql = "Select * from Assets where PurchaseID = {}"
+	print("Checking asset after refund")
+	for pid in rkeys:
+		try:
+			differences = {}
+			live_record = db_agent.execute_select_one_parameter(sql, pid)
+			base_record = reactivated[pid][pid]
+			base_record['PurchStatus'] = 801
+			base_record['ConvDate'] = current_date
+			base_record['LastDate'] = current_date
+			base_record['NextDate'] = current_date + timedelta(days=base_record['PurchPeriod'])
+			base_record['CancelDate'] = None
+			base_record['ExpiredDate'] = current_date + timedelta(days=base_record['PurchPeriod'])
+			base_record['Retries'] = 0
+			base_record['Purchases'] = base_record['Purchases'] + 1
+			base_record['LastResult'] = 'Reactivated'
+			base_record['CardExpiration'] = live_record['CardExpiration']
+			if len(base_record['CardExpiration']) < 4:
+				print("Check Card Expiration - assets | Something is wrong")
+
+
+			differences = bep.dictionary_compare(base_record,live_record)
+
+			if len(differences) == 0:
+				reactivation_completed.append(live_record)
+			else:
+				reactivation_completed_failed.append(live_record)
+				print(colored(f"********************* Reactivation Asset MissMatch Beginning****************", 'red'))
+				print(f"PurchaseID = {pid}")
+				for k, v in differences.items():
+					print(k, v)
+				print(colored(f"********************* Reactivation Asset MissMatch End ****************", 'red'))
+				print()
+		except Exception as ex:
+			print(f"{Exception}    PID: {pid} ")
+			traceback.print_exc()
+			pass
+
+	if len(reactivation_completed_failed) == 0:
+		print(colored(f"Reactivation {len(reactivation_completed)} records  => Assets Records Compared => Pass ", 'green'))
+	else:
+		print(colored(f"Reactivation {len(reactivation_completed)} records  => Assets Records Compared => Pass ", 'green'))
+		print(colored(f"Warning ************* Reactivation {len(reactivation_completed_failed)} records => Asset MissMatch => CHeck Manually ****************", 'blue'))
+
+	return [reactivation_completed,reactivation_completed_failed]
