@@ -84,7 +84,7 @@ def process_refund(transids, taskid=0):
 			tasks.append(tasktype)
 			refund_tasks = db_agent.refund_task(tasktype, tid)
 		print(f"Tasks inserted : {tasks}")
-		refund = refund = web_service.process_request("Refund", config.refund_url, 200)
+		web_service.process_request("Refund", config.refund_url, 200)
 		return refunds[0], refunds[1],not_processed
 	except Exception as ex:
 		print(ex)
