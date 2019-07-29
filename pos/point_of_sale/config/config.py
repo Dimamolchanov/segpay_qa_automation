@@ -17,17 +17,21 @@ processors = [26]
 packageid = 192304
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['AUD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
+available_currencies = ['AUD','CHF']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-transaction_record = []
+
+#Global Objects to transfer data from test to test
+transaction_records = []
 test_data = {}
+transids = []
+cc_number=''
 
 one_click_pos = False
 one_click_ws = True
 instant_coversion_pos = False
 instant_coversion_ws = False
 #1 - TRUE, 0 - FALSE - to DO refactor
-single_use_promo = False
+single_use_promo = 0
 
 
 
