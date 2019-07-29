@@ -87,6 +87,8 @@ class DBActions:
         sql = constants.PAYMENT_ACCT_ID.format(transaction_id)
         self.cursor.execute(sql)
         temp = self.cursor.fetchone()
+        if temp == None:
+            return None
         temp = temp['value']
         return temp
 

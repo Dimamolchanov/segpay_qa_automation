@@ -54,12 +54,10 @@ for merchantid in config.merchants:
 						eticket = str(config.packageid) + ':' + str(pricepoint)
 						# ========================================================================> preparing package processor
 						selected_options = [dmc, selected_language]
+
 						# =======================================================================================================Starting Transactions
 						transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options,
 						                                            merchantid, url_options, config.processors[0])
-
-
-
 
 						multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 						                                             url_options)
@@ -75,16 +73,10 @@ for merchantid in config.merchants:
 						print('*********************SignUp Transaction Verification Complete*********************')
 						print()
 
-
-
-
 						if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and config.one_click_pos:
 							one_click_pos_record = web.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
 							                                     transaction_record['email'], url_options, selected_options)
 							differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
-
-
-
 							asset_base_record_onelick = asset.asset_oneclick(merchantbillconfig[0], asset_base_record,
 							                                                 one_click_pos_record[1])
 							differences_asset = asset.asset_compare(asset_base_record_onelick)
@@ -137,9 +129,11 @@ for merchantid in config.merchants:
 		refunds = bep.process_refund(transids, 841)  # 841 refund expire  842 refund and cancel
 		if refunds:
 			check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
-			#check_refunds_asset = mt.multitrans_check_refunds(refunds[0])
+			check_refunds_asset = asset.asseets_check_refunds(refunds[0])
 
-		reactivate = web.reactivate(transids)
+		reactivate = web.reactivate(transids) #   (conversion[1])
+		check_asset_after_reactivation = asset.assets_check_reactivation(reactivate[0])
+		check_mt_after_reactivation = mt.mt_check_reactivation(reactivate[1])
 
 	# --------------------------------------------------------------------------------------------------------------BEP
 

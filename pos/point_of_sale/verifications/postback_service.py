@@ -105,6 +105,8 @@ def verify_postback_url(action, package_id, trans_id):
             expected_trantype = "sale"
             expected_stage = "initial"
             expected_payment_account_id = db_agent.get_payment_acct_id(trans_id)
+            if expected_payment_account_id == None:
+                expected_payment_account_id = "Wrong => Check MT values"
 
             compare_results("Postback Status for {}".format(id), actual_postback_status, expected_postback_status)
 

@@ -10,9 +10,10 @@ from xml.etree.ElementTree import fromstring
 import simplexml
 import requests
 import copy
-
+import traceback
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.bep import bep
 
 db_agent = DBActions()
 
@@ -240,13 +241,14 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 		return multitrans_ic_record, oneclick_record
 
 
-def FillDefault(url, selected_options):
+def FillDefault(url, selected_options, merchantid, packageid):
 	page_loaded = navigate_to_url(url)
+	psd2 = False
 	if page_loaded == False:
 		return None
 	# email = 'qateam@segpay.com'  # fake.email()
-	email = fake.email()
-	# email = email.replace(email.split("@", 1)[1], "yopmail.com")
+	email = config.enviroment + '_' + fake.email()
+
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
 		transguid = br.find_by_id('TransGUID').value
@@ -256,7 +258,18 @@ def FillDefault(url, selected_options):
 	else:
 		print("Transguid not Found ")
 		return None
-	cc = 4444333322221111  # 4024007102361424
+
+	sql = f"select top 1 * from [MerchantCC3DSecureConfig] where merchantid = {merchantid} and segpayprocessorid = " \
+		f"(select top 1 ProcessorID from ProcessorPoolsDetail where CardType = 'VISA' " \
+		f"and  ppid = ( select  PrefProcessorID from package where packageid = {packageid}))"
+
+	visa_secure = db_agent.execute_select_two_parameters(sql, merchantid, packageid)
+	if visa_secure == None:
+		cc = 4444333322221111
+	else:
+		cc = 5200000000000007
+
+	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
 	month = ['01', '02', '03', '04']
@@ -311,6 +324,9 @@ def FillDefault(url, selected_options):
 		br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
 	br.find_by_id('FirstNameInput').fill(firstname)
 	br.find_by_id('LastNameInput').fill(lastname)
+
+	br.find_option_by_text('Florida').first.click()
+
 	br.find_by_id('ZipInput').fill(zip)
 	# br.find_by_id('CountryDDL').fill('999')
 	br.find_by_id('EMailInput').fill(email)
@@ -325,6 +341,14 @@ def FillDefault(url, selected_options):
 	data_from_paypage['paypage_lnaguage'] = br.find_by_id('LanguageDDL').value
 	data_from_paypage['merchant_country'] = merchant_country
 	br.find_by_id('SecurePurchaseButton').click()
+
+	if visa_secure:
+		time.sleep((2))
+		with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+			with iframe.get_iframe('authWindow') as auth:
+				auth.find_by_id('password').fill('test')
+				auth.find_by_name('UsernamePasswordEntry').click()
+
 	return data_from_paypage
 
 
@@ -349,7 +373,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 
 		print(joinlink)
 
-		data_from_paypage = FillDefault(joinlink, selected_options)  # fill the page and return what was populated
+		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.packageid)  # fill the page and return what was populated
 		transguid = data_from_paypage['transguid']
 		full_record = db_agent.multitrans_full_record('', transguid, '')  # transid_purchaseid = db_agent.db_agent.(transguid)
 		data_from_paypage['PurchaseID'] = full_record[0]['PurchaseID']
@@ -382,40 +406,49 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 
 
 def reactivate(transids):
-	transguids = []
+	transguids = {}
 	reactivated = []
+	asset_reactivated = {}
+	mt_reactivated = {}
+
 	not_reactivated = []
-	sql = "Select TransGuid from Multitrans where TransID = {} and TransType in ( 101,1011)"
+	tid = ''
+	reactivate_tids = bep.get_data_before_action(transids, 'reactivation')
+
+	sql = "Select TransGuid from Multitrans where TransID = {} "  # and TransType in ( 101,1011)
 	try:
-		for tid in transids:
-			temp = db_agent.execute_select_one_parameter(sql, tid)
-			transguids.append((temp['TransGuid']))
+		for tid in reactivate_tids[1]:
+			try:
+				transguid = reactivate_tids[1][tid]['TRANSGUID']
+				reactivate_record = reactivate_tids[1][tid]
 
-		for transguid in transguids:
-			cc = 4444333322221111
-			joinlink = f"{config.reactivation_url}{transguid}&sprs=mp"
+				cc = 4444333322221111
+				joinlink = f"{config.reactivation_url}{transguid}&sprs=mp"
 
-			transid_purchaseid = db_agent.multitrans_val(transguid)
-			purchaseid = transid_purchaseid[1]
-			asset_record = db_agent.asset_full_record(purchaseid)
-			transid = transid_purchaseid[0]
+				tasks_type_status = db_agent.tasks_table(tid)
+				db_agent.update_package(reactivate_record['PackageID'], reactivate_record['MerchantID'], reactivate_record['BillConfigID'])
+				navigate_to_url(joinlink)
+				time.sleep(1)
+				if 'This subscription is not eligible for reactivation.' in br.html:
+					not_reactivated.append(f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+					                       f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+				else:
+					mt_reactivated[tid] = reactivate_tids[1]
+					asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
+					if tasks_type_status[0] == 841:
+						br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+						br.find_by_id('CCExpMonthDDL').select('02')
+						br.find_by_id('CCExpYearDDL').select('2021')
+						br.find_by_id('CVVInput').fill('444')
+					br.find_by_id('SecurePurchaseButton').click()
+					time.sleep(1)
+					reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+					                   f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
 
-			tasks_type_status = db_agent.tasks_table(transid)
-			db_agent.update_package(asset_record[0]['PackageID'], asset_record[0]['MerchantID'], asset_record[0]['BillConfigID'])
-			navigate_to_url(joinlink)
-			time.sleep(1)
-			if 'This subscription is not eligible for reactivation.' in br.html:
-				not_reactivated.append(f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {purchaseid} | Type:{asset_record[0]['PurchType']} "
-				                       f"| DMC: {asset_record[0]['AuthCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {transid_purchaseid[2]}")
-			else:
-				if tasks_type_status[0] == 841:
-					br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-					br.find_by_id('CCExpMonthDDL').select('02')
-					br.find_by_id('CCExpYearDDL').select('2022')
-					br.find_by_id('CVVInput').fill('444')
-				br.find_by_id('SecurePurchaseButton').click()
-				reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {purchaseid} | Type:{asset_record[0]['PurchType']} "
-				                   f"| DMC: {asset_record[0]['AuthCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {transid_purchaseid[2]}")
+			except Exception as ex:
+				print(f"{Exception}  Tid: {tid,}  ")
+				traceback.print_exc()
+				pass
 
 		print()
 
@@ -429,8 +462,11 @@ def reactivate(transids):
 		for i in reactivated:
 			print(i)
 		print()
+		return asset_reactivated, mt_reactivated
 	except Exception as ex:
-		print(ex)
+		print(f"{Exception}  Tid: {tid,}  ")
+		traceback.print_exc()
+		pass
 
 
 # ==========================================================================================================================BEP
