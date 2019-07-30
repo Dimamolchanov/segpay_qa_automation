@@ -23,11 +23,10 @@ class TransActionService:
         return pricepoints
 
     @staticmethod
-    def prepare_data(pricepoint):
+    def prepare_data(pricepoint, one_click_enabled):
         test_data = {}
         merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
-        if config.one_click_pos or config.one_click_ws:
-            db_agent.update_merchantbillconfig_oneclick(pricepoint, 1)
+        db_agent.update_merchantbillconfig_oneclick(pricepoint, one_click_enabled)
         db_agent.update_pp_singleuse_promo(pricepoint, 1, config.single_use_promo)
         pricepoint_type = merchantbillconfig[0]['Type']
         package = db_agent.package(config.packageid)
@@ -40,23 +39,66 @@ class TransActionService:
         test_data['eticket'] = eticket
         test_data['url_options'] = url_options
         test_data['merchantbillconfig'] = merchantbillconfig
-        config.cc_number = dasd
         return test_data
 
+
+
     @staticmethod
-    def verify_tarnsaction(current_transaction_record, multitrans_base_record, asset_base_record):
-        differences_multitrans = mt.multitrans_compare(multitrans_base_record, current_transaction_record['full_record'])
+    def verify_signup_transaction(transaction_to_check):
+        multitrans_base_record = mt.build_multitrans(config.test_data['merchantbillconfig'][0], config.test_data['package'][0], transaction_to_check, config.test_data['url_options'])
+        asset_base_record = asset.build_asset_signup(config.test_data['merchantbillconfig'][0], multitrans_base_record, transaction_to_check)
+        differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
         differences_asset = asset.asset_compare(asset_base_record)
-        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, current_transaction_record['TransID'])
-        config.report["Web sign up" + str(config.test_data['eticket'])] = [differences_multitrans, differences_asset, differences_postback]
-        config.transids.append(current_transaction_record['TransID'])
-        config.transaction_records.append(current_transaction_record)
+        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, transaction_to_check['TransID'])
+        config.transids.append(transaction_to_check['TransID'])
         print('*********************SignUp Transaction Verification Complete*********************')
         print()
         if not differences_multitrans and not differences_asset and not differences_postback:
             return True
         else:
             return False
+
+
+    @staticmethod
+    def verify_signup_oc_transaction(asset_base_record, one_click_pos_record):
+        asset_base_record_onelick = asset.asset_oneclick(config.test_data['merchantbillconfig'][0], asset_base_record, one_click_pos_record[1])
+        differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
+        differences_asset = asset.asset_compare(asset_base_record_onelick)
+        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
+        config.transids.append(one_click_pos_record[1][0]['TransID'])
+        print('*********************OneClick POS Transaction Verification Complete*********************')
+        print()
+        if not differences_oneclick_pos and not differences_asset and not differences_postback:
+            return True
+        else:
+            return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @staticmethod
     def get_multitrans_base_record(current_transaction_record):
@@ -74,7 +116,7 @@ class TransActionService:
         return asset_base_record
 
     @staticmethod
-    def close_brawser():
+    def close_browser():
         try:
             web.browser_quit()
             print("Webdriver closed")

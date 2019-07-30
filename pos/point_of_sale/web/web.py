@@ -14,11 +14,12 @@ import traceback
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.bep import bep
+from pos.point_of_sale.utils import constants
 
 db_agent = DBActions()
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--window-position=-1400,0")
+#chrome_options.add_argument("--window-position=-1400,0")
 
 fake = Faker()
 
@@ -72,7 +73,7 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
 				transguid = subprocess.run(
-					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+					['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
 
 					stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
@@ -170,7 +171,7 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
 				transguid = subprocess.run(
-					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+					['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
 					stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
 			else:
@@ -252,8 +253,7 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
 		transguid = br.find_by_id('TransGUID').value
-		transguid = subprocess.run(['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
-		                           stdout=subprocess.PIPE)
+		transguid = subprocess.run(['c:\\MYFILES\\automation\\python\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'], stdout=subprocess.PIPE)
 		transguid = transguid.stdout.decode('utf-8')
 	else:
 		print("Transguid not Found ")
@@ -272,6 +272,8 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
+	if not db_agent.execute_select_one_parameter(constants.FRAUD_CARD_CHECK, card_encrypted):
+		db_agent.execute_insert(constants.FRAUD_CARD_INSERT, card_encrypted)
 	month = ['01', '02', '03', '04']
 	expiration_date = random.choice(month)
 	year = ['21', '22', '23', '24']

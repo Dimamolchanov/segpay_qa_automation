@@ -12,7 +12,7 @@ class RunTests(unittest.TestCase):
 
     def step_1_test_sign_up_trans_web(self):
         for pricepoint in self.pricepoints:
-            config.test_data = TransActionService.prepare_data(pricepoint)
+            config.test_data = TransActionService.prepare_data(pricepoint, 1)
             self.assertTrue(test_methods.sign_up_trans_web(config.test_data), "Sign Up WEB failed!!!")
 
     def step_2_test_sign_up_trans_oc_pos(self):
@@ -33,7 +33,7 @@ class RunTests(unittest.TestCase):
                 self.fail("{} failed ({}: {})".format(step, type(e), e))
 
     def tearDown(self):
-        TransActionService.close_brawser()
+        TransActionService.close_browser()
 
 
 
