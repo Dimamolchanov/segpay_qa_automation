@@ -1,4 +1,4 @@
-enviroment = 'stage3'
+enviroment = 'stage'
 url = ''
 urlws = ''
 urlic = ''
@@ -10,16 +10,16 @@ server = ''
 # provide merchant ID
 merchants = [20004]
 # type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
-pricepoints = [100140]
+pricepoints = [27165]
 #Processeor ID
 processors = [26]
 #PAckage ID
-packageid = 192304
+packageid = 192303
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['AUD','CHF']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
+available_currencies = ['USD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-
+oc_list = [501, 502, 503, 504, 506, 510, 511]
 #Global Objects to transfer data from test to test
 transaction_records = []
 test_data = {}

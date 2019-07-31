@@ -51,6 +51,7 @@ class TransActionService:
         differences_asset = asset.asset_compare(asset_base_record)
         differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, transaction_to_check['TransID'])
         config.transids.append(transaction_to_check['TransID'])
+        config.transaction_records.append(transaction_to_check)
         print('*********************SignUp Transaction Verification Complete*********************')
         print()
         if not differences_multitrans and not differences_asset and not differences_postback:
@@ -60,13 +61,13 @@ class TransActionService:
 
 
     @staticmethod
-    def verify_signup_oc_transaction(asset_base_record, one_click_pos_record):
+    def verify_signup_oc_transaction(oc_type, asset_base_record, one_click_pos_record):
         asset_base_record_onelick = asset.asset_oneclick(config.test_data['merchantbillconfig'][0], asset_base_record, one_click_pos_record[1])
         differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
         differences_asset = asset.asset_compare(asset_base_record_onelick)
         differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
         config.transids.append(one_click_pos_record[1][0]['TransID'])
-        print('*********************OneClick POS Transaction Verification Complete*********************')
+        print(('*********************OneClick {} Transaction Verification Complete*********************').format(oc_type.upper()))
         print()
         if not differences_oneclick_pos and not differences_asset and not differences_postback:
             return True

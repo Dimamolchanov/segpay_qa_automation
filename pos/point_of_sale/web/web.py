@@ -265,9 +265,9 @@ def FillDefault(url, selected_options, merchantid, packageid):
 
 	visa_secure = db_agent.execute_select_two_parameters(sql, merchantid, packageid)
 	if visa_secure == None:
-		cc = 4444333322221111
+		cc = 4444333322221111#4444333322221111
 	else:
-		cc = 5200000000000007
+		cc = 4444333322221111#5200000000000007
 
 	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
@@ -326,12 +326,11 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
 	br.find_by_id('FirstNameInput').fill(firstname)
 	br.find_by_id('LastNameInput').fill(lastname)
-
-	br.find_option_by_text('Florida').first.click()
-
 	br.find_by_id('ZipInput').fill(zip)
 	# br.find_by_id('CountryDDL').fill('999')
 	br.find_by_id('EMailInput').fill(email)
+	if br.find_option_by_text('Florida'):
+		br.find_option_by_text('Florida').first.click()
 	if br.find_by_id('UserNameInput'):
 		br.find_by_id('UserNameInput').fill(username)
 	if br.find_by_id('PasswordInput'):
