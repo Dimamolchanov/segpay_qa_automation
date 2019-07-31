@@ -1,6 +1,6 @@
 import unittest
 
-from pos.point_of_sale.postbacks import test_methods
+from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.config.TransActionService import TransActionService
 from pos.point_of_sale.config import config
 from pos.point_of_sale.bep import bep

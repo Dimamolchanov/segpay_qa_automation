@@ -3,7 +3,6 @@ from pos.point_of_sale.utils import options
 from pos.point_of_sale.web import web
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.verifications import asset
-from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 
