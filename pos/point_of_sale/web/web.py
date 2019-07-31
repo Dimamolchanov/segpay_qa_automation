@@ -11,19 +11,23 @@ import simplexml
 import requests
 import copy
 import traceback
+import os
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.bep import bep
+from pos.point_of_sale.utils import constants
 
 db_agent = DBActions()
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--window-position=-1400,0")
+#chrome_options.add_argument("--window-position=-1400,0")
 
 fake = Faker()
 
 # def start_browser():
 br = Browser(driver_name='chrome', options=chrome_options)
+
+path = os.path.join((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'transguid\\TransGuidDecoderApp.exe')
 
 
 def navigate_to_url(url):
@@ -71,8 +75,7 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 		else:
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
-				transguid = subprocess.run(
-					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+				transguid = subprocess.run([path, transguid, '-l'],
 
 					stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
@@ -81,7 +84,9 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 				return None
 			paypage_lnaguage = br.find_by_id('LanguageDDL').select(selected_options[1])
 			time.sleep(2)
-			br.find_by_id('EMailInput').fill(email)
+			if br.find_by_id('EMailInput'):
+			    br.find_by_id('EMailInput').fill(email)
+			br.find_by_id('CVVInputNumeric').fill('123')
 			if br.find_by_id('UserNameInput'):
 				br.find_by_id('UserNameInput').fill(username)
 			if br.find_by_id('PasswordInput'):
@@ -169,9 +174,7 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 		else:
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
-				transguid = subprocess.run(
-					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
-					stdout=subprocess.PIPE)
+				transguid = subprocess.run([path, transguid, '-l'], stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
 			else:
 				print("Transguid not Found ")
@@ -252,8 +255,7 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
 		transguid = br.find_by_id('TransGUID').value
-		transguid = subprocess.run(['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
-		                           stdout=subprocess.PIPE)
+		transguid = subprocess.run([path, transguid, '-l'], stdout=subprocess.PIPE)
 		transguid = transguid.stdout.decode('utf-8')
 	else:
 		print("Transguid not Found ")
@@ -272,6 +274,8 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
+	if not db_agent.execute_select_one_parameter(constants.FRAUD_CARD_CHECK, card_encrypted):
+		db_agent.execute_insert(constants.FRAUD_CARD_INSERT, card_encrypted)
 	month = ['01', '02', '03', '04']
 	expiration_date = random.choice(month)
 	year = ['21', '22', '23', '24']
@@ -324,12 +328,11 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
 	br.find_by_id('FirstNameInput').fill(firstname)
 	br.find_by_id('LastNameInput').fill(lastname)
-
-	br.find_option_by_text('Florida').first.click()
-
 	br.find_by_id('ZipInput').fill(zip)
 	# br.find_by_id('CountryDDL').fill('999')
 	br.find_by_id('EMailInput').fill(email)
+	if br.find_option_by_text('Florida'):
+		br.find_option_by_text('Florida').first.click()
 	if br.find_by_id('UserNameInput'):
 		br.find_by_id('UserNameInput').fill(username)
 	if br.find_by_id('PasswordInput'):

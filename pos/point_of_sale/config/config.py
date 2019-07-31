@@ -1,4 +1,4 @@
-enviroment = 'stage3'
+enviroment = 'stage'
 url = ''
 urlws = ''
 urlic = ''
@@ -10,24 +10,28 @@ server = ''
 # provide merchant ID
 merchants = [20004]
 # type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
-pricepoints = [100140]
+pricepoints = [27165]
 #Processeor ID
 processors = [26]
 #PAckage ID
-packageid = 192304
+packageid = 192303
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['AUD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
+available_currencies = ['USD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-transaction_record = []
+oc_list = [501, 502, 503, 504, 506, 510, 511]
+#Global Objects to transfer data from test to test
+transaction_records = []
 test_data = {}
+transids = []
+cc_number=''
 
 one_click_pos = False
 one_click_ws = True
 instant_coversion_pos = False
 instant_coversion_ws = False
 #1 - TRUE, 0 - FALSE - to DO refactor
-single_use_promo = False
+single_use_promo = 0
 
 
 
@@ -38,9 +42,9 @@ if enviroment == 'stage':
    urlws = 'https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=' # 1 click service
    urlic = 'https://stgs2.segpay.com/billing/InstantConv.aspx?ICToken='   # Instant Conversion POS
    urlicws = 'https://stgsvc.segpay.com/ICService.asmx/InstantConversionService?ICToken=' # Instant Conversion service
-   refund_url = 'http://stgbep:54908/jobs/execute/tasks'
-   rebill = 'http://stgbep:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
-   captures_url = 'http://stg3bep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
+   refund_url = 'http://stgbep1:54908/jobs/execute/tasks'
+   rebill_url = 'http://stgbep1:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
+   captures_url = 'http://stgbep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
 elif enviroment == 'qa':
    server = "QADB1"
    url = 'https://qas2.segpay.com/billing/poset.cgi?x-eticketid=' # POS and 1 Click

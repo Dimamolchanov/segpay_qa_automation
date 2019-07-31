@@ -17,18 +17,30 @@ class DBActions:
         sql = sql.format(condition)
         self.cursor.execute(sql)
         response = self.cursor.fetchone()
+        if not response:
+            return None
         return response
 
     def execute_select_two_parameters(self, sql, condition_first, condition_second):
         sql = sql.format(condition_first, condition_second)
         self.cursor.execute(sql)
         response = self.cursor.fetchone()
+        if not response:
+            return None
         return response
 
     def execute_select_with_no_params(self, sql):
         self.cursor.execute(sql)
         response = self.cursor.fetchone()
         return response
+
+    def execute_insert(self, sql, parameter):
+        sql = sql.format(parameter)
+        try:
+            self.cursor.execute(sql)
+            return True
+        except:
+            return False
 
     def get_value_from_postback_configs(self, package_id, column_to_return):
         p_type_list = []
