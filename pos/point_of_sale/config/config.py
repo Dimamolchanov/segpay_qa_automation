@@ -42,9 +42,9 @@ if enviroment == 'stage':
    urlws = 'https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=' # 1 click service
    urlic = 'https://stgs2.segpay.com/billing/InstantConv.aspx?ICToken='   # Instant Conversion POS
    urlicws = 'https://stgsvc.segpay.com/ICService.asmx/InstantConversionService?ICToken=' # Instant Conversion service
-   refund_url = 'http://stgbep:54908/jobs/execute/tasks'
-   rebill = 'http://stgbep:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
-   captures_url = 'http://stg3bep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
+   refund_url = 'http://stgbep1:54908/jobs/execute/tasks'
+   rebill_url = 'http://stgbep1:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
+   captures_url = 'http://stgbep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates=' # 2019-07-07
 elif enviroment == 'qa':
    server = "QADB1"
    url = 'https://qas2.segpay.com/billing/poset.cgi?x-eticketid=' # POS and 1 Click

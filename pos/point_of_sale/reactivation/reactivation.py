@@ -73,6 +73,12 @@ for merchantid in config.merchants:
 						print('*********************SignUp Transaction Verification Complete*********************')
 						print()
 
+
+
+
+
+
+
 						if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and config.one_click_pos:
 							one_click_pos_record = web.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
 							                                     transaction_record['email'], url_options, selected_options)
@@ -121,6 +127,7 @@ for merchantid in config.merchants:
 		captures = bep.process_captures()
 		if captures == 'Captured':
 			check_captures = db_agent.verify_captures(transids)
+
 		conversion = bep.process_rebills(transids)
 		if conversion:
 			check_rebills_asset = asset.asseets_check_rebills(conversion[0])
