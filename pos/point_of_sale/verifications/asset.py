@@ -12,8 +12,7 @@ db_agent = DBActions()
 
 def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_live_record):
 	type = merchantbillconfig['Type']
-	#live_record = multitrans_live_record['full_record'][0]
-	live_record = multitrans_live_record
+	live_record = multitrans_live_record['full_record'][0]
 	current_date = (datetime.now().date())
 	# transaction_record['full_record']
 	asset = {'RecurringAmount': merchantbillconfig['RebillPrice'],

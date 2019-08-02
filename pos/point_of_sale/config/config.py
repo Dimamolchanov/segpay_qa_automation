@@ -17,7 +17,7 @@ processors = [44]
 packageid = 192228
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['AUD']#'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
+available_currencies = ['AUD']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 oc_list = [501, 502, 503, 504, 506, 510, 511]
 #Global Objects to transfer data from test to test

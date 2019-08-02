@@ -618,7 +618,6 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 			br.find_by_id('SecurePurchaseButton').click()
 			while br.execute_script("return jQuery.active == 0") != True:
 				time.sleep(1)
-			time.sleep(3)
 			if br.get_iframe('Cardinal-CCA-IFrame'):
 			    with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
 				    with iframe.get_iframe('authWindow') as auth:
