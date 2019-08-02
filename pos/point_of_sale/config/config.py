@@ -8,16 +8,16 @@ rebill_url = ''
 captures_url = ''
 server = ''
 # provide merchant ID
-merchants = [20004]
+merchants = [25001]
 # type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
-pricepoints = [27165]
+pricepoints = [19565]
 #Processeor ID
-processors = [26]
+processors = [44]
 #PAckage ID
-packageid = 192303
+packageid = 192228
 template = ''  # '&template=defaultnopaypal'
 report = {}
-available_currencies = ['USD']#,"AUD"]#,"CHF",  "EUR", "GBP", "HKD",]# "JPY", "NOK", "SEK","DKK"] # "DKK",
+available_currencies = ['AUD']#'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
 available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 oc_list = [501, 502, 503, 504, 506, 510, 511]
 #Global Objects to transfer data from test to test
@@ -25,6 +25,8 @@ transaction_records = []
 test_data = {}
 transids = []
 cc_number=''
+transids_for_oc = [1234643195]
+
 
 one_click_pos = False
 one_click_ws = True

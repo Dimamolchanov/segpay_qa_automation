@@ -1,6 +1,11 @@
 import random
 import decimal
 from splinter import Browser
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 from faker import Faker
 import subprocess
 from selenium import webdriver
@@ -92,6 +97,13 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 			if br.find_by_id('PasswordInput'):
 				br.find_by_id('PasswordInput').fill(password)
 			br.find_by_id('SecurePurchaseButton').click()
+			while br.execute_script("return jQuery.active == 0") != True:
+				time.sleep(1)
+			if br.get_iframe('Cardinal-CCA-IFrame'):
+			    with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+				    with iframe.get_iframe('authWindow') as auth:
+					    auth.find_by_id('password').fill('test')
+					    auth.find_by_name('UsernamePasswordEntry').click()
 
 			oneclick_record = db_agent.multitrans_full_record('', transguid, '')
 			full_record = oneclick_record[0]
@@ -316,6 +328,8 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
 	elif config.enviroment == 'stage3':
 		br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+	while br.execute_script("return jQuery.active == 0") != True:
+		time.sleep(1)
 	br.find_by_id('CCExpMonthDDL').select(expiration_date)
 	br.find_by_id('CCExpYearDDL').select(year)
 	if config.enviroment == 'stage':
@@ -331,8 +345,8 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	br.find_by_id('ZipInput').fill(zip)
 	# br.find_by_id('CountryDDL').fill('999')
 	br.find_by_id('EMailInput').fill(email)
-	if br.find_option_by_text('Florida'):
-		br.find_option_by_text('Florida').first.click()
+	# if br.find_option_by_text('Florida'):
+	# 	br.find_option_by_text('Florida').first.click()
 	if br.find_by_id('UserNameInput'):
 		br.find_by_id('UserNameInput').fill(username)
 	if br.find_by_id('PasswordInput'):
@@ -405,6 +419,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		return data_from_paypage
 	except Exception as ex:
 		print(ex)
+		traceback.print_exc()
 		print(f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
 
 
@@ -542,3 +557,132 @@ def refund():
 
 def browser_quit():
 	br.quit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, url_options, selected_options):
+	transguid = ''
+	multitrans_oneclick_record = copy.deepcopy(multitrans_base_record)
+	token = multitrans_base_record['PurchaseID']
+	username = fake.user_name() + str(random.randint(333, 999))
+	password = fake.user_name() + str(random.randint(333, 999))
+
+	if option == 'pos':
+		if pricepoint_type == 510:
+			dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
+			multitrans_oneclick_record['TransAmount'] = dynamic_price
+			hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
+			resp = requests.get(hash_url)
+			dynamic_hash = fromstring(resp.text).text
+			url = f"{config.url}{eticket}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={token}" + url_options
+		elif pricepoint_type == 511:
+			pricingguid = db_agent.get_pricingguid(multitrans_base_record['MerchantID'], pricepoint_type)[0]
+			url = f"{config.url}{eticket}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={token}" + url_options
+		else:
+			url = f"{config.url}{eticket}&octoken={token}" + url_options
+		print(url)
+
+		page_loaded = navigate_to_url(url)
+		if page_loaded == False:
+			return None
+		else:
+			if br.is_element_present_by_id('TransGUID', wait_time=10):
+				transguid = br.find_by_id('TransGUID').value
+				transguid = subprocess.run([path, transguid, '-l'],
+
+					stdout=subprocess.PIPE)
+				transguid = transguid.stdout.decode('utf-8')
+			else:
+				print("Transguid not Found ")
+				return None
+			paypage_lnaguage = br.find_by_id('LanguageDDL').select(selected_options[1])
+			time.sleep(2)
+			if br.find_by_id('EMailInput'):
+			    br.find_by_id('EMailInput').fill(email)
+			br.find_by_id('CVVInputNumeric').fill('123')
+			if br.find_by_id('UserNameInput'):
+				br.find_by_id('UserNameInput').fill(username)
+			if br.find_by_id('PasswordInput'):
+				br.find_by_id('PasswordInput').fill(password)
+			br.find_by_id('SecurePurchaseButton').click()
+			while br.execute_script("return jQuery.active == 0") != True:
+				time.sleep(1)
+			time.sleep(3)
+			if br.get_iframe('Cardinal-CCA-IFrame'):
+			    with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+				    with iframe.get_iframe('authWindow') as auth:
+					    auth.find_by_id('password').fill('test')
+					    auth.find_by_name('UsernamePasswordEntry').click()
+
+			oneclick_record = db_agent.multitrans_full_record('', transguid, '')
+			full_record = oneclick_record[0]
+
+			if pricepoint_type in [501, 506, 511]:
+				multitrans_oneclick_record['TransSource'] = 121
+			else:
+				multitrans_oneclick_record['TransSource'] = 123
+			multitrans_oneclick_record['TransType'] = 1011
+			multitrans_oneclick_record['TransStatus'] = 186
+			multitrans_oneclick_record['PurchaseID'] = full_record['PurchaseID']
+			multitrans_oneclick_record['TransID'] = full_record['TransID']
+			multitrans_oneclick_record['TRANSGUID'] = transguid
+			multitrans_oneclick_record['RelatedTransID'] = multitrans_base_record['TransID']
+			print(f"OneClick POS => Eticket: {eticket} | Type: {pricepoint_type} | Processor: {multitrans_base_record['Processor']} "
+			      f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
+
+			return multitrans_oneclick_record, oneclick_record
+
+
+
+
+	elif option == 'ws':
+		if pricepoint_type == 510:
+			dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
+			multitrans_oneclick_record['TransAmount'] = dynamic_price
+			hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
+			resp = requests.get(hash_url)
+			dynamic_hash = fromstring(resp.text).text
+			url = f"{config.urlws}{eticket}&amount={dynamic_price}" \
+				      f"&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={token}" + url_options  # + '&DMCURRENCY=JPY'
+		elif pricepoint_type == 511:
+			pricingguid = db_agent.get_pricingguid(multitrans_base_record['MerchantID'], pricepoint_type)[0]
+			url = f"{config.urlws}{eticket}" \
+				      f"&DynamicPricingID={pricingguid['PricingGuid']}&octoken={token}" + url_options
+
+		else:
+			url = f"{config.urlws}{eticket}&octoken={token}" + url_options
+		print(url)
+
+		resp = requests.get(url)
+		xml_return_string = simplexml.loads(resp.content)
+		transid = int(xml_return_string['TransReturn']['TransID'])
+		oneclick_record = db_agent.multitrans_full_record(transid, '', '')
+		full_record = oneclick_record[0]
+
+		if pricepoint_type in [501, 506, 511]:
+			multitrans_oneclick_record['TransSource'] = 121
+		else:
+			multitrans_oneclick_record['TransSource'] = 123
+		multitrans_oneclick_record['TransType'] = 1011
+		multitrans_oneclick_record['TransStatus'] = 186
+		multitrans_oneclick_record['PurchaseID'] = full_record['PurchaseID']
+		multitrans_oneclick_record['TransID'] = transid
+		multitrans_oneclick_record['TRANSGUID'] = full_record['TRANSGUID']
+		multitrans_oneclick_record['RelatedTransID'] = multitrans_base_record['TransID']
+		print(f"OneClick WS => Eticket: {eticket} | Type: {pricepoint_type} | Processor: {multitrans_base_record['Processor']} "
+		      f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
+
+		return multitrans_oneclick_record, oneclick_record  # #
+
+
