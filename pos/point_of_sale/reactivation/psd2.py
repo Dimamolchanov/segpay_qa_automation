@@ -15,7 +15,7 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 db_agent = DBActions()
 start_time = datetime.now()
 pricepoints_options = 'single'
-url_options = config.template # options.ref_variables() + options.refurl() + config.template
+url_options = options.ref_variables() + options.refurl() + config.template
 # ==================================================================> for 511 and 510
 transguids = []
 pricingguid = {}
@@ -63,7 +63,7 @@ for merchantid in config.merchants:
 						# =======================================================================================================Starting Transactions
 						transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options,
 						                                            merchantid, url_options, config.processors[0])
-						#transguids.append(transaction_record['transguid'])
+						transguids.append(transaction_record['transguid'])
 						multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 						                                             url_options)
 						differences_multitrans = mt.multitrans_compare(multitrans_base_record,

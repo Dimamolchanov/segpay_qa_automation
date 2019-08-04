@@ -60,7 +60,8 @@ def get_data_before_action(tids, action):
 def process_captures():
 	current_date = (datetime.now().date())
 	captures_url = config.captures_url + str(current_date)
-	print("Starting Captures")
+	print()
+	print("======================================| Starting  Captures |======================================")
 	db_agent.fraud_scrub(current_date + timedelta(days=1))
 	print(captures_url)
 	response = web_service.process_request("Captures", captures_url, 200)
@@ -72,7 +73,8 @@ def process_captures():
 
 
 def process_refund(transids, taskid=0):
-	print("Processing refunds")
+	print()
+	print("======================================| Starting   Refunds |======================================")
 	tid = 0
 	not_processed = []
 	refunds = get_data_before_action(transids, 'refund')
@@ -100,7 +102,8 @@ def process_rebills(tids):
 	resp = ''
 	data_before_action = get_data_before_action(tids, 'rebill')
 	rebill_dates = data_before_action[2]
-	print("Starting Rebill")
+	print()
+	print("======================================| Starting   Rebills |======================================")
 	for rebill_date in rebill_dates:
 		rebill_url = config.rebill_url + str(rebill_date) + '%2023:59:59'
 		print(rebill_url)
