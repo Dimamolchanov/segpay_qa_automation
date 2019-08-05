@@ -1,4 +1,4 @@
-enviroment = 'stage3'
+enviroment = 'stage'
 url = ''
 urlws = ''
 urlic = ''
@@ -17,19 +17,23 @@ processors = [65]
 packageid = 99
 template ='&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
-available_currencies = ['AUD','CHF',"CHF"]#,  "EUR", "GBP", "HKD","JPY", "NOK", "SEK","DKK"] # "DKK",
-available_languages = ['EN','ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-transaction_record = []
+available_currencies = ['AUD']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
+available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+oc_list = [501, 502, 503, 504, 506, 510, 511]
+#Global Objects to transfer data from test to test
+transaction_records = []
 test_data = {}
 transids = []
 cc_number=''
+transids_for_oc = [1234643195]
+
 
 one_click_pos = False
 one_click_ws = False
 instant_coversion_pos = False
 instant_coversion_ws = False
 #1 - TRUE, 0 - FALSE - to DO refactor
-single_use_promo = False
+single_use_promo = 1
 
 visa_secure = False
 

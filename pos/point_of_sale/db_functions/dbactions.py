@@ -415,6 +415,26 @@ class DBActions:
                 retry_count = retry_count + 1
                 time.sleep(2)
 
+    def decrypt_string(self, str):
+        string_decrypted = ''
+        retry_flag = True
+        retry_count = 0
+        sql = (f"select dbo.DecryptString('{str}') as string_encrypted")
+        while retry_flag and retry_count < 30:
+            try:
+                self.cursor.execute(sql)
+                rows = self.cursor.fetchall()
+                if len(rows) > 0:
+                    retry_flag = False
+                    row = ''
+                    for row in rows:
+                        string_decrypted = row['string_encrypted']
+                    return string_decrypted
+            except:
+                print("Retry after 1 sec")
+                retry_count = retry_count + 1
+                time.sleep(2)
+
     def check_email_que(self, transid):
         retry_flag = True
         retry_count = 0

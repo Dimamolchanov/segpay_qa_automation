@@ -113,6 +113,9 @@ def verify_postback_url(action, package_id, trans_id):
             current_config_URL = db_agent.get_url_from_config(id)
             parsed_config_url = parse_post_back_url(current_config_URL)
             parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, trans_id))
+            print('----------------------------------------------------------------------------')
+            print(parsed_notif_url)
+            print('----------------------------------------------------------------------------')
             if not parsed_config_url:
                 #print('Default postback config is used')
                 compare_results("TranType {}".format(id), parsed_notif_url.get('trantype'), expected_trantype.lower())

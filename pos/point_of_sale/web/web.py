@@ -1,6 +1,11 @@
 import random
 import decimal
 from splinter import Browser
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 from faker import Faker
 import subprocess
 from selenium import webdriver
@@ -181,6 +186,13 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 			if br.find_by_id('PasswordInput'):
 				br.find_by_id('PasswordInput').fill(password)
 			br.find_by_id('SecurePurchaseButton').click()
+			while br.execute_script("return jQuery.active == 0") != True:
+				time.sleep(1)
+			if br.get_iframe('Cardinal-CCA-IFrame'):
+			    with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+				    with iframe.get_iframe('authWindow') as auth:
+					    auth.find_by_id('password').fill('test')
+					    auth.find_by_name('UsernamePasswordEntry').click()
 
 			oneclick_record = db_agent.multitrans_full_record('', transguid, '')
 			full_record = oneclick_record[0]
@@ -405,6 +417,8 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
 	elif config.enviroment == 'stage3':
 		br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+	while br.execute_script("return jQuery.active == 0") != True:
+		time.sleep(1)
 	br.find_by_id('CCExpMonthDDL').select(expiration_date)
 	br.find_by_id('CCExpYearDDL').select(year)
 	if config.enviroment == 'stage':
@@ -532,6 +546,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		return data_from_paypage
 	except Exception as ex:
 		print(ex)
+		traceback.print_exc()
 		print(f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
 
 

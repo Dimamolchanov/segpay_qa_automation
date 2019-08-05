@@ -5,6 +5,7 @@ from decimal import Decimal
 import traceback
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.utils import constants
 
 db_agent = DBActions()
 
@@ -542,3 +543,132 @@ def mt_check_reactivation(reactivated):
 		print(colored(f"******************** Reactivation {len(reactivated_failed_mt)} transactions    => Multitrans MissMatch => Check Manually ***************", 'blue'))
 
 	return [reactivated_completed_mt, reactivated_failed_mt]
+
+
+
+
+
+
+
+
+def build_multitrans_by_trans_id(merchantbillconfig, package, trans_id, url_options):
+	data_from_multitrans = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, trans_id)
+	transdate = (datetime.now().date())
+	url = db_agent.url(package['URLID'])
+	multitrans = {
+		'PurchaseID': data_from_multitrans['PurchaseID'],
+		'TransID': trans_id,
+		'TRANSGUID': data_from_multitrans['TRANSGUID'],
+		'BillConfigID': merchantbillconfig['BillConfigID'],
+		'PackageID': package['PackageID'],
+		'AuthCode': 'OK:0',
+		'Authorized': 1,
+		'CardExpiration': data_from_multitrans['CardExpiration'],
+		'CustCountry': data_from_multitrans['CustCountry'],
+		'CustEMail': data_from_multitrans['CustEMail'],
+		'CustName': data_from_multitrans['CustName'],
+		'CustZip': data_from_multitrans['CustZip'],
+		'Language': data_from_multitrans['Language'],
+		'MerchantID': merchantbillconfig['MerchantID'],
+		'PaymentAcct': data_from_multitrans['PaymentAcct'],
+		'PCID': '0',
+		'Processor': data_from_multitrans['Processor'],
+		'ProcessorCurrency': merchantbillconfig['Currency'],
+		'MerchantCurrency': data_from_multitrans['MerchantCurrency'],
+		'STANDIN': package['AllowStandin'],
+		'TransBin': data_from_multitrans['TransBin'],
+		'URLID': package['URLID'],
+		'URL': url,
+		'REF1': None,
+		'REF2': None,
+		'REF3': None,
+		'REF4': None,
+		'REF5': None,
+		'REF6': None,
+		'REF7': None,
+		'REF8': None,
+		'REF9': None,
+		'REF10': None,
+		'RefURL': ''
+	}  # dictionary from paypage
+
+	# analyzing url
+	url_parameters = url_options.split('&')
+	for var in url_parameters:
+		tmp = var.split('=')
+		if tmp[0] == 'ref1':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF1'] = val
+		elif tmp[0] == 'ref2':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF2'] = val = val
+		elif tmp[0] == 'ref3':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF3'] = val
+		elif tmp[0] == 'ref4':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF4'] = val
+		elif tmp[0] == 'ref5':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF5'] = val
+		elif tmp[0] == 'ref6':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF6'] = val
+		elif tmp[0] == 'ref7':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF7'] = val
+		elif tmp[0] == 'ref8':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF8'] = val
+		elif tmp[0] == 'ref9':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF9'] = val
+		elif tmp[0] == 'ref10':
+			val = db_agent.encrypt_string(tmp[1])
+			multitrans['REF10'] = val
+		elif tmp[0] == 'refurl':
+			val = tmp[1][:256]
+			multitrans['RefURL'] = val  # update refs  #
+
+	multitrans['PaymentType'] = 131
+	exchange_rate = 1
+	if merchantbillconfig['Currency'] == data_from_multitrans['MerchantCurrency']:
+		exchange_rate = 1
+	else:
+		exchange_rate = db_agent.exc_rate(data_from_multitrans['MerchantCurrency'], merchantbillconfig['Currency'])
+
+	multitrans['TxStatus'] = 2
+	if merchantbillconfig['Type'] == 505:
+		multitrans['TransSource'] = 122
+		multitrans['TransStatus'] = 184
+		multitrans['TransType'] = 105
+	else:
+		multitrans['TransSource'] = 121
+		multitrans['TransStatus'] = 184
+		multitrans['TransType'] = 101
+
+	if merchantbillconfig['Type'] == 511:
+		multitrans['TransAmount'] = data_from_multitrans['TransAmount']
+		multitrans['Markup'] = round(data_from_multitrans['TransAmount'] * exchange_rate, 2)
+	elif merchantbillconfig['Type'] == 510:
+		multitrans['TransAmount'] = data_from_multitrans['TransAmount']
+	else:
+		if merchantbillconfig['Type'] == 505 and data_from_multitrans['TransSource'] == 122:
+			multitrans['TransAmount'] = merchantbillconfig['RebillPrice']
+			multitrans['TransDate'] = transdate + timedelta(days=merchantbillconfig['InitialLen'])
+			sql = f"select  RelatedTransID  from multitrans where PurchaseID = {trans_id}  and TransSource = 121 "
+			multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
+		else:
+			multitrans['TransDate'] = transdate
+			multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
+			multitrans['Markup']: round(multitrans['InitialPrice'] * exchange_rate, 2)
+			multitrans['RelatedTransID'] = 0
+
+	if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
+		multitrans['TransStatus'] = 186
+		multitrans['TransAmount'] = 1.00
+	exchange_rate = round(exchange_rate, 2)
+	multitrans['ExchRate'] = exchange_rate
+	return multitrans
+
+
