@@ -15,10 +15,12 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 db_agent = DBActions()
 start_time = datetime.now()
 pricepoints_options = 'single'
-url_options = config.template # options.ref_variables() + options.refurl() + config.template
+url_options = options.ref_variables() + options.refurl() + config.template
 # ==================================================================> for 511 and 510
+transguids = []
 pricingguid = {}
 transids = []
+rebills_pids = []
 pricepoint_type = 0
 dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
 merchantbillconfig = []
@@ -61,7 +63,7 @@ for merchantid in config.merchants:
 						# =======================================================================================================Starting Transactions
 						transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options,
 						                                            merchantid, url_options, config.processors[0])
-
+						transguids.append(transaction_record['transguid'])
 						multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 						                                             url_options)
 						differences_multitrans = mt.multitrans_compare(multitrans_base_record,
@@ -73,6 +75,12 @@ for merchantid in config.merchants:
 						check_email_differences = emails.check_email_que(pricepoint_type, multitrans_base_record, 'signup')
 						postback_service.verify_postback_url("SignUp", config.packageid, transaction_record['TransID'])
 						transids.append(transaction_record['TransID'])
+						# if pricepoint_type in [501, 505, 506, 511]:
+						# 	if transaction_record['PurchaseID'] in rebills_pids:
+						# 		print(f"Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
+						# 	else:
+						# 		rebills_pids.append(transaction_record['PurchaseID'])
+
 						print('*********************SignUp Transaction Verification Complete*********************')
 						print()
 
@@ -87,6 +95,12 @@ for merchantid in config.merchants:
 							config.report['pos' + str(eticket)] = [differences_multitrans, differences_asset, check_email]
 							postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
 							transids.append(one_click_pos_record[1][0]['TransID'])
+							# if pricepoint_type in [501, 505, 506, 511]:
+							# 	if one_click_pos_record[1][0]['PurchaseID'] in rebills_pids:
+							# 		print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
+							# 	else:
+							# 		rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
+							# rebills_pids.append(one_click_pos_record[1][0]['PurchaseID'])
 							print('*********************OneClick POS Transaction Verification Complete*********************')
 							print()
 						if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and config.one_click_ws:
@@ -100,6 +114,12 @@ for merchantid in config.merchants:
 							postback_service.verify_postback_url("SignUp", config.packageid, one_click_ws_record[1][0]['TransID'])
 							config.report['ws' + str(eticket)] = [differences_multitrans, differences_asset, check_email]
 							transids.append(one_click_ws_record[1][0]['TransID'])
+							if pricepoint_type in [501, 505, 506, 511]:
+								if one_click_ws_record[1][0]['PurchaseID'] in rebills_pids:
+									print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
+								else:
+									rebills_pids.append(one_click_ws_record[1][0]['PurchaseID'])
+							# rebills_pids.append(one_click_ws_record[1][0]['PurchaseID'])
 							print('*********************OneClick WS Transaction Verification Complete*********************')
 							print()
 						config.report[eticket] = [differences_multitrans, differences_asset, check_email_differences]
@@ -114,6 +134,11 @@ for merchantid in config.merchants:
 							check_email = emails.check_email_que(pricepoint_type, ic_pos_record[1][0], 'signup')
 							# postback_service.verify_postback_url("SignUp", config.packageid, ic_pos_record[1]['TransID'])
 							transids.append(ic_pos_record[1][0]['TransID'])
+							if ic_pos_record[1][0]['PurchaseID'] in rebills_pids:
+								print(f"***Warning***  =>  Dublicated purchaseID for recurring => PurchaseID: {transaction_record['PurchaseID']}")
+							else:
+								rebills_pids.append(ic_pos_record[1][0]['PurchaseID'])
+
 							config.report['pos' + str(eticket)] = [differences_ic_pos, differences_asset, check_email]
 							print('*********************Instant Conversion Transaction Verification Complete*********************')
 							print()
@@ -124,8 +149,7 @@ for merchantid in config.merchants:
 		captures = bep.process_captures()
 		if captures == 'Captured':
 			check_captures = db_agent.verify_captures(transids)
-
-		conversion = bep.process_rebills(transids)
+		conversion = bep.process_rebills(transids)  # bep.process_rebills(rebills_pids)
 		if conversion:
 			check_rebills_asset = asset.asseets_check_rebills(conversion[0])
 			check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
