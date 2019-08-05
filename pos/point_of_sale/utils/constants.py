@@ -7,3 +7,5 @@ POST_BACK_TYPE_BY_POSTBACK_ID = 'select PostbackType from PostBackNotifications 
 PAYMENT_ACCT_ID = "select value from multitransvalues where transid = {} and name = 'PAYMENTACCOUNTID'"
 POSTBACK_STATUS_BI_ID = 'select status from PostBackNotifications where PostbackConfigID = {} and transID = {}'
 POS_OR_SERVICE_TRANS_SOURCE = "select * from MultiTransValues where transid = {} and name = 'POSSOURCE'"
+FRAUD_CARD_CHECK = "select * from Fraud_TestCards where TestCard = '{}'"
+FRAUD_CARD_INSERT = "insert into Fraud_TestCards values ('{}', 'card inserted with auto script', 'auto', '2018-07-01 13:16:12.063')"

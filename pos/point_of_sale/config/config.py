@@ -1,4 +1,4 @@
-enviroment = 'stage'
+enviroment = 'stage3'
 url = ''
 urlws = ''
 urlic = ''
@@ -21,6 +21,8 @@ available_currencies = ['AUD','CHF',"CHF"]#,  "EUR", "GBP", "HKD","JPY", "NOK", 
 available_languages = ['EN','ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 transaction_record = []
 test_data = {}
+transids = []
+cc_number=''
 
 one_click_pos = False
 one_click_ws = False

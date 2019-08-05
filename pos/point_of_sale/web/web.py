@@ -11,10 +11,13 @@ import simplexml
 import requests
 import copy
 import traceback
+import os
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.bep import bep
 from selenium.common.exceptions import *
+from pos.point_of_sale.utils import constants
+
 db_agent = DBActions()
 
 chrome_options = webdriver.ChromeOptions()
@@ -24,6 +27,8 @@ fake = Faker()
 
 # def start_browser():
 br = Browser(driver_name='chrome', options=chrome_options)
+
+path = os.path.join((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'transguid\\TransGuidDecoderApp.exe')
 
 
 def navigate_to_url(url):
@@ -157,8 +162,7 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 		else:
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
-				transguid = subprocess.run(
-					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
+				transguid = subprocess.run([path, transguid, '-l'],
 
 					stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
@@ -167,6 +171,9 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 				return None
 			paypage_lnaguage = br.find_by_id('LanguageDDL').select(selected_options[1])
 			time.sleep(2)
+			if br.find_by_id('EMailInput'):
+			    br.find_by_id('EMailInput').fill(email)
+			br.find_by_id('CVVInputNumeric').fill('123')
 			#br.find_by_id('EMailInput').fill(email)
 			br.find_by_id('CVVInputNumeric').fill('333')
 			if br.find_by_id('UserNameInput'):
@@ -256,9 +263,7 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 		else:
 			if br.is_element_present_by_id('TransGUID', wait_time=10):
 				transguid = br.find_by_id('TransGUID').value
-				transguid = subprocess.run(
-					['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
-					stdout=subprocess.PIPE)
+				transguid = subprocess.run([path, transguid, '-l'], stdout=subprocess.PIPE)
 				transguid = transguid.stdout.decode('utf-8')
 			else:
 				print("Transguid not Found ")
@@ -339,8 +344,7 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
 		transguid = br.find_by_id('TransGUID').value
-		transguid = subprocess.run(['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid, '-l'],
-		                           stdout=subprocess.PIPE)
+		transguid = subprocess.run([path, transguid, '-l'], stdout=subprocess.PIPE)
 		transguid = transguid.stdout.decode('utf-8')
 	else:
 		print("Transguid not Found ")
@@ -354,11 +358,13 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	if visa_secure == None:
 		cc = 4444333322221111
 	else:
-		cc = 4000000000001091 #5200000000000007   silent 5200000000001005  should decline   4000000000001018  # chalenge 4000000000001091 silent 4000000000001000
+		cc = 5200000000000007
 
 	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
+	if not db_agent.execute_select_one_parameter(constants.FRAUD_CARD_CHECK, card_encrypted):
+		db_agent.execute_insert(constants.FRAUD_CARD_INSERT, card_encrypted)
 	month = ['01', '02', '03', '04']
 	expiration_date = random.choice(month)
 	year = ['21', '22', '23', '24']
@@ -481,7 +487,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		if pricepoint_type == 510:
 			dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
 			hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
-			#print(hash_url)
+			print(hash_url)
 			resp = requests.get(hash_url)
 			dynamic_hash = fromstring(resp.text).text
 			joinlink = f"{config.url}{eticket}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST{url_options}"

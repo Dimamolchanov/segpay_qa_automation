@@ -98,18 +98,18 @@ for merchantid in config.merchants:
 				print(f"Exception {Exception} ")
 				pass
 		# --------------------------------------------------------------------------------------------------------------BEP
-		captures = bep.process_captures()
-		if captures == 'Captured':
-			check_captures = db_agent.verify_captures(transids)
-		# conversion = bep.process_rebills(transids)  # bep.process_rebills(rebills_pids)
-		# if conversion:
-		# 	check_rebills_asset = asset.asseets_check_rebills(conversion[0])
-		# 	check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
-		#
-		refunds = bep.process_refund(transids, 841)  # 841 refund expire  842 refund and cancel
-		if refunds:
-			check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
-			check_refunds_asset = asset.asseets_check_refunds(refunds[0])
+		# captures = bep.process_captures()
+		# if captures == 'Captured':
+		# 	check_captures = db_agent.verify_captures(transids)
+		# # conversion = bep.process_rebills(transids)  # bep.process_rebills(rebills_pids)
+		# # if conversion:
+		# # 	check_rebills_asset = asset.asseets_check_rebills(conversion[0])
+		# # 	check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
+		# #
+		# refunds = bep.process_refund(transids, 841)  # 841 refund expire  842 refund and cancel
+		# if refunds:
+		# 	check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
+		# 	check_refunds_asset = asset.asseets_check_refunds(refunds[0])
 		#
 		# reactivate = web.reactivate(transids) #   (conversion[1])
 		# check_asset_after_reactivation = asset.assets_check_reactivation(reactivate[0])
