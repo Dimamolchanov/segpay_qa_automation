@@ -11,76 +11,94 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 db_agent = DBActions()
 
 def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_live_record):
-	type = merchantbillconfig['Type']
-	live_record = multitrans_live_record['full_record'][0]
+	type = merchantbillconfig['Type'] ; asset = {}
+	live_record = multitrans_live_record['full_record']
 	current_date = (datetime.now().date())
-	# transaction_record['full_record']
-	asset = {'RecurringAmount': merchantbillconfig['RebillPrice'],
-	         'PurchType': merchantbillconfig['Type'],
-	         'PurchPeriod': merchantbillconfig['RebillLen'],
-	         'MerchantID': live_record['MerchantID'],
-	         'URLID': live_record['URLID'],
-	         'PackageID': live_record['PackageID'],
-	         'BillConfigID': live_record['BillConfigID'],
-	         'CardType': live_record['CardType'],
-	         'InitialAmount': multitrans_base_record['TransAmount'],
-	         'AuthCurrency': multitrans_base_record['MerchantCurrency'],
-	         'PurchTotal': multitrans_base_record['TransAmount'],
-	         'CustLang': multitrans_base_record['Language'],
-	         'Currency': multitrans_base_record['ProcessorCurrency'],
-	         'PurchaseID': multitrans_base_record['PurchaseID'],
-	         'Processor': multitrans_base_record['Processor'],
-	         'CustEMail': multitrans_base_record['CustEMail'],
-	         'RefURL': multitrans_base_record['RefURL'],
-	         'CardExpiration': multitrans_base_record['CardExpiration'],
-	         'CustCountry': multitrans_base_record['CustCountry'],
-	         'CustZip': multitrans_base_record['CustZip'],
-	         'PaymentAcct': multitrans_base_record['PaymentAcct'],
-	         'PCID': multitrans_base_record['PCID'],
-	         'ExchRate': multitrans_base_record['ExchRate'],
-	         'REF1': multitrans_base_record['REF1'],
-	         'REF2': multitrans_base_record['REF2'],
-	         'REF3': multitrans_base_record['REF3'],
-	         'REF4': multitrans_base_record['REF4'],
-	         'REF5': multitrans_base_record['REF5'],
-	         'REF6': multitrans_base_record['REF6'],
-	         'REF7': multitrans_base_record['REF7'],
-	         'REF8': multitrans_base_record['REF8'],
-	         'REF9': multitrans_base_record['REF9'],
-	         'REF10': multitrans_base_record['REF10']
-	         }
+	try:
+		asset = {'RecurringAmount': merchantbillconfig['RebillPrice'],
+		         'PurchType': merchantbillconfig['Type'],
+		         'PurchPeriod': merchantbillconfig['RebillLen'],
+		         'MerchantID': live_record['MerchantID'],
+		         'URLID': live_record['URLID'],
+		         'PackageID': live_record['PackageID'],
+		         'BillConfigID': live_record['BillConfigID'],
+		         'CardType': live_record['CardType'],
+		         'InitialAmount': multitrans_base_record['TransAmount'],
+		         'AuthCurrency': multitrans_base_record['MerchantCurrency'],
+		         'PurchTotal': multitrans_base_record['TransAmount'],
+		         'CustLang': multitrans_base_record['Language'],
+		         'Currency': multitrans_base_record['ProcessorCurrency'],
+		         'PurchaseID': multitrans_base_record['PurchaseID'],
+		         'Processor': multitrans_base_record['Processor'],
+		         'CustEMail': multitrans_base_record['CustEMail'],
+		         'RefURL': multitrans_base_record['RefURL'],
+		         'CardExpiration': multitrans_base_record['CardExpiration'],
+		         'CustCountry': multitrans_base_record['CustCountry'],
+		         'CustZip': multitrans_base_record['CustZip'],
+		         'PaymentAcct': multitrans_base_record['PaymentAcct'],
+		         'PCID': multitrans_base_record['PCID'],
+		         'ExchRate': multitrans_base_record['ExchRate'],
+		         'REF1': multitrans_base_record['REF1'],
+		         'REF2': multitrans_base_record['REF2'],
+		         'REF3': multitrans_base_record['REF3'],
+		         'REF4': multitrans_base_record['REF4'],
+		         'REF5': multitrans_base_record['REF5'],
+		         'REF6': multitrans_base_record['REF6'],
+		         'REF7': multitrans_base_record['REF7'],
+		         'REF8': multitrans_base_record['REF8'],
+		         'REF9': multitrans_base_record['REF9'],
+		         'REF10': multitrans_base_record['REF10']
+		         }
+		if type == 511:
+			asset['RecurringAmount'] = multitrans_live_record['recurringprice511']
+			asset['PurchPeriod'] = multitrans_live_record['recurringlength511']
+		elif type == 505:
+			asset['PurchTotal'] = 0.00
+			asset['InitialAmount'] = 0.00
+			purchtype_recurring = [501, 505, 506, 507, 511]
+			if multitrans_base_record['Authorized'] == 1:
+				transdate = (datetime.now().date())
+				if type in (purchtype_recurring):
+					asset['PurchStatus'] = 801
+					asset['StatusDate'] = current_date
+					asset['PurchDate'] = current_date
+					if type == 511:
+						asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
+						asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
+					elif type == 505:
+						asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen']) + timedelta(days=merchantbillconfig['RebillLen'])
+					else:
+						asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
 
-	if type == 511:
-		# asset['InitialAmount'] = multitrans_live_record['initialprice511']
-		asset['RecurringAmount'] = multitrans_live_record['recurringprice511']
-		asset['PurchPeriod'] = multitrans_live_record['recurringlength511']
-	elif type == 505:
-		asset['PurchTotal'] = 0.00
-		asset['InitialAmount'] = 0.00
-		# asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen']) +  timedelta(days=merchantbillconfig['RebillLen'])
+					asset['CancelDate'] = None
+					asset['ConvDate'] = None
+					asset['LastDate'] = None
+				else:
+					asset['PurchStatus'] = 804
+					if type in [503, 510]:
+						asset['StatusDate'] = current_date
+						asset['PurchDate'] = current_date
+						asset['NextDate'] = None
+						asset['ExpiredDate'] = current_date
+						asset['CancelDate'] = current_date
+						asset['ConvDate'] = current_date
+						asset['LastDate'] = current_date
+					elif type == 502:
+						asset['PurchDate'] = current_date
+						asset['NextDate'] = None
+						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+						asset['CancelDate'] = current_date
+						asset['ConvDate'] = current_date
+						asset['LastDate'] = current_date
+				asset['LastResult'] = None
+				asset['Purchases'] = 1
 
-	purchtype_recurring = [501, 505, 506, 507, 511]
-	if multitrans_base_record['Authorized'] == 1:
-		transdate = (datetime.now().date())
-		if type in (purchtype_recurring):
-			asset['PurchStatus'] = 801
-			asset['StatusDate'] = current_date
-			asset['PurchDate'] = current_date
-			if type == 511:
-				asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
-				asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
-			elif type == 505:
-				asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen']) + timedelta(days=merchantbillconfig['RebillLen'])
 			else:
-				asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
-				asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
-
-			asset['CancelDate'] = None
-			asset['ConvDate'] = None
-			asset['LastDate'] = None
-		else:
-			asset['PurchStatus'] = 804
-			if type in [503, 510]:
+				asset['PurchStatus'] = 806
+				asset['LastResult'] = 'Declined'
+				asset['PurchTotal'] = 0
+				asset['Purchases'] = 0
 				asset['StatusDate'] = current_date
 				asset['PurchDate'] = current_date
 				asset['NextDate'] = None
@@ -88,30 +106,124 @@ def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_li
 				asset['CancelDate'] = current_date
 				asset['ConvDate'] = current_date
 				asset['LastDate'] = current_date
-			elif type == 502:
+
+
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"Exception {Exception} ")
+		pass
+
+	return asset
+
+
+def build_asset_oneclick(merchantbillconfig, multitrans_base_record, multitrans_live_record,octoken_record):
+	type = merchantbillconfig['Type'] ; asset = {}
+	current_date = (datetime.now().date())
+
+	try:
+		if type in ( 502,503,510):
+			asset = octoken_record
+			asset['PCID'] = None
+		else:
+			asset = {'RecurringAmount': merchantbillconfig['RebillPrice'],
+			         'PurchType': merchantbillconfig['Type'],
+			         'PurchPeriod': merchantbillconfig['RebillLen'],
+			         'MerchantID': multitrans_base_record['MerchantID'],
+			         'URLID': multitrans_base_record['URLID'],
+			         'PackageID': multitrans_base_record['PackageID'],
+			         'BillConfigID': multitrans_base_record['BillConfigID'],
+			         'CardType': multitrans_live_record['CardType'],
+			         'InitialAmount': multitrans_base_record['TransAmount'],
+			         'AuthCurrency': multitrans_base_record['MerchantCurrency'],
+			         'PurchTotal': multitrans_base_record['TransAmount'],
+			         'CustLang': multitrans_base_record['Language'],
+			         'Currency': multitrans_base_record['ProcessorCurrency'],
+			         'PurchaseID': multitrans_base_record['PurchaseID'],
+			         'Processor': multitrans_base_record['Processor'],
+			         'CustEMail': multitrans_base_record['CustEMail'],
+			         'RefURL': multitrans_base_record['RefURL'],
+			         'CardExpiration': multitrans_base_record['CardExpiration'],
+			         'CustCountry': multitrans_base_record['CustCountry'],
+			         'CustZip': multitrans_base_record['CustZip'],
+			         'PaymentAcct': multitrans_base_record['PaymentAcct'],
+			         'PCID': multitrans_base_record['PCID'],
+			         'ExchRate': multitrans_base_record['ExchRate'],
+			         'REF1': multitrans_base_record['REF1'],
+			         'REF2': multitrans_base_record['REF2'],
+			         'REF3': multitrans_base_record['REF3'],
+			         'REF4': multitrans_base_record['REF4'],
+			         'REF5': multitrans_base_record['REF5'],
+			         'REF6': multitrans_base_record['REF6'],
+			         'REF7': multitrans_base_record['REF7'],
+			         'REF8': multitrans_base_record['REF8'],
+			         'REF9': multitrans_base_record['REF9'],
+			         'REF10': multitrans_base_record['REF10']
+			         }
+			if type == 511:
+				asset['InitialAmount'] = multitrans_live_record['511']['InitialPrice']
+				asset['RecurringAmount'] = multitrans_live_record['511']['RecurringPrice']
+				asset['PurchPeriod'] = multitrans_live_record['511']['RecurringLength']
+			elif type == 510:
+				asset['InitialAmount'] = multitrans_live_record['510']
+
+			purchtype_recurring = [501, 506, 511]
+			if multitrans_live_record['Authorized'] == 1:
+				transdate = (datetime.now().date())
+				if type in (purchtype_recurring):
+					asset['PurchStatus'] = 801
+					asset['StatusDate'] = current_date
+					asset['PurchDate'] = current_date
+					if type == 511:
+						asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['511']['InitialLength'])
+						asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['511']['InitialLength'])
+					else:
+						asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+					asset['CancelDate'] = None
+					asset['ConvDate'] = None
+					asset['LastDate'] = None
+				else:
+					asset['PurchStatus'] = 804
+					if type in [503, 510]:
+						asset['StatusDate'] = current_date
+						asset['PurchDate'] = current_date
+						asset['NextDate'] = None
+						asset['ExpiredDate'] = current_date
+						asset['CancelDate'] = current_date
+						asset['ConvDate'] = current_date
+						asset['LastDate'] = current_date
+					elif type == 502:
+						asset['PurchDate'] = current_date
+						asset['NextDate'] = None
+						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+						asset['CancelDate'] = current_date
+						asset['ConvDate'] = current_date
+						asset['LastDate'] = current_date
+				asset['LastResult'] = None
+				asset['Purchases'] = 1
+			else:
+				asset['PurchStatus'] = 806
+				asset['LastResult'] = 'Declined'
+				asset['PurchTotal'] = 0
+				asset['Purchases'] = 0
+				asset['StatusDate'] = current_date
 				asset['PurchDate'] = current_date
 				asset['NextDate'] = None
-				asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+				asset['ExpiredDate'] = current_date
 				asset['CancelDate'] = current_date
 				asset['ConvDate'] = current_date
 				asset['LastDate'] = current_date
-		asset['LastResult'] = None
-		asset['Purchases'] = 1
 
-	else:
-		asset['PurchStatus'] = 806
-		asset['LastResult'] = 'Declined'
-		asset['PurchTotal'] = 0
-		asset['Purchases'] = 0
-		asset['StatusDate'] = current_date
-		asset['PurchDate'] = current_date
-		asset['NextDate'] = None
-		asset['ExpiredDate'] = current_date
-		asset['CancelDate'] = current_date
-		asset['ConvDate'] = current_date
-		asset['LastDate'] = current_date
-
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"Exception {Exception} ")
+		pass
 	return asset
+
+
+
+
+
 
 def asset_oneclick(merchantbillconfig, asset_base_record, multitrans_live_record):
 	type = merchantbillconfig['Type']
@@ -145,13 +257,14 @@ def asset_compare(asset_base_record): # signup
 	differences = {}
 	purchaseid = asset_base_record['PurchaseID']
 	asset_live_record = db_agent.asset_full_record(purchaseid)[0]
+	asset_live_record['PCID'] = None
 
 	differences = bep.dictionary_compare(asset_base_record, asset_live_record)
 
 	if len(differences) == 0:
-		print(colored(f"Asset SignUp Record Compared => Pass  | PurchaseID:{purchaseid} ", 'green'))
+		print(colored(f"Asset      Record Compared =>  Pass  ", 'green'))
 	else:
-		print(colored(f"********************* Asset SignUp MissMatch ****************", 'red'))
+		print(colored(f"********************* Asset  MissMatch ****************", 'red'))
 		for k, v in differences.items():
 			print(k, v)
 	return differences

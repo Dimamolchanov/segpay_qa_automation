@@ -9,6 +9,139 @@ from pos.point_of_sale.utils import constants
 
 db_agent = DBActions()
 
+
+def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_lang):
+	transdate = (datetime.now().date())
+	ppid = eticket.split(':') ; multitrans_oneclick_record = {}
+	sql = "select * from MerchantBillConfig where BillConfigID = {}"
+	merchantbillconfig =  db_agent.execute_select_one_parameter(sql, ppid[1])
+	pp_type = merchantbillconfig['Type']
+	sql = "select * from assets where PurchaseID = {}"
+	octoken_record = db_agent.execute_select_one_parameter(sql, octoken)
+	try:
+		multitrans = {
+			'PurchaseID': one_click_record['PurchaseID'],
+			'TransID': one_click_record['TransID'],
+			'TRANSGUID': one_click_record['TRANSGUID'],
+			'BillConfigID': int(ppid[1]),
+			'PackageID': octoken_record['PackageID'],
+			'AuthCode': 'OK:0',
+			'Authorized': 1,
+			'CardExpiration': octoken_record['CardExpiration'],
+			'CustCountry': octoken_record['CustCountry'],
+			'CustEMail': octoken_record['CustEMail'],
+			'CustName': octoken_record['CustName'] ,
+			'CustZip': octoken_record['CustZip'],
+			'Language': currency_lang[1],
+			'MerchantID': one_click_record['MerchantID'],
+			'PaymentAcct': octoken_record['PaymentAcct'],
+			'PCID': None,
+			'Processor': octoken_record['Processor'],
+			'ProcessorCurrency': octoken_record['Currency'],
+			'MerchantCurrency': currency_lang[0],
+			'STANDIN': one_click_record['STANDIN'],
+			'TransBin': one_click_record['TransBin'],
+			'URLID': octoken_record['URLID'],
+			'URL': one_click_record['URL'],
+			'REF1': None,
+			'REF2': None,
+			'REF3': None,
+			'REF4': None,
+			'REF5': None,
+			'REF6': None,
+			'REF7': None,
+			'REF8': None,
+			'REF9': None,
+			'REF10': None,
+			'RefURL': one_click_record['RefURL']
+		}  #
+		url_parameters = url_options.split('&')
+		for var in url_parameters:
+			tmp = var.split('=')
+			if tmp[0] == 'ref1':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF1'] = val
+			elif tmp[0] == 'ref2':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF2'] = val = val
+			elif tmp[0] == 'ref3':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF3'] = val
+			elif tmp[0] == 'ref4':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF4'] = val
+			elif tmp[0] == 'ref5':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF5'] = val
+			elif tmp[0] == 'ref6':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF6'] = val
+			elif tmp[0] == 'ref7':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF7'] = val
+			elif tmp[0] == 'ref8':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF8'] = val
+			elif tmp[0] == 'ref9':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF9'] = val
+			elif tmp[0] == 'ref10':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF10'] = val
+			elif tmp[0] == 'refurl':
+				val = tmp[1][:256]
+				multitrans['RefURL'] = val  # update refs  #
+		multitrans['PaymentType'] = 131
+		exchange_rate = 1
+		if merchantbillconfig['Currency'] == currency_lang[0]:
+			exchange_rate = 1
+		else:
+			exchange_rate = db_agent.exc_rate(currency_lang[0], merchantbillconfig['Currency'])
+
+		multitrans['TxStatus'] = 2
+		if pp_type in (502,503,510):
+			multitrans['TransSource'] = 123
+		else:
+			multitrans['TransSource'] = 121
+
+
+		multitrans['TransStatus'] = 186
+		multitrans['TransType'] = 1011
+
+		if pp_type == 511:
+			trans_amount = one_click_record['511']['InitialPrice']
+			multitrans['TransAmount'] = trans_amount
+			multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
+		elif merchantbillconfig['Type'] == 510:
+			trans_amount = one_click_record['510']
+			multitrans['TransAmount'] = trans_amount
+			multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
+		else:
+			initial_price = merchantbillconfig['InitialPrice']
+			multitrans['TransAmount'] = initial_price
+			multitrans['Markup']= round(initial_price * exchange_rate, 2)
+			#multitrans['RelatedTransID'] = 0
+			multitrans['TransDate'] = transdate
+
+		if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
+			multitrans['TransAmount'] = 1.00
+		elif merchantbillconfig['Type'] == 511 and one_click_record['511']['InitialPrice'] == 0.00:
+			multitrans['TransAmount'] = 1.00
+
+
+		exchange_rate = round(exchange_rate, 2)
+		multitrans['ExchRate'] = exchange_rate
+		one_click_record['PCID'] = None
+		return multitrans , octoken_record,merchantbillconfig
+
+
+
+
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}  Eticket: {eticket,}  ")
+		pass
+
 def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
 	transdate = (datetime.now().date())
 	url = db_agent.url(package['URLID'])
@@ -29,7 +162,7 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		'Language': data_from_paypage['paypage_lnaguage'],
 		'MerchantID': merchantbillconfig['MerchantID'],
 		'PaymentAcct': data_from_paypage['card_encrypted'],
-		'PCID': '0',
+		'PCID': None,
 		'Processor': data_from_paypage['processor'],
 		'ProcessorCurrency': merchantbillconfig['Currency'],
 		'MerchantCurrency': data_from_paypage['merchant_currency'],
@@ -47,7 +180,7 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		'REF8': None,
 		'REF9': None,
 		'REF10': None,
-		'RefURL': ''
+		'RefURL': None
 	}  # dictionary from paypage
 
 	# analyzing url
@@ -119,7 +252,7 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		else:
 			multitrans['TransDate'] = transdate
 			multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
-			multitrans['Markup']: round(multitrans['InitialPrice'] * exchange_rate, 2)
+			multitrans['Markup']= round(merchantbillconfig['InitialPrice'] * exchange_rate, 2)
 			multitrans['RelatedTransID'] = 0
 
 	if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
@@ -132,21 +265,27 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 
 def multitrans_compare(multitrans_base_record, live_record):
 	differences = {}
-	multitrans_live_record = live_record[0]
-	multitrans_live_record['TransDate'] =   multitrans_live_record['TransDate'].date()
+	try:
+		multitrans_live_record = live_record #[0]
+		live_record['PCID'] = None
+		multitrans_live_record['TransDate'] =   multitrans_live_record['TransDate'].date()
 
-	differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
+		differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
 
-	if len(differences) == 0:
-		print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-		      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
-		print(colored(f"Mulitrans SignUp Record Compared =>  Pass", 'green'))
-	else:
-		print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-		      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
-		print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
-		for k, v in differences.items():
-			print(k, v)
+		if len(differences) == 0:
+			#print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
+			      #f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			print(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
+		else:
+			print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
+			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
+			for k, v in differences.items():
+				print(k, v)
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"Exception {Exception} ")
+		pass
 	return differences
 
 def multitrans_check_conversion(rebills):
