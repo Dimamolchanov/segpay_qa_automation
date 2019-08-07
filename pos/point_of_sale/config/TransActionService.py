@@ -5,7 +5,7 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
-
+from pos.point_of_sale.verifications import emails
 
 db_agent = DBActions()
 
@@ -38,6 +38,7 @@ class TransActionService:
         test_data['eticket'] = eticket
         test_data['url_options'] = url_options
         test_data['merchantbillconfig'] = merchantbillconfig
+        test_data['cc'] = config.cc_number
         return test_data
 
 
@@ -48,10 +49,11 @@ class TransActionService:
         asset_base_record = asset.build_asset_signup(config.test_data['merchantbillconfig'][0], multitrans_base_record, transaction_to_check)
         differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
         differences_asset = asset.asset_compare(asset_base_record)
+        check_email = emails.check_email_que(config.test_data['pricepoint_type'], multitrans_base_record, 'signup')
         differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, transaction_to_check['TransID'])
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
-        print('*********************SignUp Transaction Verification Complete*********************')
+        #print('*********************SignUp Transaction Verification Complete*********************')
         print()
         if not differences_multitrans and not differences_asset and not differences_postback:
             return True
@@ -73,6 +75,45 @@ class TransActionService:
         else:
             return False
 
+    @staticmethod
+    def verify_oc_transaction(octoken,eticket, one_click_record, test_data, selected_options):
+        mt_octoken_mbconfig_record = mt.build_mt_oneclick(eticket, octoken, one_click_record, config.test_data['url_options'], selected_options)
+        multitrans_base_oc_record = mt_octoken_mbconfig_record[0]
+        differences_mt_oc = mt.multitrans_compare(multitrans_base_oc_record, one_click_record)
+        asset_base_oc_record = asset.build_asset_oneclick(mt_octoken_mbconfig_record[2], multitrans_base_oc_record, one_click_record, mt_octoken_mbconfig_record[1])
+        differences_asset_oc = asset.asset_compare(asset_base_oc_record)
+        check_email_oc = emails.check_email_que(mt_octoken_mbconfig_record[2]['Type'], multitrans_base_oc_record, 'signup')
+        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_record['TransID'])
+        config.transids.append(one_click_record['TransID'])
+        if not differences_mt_oc and not differences_asset_oc and not differences_postback:
+            return True
+        else:
+            return False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # asset_base_record_onelick = asset.asset_oneclick(config.test_data['merchantbillconfig'][0], asset_base_record, one_click_pos_record[1])
+        # differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
+        # differences_asset = asset.asset_compare(asset_base_record_onelick)
+        # differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
+        # config.transids.append(one_click_pos_record[1][0]['TransID'])
+        # print(('*********************OneClick {} Transaction Verification Complete*********************').format(oc_type.upper()))
+        # print()
 
 
 

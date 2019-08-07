@@ -1,4 +1,4 @@
-enviroment = 'stage'
+enviroment = 'stage3'
 url = ''
 urlws = ''
 urlic = ''
@@ -10,21 +10,21 @@ server = ''
 # provide merchant ID
 merchants = [27001]
 # type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
-pricepoints = [27003,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
+pricepoints = [27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
 #Processeor ID
 processors = [65]
 #PAckage ID
 packageid = 99
-template ='&template=defaultpsd2'  # '&template=defaultnopaypal'  default
+template =''#'&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
 available_currencies = ['AUD']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
-available_languages = ['EN']#,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+available_languages = ['EN']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 oc_list = [501, 502, 503, 504, 506, 510, 511]
 #Global Objects to transfer data from test to test
 transaction_records = []
 test_data = {}
 transids = []
-cc_number=''
+cc_number='4444333322221111'
 transids_for_oc = [1234643195]
 
 
@@ -35,7 +35,7 @@ instant_coversion_ws = False
 #1 - TRUE, 0 - FALSE - to DO refactor
 single_use_promo = 1
 
-visa_secure = False
+visa_secure = True
 
 
 

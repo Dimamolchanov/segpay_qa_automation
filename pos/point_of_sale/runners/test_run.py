@@ -21,11 +21,11 @@ class RunTests(unittest.TestCase):
             test_methods.sign_up_trans_web(config.test_data)
              #self.assertTrue(test_methods.sign_up_trans_web(config.test_data), "Sign Up WEB failed!!!")
 
-    # def step_2_test_sign_up_oc_by_trans_id(self):
-    #     for current_transaction_id in config.transids_for_oc:
-    #         pricepoint = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, current_transaction_id)['BillConfigID']
-    #         config.test_data = TransActionService.prepare_data(pricepoint, 1)
-    #         test_methods.sign_up_oc_by_trnas_id('pos', config.test_data, current_transaction_id)
+    def step_2_test_sign_up_oc_by_trans_id(self):
+        for current_transaction_id in config.transids_for_oc:
+            pricepoint = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, current_transaction_id)['BillConfigID']
+            config.test_data = TransActionService.prepare_data(pricepoint, 1)
+            test_methods.sign_up_oc_by_trnas_id('pos', config.test_data, current_transaction_id)
 
     # def step_2_test_sign_up_trans_oc_pos(self):
     #     for pricepoint in self.pricepoints:

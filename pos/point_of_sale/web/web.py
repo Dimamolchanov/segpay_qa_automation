@@ -1,11 +1,11 @@
 import random
 import decimal
 from splinter import Browser
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
+# from selenium import webdriver
+# from selenium.webdriver.support.ui import WebDriverWait
+# from selenium.webdriver.support import expected_conditions as EC
+# from selenium.webdriver.common.by import By
+# from selenium.common.exceptions import TimeoutException
 from faker import Faker
 import subprocess
 from selenium import webdriver
@@ -112,9 +112,6 @@ def one_click_pos(eticket,octoken,currency_lang,url_options):
 				oneclick_record['511'] = pricingguid
 			elif pricepoint_type == 510:
 				oneclick_record['510'] = dynamic_price
-
-
-
 			print(f"OneClick POS => Eticket: {eticket}  | Processor: {oneclick_record['Processor']} "
 			      f"| DMC: {currency_lang[0]} | Lnaguage: {currency_lang[1]} | Type: {pricepoint_type}")
 			print(f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
@@ -126,6 +123,68 @@ def one_click_pos(eticket,octoken,currency_lang,url_options):
 
 
 	return  oneclick_record #, pricepoint_type
+
+def one_click_services(eticket,octoken,currency_lang,url_options):
+	oneclick_record = None ; dynamic_price = 9999 ; pricingguid = ''
+
+
+	try:
+		ppid = eticket.split(':')
+		multitrans_oneclick_record = {}
+		sql = "select * from MerchantBillConfig where BillConfigID = {}"
+		mbconfig = db_agent.execute_select_one_parameter(sql, ppid[1])
+		pricepoint_type = mbconfig['Type']
+		merchantid = mbconfig['MerchantID']
+		if pricepoint_type == 510:
+			dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
+			hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
+			resp = requests.get(hash_url)
+			dynamic_hash = fromstring(resp.text).text
+			url = f"{config.urlws}{eticket}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}" + url_options
+		elif pricepoint_type == 511:
+			pricingguid = db_agent.get_pricingguid(merchantid, pricepoint_type)[0]
+			url = f"{config.urlws}{eticket}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options
+		else:
+			url = f"{config.urlws}{eticket}&octoken={octoken}" + url_options
+
+		resp = requests.get(url)
+		xml_return_string = simplexml.loads(resp.content)
+		transid = int(xml_return_string['TransReturn']['TransID'])
+		# oneclick_record = db_agent.multitrans_full_record(transid, '', '')
+		# full_record = oneclick_record[0]
+
+		cnt = 0
+		while oneclick_record == None and cnt < 15:
+			cnt += 1
+			time.sleep(1)
+			sql = "select * from multitrans where TransID = '{}'"
+			oneclick_record = db_agent.execute_select_one_parameter(sql, transid)
+
+		if pricepoint_type == 511:
+			oneclick_record['511'] = pricingguid
+		elif pricepoint_type == 510:
+			oneclick_record['510'] = dynamic_price
+		print(f"OneClick Web Services => Eticket: {eticket}  | Processor: {oneclick_record['Processor']} "
+		      f"| DMC: {currency_lang[0]} | Lnaguage: {currency_lang[1]} | Type: {pricepoint_type}")
+		print(f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
+		return oneclick_record
+
+
+
+
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}  Eticket: {eticket} Module => one_click_services ")
+		pass
+
+
+
+
+
+
+
+
+
 
 
 
@@ -256,6 +315,15 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------ Instant Conversion POS and WS
+
+
+
+
+
+
+
+
+
 def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record, email, selected_options, merchantbillconfig):
 	transguid = ''
 	url = ''
@@ -367,10 +435,19 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		f"and  ppid = ( select  PrefProcessorID from package where packageid = {packageid}))"
 
 	visa_secure = db_agent.execute_select_two_parameters(sql, merchantid, packageid)
-	if visa_secure == None:
-		cc = 4444333322221111
-	else:
-		cc = 5200000000000007
+
+	cc = config.test_data['cc']
+
+	# if card == 0:
+	# 	cc = 4444333322221111
+	# else:
+	# 	cc = card
+
+
+	# if visa_secure == None:
+	# 	cc = 4444333322221111
+	# else:
+	# 	cc = 5200000000000007
 
 	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
@@ -447,6 +524,8 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	data_from_paypage['merchant_currency'] = br.find_by_id('CurrencyDDL').value
 	data_from_paypage['paypage_lnaguage'] = br.find_by_id('LanguageDDL').value
 	data_from_paypage['merchant_country'] = merchant_country
+	while br.execute_script("return jQuery.active == 0") != True:
+		time.sleep(1)
 	br.find_by_id('SecurePurchaseButton').click()
 
 	time.sleep((2))
@@ -464,31 +543,9 @@ def FillDefault(url, selected_options, merchantid, packageid):
 					pass
 	except NoSuchFrameException:
 		pass
-
-
-
-
-	# if visa_secure:
-	# 	time.sleep((2))
-	# 	try:
-	# 		if br.get_iframe('Cardinal-CCA-IFrame'):
-	# 			with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
-	# 				if iframe.find_by_name('challengeDataEntry'):
-	# 					iframe.find_by_name('challengeDataEntry').fill('1234')
-	# 					iframe.find_by_value('SUBMIT').click()
-	# 				elif iframe.get_iframe('authWindow'):
-	# 					with iframe.get_iframe('authWindow') as auth:
-	# 						auth.find_by_id('password').fill('test')
-	# 						auth.find_by_name('UsernamePasswordEntry').click()
-	# 				else:
-	# 					pass
-	# 	except NoSuchFrameException:
-	# 		pass
-	#
-	# 	except Exception as ex:
-	# 		traceback.print_exc()
-	# 		print(ex)
-
+	except Exception as ex:
+		traceback.print_exc()
+		print(ex)
 	return data_from_paypage
 
 
@@ -515,11 +572,9 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 
 		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.packageid)  # fill the page and return what was populated
 		transguid = data_from_paypage['transguid']
-
 		sql = "select * from multitrans where TransGuid = '{}'"
-		full_record = db_agent.execute_select_one_parameter(sql, transguid)
-
-		#full_record = db_agent.multitrans_full_record('', transguid, '')  # transid_purchaseid = db_agent.db_agent.(transguid)
+		full_record = db_agent.execute_select_one_with_wait(sql, transguid)
+		print(full_record['PurchaseID'])
 		data_from_paypage['PurchaseID'] = full_record['PurchaseID']
 		data_from_paypage['TransID'] = full_record['TransID']
 		if pricepoint_type == 511:
@@ -542,6 +597,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 
 		print(f"New SignUp => Mid: {merchantid} | Eticket: {eticket} | Type: {pricepoint_type} | Processor: {data_from_paypage['processor']} |"
 		      f" DMC: {data_from_paypage['merchant_currency']} | Lnaguage: {data_from_paypage['paypage_lnaguage']}")
+		print(f"PurchaseID: {data_from_paypage['PurchaseID']} | TransID: {data_from_paypage['TransID']} | TransGuid: {data_from_paypage['transguid']}")
 
 		return data_from_paypage
 	except Exception as ex:
@@ -566,7 +622,8 @@ def reactivate(transids):
 			try:
 				transguid = reactivate_tids[1][tid]['TRANSGUID']
 				reactivate_record = reactivate_tids[1][tid]
-
+				firstname = fake.first_name()
+				lastname = fake.last_name()
 				cc = 4444333322221111
 				joinlink = f"{config.reactivation_url}{transguid}&sprs=mp"
 
@@ -581,10 +638,14 @@ def reactivate(transids):
 					mt_reactivated[tid] = reactivate_tids[1]
 					asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
 					if tasks_type_status[0] == 841:
-						br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+						br.find_by_id('ZipInput').fill('33063')
+						br.find_by_id('FirstNameInput').fill(firstname)
+						br.find_by_id('LastNameInput').fill(lastname)
+						br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
 						br.find_by_id('CCExpMonthDDL').select('02')
 						br.find_by_id('CCExpYearDDL').select('2021')
-						br.find_by_id('CVVInput').fill('444')
+						br.find_by_id('CVVInputNumeric').fill('444')
+
 					br.find_by_id('SecurePurchaseButton').click()
 					time.sleep(1)
 					reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
