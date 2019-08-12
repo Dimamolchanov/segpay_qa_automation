@@ -54,7 +54,7 @@ def navigate_to_url(url):
 def one_click_pos(eticket,octoken,currency_lang,url_options):
 	oneclick_record = None ; dynamic_price = 9999; pricingguid = ''
 	try:
-
+		#eticket = config.test_data['eticket']
 		ppid = eticket.split(':') ; multitrans_oneclick_record = {}
 		sql = "select * from MerchantBillConfig where BillConfigID = {}"
 		mbconfig =  db_agent.execute_select_one_parameter(sql, ppid[1])
@@ -146,7 +146,7 @@ def one_click_services(eticket,octoken,currency_lang,url_options):
 			url = f"{config.urlws}{eticket}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options
 		else:
 			url = f"{config.urlws}{eticket}&octoken={octoken}" + url_options
-
+		print(url)
 		resp = requests.get(url)
 		xml_return_string = simplexml.loads(resp.content)
 		transid = int(xml_return_string['TransReturn']['TransID'])
@@ -418,8 +418,9 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	psd2 = False
 	if page_loaded == False:
 		return None
-	# email = 'qateam@segpay.com'  # fake.email()
-	email = config.enviroment + '_' + fake.email()
+	#email = 'qateam@segpay.com'  # fake.email()
+	email = 'yan@segpay.com'
+	#email = config.enviroment + '_' + fake.email()
 
 	print(email)
 	if br.is_element_present_by_id('TransGUID', wait_time=10):
@@ -437,19 +438,6 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	visa_secure = db_agent.execute_select_two_parameters(sql, merchantid, packageid)
 
 	cc = config.test_data['cc']
-
-	# if card == 0:
-	# 	cc = 4444333322221111
-	# else:
-	# 	cc = card
-
-
-	# if visa_secure == None:
-	# 	cc = 4444333322221111
-	# else:
-	# 	cc = 5200000000000007
-
-	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
 	if not db_agent.execute_select_one_parameter(constants.FRAUD_CARD_CHECK, card_encrypted):
@@ -596,7 +584,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		data_from_paypage['full_record'] = full_record
 
 		print(f"New SignUp => Mid: {merchantid} | Eticket: {eticket} | Type: {pricepoint_type} | Processor: {data_from_paypage['processor']} |"
-		      f" DMC: {data_from_paypage['merchant_currency']} | Lnaguage: {data_from_paypage['paypage_lnaguage']}")
+		      f" DMC: {data_from_paypage['merchant_currency']} | Lnaguage: {data_from_paypage['paypage_lnaguage']} Card: {config.test_data['cc']}")
 		print(f"PurchaseID: {data_from_paypage['PurchaseID']} | TransID: {data_from_paypage['TransID']} | TransGuid: {data_from_paypage['transguid']}")
 
 		return data_from_paypage
@@ -622,12 +610,14 @@ def reactivate(transids):
 			try:
 				transguid = reactivate_tids[1][tid]['TRANSGUID']
 				reactivate_record = reactivate_tids[1][tid]
+				pid = reactivate_tids[1][tid]['PurchaseID']
 				firstname = fake.first_name()
 				lastname = fake.last_name()
 				cc = 4444333322221111
 				joinlink = f"{config.reactivation_url}{transguid}&sprs=mp"
-
 				tasks_type_status = db_agent.tasks_table(tid)
+
+
 				db_agent.update_package(reactivate_record['PackageID'], reactivate_record['MerchantID'], reactivate_record['BillConfigID'])
 				navigate_to_url(joinlink)
 				time.sleep(1)
@@ -635,8 +625,7 @@ def reactivate(transids):
 					not_reactivated.append(f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
 					                       f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
 				else:
-					mt_reactivated[tid] = reactivate_tids[1]
-					asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
+
 					if tasks_type_status[0] == 841:
 						br.find_by_id('ZipInput').fill('33063')
 						br.find_by_id('FirstNameInput').fill(firstname)
@@ -650,7 +639,8 @@ def reactivate(transids):
 					time.sleep(1)
 					reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
 					                   f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
-
+					mt_reactivated[tid] = reactivate_tids[1]
+					asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
 			except Exception as ex:
 				print(f"{Exception}  Tid: {tid,}  ")
 				traceback.print_exc()
@@ -668,6 +658,8 @@ def reactivate(transids):
 		for i in reactivated:
 			print(i)
 		print()
+		config.asset_reactivated = asset_reactivated
+		config.mt_reactivated = mt_reactivated
 		return asset_reactivated, mt_reactivated
 	except Exception as ex:
 		print(f"{Exception}  Tid: {tid,}  ")

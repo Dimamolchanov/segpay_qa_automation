@@ -8,6 +8,8 @@ from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.utils import options
+import traceback
+from pos.point_of_sale.utils import constants
 db_agent = DBActions()
 
 
@@ -22,6 +24,7 @@ def sign_up_trans_web(test_data):
     return result
 
 def sign_up_trans_web1(test_data):  # Yan
+    test_data = config.test_data # refactor needs
     current_transaction_record = {}
     for selected_language in config.available_languages:
         for dmc in config.available_currencies:
@@ -46,20 +49,27 @@ def sign_up_trans_oc(oc_type, test_data):
         result &= TransActionService.verify_signup_oc_transaction(oc_type, asset_base_record, one_click_record)
     return result
 
-def signup_oc(oc_type,eticket,test_data):  # Yan
+def signup_oc(oc_type,eticket,test_data):  # Yan  # refactor
     result = True
     one_click_record = {}
-    for current_transaction in config.transaction_records:
-        print("\n======================================| OneClick    SignUp |======================================\n")
-        selected_options = [current_transaction['merchant_currency'], current_transaction['paypage_lnaguage']]
-        octoken =current_transaction['PurchaseID']
-        if oc_type == 'pos':
-            one_click_record = web.one_click_pos(eticket, octoken, selected_options, test_data['url_options'])
-        elif oc_type == 'ws':
-            one_click_record = web.one_click_services(eticket, octoken, selected_options, test_data['url_options'])
+    for current_transaction_id in config.transaction_records:
+        try:
+            print("\n======================================|       OneClick     |======================================\n")
+            pricepoint = current_transaction_id['full_record']['BillConfigID']
+            config.test_data = TransActionService.prepare_data(pricepoint, 1)
+            selected_options = [current_transaction_id['merchant_currency'], current_transaction_id['paypage_lnaguage']]
+            eticket = config.test_data['eticket']
+            octoken = current_transaction_id['PurchaseID']
+            if oc_type == 'pos':
+                one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
+            elif oc_type == 'ws':
+                one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
 
-        result &= TransActionService.verify_oc_transaction(octoken,eticket, one_click_record, config.test_data['url_options'], selected_options)
-
+            result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)
+        except Exception as ex:
+            traceback.print_exc()
+            print(f"{Exception}  ")
+            pass
     return result
 
 

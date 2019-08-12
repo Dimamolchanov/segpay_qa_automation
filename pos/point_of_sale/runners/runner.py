@@ -12,66 +12,68 @@ from pos.point_of_sale.web import web
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.runners import test_methods
+from pos.point_of_sale.runners import test_run
 from pos.point_of_sale.config.TransActionService import TransActionService
+from functools import partial
+
 db_agent = DBActions()
 start_time = datetime.now()
 pricepoints_options = 'single'
-#url_options = config.template # options.ref_variables() + options.refurl() + config.template
 # ==================================================================> for 511 and 510
-#transguids = []
 pricingguid = {}
-#transids = []
-rebills_pids = []
 pricepoint_type = 0
-dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
+#dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
 merchantbillconfig = []
+
+results = [1, 1]
+
+config.test_data['eticket'] = ''
+
+actions = {'singup': partial(test_methods.sign_up_trans_web1, config.test_data),
+           'oneclick_pos': partial(test_methods.signup_oc, 'pos', config.test_data['eticket'], config.test_data),
+           'captures': partial(bep.process_captures),
+           'check_captures': partial(db_agent.verify_captures, config.transids),
+           'conversion': partial(bep.process_rebills, config.transids),
+           'check_conversion_asset': partial(asset.asseets_check_rebills, config.results[0]),
+           'check_conversion_mt': partial(mt.multitrans_check_conversion, config.results[1]),
+           'refunds': partial(bep.process_refund, config.transids, 842),
+           'check_refunds_mt': partial(mt.multitrans_check_refunds, config.results[1]),
+           'check_refunds_asset': partial(asset.asseets_check_refunds, config.results[0]),
+           'reactivate': partial(web.reactivate, config.transids),
+           'check_asset_reactivation': partial(asset.assets_check_reactivation),
+           'check_mt_reactivation': partial(mt.mt_check_reactivation)
+           }
+
+bep_basic = ['refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate', 'check_asset_reactivation', 'check_mt_reactivation']
+bep_basic_with_capture = ['captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate', 'check_asset_reactivation', 'check_mt_reactivation']
+# bep_basic = ['captures', 'check_captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset']
 
 # ==================================================================================================> Begining of the script
 for merchantid in config.merchants:
-	try:
-		if pricepoints_options == 'type':
-			pricepoints = db_agent.pricepoint_type(merchantid, [511, 501, 506])  # ,505
-		elif pricepoints_options == 'list':
-			pricepoints = db_agent.pricepoint_list(merchantid)
-		else:
-			pricepoints = config.pricepoints
-		for pricepoint in pricepoints:
-			try:
-				config.test_data = TransActionService.prepare_data(pricepoint, 1)
-				eticket = config.test_data['eticket']
-				multitrans_base_record = test_methods.sign_up_trans_web1(config.test_data)
-				print()
-				#one_click_record_ws = test_methods.signup_oc('ws', eticket, config.test_data)
-				#one_click_record = test_methods.signup_oc('pos', eticket,  config.test_data)
-			except Exception as ex:
-				traceback.print_exc()
-				print(f"Exception {Exception} ")
-				pass
-		# --------------------------------------------------------------------------------------------------------------BEP
-		captures = bep.process_captures()
-		if captures == 'Captured':
-			check_captures = db_agent.verify_captures(config.transids)
+	if pricepoints_options == 'type':
+		pricepoints = db_agent.pricepoint_type(merchantid, [511, 501, 506])  # ,505
+	elif pricepoints_options == 'list':
+		pricepoints = db_agent.pricepoint_list(merchantid)
+	else:
+		pricepoints = config.pricepoints
+	for pricepoint in pricepoints:
+		try:
+			config.test_data = TransActionService.prepare_data(pricepoint, 1)
+			actions['singup']()
+		except Exception as ex:
+			traceback.print_exc()
+			print(f"Exception {Exception} ")
+			pass
+	#actions['oneclick_pos']()
+	for item in bep_basic:
+		try:
+			config.results = actions[item]()
+			z = 3
+		except Exception as ex:
+			traceback.print_exc()
+			print(f"Exception {Exception} ")
+			pass
 
-		# conversion = bep.process_rebills(config.transids)  # bep.process_rebills(rebills_pids)
-		# if conversion:
-		# 	check_rebills_asset = asset.asseets_check_rebills(conversion[0])
-		# 	check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
-
-		refunds = bep.process_refund(config.transids, 841)  # 841 refund expire  842 refund and cancel  0 for random choices
-		if refunds:
-			check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
-			check_refunds_asset = asset.asseets_check_refunds(refunds[0])
-
-		reactivate = web.reactivate(config.transids) #   (conversion[1])
-		check_asset_after_reactivation = asset.assets_check_reactivation(reactivate[0])
-		check_mt_after_reactivation = mt.mt_check_reactivation(reactivate[1])
-
-	# --------------------------------------------------------------------------------------------------------------BEP
-
-	except Exception as ex:
-		traceback.print_exc()
-		print(f"Exception {Exception} ")
-		pass
 web.browser_quit()
 emails.check_email_status(config.transids)
 end_time = datetime.now()

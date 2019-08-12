@@ -3,6 +3,7 @@ from pos.point_of_sale.utils import options
 from pos.point_of_sale.web import web
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.verifications import asset
+from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
@@ -39,6 +40,8 @@ class TransActionService:
         test_data['url_options'] = url_options
         test_data['merchantbillconfig'] = merchantbillconfig
         test_data['cc'] = config.cc_number
+        #test_data['cc3ds'] = config.cc_number
+        config.test_data['eticket'] = eticket
         return test_data
 
 
@@ -49,13 +52,22 @@ class TransActionService:
         asset_base_record = asset.build_asset_signup(config.test_data['merchantbillconfig'][0], multitrans_base_record, transaction_to_check)
         differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
         differences_asset = asset.asset_compare(asset_base_record)
-        check_email = emails.check_email_que(config.test_data['pricepoint_type'], multitrans_base_record, 'signup')
+        if transaction_to_check['full_record']['Authorized'] == 1:
+            check_email = emails.check_email_que(config.test_data['pricepoint_type'], multitrans_base_record, 'signup')
         differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, transaction_to_check['TransID'])
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
-        #print('*********************SignUp Transaction Verification Complete*********************')
+        differences_3ds = {}
+        sql = f"select top 1 * from [MerchantCC3DSecureConfig] where merchantid = {multitrans_base_record['MerchantID']} and segpayprocessorid = " \
+            f"(select top 1 ProcessorID from ProcessorPoolsDetail where CardType = 'VISA' " \
+            f"and  ppid = ( select  PrefProcessorID from package where packageid = {multitrans_base_record['PackageID']}))"
+
+        visa_secure = db_agent.execute_select_two_parameters(sql, multitrans_base_record['MerchantID'], multitrans_base_record['PackageID'])
+        if visa_secure:
+            if 'cc3ds' in config.test_data:
+                differences_3ds = psd2.cardinal3dsrequests(multitrans_base_record['TransID'],config.test_data['cc3ds'])
         print()
-        if not differences_multitrans and not differences_asset and not differences_postback:
+        if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
             return True
         else:
             return False

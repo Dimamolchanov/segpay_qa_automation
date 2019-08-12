@@ -10,11 +10,11 @@ server = ''
 # provide merchant ID
 merchants = [27001]
 # type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
-pricepoints = [27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
+pricepoints = [27003,27001]#,27004,27002,27008,27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
 #Processeor ID
-processors = [65]
+processors = [44]
 #PAckage ID
-packageid = 99
+packageid = 99 #192046 #,192194
 template =''#'&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
 available_currencies = ['AUD']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
@@ -22,11 +22,43 @@ available_languages = ['EN']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", 
 oc_list = [501, 502, 503, 504, 506, 510, 511]
 #Global Objects to transfer data from test to test
 transaction_records = []
-test_data = {}
-transids = []
-cc_number='4444333322221111'
-transids_for_oc = [1234643195]
+results = ['none','none']
+tasks_type = {}
+asset_reactivated = {}
+mt_reactivated = {}
 
+
+
+
+
+
+test_data ={}
+
+transids = []
+cc_number=  '4000000000001000' # '4000000000001109' # '4444333322221111' prepaid 5432768030017007
+transids_for_oc = [1234643195]
+cards_3ds = [
+
+	{"card": "4000000000001000",'Enrolled' : 'Y','PAResStatus' : 'Y','SignatureVerification' : 'Y','Cavv' : '<Cavv value>','EciFlag' : '05','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001018",'Enrolled' : 'Y','PAResStatus' : 'N','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001026",'Enrolled' : 'Y','PAResStatus' : 'A','SignatureVerification' : 'Y','Cavv' : '<value>','EciFlag' : '06','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001034",'Enrolled' : 'Y','PAResStatus' : 'U','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001042",'Enrolled' : 'Y','PAResStatus' : 'R','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001059",'Enrolled' : 'U','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001067",'Enrolled' : 'U','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '1001', 'ErrorDesc' : 'Error Processing Message Request','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001075",'Enrolled' : '','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '','ACSUrl' : '','Payload' : '', 'ErrorNo' : '<value>', 'ErrorDesc' : '<value>','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001083",'Enrolled' : 'B','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000001091",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '<value>','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'Y','cSignatureVerification' : 'Y','cCavv' : '<value>','cEciFlag' : '05','cErrorNo' : 0, 'cErrorDesc' : ''},
+	{"card": "4000000000001109", 'Enrolled': 'Y', 'PAResStatus': 'C', 'SignatureVerification': 'Y', 'Cavv': '','EciFlag': '<value>', 'ACSUrl': '<value>', 'Payload': '<value>', 'ErrorNo': '0', 'ErrorDesc': '', 'cmpi_authenticate response': 'YES', 'cPAResStatus': 'N', 'cSignatureVerification': 'Y', 'cCavv': '','cEciFlag': '07', 'cErrorNo': 0, 'cErrorDesc': ''},
+	{"card": "4000000000001117",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '<value>','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'U','cSignatureVerification' : 'Y','cCavv' : '','cEciFlag' : '07','cErrorNo' : 0, 'cErrorDesc' : ''},
+	{"card": "4000000000001125",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '<value>','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'U','cSignatureVerification' : 'Y','cCavv' : '','cEciFlag' : '','cErrorNo' : '<value>', 'cErrorDesc' : '<value>'},
+	{"card": "4000000000001133",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '07','ACSUrl' : 'https://0merchantacsstag.cardinalcommerce.com/MerchantACSWeb/creq.jsp','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'B','cSignatureVerification' : 'Y','cCavv' : '','cEciFlag' : '<value>','cErrorNo' : 0, 'cErrorDesc' : ''},
+	{"card": "4000000000001141",'Enrolled' : 'Y','PAResStatus' : 'Y','SignatureVerification' : 'Y','Cavv' : '<value>','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000002008",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '07','ACSUrl' : 'https://0merchantacsstag.cardinalcommerce.com/MerchantACSWeb/creq.jsp','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'Y','cSignatureVerification' : 'Y','whiteListStatus':'Y','whiteListStatusSource' : '<value>','cCavv' : '<value>','cEciFlag' : '<value>','cErrorNo' : 0, 'cErrorDesc' : ''},
+	{"card": "4000000000002016",'Enrolled' : 'Y','PAResStatus' : 'Y','SignatureVerification' : 'Y','WhiteListStatus':'Y','Cavv' : '<value>','EciFlag' : '05','WhiteListStatusSource' : '03','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
+	{"card": "4000000000002024",'Enrolled' : 'Y','PAResStatus' : 'I','SignatureVerification' : 'Y','Cavv' : '<value>','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'}
+
+]
 
 one_click_pos = False
 one_click_ws = False

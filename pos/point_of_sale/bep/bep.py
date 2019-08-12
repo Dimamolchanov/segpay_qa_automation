@@ -76,7 +76,7 @@ def process_refund(transids, taskid=0):
 	print()
 	print("======================================| Starting   Refunds |======================================")
 	tid = 0
-	not_processed = []
+	not_processed = [] ; tasks_type = {}
 	refunds = get_data_before_action(transids, 'refund')
 	tasks = []
 	try:
@@ -88,8 +88,13 @@ def process_refund(transids, taskid=0):
 				tasktype = taskid
 			tasks.append(tasktype)
 			refund_tasks = db_agent.refund_task(tasktype, tid)
+			pid = refunds[1][tid]['PurchaseID']
+			#refunds[0][pid]['tasktype'] = tasktype
+			tasks_type[pid] = tasktype
+
 		print(f"Tasks inserted : {tasks}")
 		tmp = web_service.process_request("Refund", config.refund_url, 200)
+		config.tasks_type = tasks_type
 		return refunds[0], refunds[1], not_processed
 	except Exception as ex:
 		print(ex)

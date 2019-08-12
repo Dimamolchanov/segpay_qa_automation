@@ -26,6 +26,7 @@ class DBActions:
 
     def execute_select_one_parameter(self, sql, condition):
         sql = sql.format(condition)
+        #print(sql)
         self.cursor.execute(sql)
         response = self.cursor.fetchone()
         if not response:
