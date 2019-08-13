@@ -1,20 +1,16 @@
-import random
-import decimal
-from datetime import datetime
 import traceback
+from datetime import datetime
+from functools import partial
+
+from pos.point_of_sale.bep import bep
 from pos.point_of_sale.config import config
-from pos.point_of_sale.verifications import postback_service
-from pos.point_of_sale.utils import options
+from pos.point_of_sale.config.TransActionService import TransActionService
+from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.web import web
-from pos.point_of_sale.bep import bep
-from pos.point_of_sale.db_functions.dbactions import DBActions
-from pos.point_of_sale.runners import test_methods
-from pos.point_of_sale.runners import test_run
-from pos.point_of_sale.config.TransActionService import TransActionService
-from functools import partial
 
 db_agent = DBActions()
 start_time = datetime.now()
@@ -36,7 +32,7 @@ actions = {'singup': partial(test_methods.sign_up_trans_web1, config.test_data),
            'conversion': partial(bep.process_rebills, config.transids),
            'check_conversion_asset': partial(asset.asseets_check_rebills, config.results[0]),
            'check_conversion_mt': partial(mt.multitrans_check_conversion, config.results[1]),
-           'refunds': partial(bep.process_refund, config.transids, 842),
+           'refunds': partial(bep.process_refund, config.transids, 0),
            'check_refunds_mt': partial(mt.multitrans_check_refunds, config.results[1]),
            'check_refunds_asset': partial(asset.asseets_check_refunds, config.results[0]),
            'reactivate': partial(web.reactivate, config.transids),
@@ -64,7 +60,7 @@ for merchantid in config.merchants:
 			traceback.print_exc()
 			print(f"Exception {Exception} ")
 			pass
-	#actions['oneclick_pos']()
+	actions['oneclick_pos']()
 	for item in bep_basic:
 		try:
 			config.results = actions[item]()

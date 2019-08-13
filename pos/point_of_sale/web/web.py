@@ -47,7 +47,6 @@ def navigate_to_url(url):
 			return True
 
 		except:
-			# print("Retry after 1 sec navigating to url")
 			retry_count = retry_count + 1
 			time.sleep(1)
 
@@ -99,7 +98,28 @@ def one_click_pos(eticket,octoken,currency_lang,url_options):
 				br.find_by_id('UserNameInput').fill(username)
 			if br.find_by_id('PasswordInput'):
 				br.find_by_id('PasswordInput').fill(password)
+			while br.execute_script("return jQuery.active == 0") != True:
+				time.sleep(1)
 			br.find_by_id('SecurePurchaseButton').click()
+			time.sleep((2))
+			try:
+				if br.get_iframe('Cardinal-CCA-IFrame'):
+					with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+						if iframe.find_by_name('challengeDataEntry'):
+							iframe.find_by_name('challengeDataEntry').fill('1234')
+							iframe.find_by_value('SUBMIT').click()
+						elif iframe.get_iframe('authWindow'):
+							with iframe.get_iframe('authWindow') as auth:
+								auth.find_by_id('password').fill('test')
+								auth.find_by_name('UsernamePasswordEntry').click()
+						else:
+							pass
+			except NoSuchFrameException:
+				pass
+			except Exception as ex:
+				traceback.print_exc()
+				print(ex)
+
 
 			cnt = 0
 			while oneclick_record == None and cnt < 15:
@@ -176,27 +196,6 @@ def one_click_services(eticket,octoken,currency_lang,url_options):
 		traceback.print_exc()
 		print(f"{Exception}  Eticket: {eticket} Module => one_click_services ")
 		pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------ 1click POS and WS
 def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, url_options, selected_options):
 	transguid = ''
@@ -315,15 +314,6 @@ def one_click(option, eticket, pricepoint_type, multitrans_base_record, email, u
 
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------ Instant Conversion POS and WS
-
-
-
-
-
-
-
-
-
 def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record, email, selected_options, merchantbillconfig):
 	transguid = ''
 	url = ''
@@ -599,48 +589,95 @@ def reactivate(transids):
 	reactivated = []
 	asset_reactivated = {}
 	mt_reactivated = {}
-
 	not_reactivated = []
+
+
 	tid = ''
 	reactivate_tids = bep.get_data_before_action(transids, 'reactivation')
-
 	sql = "Select TransGuid from Multitrans where TransID = {} "  # and TransType in ( 101,1011)
 	try:
 		for tid in reactivate_tids[1]:
 			try:
-				transguid = reactivate_tids[1][tid]['TRANSGUID']
-				reactivate_record = reactivate_tids[1][tid]
 				pid = reactivate_tids[1][tid]['PurchaseID']
-				firstname = fake.first_name()
-				lastname = fake.last_name()
-				cc = 4444333322221111
-				joinlink = f"{config.reactivation_url}{transguid}&sprs=mp"
-				tasks_type_status = db_agent.tasks_table(tid)
+				purch_type = reactivate_tids[0][pid]['PurchType']
 
+				if purch_type in [501,506,505,511]:
+					transguid = reactivate_tids[1][tid]['TRANSGUID']
+					reactivate_record = reactivate_tids[1][tid]
+					#pid = reactivate_tids[1][tid]['PurchaseID']
 
-				db_agent.update_package(reactivate_record['PackageID'], reactivate_record['MerchantID'], reactivate_record['BillConfigID'])
-				navigate_to_url(joinlink)
-				time.sleep(1)
-				if 'This subscription is not eligible for reactivation.' in br.html:
-					not_reactivated.append(f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
-					                       f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
-				else:
-
-					if tasks_type_status[0] == 841:
-						br.find_by_id('ZipInput').fill('33063')
-						br.find_by_id('FirstNameInput').fill(firstname)
-						br.find_by_id('LastNameInput').fill(lastname)
-						br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-						br.find_by_id('CCExpMonthDDL').select('02')
-						br.find_by_id('CCExpYearDDL').select('2021')
-						br.find_by_id('CVVInputNumeric').fill('444')
-
-					br.find_by_id('SecurePurchaseButton').click()
+					config.test_data['zip'] = '33063'
+					config.test_data['firstname'] = fake.first_name()
+					config.test_data['lastname'] = fake.last_name()
+					cc = config.test_data['cc'] # 4444333322221111
+					config.test_data['month'] = '02'
+					config.test_data['year'] = '2025'
+					config.test_data['cvv'] = '888'
+					joinlink = f"{config.reactivation_url}{transguid}&sprs=mp"
+					tasks_type_status = db_agent.tasks_table(tid)
+					db_agent.update_package(reactivate_record['PackageID'], reactivate_record['MerchantID'], reactivate_record['BillConfigID'])
+					navigate_to_url(joinlink)
 					time.sleep(1)
-					reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
-					                   f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
-					mt_reactivated[tid] = reactivate_tids[1]
-					asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
+
+
+
+
+
+					if 'This subscription is not eligible for reactivation.' in br.html:
+						not_reactivated.append(f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+						                       f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+					else:
+						if tasks_type_status[0] == 841:
+							br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+							time.sleep(2)
+							br.find_by_id('ZipInput').fill(config.test_data['zip'])
+							br.find_by_id('FirstNameInput').fill(config.test_data['firstname'])
+							br.find_by_id('LastNameInput').fill(config.test_data['lastname'] )
+							br.find_by_id('CCExpMonthDDL').select(config.test_data['month'])
+							br.find_by_id('CCExpYearDDL').select(config.test_data['year'])
+							br.find_by_id('CVVInputNumeric').fill(config.test_data['cvv'])
+							while br.execute_script("return jQuery.active == 0") != True:
+								time.sleep(1)
+							time.sleep(1)
+							br.find_by_id('SecurePurchaseButton').click()
+							time.sleep(2)
+							try:
+								if br.get_iframe('Cardinal-CCA-IFrame'):
+									with br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+										if iframe.find_by_name('challengeDataEntry'):
+											iframe.find_by_name('challengeDataEntry').fill('1234')
+											iframe.find_by_value('SUBMIT').click()
+										elif iframe.get_iframe('authWindow'):
+											with iframe.get_iframe('authWindow') as auth:
+												auth.find_by_id('password').fill('test')
+												auth.find_by_name('UsernamePasswordEntry').click()
+										else:
+											pass
+							except NoSuchFrameException:
+								pass
+							except Exception as ex:
+								traceback.print_exc()
+								print(ex)
+							cnt = 0 ; reactivation_complete = None
+							while reactivation_complete == None and cnt < 10:
+								cnt += 1
+								sql = "Select * from multitrans where PurchaseID = {} and TransSource = 127"
+								reactivation_complete = db_agent.execute_select_one_parameter(sql, pid)
+								time.sleep(1)
+							if reactivation_complete == None:
+								print(f"******* Warning => transaction with TransID: {tid} is not Reactiavted - Check Manually ! *******")
+								raise Exception('norecord')
+							else:
+								time.sleep(1)
+								reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+								                   f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+						else:
+							br.find_by_id('SecurePurchaseButton').click()
+							time.sleep(1)
+							reactivated.append(f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+							                   f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+						mt_reactivated[tid] = reactivate_tids[1]
+						asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
 			except Exception as ex:
 				print(f"{Exception}  Tid: {tid,}  ")
 				traceback.print_exc()

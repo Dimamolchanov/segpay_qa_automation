@@ -5,7 +5,7 @@ from pos.point_of_sale.bep import bep
 from pos.point_of_sale.config import config
 import copy
 import traceback
-
+import time
 from pos.point_of_sale.utils import constants
 from pos.point_of_sale.db_functions.dbactions import DBActions
 
@@ -325,9 +325,7 @@ def asseets_check_refunds(refunds):
 	rkeys = refunds.keys()
 	rebills_completed = []
 	rebills_failed = []
-
 	sql = "Select * from Assets where PurchaseID = {}"
-	#print("Checking asset after refund")
 	for pid in rkeys:
 		try:
 			differences = {}
@@ -377,24 +375,35 @@ def assets_check_reactivation():
 	reactivation_completed_failed = []
 	current_date = (datetime.now().date())
 	sql = "Select * from Assets where PurchaseID = {}"
-	#print("Checking asset after refund")
 	for pid in rkeys:
 		try:
 			differences = {}
+			time.sleep(1)
 			live_record = db_agent.execute_select_one_parameter(sql, pid)
 			base_record = reactivated[pid][pid]
 			base_record['PurchStatus'] = 801
 			task_type = config.tasks_type[pid]
-			if task_type == 843:
+			if task_type == 841:
 				base_record['ConvDate'] = current_date
 				base_record['LastDate'] = current_date
 				base_record['NextDate'] = current_date + timedelta(days=base_record['PurchPeriod'])
 				base_record['ExpiredDate'] = current_date + timedelta(days=base_record['PurchPeriod'])
 				base_record['Purchases'] = base_record['Purchases'] + 1
+
+				base_record['PurchTotal'] = base_record['PurchTotal'] + base_record['RecurringAmount']
+
+				base_record['CustZip'] = config.test_data['zip']
+				card_encrypted = db_agent.encrypt_card(int(config.test_data['cc']))
+				base_record['PaymentAcct'] = card_encrypted
+				base_record['CardExpiration'] = config.test_data['month'] + config.test_data['year'][-2:]
+
+
+
+
 			base_record['CancelDate'] = None
 			base_record['Retries'] = 0
 			base_record['LastResult'] = 'Reactivated'
-			base_record['CardExpiration'] = live_record['CardExpiration']
+			#base_record['CardExpiration'] = live_record['CardExpiration']
 			if len(base_record['CardExpiration']) < 4:
 				print("Check Card Expiration - assets | Something is wrong")
 			differences = bep.dictionary_compare(base_record, live_record)
@@ -406,7 +415,6 @@ def assets_check_reactivation():
 				print(f"PurchaseID = {pid}")
 				for k, v in differences.items():
 					print(k, v)
-				print(colored(f"********************* Reactivation Asset MissMatch End ****************", 'red'))
 				print()
 		except Exception as ex:
 			print(f"{Exception}    PID: {pid} ")
@@ -414,10 +422,11 @@ def assets_check_reactivation():
 			pass
 
 	if len(reactivation_completed_failed) == 0:
-		print(colored(f"Reactivation {len(reactivation_completed)} records  => Assets Records Compared => Pass ", 'green'))
+		print(colored(f"Reactivation {len(reactivation_completed)} records reactivated => Assets Records Compared => Pass ", 'green'))
 	else:
-		print(colored(f"Reactivation {len(reactivation_completed)} records  => Assets Records Compared => Pass ", 'green'))
-		print(colored(f"Warning ************* Reactivation {len(reactivation_completed_failed)} records => Asset MissMatch => CHeck Manually ****************", 'blue'))
+		if len(reactivation_completed) > 0:
+			print(colored(f"Reactivation {len(reactivation_completed)} records  => Assets Records Compared => Pass ", 'green'))
+		print(colored(f"Warning ************* Reactivation {len(reactivation_completed_failed)} records => Asset MissMatch => Check Manually ****************", 'blue'))
 
 	return [reactivation_completed, reactivation_completed_failed]
 

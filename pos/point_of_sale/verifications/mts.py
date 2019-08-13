@@ -452,7 +452,6 @@ def mt_check_reactivation():
 	reactivated = config.mt_reactivated
 	rkeys = reactivated.keys()
 	cnt = 0
-	live_record = None #{}
 	tasks_type_status = []
 	reactivated_completed_mt = []
 	base_record = {}
@@ -468,7 +467,8 @@ def mt_check_reactivation():
 			tasks_type_status = db_agent.tasks_table(tid)
 			sql = "Select RecurringAmount, CardExpiration,PurchStatus from assets where PurchaseID = {}"
 			asset_data = db_agent.execute_select_one_parameter(sql, pid)
-			if asset_data['PurchStatus'] == 803:
+			live_record = None
+			if tasks_type_status[0] == 841:
 				while live_record == None and cnt < 5:
 					cnt  += 1
 					sql = "Select * from multitrans where PurchaseID = {} and TransSource = 127"
@@ -477,10 +477,20 @@ def mt_check_reactivation():
 				if live_record == None:
 					print(f"******* Warning => transaction with PurchaseID: {pid} is reactivated but there is no MultiTrans record for it!! *******")
 					raise Exception('norecord')
+				# refactor after fixes for address
+				live_record['CustAddress'] = 'N/A'
+				live_record['CustCity'] = 'N/A'
 
 				base_record['TransSource'] = 127
+				base_record['TransType'] = 101
 				base_record['TransAmount'] = asset_data['RecurringAmount']
-				base_record['CardExpiration'] = asset_data['CardExpiration']
+				base_record['CustZip'] = config.test_data['zip']
+				card_encrypted = db_agent.encrypt_card(int(config.test_data['cc']))
+				base_record['PaymentAcct'] = card_encrypted
+				base_record['CardExpiration'] = config.test_data['month'] + config.test_data['year'][-2:]
+				base_record['CustName'] = live_record['CustName']
+				base_record['RelatedTransID'] = 0
+
 				base_record['Markup'] = round((base_record['TransAmount'] * base_record['ExchRate']), 2)
 				exchange_rate = 1
 				if base_record['ProcessorCurrency'] == base_record['MerchantCurrency']:
@@ -533,7 +543,6 @@ def mt_check_reactivation():
 					for k, v in differences.items():
 						print(k, v)
 						print()
-					print(colored(f"******************** Reactivation Multitrans MissMatch End ***************", 'red'))
 					print()
 		except Exception as ex:
 			traceback.print_exc()
@@ -541,9 +550,10 @@ def mt_check_reactivation():
 			pass
 
 	if len(reactivated_failed_mt) == 0:
-		print(colored(f"Reactivation => Multitrans {len(reactivated_completed_mt)} - Records Compared => Pass ", 'green'))
+		print(colored(f"Reactivation {len(reactivated_completed_mt)} records reactivated  - Multitrans Records Compared => Pass ", 'green'))
 	else:
-		print(colored(f"Reactivation => Multitrans {len(reactivated_completed_mt)} - Records Compared => Pass ", 'green'))
+		if len(reactivated_completed_mt) > 0:
+			print(colored(f"Reactivation {len(reactivated_completed_mt)} records reactivated  - Multitrans Records Compared => Pass ", 'green'))
 		print()
 		print(colored(f"******************** Reactivation {len(reactivated_failed_mt)} transactions    => Multitrans MissMatch => Check Manually ***************", 'blue'))
 
