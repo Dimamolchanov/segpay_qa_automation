@@ -377,7 +377,7 @@ def multitrans_check_conversion(rebills):
 
 	return [rebills_completed_mt,rebills_failed_mt]
 
-def multitrans_check_refunds(refunds):
+def multitrans_check_refunds():
 	refunds = config.results[1]
 	rkeys = refunds.keys() ; live_record = {} ; tasks_type_status = []
 	refunds_completed_mt = [] ; base_record = {} ; sql = '' ; pid = 0

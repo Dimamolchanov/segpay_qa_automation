@@ -322,8 +322,8 @@ def asseets_check_rebills(rebills):
 	return [rebills_completed, rebills_failed]
 
 
-def asseets_check_refunds(refunds):
-	refunds = config.results[0]
+def asseets_check_refunds():
+	refunds = config.refunds[0]
 	rkeys = refunds.keys()
 	rebills_completed = []
 	rebills_failed = []
