@@ -7,6 +7,7 @@ from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
+import random
 
 db_agent = DBActions()
 
@@ -24,7 +25,6 @@ class TransActionService:
 
     @staticmethod
     def prepare_data(pricepoint, one_click_enabled):
-        test_data = {}
         merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
         db_agent.update_merchantbillconfig_oneclick(pricepoint, one_click_enabled)
         db_agent.update_pp_singleuse_promo(pricepoint, 1, config.single_use_promo)
@@ -34,15 +34,13 @@ class TransActionService:
         db_agent.update_package(config.packageid, config.merchants[0], pricepoint)
         eticket = str(config.packageid) + ':' + str(pricepoint)
         url_options = options.ref_variables() + options.refurl() + config.template
-        test_data['pricepoint_type'] = pricepoint_type
-        test_data['package'] = package
-        test_data['eticket'] = eticket
-        test_data['url_options'] = url_options
-        test_data['merchantbillconfig'] = merchantbillconfig
-        test_data['cc'] = config.cc_number
-        #test_data['cc3ds'] = config.cc_number
+        config.test_data['pricepoint_type'] = pricepoint_type
+        config.test_data['package'] = package
         config.test_data['eticket'] = eticket
-        return test_data
+        config.test_data['url_options'] = url_options
+        config.test_data['merchantbillconfig'] = merchantbillconfig
+        config.test_data['cc'] = random.choice(config.random_cards)
+        return config.test_data
 
 
 
@@ -55,19 +53,10 @@ class TransActionService:
         if transaction_to_check['full_record']['Authorized'] == 1:
             check_email = emails.check_email_que(config.test_data['pricepoint_type'], multitrans_base_record, 'signup')
         differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, transaction_to_check['TransID'])
+        differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
-        differences_3ds = {}
-        sql = f"select top 1 * from [MerchantCC3DSecureConfig] where merchantid = {multitrans_base_record['MerchantID']} and segpayprocessorid = " \
-            f"(select top 1 ProcessorID from ProcessorPoolsDetail where CardType = 'VISA' " \
-            f"and  ppid = ( select  PrefProcessorID from package where packageid = {multitrans_base_record['PackageID']}))"
-
-        visa_secure = db_agent.execute_select_two_parameters(sql, multitrans_base_record['MerchantID'], multitrans_base_record['PackageID'])
-        if visa_secure:
-            if 'cc3ds' in config.test_data:
-                differences_3ds = psd2.cardinal3dsrequests(multitrans_base_record['TransID'],config.test_data['cc3ds'])
-        print()
-        if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
+        if not differences_multitrans and not differences_asset and not differences_postback: #and not differences_3ds:
             return True
         else:
             return False
@@ -88,7 +77,7 @@ class TransActionService:
             return False
 
     @staticmethod
-    def verify_oc_transaction(octoken,eticket, one_click_record, test_data, selected_options):
+    def verify_oc_transaction(octoken,eticket, one_click_record, test_data, selected_options): # Yan
         mt_octoken_mbconfig_record = mt.build_mt_oneclick(eticket, octoken, one_click_record, config.test_data['url_options'], selected_options)
         multitrans_base_oc_record = mt_octoken_mbconfig_record[0]
         differences_mt_oc = mt.multitrans_compare(multitrans_base_oc_record, one_click_record)

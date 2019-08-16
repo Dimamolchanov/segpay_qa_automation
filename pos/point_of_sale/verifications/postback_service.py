@@ -77,7 +77,7 @@ def compare_results(text, actual, expected):
 
 
 def verify_postback_url(action, package_id, trans_id):
-
+    id = 0 ;actual_postback_status = '' ; expected_postback_status = ''
     errors_dictionary.clear()
     get_collect_user_info_code = get_collect_user_info(package_id)
     matched_postback_types = find_post_backs_received(package_id, trans_id)
@@ -116,6 +116,7 @@ def verify_postback_url(action, package_id, trans_id):
 
         matched_postback_ids = find_post_backs_ids(package_id, trans_id)
         for id in matched_postback_ids:
+
             postback_type = db_agent.get_postback_type_by_postback_id(id)
             if postback_type == 1:
                 expected_action = "Probe"
@@ -133,9 +134,11 @@ def verify_postback_url(action, package_id, trans_id):
                 if purchase_id == related_purchase_id:
                     expected_stage = 'rebill'
                 else:
-                    expected_stage = 'signup'
+                    expected_stage = 'initial'
             else:
                 expected_stage = "initial"
+            if trans_data['TransSource'] == 122:
+                expected_stage = 'conversion'
             expected_payment_account_id = db_agent.get_payment_acct_id(trans_id)
             if expected_payment_account_id == None:
                 expected_payment_account_id = "Wrong => Check MT values"
@@ -213,6 +216,9 @@ def verify_postback_url(action, package_id, trans_id):
     parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, trans_id))
     print('----------------------------------------------------------------------------')
     print(parsed_notif_url)
+    config.logging.info('')
+    config.logging.info(parsed_notif_url)
+    config.logging.info('')
     print('----------------------------------------------------------------------------')
     if not parsed_config_url:
         #print('Default postback config is used')
@@ -245,10 +251,14 @@ def verify_postback_url(action, package_id, trans_id):
 
     if not errors_dictionary:
          print(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
+         config.logging.info(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
+
     else:
          print(colored(f"********************* Postbacks MissMatch ****************", 'red'))
+         config.logging.info(colored(f"********************* Postbacks MissMatch ****************", 'red'))
          for param, value in errors_dictionary.items():
              print(param, value)
+             #config.logging.info(param, value)
     return errors_dictionary
 
 

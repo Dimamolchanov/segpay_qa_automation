@@ -39,7 +39,7 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 			'PaymentAcct': octoken_record['PaymentAcct'],
 			'PCID': None,
 			'Processor': octoken_record['Processor'],
-			'ProcessorCurrency': octoken_record['Currency'],
+			'ProcessorCurrency': merchantbillconfig['Currency'],               #octoken_record['Currency'],
 			'MerchantCurrency': currency_lang[0],
 			'STANDIN': one_click_record['STANDIN'],
 			'TransBin': one_click_record['TransBin'],
@@ -142,6 +142,7 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}  Eticket: {eticket,}  ")
+		config.logging.info(f"{Exception}  Eticket: {eticket,}  ")
 		pass
 
 def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
@@ -275,18 +276,22 @@ def multitrans_compare(multitrans_base_record, live_record):
 		differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
 
 		if len(differences) == 0:
-			#print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			      #f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
+			config.logging.info(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
 		else:
 			print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
 			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
+			config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
+			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			for k, v in differences.items():
 				print(k, v)
+				config.logging.info(k,v)
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
+		config.logging.info(f"Exception {Exception} ")
 		pass
 	return differences
 

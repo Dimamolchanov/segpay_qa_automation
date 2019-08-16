@@ -1,5 +1,4 @@
 import unittest
-
 from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.config.TransActionService import TransActionService
 from pos.point_of_sale.config import config

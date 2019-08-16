@@ -120,7 +120,7 @@ def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_li
 
 
 def build_asset_oneclick(merchantbillconfig, multitrans_base_record, multitrans_live_record, octoken_record):
-	type = merchantbillconfig['Type'];
+	type = merchantbillconfig['Type']
 	asset = {}
 	current_date = (datetime.now().date())
 
@@ -221,6 +221,7 @@ def build_asset_oneclick(merchantbillconfig, multitrans_base_record, multitrans_
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
+		config.logging.info(f"Exception {Exception} ")
 		pass
 	return asset
 
@@ -267,6 +268,7 @@ def asset_compare(asset_base_record):  # signup
 		print(colored(f"********************* Asset  MissMatch ****************", 'red'))
 		for k, v in differences.items():
 			print(k, v)
+			config.logging.info(k, v)
 	return differences
 
 
@@ -381,6 +383,7 @@ def assets_check_reactivation():
 			time.sleep(1)
 			live_record = db_agent.execute_select_one_parameter(sql, pid)
 			base_record = reactivated[pid][pid]
+			base_record['CustName'] = config.test_data['firstname'] + ' ' + config.test_data['lastname']
 			base_record['PurchStatus'] = 801
 			task_type = config.tasks_type[pid]
 			if task_type == 841:
