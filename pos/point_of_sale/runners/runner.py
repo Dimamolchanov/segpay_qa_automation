@@ -32,9 +32,10 @@ actions = {'singup': partial(test_methods.sign_up_trans_web1, config.test_data),
            'check_refunds_asset': partial(asset.asseets_check_refunds, config.results[0]),
            'reactivate': partial(web.reactivate, config.transids),
            'check_asset_reactivation': partial(asset.assets_check_reactivation),
-           'check_mt_reactivation': partial(mt.mt_check_reactivation)
+           'check_mt_reactivation': partial(mt.mt_check_reactivation),
+		   'check_refunds': partial(test_methods.verify_refunds)
            }
-
+bep_basic1 = ['refunds','check_refunds']
 bep_basic = ['refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate', 'check_asset_reactivation', 'check_mt_reactivation']
 bep_basic_with_capture = ['captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate', 'check_asset_reactivation', 'check_mt_reactivation']
 # bep_basic = ['captures', 'check_captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset']
@@ -59,9 +60,9 @@ for merchantid in config.merchants:
 			print(f"Exception {Exception} ")
 			pass
 	#actions['oneclick_pos']()
-	actions['oneclick_pos_all']()
+	#actions['oneclick_pos_all']()
 
-	for item in bep_basic:
+	for item in bep_basic1:
 		try:
 			config.results = actions[item]()
 			z = 3
