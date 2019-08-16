@@ -1,8 +1,10 @@
+from pos.point_of_sale.config import config
 from datetime import datetime
 from datetime import timedelta
 from termcolor import colored
 from decimal import Decimal
 import traceback
+import time
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import constants
@@ -37,7 +39,7 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 			'PaymentAcct': octoken_record['PaymentAcct'],
 			'PCID': None,
 			'Processor': octoken_record['Processor'],
-			'ProcessorCurrency': octoken_record['Currency'],
+			'ProcessorCurrency': merchantbillconfig['Currency'],               #octoken_record['Currency'],
 			'MerchantCurrency': currency_lang[0],
 			'STANDIN': one_click_record['STANDIN'],
 			'TransBin': one_click_record['TransBin'],
@@ -140,6 +142,7 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}  Eticket: {eticket,}  ")
+		config.logging.info(f"{Exception}  Eticket: {eticket,}  ")
 		pass
 
 def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
@@ -273,18 +276,22 @@ def multitrans_compare(multitrans_base_record, live_record):
 		differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
 
 		if len(differences) == 0:
-			#print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			      #f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
+			config.logging.info(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
 		else:
 			print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
 			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
+			config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
+			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			for k, v in differences.items():
 				print(k, v)
+				config.logging.info(k,v)
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
+		config.logging.info(f"Exception {Exception} ")
 		pass
 	return differences
 
@@ -371,6 +378,7 @@ def multitrans_check_conversion(rebills):
 	return [rebills_completed_mt,rebills_failed_mt]
 
 def multitrans_check_refunds(refunds):
+	refunds = config.results[1]
 	rkeys = refunds.keys() ; live_record = {} ; tasks_type_status = []
 	refunds_completed_mt = [] ; base_record = {} ; sql = '' ; pid = 0
 	refunds_failed_mt = []
@@ -443,11 +451,12 @@ def multitrans_check_refunds(refunds):
 		print()
 		print(colored(f"******************** Refund {len(refunds_failed_mt)} transactions    => Multitrans MissMatch => Check Manually ***************", 'blue'))
 
-	return [refunds_completed_mt, refunds_failed_mt]
+	return config.results #[refunds_completed_mt, refunds_failed_mt]
 
-def mt_check_reactivation(reactivated):
+def mt_check_reactivation():
+	reactivated = config.mt_reactivated
 	rkeys = reactivated.keys()
-	live_record = {}
+	cnt = 0
 	tasks_type_status = []
 	reactivated_completed_mt = []
 	base_record = {}
@@ -461,84 +470,95 @@ def mt_check_reactivation(reactivated):
 			base_record = reactivated[tid][tid]
 			pid = base_record['PurchaseID']
 			tasks_type_status = db_agent.tasks_table(tid)
+			sql = "Select RecurringAmount, CardExpiration,PurchStatus from assets where PurchaseID = {}"
+			asset_data = db_agent.execute_select_one_parameter(sql, pid)
+			live_record = None
+			if tasks_type_status[0] == 841:
+				while live_record == None and cnt < 5:
+					cnt  += 1
+					sql = "Select * from multitrans where PurchaseID = {} and TransSource = 127"
+					live_record = db_agent.execute_select_one_parameter(sql, pid)
+					time.sleep(1)
+				if live_record == None:
+					print(f"******* Warning => transaction with PurchaseID: {pid} is reactivated but there is no MultiTrans record for it!! *******")
+					raise Exception('norecord')
+				# refactor after fixes for address
+				live_record['CustAddress'] = 'N/A'
+				live_record['CustCity'] = 'N/A'
 
-			sql = "Select RecurringAmount, CardExpiration from assets where PurchaseID = {}"
-			trans_amount = db_agent.execute_select_one_parameter(sql, pid)
+				base_record['TransSource'] = 127
+				base_record['TransType'] = 101
+				base_record['TransAmount'] = asset_data['RecurringAmount']
+				base_record['CustZip'] = config.test_data['zip']
+				card_encrypted = db_agent.encrypt_card(int(config.test_data['cc']))
+				base_record['PaymentAcct'] = card_encrypted
+				base_record['CardExpiration'] = config.test_data['month'] + config.test_data['year'][-2:]
+				base_record['CustName'] = live_record['CustName']
+				base_record['RelatedTransID'] = 0
 
-			sql = "Select * from multitrans where PurchaseID = {} and TransSource = 127"
-			live_record = db_agent.execute_select_one_parameter(sql, pid)
-			base_record['TransSource'] = 127
-			base_record['TransAmount'] = trans_amount['RecurringAmount']
-			base_record['CardExpiration'] = trans_amount['CardExpiration']
-			base_record['Markup'] = round((base_record['TransAmount'] * base_record['ExchRate']), 2)
-
-			exchange_rate = 1
-			if base_record['ProcessorCurrency'] == base_record['MerchantCurrency']:
+				base_record['Markup'] = round((base_record['TransAmount'] * base_record['ExchRate']), 2)
 				exchange_rate = 1
-			else:
-				exchange_rate = db_agent.exc_rate(base_record['MerchantCurrency'], base_record['ProcessorCurrency'])
+				if base_record['ProcessorCurrency'] == base_record['MerchantCurrency']:
+					exchange_rate = 1
+				else:
+					exchange_rate = db_agent.exc_rate(base_record['MerchantCurrency'], base_record['ProcessorCurrency'])
+				if base_record['MerchantCurrency'] == 'JPY':
+					excr = round((base_record['TransAmount'] * exchange_rate), 2)
+					excr = round((excr))
+					excr = str(excr) + '.00'
+					excr = Decimal(excr)
+					base_record['Markup'] = excr
+				else:
+					base_record['Markup'] = round((base_record['TransAmount'] * exchange_rate), 2)
 
-			#exchange_rate = round(exchange_rate, 2)
+				base_record['TransStatus'] = 186
+				base_record['TransID'] = live_record['TransID']
 
-
-
-			if base_record['MerchantCurrency'] == 'JPY':
-				excr = round((base_record['TransAmount'] * exchange_rate), 2)
-				excr = round((excr))
-				excr = str(excr) + '.00'
-				excr = Decimal(excr)
-				base_record['Markup'] = excr
-			else:
-				base_record['Markup'] = round((base_record['TransAmount'] * exchange_rate), 2)
-
-			base_record['TransStatus'] = 186
-			base_record['TransID'] = live_record['TransID']
-
-			for record in [base_record, live_record]:
-				record['TRANSGUID'] = ''
-				record['ProcessorTransID'] = None
-				record['PCID'] = None
-				record['SOURCEMACHINE'] = None
-				record['USERDATA'] = None
-				#record['IPCountry'] = None
-				#record['BinCountry'] = None
-				record['RefURL'] = None
-				record['AffiliateID'] = None
-				# make sure they need it or not
-				record['REF1'] = None
-				record['REF2'] = None
-				record['REF3'] = None
-				record['REF4'] = None
-				record['REF5'] = None
-				record['REF6'] = None
-				record['REF7'] = None
-				record['REF8'] = None
-				record['REF9'] = None
-				record['REF10'] = None
+				for record in [base_record, live_record]:
+					record['TRANSGUID'] = ''
+					record['ProcessorTransID'] = None
+					record['PCID'] = None
+					record['SOURCEMACHINE'] = None
+					record['USERDATA'] = None
+					#record['IPCountry'] = None
+					#record['BinCountry'] = None
+					record['RefURL'] = None
+					record['AffiliateID'] = None
+					# make sure they need it or not
+					record['REF1'] = None
+					record['REF2'] = None
+					record['REF3'] = None
+					record['REF4'] = None
+					record['REF5'] = None
+					record['REF6'] = None
+					record['REF7'] = None
+					record['REF8'] = None
+					record['REF9'] = None
+					record['REF10'] = None
 
 
-			differences = bep.dictionary_compare(base_record, live_record)
+				differences = bep.dictionary_compare(base_record, live_record)
 
-			if len(differences) == 0:
-				reactivated_completed_mt.append(live_record)
-			else:
-				reactivated_failed_mt.append(live_record)
-				print(colored(f"********************* Reactivation Multitrans MissMatch Beginning**************** | PurchaseID = {pid} | TransID: {tid}", 'red'))
-				print()
-				for k, v in differences.items():
-					print(k, v)
+				if len(differences) == 0:
+					reactivated_completed_mt.append(live_record)
+				else:
+					reactivated_failed_mt.append(live_record)
+					print(colored(f"********************* Reactivation Multitrans MissMatch Beginning**************** | PurchaseID = {pid} | TransID: {tid}", 'red'))
 					print()
-				print(colored(f"******************** Reactivation Multitrans MissMatch End ***************", 'red'))
-				print()
+					for k, v in differences.items():
+						print(k, v)
+						print()
+					print()
 		except Exception as ex:
 			traceback.print_exc()
 			print(f"{Exception}  Tid: {tid,}   Task: {tasks_type_status[0]} , {tasks_type_status[1]}  SQL: {sql}  BaseRecord: {base_record}")
 			pass
 
 	if len(reactivated_failed_mt) == 0:
-		print(colored(f"Reactivation => Multitrans {len(reactivated_completed_mt)} - Records Compared => Pass ", 'green'))
+		print(colored(f"Reactivation {len(reactivated_completed_mt)} records reactivated  - Multitrans Records Compared => Pass ", 'green'))
 	else:
-		print(colored(f"Reactivation => Multitrans {len(reactivated_completed_mt)} - Records Compared => Pass ", 'green'))
+		if len(reactivated_completed_mt) > 0:
+			print(colored(f"Reactivation {len(reactivated_completed_mt)} records reactivated  - Multitrans Records Compared => Pass ", 'green'))
 		print()
 		print(colored(f"******************** Reactivation {len(reactivated_failed_mt)} transactions    => Multitrans MissMatch => Check Manually ***************", 'blue'))
 

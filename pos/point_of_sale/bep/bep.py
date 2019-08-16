@@ -25,7 +25,6 @@ def get_data_before_action(tids, action):
 				pid = mt_tmp["PurchaseID"]
 				sql = "Select * from Assets where PurchaseID = {}"
 				tmp = db_agent.execute_select_one_parameter(sql, pid)
-
 				if tmp['PurchType'] in [501, 506, 511]:
 					mt_before_action[tid] = mt_tmp
 					asset_before_action[pid] = tmp
@@ -76,23 +75,38 @@ def process_refund(transids, taskid=0):
 	print()
 	print("======================================| Starting   Refunds |======================================")
 	tid = 0
-	not_processed = []
+	not_processed = [] ; tasks_type = {}
 	refunds = get_data_before_action(transids, 'refund')
 	tasks = []
 	try:
 		for tid in refunds[1]:
+			try:
+				if refunds[1][tid]['Authorized']:
+					if taskid == 0:
+						tasktype = random.choice([841, 842, 843, 844])
+					else:
+						tasktype = taskid
+					tasks.append(tasktype)
+					refund_tasks = db_agent.refund_task(tasktype, tid)
+					pid = refunds[1][tid]['PurchaseID']
+					tasks_type[pid] = tasktype
+				else:
+					del refunds[1][tid]
+			except Exception as ex:
+				print(ex)
+				config.logging.info(ex)
+				traceback.print_exc()
+				not_processed.append(tid)
+				pass
 
-			if taskid == 0:
-				tasktype = random.choice([841, 842, 843, 844])
-			else:
-				tasktype = taskid
-			tasks.append(tasktype)
-			refund_tasks = db_agent.refund_task(tasktype, tid)
 		print(f"Tasks inserted : {tasks}")
+		config.logging.info(f"Tasks inserted : {tasks}")
 		tmp = web_service.process_request("Refund", config.refund_url, 200)
+		config.tasks_type = tasks_type
 		return refunds[0], refunds[1], not_processed
 	except Exception as ex:
 		print(ex)
+		config.logging.info(ex)
 		traceback.print_exc()
 		not_processed.append(tid)
 		pass
@@ -119,25 +133,19 @@ def dictionary_compare(base_record, live_record):
 	differences = {} ; live_value = '' ; base_value = ''
 	for key in base_record:
 		try:
-
 			if 'time'  in str(key).lower() or 'date'  in str(key).lower() :
 				tmp_str = (str(base_record[key])).split(' ')
 				base_value = tmp_str[0]
 				tmp_str = (str(live_record[key])).split(' ')
 				live_value = tmp_str[0]
-
-				#print(f"{key} : Base: {base_value}  Live: {live_value}")
 			else:
 				live_value = live_record[key]
 				base_value = base_record[key]
-
-
-
 			if base_value != live_value:
 				differences[key] = f"Base:{base_value} => Live:{live_value}"
 		except Exception as ex:
 			print(f"{Exception}  Key: {key,}")
 			traceback.print_exc()
+			config.logging.info(f"{Exception}  Key: {key,}")
 			pass
-
 	return differences

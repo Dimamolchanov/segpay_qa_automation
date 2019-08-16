@@ -13,8 +13,20 @@ class DBActions:
     def __init__(self):
         self.cursor = DBManager.getInstance()
 
+    def execute_select_one_with_wait(self, sql, condition):
+        cnt = 0
+        response = None
+        sql = sql.format(condition)
+        while response ==None and cnt <15:
+            cnt+= 1
+            time.sleep(1)
+            self.cursor.execute(sql)
+            response = self.cursor.fetchone()
+        return response
+
     def execute_select_one_parameter(self, sql, condition):
         sql = sql.format(condition)
+        #print(sql)
         self.cursor.execute(sql)
         response = self.cursor.fetchone()
         if not response:
