@@ -10,10 +10,12 @@ POSTBACK_STATUS_BI_ID = 'select status from PostBackNotifications where Postback
 POS_OR_SERVICE_TRANS_SOURCE = "select * from MultiTransValues where transid = {} and name = 'POSSOURCE'"
 FRAUD_CARD_CHECK = "select * from Fraud_TestCards where TestCard = '{}'"
 FRAUD_CARD_INSERT = "insert into Fraud_TestCards values ('{}', 'card inserted with auto script', 'auto', '2018-07-01 13:16:12.063')"
+GET_PAYMENTACCT_FROM_ASSET = 'select dbo.DecryptCard(PaymentAcct)  as cc from Assets where PurchaseID = {} '
 
 #----------------------------------------Multitrans---------------------------------------
 GET_DATA_FROM_MULTITRANS_BY_TRANS_ID = 'select * from multitrans where TransID = {}'
 GET_DATA_FROM_ASSETS_BY_TRANS_ID = 'select * from Assets where PurchaseID = (select PurchaseID from multitrans where TransID = {})'
+GET_DATA_FROM_ASSETS_BY_PURCHASE_ID = 'select * from Assets where PurchaseID = (select PurchaseID {})'
 GET_DATA_FROM_MULTITRANS_BY_RELATED_TRANS_ID = 'select * from multitrans where TransID = (select RelatedTransID from multitrans where transId = {})'
 GET_DATA_FROM_TASKS = 'select * from tasks where TransID = {}'
 GET_COUNT_OF_REBILLS_FROM_MULTITRANS = 'select count(txstatus) as txstatus  from multitrans where transID ={} and txstatus = 6'

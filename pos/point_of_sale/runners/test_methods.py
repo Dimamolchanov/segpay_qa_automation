@@ -7,6 +7,7 @@ from pos.point_of_sale.web import web
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import asset
+from termcolor import colored
 
 db_agent = DBActions()
 
@@ -25,7 +26,11 @@ def sign_up_trans_web1(test_data):  # Yan
 				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.processors[0])
 				if current_transaction_record['full_record']['Authorized']:
 					config.oc_tokens[current_transaction_record['full_record']['PurchaseID']] = config.test_data['pricepoint_type']
-				TransActionService.verify_signup_transaction(current_transaction_record)
+					TransActionService.verify_signup_transaction(current_transaction_record)
+				else:
+					result = current_transaction_record['full_record']
+					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ",'red',attrs=['bold']))
+					print()
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
@@ -48,7 +53,11 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 				one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
 			elif oc_type == 'ws':
 				one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
-			result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)
+			if one_click_record['Authorized']:
+				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)
+			else:
+				print(colored(f"OneClick Transaction DECLINED : AuthCode:{one_click_record['AuthCode']}",'red', attrs=['bold']))
+				print()
 		except Exception as ex:
 			traceback.print_exc()
 			print(f"{Exception}  ")

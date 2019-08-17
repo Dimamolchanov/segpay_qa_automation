@@ -291,7 +291,7 @@ def multitrans_compare(multitrans_base_record, live_record):
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
-		config.logging.info(f"Exception {Exception} ")
+		#config.logging.info(f"Exception {Exception} ")
 		pass
 	return differences
 
