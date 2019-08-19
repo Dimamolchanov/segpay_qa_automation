@@ -59,8 +59,8 @@ for merchantid in config.merchants:
 			traceback.print_exc()
 			print(f"Exception {Exception} ")
 			pass
-	actions['oneclick_pos']()
-	#actions['oneclick_pos_all']()
+	#actions['oneclick_pos']()
+	actions['oneclick_pos_all']()
 
 	if len(bep_basic1) != 0:
 		for item in bep_basic1:

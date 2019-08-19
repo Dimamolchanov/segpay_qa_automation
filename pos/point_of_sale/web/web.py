@@ -1,11 +1,6 @@
 import random
 import decimal
 from splinter import Browser
-# from selenium import webdriver
-# from selenium.webdriver.support.ui import WebDriverWait
-# from selenium.webdriver.support import expected_conditions as EC
-# from selenium.webdriver.common.by import By
-# from selenium.common.exceptions import TimeoutException
 from faker import Faker
 import subprocess
 from selenium import webdriver
@@ -26,6 +21,8 @@ from pos.point_of_sale.utils import options
 from termcolor import colored
 
 db_agent = DBActions()
+
+
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.add_argument("--window-position=-1400,0")
@@ -141,16 +138,22 @@ def one_click_pos(eticket,octoken,currency_lang,url_options):
 			token_type = config.oc_tokens[octoken]
 			card = db_agent.execute_select_one_parameter(constants.GET_PAYMENTACCT_FROM_ASSET, octoken)
 			visa_secure = options.is_visa_secure()
+
 			if visa_secure == 0:
-				print(colored(f"** |  Prepaid card  | CC_Card: {card['cc']} ** ", 'blue'))
+				print(colored(f"OneClick |  Prepaid card  | Short Form | CC_Card: {card['cc']}  | POS ", 'white', 'on_blue', attrs=['bold']))
+				config.logging.info(colored(f"OneClick |  Prepaid card  | Short Form ", 'blue'))
 			elif visa_secure == 1:
-				print(colored(f"** |  3DS configured - Not in Scope  for PSD2 | CC_Card: {card['cc']} **", 'blue'))
+				print(colored(f"OneClick |  3DS configured - Not in Scope  for PSD2 | Short Form | CC_Card: {card['cc']}  | POS ", 'white', 'on_blue', attrs=['bold']))
+				config.logging.info(colored(f"OneClick |  3DS configured - Not in Scope  for PSD2 | Short Form | CC_Card: {card['cc']}  | POS", 'blue'))
 			elif visa_secure == 2:
-				print(colored(f"** |  3DS not configured | In Scope  for PSD2 | | CC_Card: {card['cc']} ** ", 'blue'))  # will decline
+				print(colored(f"OneClick |  3DS not configured | In Scope  for PSD2 | Short Form | CC_Card: {card['cc']}  | POS ", 'white', 'on_blue', attrs=['bold']))
+				config.logging.info(colored(f"OneClick |  3DS not configured | In Scope  for PSD2 | Short Form | CC_Card: {card['cc']}  | POS ", 'blue', attrs=['bold']))  # will decline
 			elif visa_secure == 3:
-				print(colored(f"** |  3DS not configured | Not in Scope  for PSD2 | CC_Card: {card['cc']} **", 'blue'))
+				print(colored(f"OneClick |  3DS not configured | Not in Scope  for PSD2 | Short Form | CC_Card: {card['cc']}  | POS ", 'white', 'on_blue', attrs=['bold']))
+				config.logging.info(colored(f"OneClick |  3DS not configured | Not in Scope  for PSD2 | Short Form | CC_Card: {card['cc']}  | POS ", 'blue'))
 			elif visa_secure == 4:
-				print(colored(f"** |  3DS  configured |  in Scope  for PSD2 | CC_Card: {card['cc']} **", 'blue'))
+				print(colored(f"OneClick |  3DS  configured |  in Scope  for PSD2 | Extended Form | CC_Card: {card['cc']}  | POS ", 'white', 'on_blue', attrs=['bold']))
+				config.logging.info(colored(f"OneClick |  3DS  configured |  in Scope  for PSD2 | Extended Form | CC_Card: {card['cc']}  | POS", 'blue'))
 
 			print(f"OneClick POS => Eticket: {eticket}  | Processor: {oneclick_record['Processor']} "
 			      f"| DMC: {currency_lang[0]} | Lnaguage: {currency_lang[1]} | Type: {pricepoint_type} TokenType: {token_type} ")
@@ -424,22 +427,22 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	if page_loaded == False:
 		return None
 	email = 'qateam@segpay.com'  # fake.email()
-	#config.test_data['cc'] = '4000000000001109'# '5432768030017007'#'4444333322221111'
+	#config.test_data['cc'] = '4000000000001133'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
 	visa_secure = options.is_visa_secure()
 	if visa_secure == 0:
-		print(colored(f"Email: {email}   |  Prepaid card  | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))
+		print(colored(f"Email: {email}   |  Prepaid card  | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
 		config.logging.info(colored(f"Email: {email}   |  Prepaid card  | Short Form ", 'blue'))
 	elif visa_secure == 1:
-		print(colored(f"Email: {email}   |  3DS configured - Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))
+		print(colored(f"Email: {email}   |  3DS configured - Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
 		config.logging.info(colored(f"Email: {email}   |  3DS configured - Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']}", 'blue'))
 	elif visa_secure== 2:
-		print(colored(f"Email: {email}   |  3DS not configured | In Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))
-		config.logging.info(colored(f"Email: {email}   |  3DS not configured | In Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue', attrs=['bol']))  # will decline
+		print(colored(f"Email: {email}   |  3DS not configured | In Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
+		config.logging.info(colored(f"Email: {email}   |  3DS not configured | In Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))  # will decline
 	elif visa_secure== 3:
-		print(colored(f"Email: {email}   |  3DS not configured | Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))
+		print(colored(f"Email: {email}   |  3DS not configured | Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
 		config.logging.info(colored(f"Email: {email}   |  3DS not configured | Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue'))
 	elif visa_secure== 4:
-		print(colored(f"Email: {email}   |  3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))
+		print(colored(f"Email: {email}   |  3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
 		config.logging.info(colored(f"Email: {email}   |  3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']}", 'blue'))
 	config.test_data['visa_secure'] = visa_secure
 	if br.is_element_present_by_id('TransGUID', wait_time=10):

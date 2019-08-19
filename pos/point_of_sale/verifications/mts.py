@@ -8,7 +8,8 @@ import time
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import constants
-
+import json
+import simplexml
 db_agent = DBActions()
 
 
@@ -263,6 +264,22 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		multitrans['TransAmount'] = 1.00
 	exchange_rate = round(exchange_rate, 2)
 	multitrans['ExchRate'] = exchange_rate
+
+	# if config.test_data['visa_secure'] == 4:
+	# 	sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
+	# 		f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {data_from_paypage['TransID']})"
+	# 	live_record_3ds = db_agent.execute_select_with_no_params(sql)
+	# 	json_authresponse = json.loads(live_record_3ds['authresponse'])
+	# 	auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
+	# 	xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
+	# 	response = xml_return_string_lookuprresponse['CardinalMPI']
+	# 	if response['Enrolled'] == 'Y' and auth_response['ECIFlag'] == '07':
+	# 		#decline
+	#
+
+
+
+
 	return multitrans
 
 

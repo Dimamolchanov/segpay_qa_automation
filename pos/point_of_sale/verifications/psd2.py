@@ -49,7 +49,8 @@ def cardinal3dsrequests(transid):  # card
 				else:
 					if not live_record['authresponse'] == '':
 						json_authresponse = json.loads(live_record['authresponse'])
-						auth_response = json_authresponse['Payload']['Payment']['ExtendedData']
+						#auth_response = json_authresponse['Payload']['Payment']['ExtendedData']
+						auth_response = {**json_authresponse['Payload'],**json_authresponse['Payload']['Payment']['ExtendedData'] }
 						for item in card:
 							try:
 								if item == 'cPAResStatus':
@@ -68,10 +69,12 @@ def cardinal3dsrequests(transid):  # card
 									live_field = auth_response['ECIFlag']
 								elif item == 'cErrorNo':
 									base_field = card[item]
-									live_field = auth_response['ErrorNo']
+									live_field = auth_response['ErrorNumber']
 								elif item == 'cErrorDesc':
 									base_field = card[item]
-									live_field = auth_response['ErrorDesc']
+									live_field = auth_response['ErrorDescription']
+									if base_field == '<blank>' or base_field == '':
+										base_field = {}
 									if base_field == '<blank>' or base_field == '':
 										base_field = {}
 								if base_field != live_field:
