@@ -427,7 +427,7 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	if page_loaded == False:
 		return None
 	email = 'qateam@segpay.com'  # fake.email()
-	#config.test_data['cc'] = '4000000000001133'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
+	config.test_data['cc'] = '4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
 	visa_secure = options.is_visa_secure()
 	if visa_secure == 0:
 		print(colored(f"Email: {email}   |  Prepaid card  | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
@@ -586,7 +586,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		transguid = data_from_paypage['transguid']
 		sql = "select * from multitrans where TransGuid = '{}'"
 		full_record = db_agent.execute_select_one_with_wait(sql, transguid)
-		print(full_record['PurchaseID'])
+		#print(full_record['PurchaseID'])
 		data_from_paypage['PurchaseID'] = full_record['PurchaseID']
 		data_from_paypage['TransID'] = full_record['TransID']
 		if pricepoint_type == 511:

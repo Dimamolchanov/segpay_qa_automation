@@ -17,13 +17,12 @@ def cardinal3dsrequests(transid):  # card
 	pid = 0
 	psd2_failed = []
 	item = ''
-
 	try:
 		visa_secure = config.test_data['visa_secure']
 		base_field = ''
 		live_field = ''
 		sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
-			f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
+		      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
 		if visa_secure == 1:
 			live_record = db_agent.execute_select_with_no_params(sql)
 			if live_record == None:
@@ -45,12 +44,13 @@ def cardinal3dsrequests(transid):  # card
 
 				live_record = db_agent.execute_select_with_no_params(sql)
 				if live_record == None:
-					print("No record found")
+					print(colored(f"No record recieved from Cardinal - In Scope", 'red'))
+					print()
 				else:
 					if not live_record['authresponse'] == '':
 						json_authresponse = json.loads(live_record['authresponse'])
-						#auth_response = json_authresponse['Payload']['Payment']['ExtendedData']
-						auth_response = {**json_authresponse['Payload'],**json_authresponse['Payload']['Payment']['ExtendedData'] }
+						# auth_response = json_authresponse['Payload']['Payment']['ExtendedData']
+						auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
 						for item in card:
 							try:
 								if item == 'cPAResStatus':
@@ -148,11 +148,11 @@ def cardinal3dsrequests(transid):  # card
 							print()
 							pass
 
-
 			else:
 				live_record = db_agent.execute_select_with_no_params(sql)
 				if live_record == None:
 					print(colored(f"Merchant Configured for PSD2 => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
+					print()
 				else:
 					print(colored(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass ", 'green'))
 
@@ -163,8 +163,9 @@ def cardinal3dsrequests(transid):  # card
 					tmp = failed[item].split('split')
 					print(f"Field : {item} =>  Expected BaseField: {tmp[0]}  | Actual : {tmp[1]}  ")
 				print()
-			if len(failed) == 0:
+			if len(failed) == 0 and live_record:
 				print(colored(f"Cardinal3dsRequests test_case: {config.test_data['cc']} Records Compared => Pass ", 'green'))
+				print()
 			return failed
 		print()
 	except Exception as ex:
