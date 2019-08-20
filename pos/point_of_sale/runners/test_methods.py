@@ -26,7 +26,8 @@ def sign_up_trans_web1(test_data):  # Yan
 				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.processors[0])
 				#TransActionService.verify_signup_transaction(current_transaction_record)
 				if current_transaction_record['full_record']['Authorized']:
-					config.oc_tokens[current_transaction_record['full_record']['PurchaseID']] = config.test_data['pricepoint_type']
+					tmp = current_transaction_record['full_record']
+					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['pricepoint_type'],tmp['MerchantCurrency'],tmp['Language']]
 					TransActionService.verify_signup_transaction(current_transaction_record)
 
 				else:
@@ -77,8 +78,8 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				config.logging.info('')
 				pricepoint = current_transaction_id['full_record']['BillConfigID']
 				config.test_data = TransActionService.prepare_data(pricepoint, 1)
-				selected_options = [current_transaction_id['merchant_currency'], current_transaction_id['paypage_lnaguage']]
 				eticket = config.test_data['eticket']
+				selected_options = [config.oc_tokens[token][1],config.oc_tokens[token][2]]
 				octoken = token
 				if oc_type == 'pos':
 					one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])

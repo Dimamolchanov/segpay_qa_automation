@@ -17,12 +17,12 @@ rebill_url = ''
 captures_url = ''
 server = ''
 merchants = [27001]
-pricepoints =[27001,27002]#,27007,27001,27002,27003,27004,27008,27011]#,27008,27003,27011,27001,27002]#,27001,27004,27002,27008,27011]#,27004,27002,27008,27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
-processors = [44]
+pricepoints =[27001]#,27002,27007,27001,27002,27003,27004,27008,27011]#,27008,27003,27011,27001,27002]#,27001,27004,27002,27008,27011]#,27004,27002,27008,27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
+processors = [65]
 packageid = 99 #192048 #192046 #,192194  dynamic for dev package 510 192059
 template = '' #'&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
-available_currencies = ['CAD']#,'JPY']#,'CHF','JPY']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
+available_currencies = ['CAD','USD','JPY']#,'JPY']#,'CHF','JPY']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
 available_languages = ['EN']#,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 oc_list = [501, 502, 503, 504, 506, 510, 511]
 

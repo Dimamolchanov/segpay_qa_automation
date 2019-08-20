@@ -16,7 +16,7 @@ db_agent = DBActions()
 
 def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_lang):
 	transdate = (datetime.now().date())
-	ppid = eticket.split(':');
+	ppid = eticket.split(':')
 	multitrans_oneclick_record = {}
 	sql = "select * from MerchantBillConfig where BillConfigID = {}"
 	merchantbillconfig = db_agent.execute_select_one_parameter(sql, ppid[1])
