@@ -7,6 +7,7 @@ from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
+import traceback
 import random
 
 db_agent = DBActions()
@@ -62,82 +63,28 @@ class TransActionService:
             return False
 
 
-    @staticmethod
-    def verify_signup_oc_transaction(oc_type, asset_base_record, one_click_pos_record):
-        asset_base_record_onelick = asset.asset_oneclick(config.test_data['merchantbillconfig'][0], asset_base_record, one_click_pos_record[1])
-        differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
-        differences_asset = asset.asset_compare(asset_base_record_onelick)
-        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
-        config.transids.append(one_click_pos_record[1][0]['TransID'])
-        print(('*********************OneClick {} Transaction Verification Complete*********************').format(oc_type.upper()))
-        print()
-        if not differences_oneclick_pos and not differences_asset and not differences_postback:
-            return True
-        else:
-            return False
-
-    @staticmethod
+    @staticmethod # Yan
     def verify_oc_transaction(octoken,eticket, one_click_record, test_data, selected_options): # Yan
-        mt_octoken_mbconfig_record = mt.build_mt_oneclick(eticket, octoken, one_click_record, config.test_data['url_options'], selected_options)
-        multitrans_base_oc_record = mt_octoken_mbconfig_record[0]
-        differences_mt_oc = mt.multitrans_compare(multitrans_base_oc_record, one_click_record)
-        asset_base_oc_record = asset.build_asset_oneclick(mt_octoken_mbconfig_record[2], multitrans_base_oc_record, one_click_record, mt_octoken_mbconfig_record[1])
-        differences_asset_oc = asset.asset_compare(asset_base_oc_record)
-        check_email_oc = emails.check_email_que(mt_octoken_mbconfig_record[2]['Type'], multitrans_base_oc_record, 'signup')
-        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_record['TransID'])
-        config.transids.append(one_click_record['TransID'])
-        if not differences_mt_oc and not differences_asset_oc and not differences_postback:
-            return True
-        else:
-            return False
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        # asset_base_record_onelick = asset.asset_oneclick(config.test_data['merchantbillconfig'][0], asset_base_record, one_click_pos_record[1])
-        # differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
-        # differences_asset = asset.asset_compare(asset_base_record_onelick)
-        # differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_pos_record[1][0]['TransID'])
-        # config.transids.append(one_click_pos_record[1][0]['TransID'])
-        # print(('*********************OneClick {} Transaction Verification Complete*********************').format(oc_type.upper()))
-        # print()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        try:
+            mt_octoken_mbconfig_record = mt.build_mt_oneclick(eticket, octoken, one_click_record, config.test_data['url_options'], selected_options)
+            multitrans_base_oc_record = mt_octoken_mbconfig_record[0]
+            differences_mt_oc = mt.multitrans_compare(multitrans_base_oc_record, one_click_record)
+            asset_base_oc_record = asset.build_asset_oneclick(mt_octoken_mbconfig_record[2], multitrans_base_oc_record, one_click_record, mt_octoken_mbconfig_record[1])
+            differences_asset_oc = asset.asset_compare(asset_base_oc_record)
+            if one_click_record['Authorized'] == 1:
+                check_email_oc = emails.check_email_que(mt_octoken_mbconfig_record[2]['Type'], one_click_record, 'signup')
+            differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_record['TransID'])
+            card = db_agent.decrypt_string(one_click_record['PaymentAcct'])
+            config.test_data['cc'] = card
+            differences_3ds = psd2.cardinal3dsrequests(one_click_record['TransID'])
+            config.transids.append(one_click_record['TransID'])
+            if not differences_mt_oc and not differences_asset_oc and not differences_postback:
+                return True
+            else:
+                return False
+        except Exception as ex:
+            traceback.print_exc()
+            print(f"{Exception}")
 
 
 

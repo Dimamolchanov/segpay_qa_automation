@@ -7,8 +7,6 @@ tmp = tmp[0] + tmp[1].replace(':','_')
 file_name ='C:\segpay_qa_automation\\test_run_' + tmp +'.log'
 logging.basicConfig(filename=file_name, level=logging.INFO)
 
-
-#logging.basicConfig(filename='C:\segpay_qa_automation\\testrun.log', level=logging.INFO)
 enviroment = 'stage3'
 url = ''
 urlws = ''
@@ -18,26 +16,28 @@ refund_url = ''
 rebill_url = ''
 captures_url = ''
 server = ''
-# provide merchant ID
 merchants = [27001]
-# type - for type select on run, list - for all PPs, billConfig ID(e.g. 100140) - for single PP type
-pricepoints =[27003]# [27007,27001,27002,27003,27004,27008,27011]#,27008,27003,27011,27001,27002]#,27001,27004,27002,27008,27011]#,27004,27002,27008,27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
-#Processeor ID
-processors = [65]
-#PAckage ID
+pricepoints =[27001,27002,27007,27001,27002,27003,27004,27008,27011]#,27008,27003,27011,27001,27002]#,27001,27004,27002,27008,27011]#,27004,27002,27008,27011]#,27008,27011,27002,27003,27004]#,27002,27004,27006,27008,27011]#,27001,27002]   ,27002,27001,27004,27006,27008,27011
+processors = [44]
 packageid = 99 #192048 #192046 #,192194  dynamic for dev package 510 192059
-template =''#'&template=defaultpsd2'  # '&template=defaultnopaypal'  default
+template = '' #'&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
-available_currencies = ['AUD']#,'EUR','CHF']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
+available_currencies = ['CAD','USD','JPY']#,'JPY']#,'CHF','JPY']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
 available_languages = ['EN']#,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 oc_list = [501, 502, 503, 504, 506, 510, 511]
+
 #Global Objects to transfer data from test to test
 transaction_records = []
 results = ['none','none']
+refunds = []
 tasks_type = {}
 asset_reactivated = {}
 mt_reactivated = {}
 oc_tokens = {}
+
+cards_to_decline = ['4000000000001059','4000000000001067','4000000000001075','4000000000001034','4000000000001083',]
+
+
 random_cards = ['4000000000001000','4000000000001018','4000000000001026','4000000000001034','4000000000001042','4000000000001059','4000000000001067',
                 '4000000000001075','4000000000001083','4000000000001091','4000000000001109','4444333322221111','5432768030017007']
 test_data ={}
@@ -54,7 +54,7 @@ cards_3ds = {
 	"4000000000001067":{"card": "4000000000001067",'Enrolled' : 'U','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '1001', 'ErrorDesc' : 'Error Processing Message Request','cmpi_authenticate response' : 'NO'},
 	"4000000000001075":{"card": "4000000000001075",'Enrolled' : '','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '','ACSUrl' : '','Payload' : '', 'ErrorNo' : '<value>', 'ErrorDesc' : '<value>','cmpi_authenticate response' : 'NO'},
 	"4000000000001083":{"card": "4000000000001083",'Enrolled' : 'B','PAResStatus' : '','SignatureVerification' : '','Cavv' : '','EciFlag' : '07','ACSUrl' : '','Payload' : '', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'NO'},
-	"4000000000001091":{"card": "4000000000001091",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '<value>','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'Y','cSignatureVerification' : 'Y','cCavv' : '<value>','cEciFlag' : '05','cErrorNo' : 0, 'cErrorDesc' : ''},
+	"4000000000001091":{"card": "4000000000001091",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '07','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'Y','cSignatureVerification' : 'Y','cCavv' : '<value>','cEciFlag' : '05','cErrorNo' : 0, 'cErrorDesc' : ''},
 	"4000000000001109":{"card": "4000000000001109", 'Enrolled': 'Y', 'PAResStatus': 'C', 'SignatureVerification': 'Y', 'Cavv': '','EciFlag': '<value>', 'ACSUrl': '<value>', 'Payload': '<value>', 'ErrorNo': '0', 'ErrorDesc': '', 'cmpi_authenticate response': 'YES', 'cPAResStatus': 'N', 'cSignatureVerification': 'Y', 'cCavv': '','cEciFlag': '07', 'cErrorNo': 0, 'cErrorDesc': ''},
 	"4000000000001117":{"card": "4000000000001117",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '<value>','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'U','cSignatureVerification' : 'Y','cCavv' : '','cEciFlag' : '07','cErrorNo' : 0, 'cErrorDesc' : ''},
 	"4000000000001125":{"card": "4000000000001125",'Enrolled' : 'Y','PAResStatus' : 'C','SignatureVerification' : 'Y','Cavv' : '','EciFlag' : '<value>','ACSUrl' : '<value>','Payload' : '<value>', 'ErrorNo' : '0', 'ErrorDesc' : '','cmpi_authenticate response' : 'YES','cPAResStatus' : 'U','cSignatureVerification' : 'Y','cCavv' : '','cEciFlag' : '','cErrorNo' : '<value>', 'cErrorDesc' : '<value>'},

@@ -8,15 +8,18 @@ import time
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import constants
+import json
+import simplexml
 
 db_agent = DBActions()
 
 
-def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_lang):
+def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_lang):
 	transdate = (datetime.now().date())
-	ppid = eticket.split(':') ; multitrans_oneclick_record = {}
+	ppid = eticket.split(':')
+	multitrans_oneclick_record = {}
 	sql = "select * from MerchantBillConfig where BillConfigID = {}"
-	merchantbillconfig =  db_agent.execute_select_one_parameter(sql, ppid[1])
+	merchantbillconfig = db_agent.execute_select_one_parameter(sql, ppid[1])
 	pp_type = merchantbillconfig['Type']
 	sql = "select * from assets where PurchaseID = {}"
 	octoken_record = db_agent.execute_select_one_parameter(sql, octoken)
@@ -32,14 +35,14 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 			'CardExpiration': octoken_record['CardExpiration'],
 			'CustCountry': octoken_record['CustCountry'],
 			'CustEMail': octoken_record['CustEMail'],
-			'CustName': octoken_record['CustName'] ,
+			'CustName': octoken_record['CustName'],
 			'CustZip': octoken_record['CustZip'],
 			'Language': currency_lang[1],
 			'MerchantID': one_click_record['MerchantID'],
 			'PaymentAcct': octoken_record['PaymentAcct'],
 			'PCID': None,
 			'Processor': octoken_record['Processor'],
-			'ProcessorCurrency': merchantbillconfig['Currency'],               #octoken_record['Currency'],
+			'ProcessorCurrency': merchantbillconfig['Currency'],  # octoken_record['Currency'],
 			'MerchantCurrency': currency_lang[0],
 			'STANDIN': one_click_record['STANDIN'],
 			'TransBin': one_click_record['TransBin'],
@@ -101,11 +104,10 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 			exchange_rate = db_agent.exc_rate(currency_lang[0], merchantbillconfig['Currency'])
 
 		multitrans['TxStatus'] = 2
-		if pp_type in (502,503,510):
+		if pp_type in (502, 503, 510):
 			multitrans['TransSource'] = 123
 		else:
 			multitrans['TransSource'] = 121
-
 
 		multitrans['TransStatus'] = 186
 		multitrans['TransType'] = 1011
@@ -121,8 +123,8 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 		else:
 			initial_price = merchantbillconfig['InitialPrice']
 			multitrans['TransAmount'] = initial_price
-			multitrans['Markup']= round(initial_price * exchange_rate, 2)
-			#multitrans['RelatedTransID'] = 0
+			multitrans['Markup'] = round(initial_price * exchange_rate, 2)
+			# multitrans['RelatedTransID'] = 0
 			multitrans['TransDate'] = transdate
 
 		if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
@@ -130,11 +132,12 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 		elif merchantbillconfig['Type'] == 511 and one_click_record['511']['InitialPrice'] == 0.00:
 			multitrans['TransAmount'] = 1.00
 
-
 		exchange_rate = round(exchange_rate, 2)
 		multitrans['ExchRate'] = exchange_rate
+		if multitrans['MerchantCurrency'] == 'JPY':
+			multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
 		one_click_record['PCID'] = None
-		return multitrans , octoken_record,merchantbillconfig
+		return multitrans, octoken_record, merchantbillconfig
 
 
 
@@ -144,6 +147,7 @@ def build_mt_oneclick(eticket, octoken, one_click_record,url_options,currency_la
 		print(f"{Exception}  Eticket: {eticket,}  ")
 		config.logging.info(f"{Exception}  Eticket: {eticket,}  ")
 		pass
+
 
 def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
 	transdate = (datetime.now().date())
@@ -255,7 +259,7 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		else:
 			multitrans['TransDate'] = transdate
 			multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
-			multitrans['Markup']= round(merchantbillconfig['InitialPrice'] * exchange_rate, 2)
+			multitrans['Markup'] = round(merchantbillconfig['InitialPrice'] * exchange_rate, 2)
 			multitrans['RelatedTransID'] = 0
 
 	if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
@@ -263,15 +267,54 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		multitrans['TransAmount'] = 1.00
 	exchange_rate = round(exchange_rate, 2)
 	multitrans['ExchRate'] = exchange_rate
+	if multitrans['MerchantCurrency'] == 'JPY':
+		multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
+
+	try:
+		if config.test_data['visa_secure'] == 4:
+			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
+			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {data_from_paypage['TransID']})"
+			live_record_3ds = db_agent.execute_select_with_no_params(sql)
+			if live_record_3ds:
+				if not live_record_3ds['authresponse'] == '':
+					json_authresponse = json.loads(live_record_3ds['authresponse'])
+					auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
+				xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
+				response = xml_return_string_lookuprresponse['CardinalMPI']
+
+				if response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y':
+					# if response['Enrolled'] == 'Y' and auth_response['ECIFlag'] == '07':
+					# decline
+					print(config.test_data['cc'])
+				elif response['Cavv'] == False and response['EciFlag'] == '06' and response['Enrolled'] == 'N':
+					print(config.test_data['cc'])
+				elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'U':
+					print(config.test_data['cc'])
+				elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
+					print(config.test_data['cc'])
+				elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] in ['Y', 'A'] and response['SignatureVerification'] == 'N':
+					print(config.test_data['cc'])
+				elif response['Cavv'] == False and response['EciFlag'] == False and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'error':
+					print(config.test_data['cc'])
+				elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
+					print(config.test_data['cc'])
+
+
+
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}")
+		pass
+
 	return multitrans
 
 
 def multitrans_compare(multitrans_base_record, live_record):
 	differences = {}
 	try:
-		multitrans_live_record = live_record #[0]
+		multitrans_live_record = live_record  # [0]
 		live_record['PCID'] = None
-		multitrans_live_record['TransDate'] =   multitrans_live_record['TransDate'].date()
+		multitrans_live_record['TransDate'] = multitrans_live_record['TransDate'].date()
 
 		differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
 
@@ -283,17 +326,18 @@ def multitrans_compare(multitrans_base_record, live_record):
 			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			                    f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			for k, v in differences.items():
 				print(k, v)
-				config.logging.info(k,v)
+		# config.logging.info(k,v)
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
 		config.logging.info(f"Exception {Exception} ")
 		pass
 	return differences
+
 
 def multitrans_check_conversion(rebills):
 	rkeys = rebills.keys()
@@ -323,7 +367,7 @@ def multitrans_check_conversion(rebills):
 			base_record['RefURL'] = None
 
 			sql = "select TOP 1 Rate from ExchangeRates as rate where ConsumerIso = '{}' " \
-				"and   MerchantIso = '{}' order by importdatetime desc"
+			      "and   MerchantIso = '{}' order by importdatetime desc"
 
 			exchange_rate = db_agent.execute_select_two_parameters(sql, base_record['MerchantCurrency'], base_record['ProcessorCurrency'])
 
@@ -367,7 +411,7 @@ def multitrans_check_conversion(rebills):
 
 	except Exception as ex:
 		traceback.print_exc()
-		#(f"{Exception}  Tid: {tid,}   Task: {tasks_type_status[0]} , {tasks_type_status[1]}  SQL: {sql}  BaseRecord: {base_record}")
+		# (f"{Exception}  Tid: {tid,}   Task: {tasks_type_status[0]} , {tasks_type_status[1]}  SQL: {sql}  BaseRecord: {base_record}")
 		pass
 
 	if len(rebills_failed_mt) == 0:
@@ -375,12 +419,18 @@ def multitrans_check_conversion(rebills):
 	else:
 		print(colored(f"********************* Rebills => Multitrans MissMatch => CHeck Manually ****************", 'blue'))
 
-	return [rebills_completed_mt,rebills_failed_mt]
+	return [rebills_completed_mt, rebills_failed_mt]
 
-def multitrans_check_refunds(refunds):
+
+def multitrans_check_refunds():
 	refunds = config.results[1]
-	rkeys = refunds.keys() ; live_record = {} ; tasks_type_status = []
-	refunds_completed_mt = [] ; base_record = {} ; sql = '' ; pid = 0
+	rkeys = refunds.keys();
+	live_record = {};
+	tasks_type_status = []
+	refunds_completed_mt = [];
+	base_record = {};
+	sql = '';
+	pid = 0
 	refunds_failed_mt = []
 
 	for tid in rkeys:
@@ -401,23 +451,23 @@ def multitrans_check_refunds(refunds):
 					base_record['TxStatus'] = 8
 					base_record['TransStatus'] = 182
 					sql = "Select * from multitrans where PurchaseID = {} and TransType = 107 and RelatedTransID = {}"
-				else: # Refund
+				else:  # Refund
 					sql = "Select * from multitrans where PurchaseID = {} and TransType = 102 and RelatedTransID = {}"
 					base_record['TransType'] = 102
 					base_record['TxStatus'] = 7
 					base_record['TransStatus'] = 186
 
 				live_record = db_agent.execute_select_two_parameters(sql, pid, base_record['TransID'])
-				#live_record['TransTime'] = datetime.date(live_record['TransTime'])
+				# live_record['TransTime'] = datetime.date(live_record['TransTime'])
 
 				base_record['TransAmount'] = (-base_record['TransAmount'])
 				base_record['Markup'] = (-base_record['Markup'])
 				base_record['TransSource'] = 125
 				base_record['RelatedTransID'] = base_record['TransID']
 				base_record['TransID'] = live_record['TransID']
-				#base_record['TransTime'] = datetime.date(base_record['TransTime'])
+				# base_record['TransTime'] = datetime.date(base_record['TransTime'])
 
-				for record in [base_record,live_record]:
+				for record in [base_record, live_record]:
 					record['TRANSGUID'] = ''
 					record['ProcessorTransID'] = None
 					record['PCID'] = None
@@ -427,7 +477,7 @@ def multitrans_check_refunds(refunds):
 					record['RefURL'] = None
 					record['AffiliateID'] = None
 
-				differences = bep.dictionary_compare(base_record,live_record)
+				differences = bep.dictionary_compare(base_record, live_record)
 
 				if len(differences) == 0:
 					refunds_completed_mt.append(live_record)
@@ -451,7 +501,8 @@ def multitrans_check_refunds(refunds):
 		print()
 		print(colored(f"******************** Refund {len(refunds_failed_mt)} transactions    => Multitrans MissMatch => Check Manually ***************", 'blue'))
 
-	return config.results #[refunds_completed_mt, refunds_failed_mt]
+	return config.results  # [refunds_completed_mt, refunds_failed_mt]
+
 
 def mt_check_reactivation():
 	reactivated = config.mt_reactivated
@@ -475,7 +526,7 @@ def mt_check_reactivation():
 			live_record = None
 			if tasks_type_status[0] == 841:
 				while live_record == None and cnt < 5:
-					cnt  += 1
+					cnt += 1
 					sql = "Select * from multitrans where PurchaseID = {} and TransSource = 127"
 					live_record = db_agent.execute_select_one_parameter(sql, pid)
 					time.sleep(1)
@@ -520,8 +571,8 @@ def mt_check_reactivation():
 					record['PCID'] = None
 					record['SOURCEMACHINE'] = None
 					record['USERDATA'] = None
-					#record['IPCountry'] = None
-					#record['BinCountry'] = None
+					# record['IPCountry'] = None
+					# record['BinCountry'] = None
 					record['RefURL'] = None
 					record['AffiliateID'] = None
 					# make sure they need it or not
@@ -535,7 +586,6 @@ def mt_check_reactivation():
 					record['REF8'] = None
 					record['REF9'] = None
 					record['REF10'] = None
-
 
 				differences = bep.dictionary_compare(base_record, live_record)
 
@@ -563,12 +613,6 @@ def mt_check_reactivation():
 		print(colored(f"******************** Reactivation {len(reactivated_failed_mt)} transactions    => Multitrans MissMatch => Check Manually ***************", 'blue'))
 
 	return [reactivated_completed_mt, reactivated_failed_mt]
-
-
-
-
-
-
 
 
 def build_multitrans_by_trans_id(merchantbillconfig, package, trans_id, url_options):
@@ -690,5 +734,3 @@ def build_multitrans_by_trans_id(merchantbillconfig, package, trans_id, url_opti
 	exchange_rate = round(exchange_rate, 2)
 	multitrans['ExchRate'] = exchange_rate
 	return multitrans
-
-

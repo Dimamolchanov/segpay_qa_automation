@@ -143,38 +143,85 @@ def verify_postback_url(action, package_id, trans_id):
             if expected_payment_account_id == None:
                 expected_payment_account_id = "Wrong => Check MT values"
 
+
+
     elif action == "refund":
-       refund_type = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_TASKS, trans_id)
-       if refund_type == 841:
-           compare_results("Collect user info", (3 in matched_postback_types and 4 in matched_postback_types), True)
-       elif refund_type == 842:
-           compare_results("Collect user info", (3 not in matched_postback_types and 4 in matched_postback_types), True)
-       elif refund_type == 843:
-           compare_results("Collect user info", (3 not in matched_postback_types and 4 not in matched_postback_types), True)
-       matched_postback_ids = find_post_backs_ids(package_id, trans_id)
-       for id in matched_postback_ids:
+
+        data_from_multitrans = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, trans_id)
+
+        initial_trans_id = data_from_multitrans['RelatedTransID']
+
+        refund_type = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_TASKS, trans_id)
+
+        if refund_type == 841:
+
+            compare_results("Collect user info", (3 in matched_postback_types and 4 in matched_postback_types), True)
+
+        elif refund_type == 842:
+
+            compare_results("Collect user info", (3 not in matched_postback_types and 4 in matched_postback_types), True)
+
+        elif refund_type == 843:
+
+            compare_results("Collect user info", (3 not in matched_postback_types and 4 not in matched_postback_types), True)
+
+        matched_postback_ids = find_post_backs_ids(package_id, trans_id)
+
+        for id in matched_postback_ids:
+
+            initial_parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, initial_trans_id))
+
+            parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, trans_id))
+
             postback_type = db_agent.get_postback_type_by_postback_id(id)
+
+            if postback_type == 5:
+                compare_results("Check scarequired", parsed_notif_url.get('scarequired'), initial_parsed_notif_url.get('scarequired'))
+
+                compare_results("Check is3dsauthenticated", parsed_notif_url.get('is3dsauthenticated'), initial_parsed_notif_url.get('is3dsauthenticated'))
+
             if postback_type == 3:
+
                 expected_action = "Disable"
+
             elif postback_type == 4:
+
                 expected_action = "Cancel"
+
             elif postback_type == 5:
+
                 if trans_type == 102:
+
                     expected_action = "auth"
+
                 elif trans_type == 107:
+
                     expected_action = "void"
+
                 else:
+
                     print("Trans type {} is no allowed for REFUND".format(trans_type))
+
             actual_postback_status = db_agent.get_postback_status_by_id(id, trans_id)
+
             expected_postback_status = 863
+
             if trans_type == 102:
+
                 expected_trantype = "credit"
+
             elif trans_type == 107:
+
                 expected_trantype = "sale"
+
             else:
+
                 print("Trans type {} is no allowed for REFUND".format(trans_type))
+
             expected_stage = "initial"
+
             expected_payment_account_id = db_agent.get_payment_acct_id(trans_id)
+
             if expected_payment_account_id == None:
                 expected_payment_account_id = "Wrong => Check MT values"
 
@@ -214,12 +261,12 @@ def verify_postback_url(action, package_id, trans_id):
     current_config_URL = db_agent.get_url_from_config(id)
     parsed_config_url = parse_post_back_url(current_config_URL)
     parsed_notif_url = parse_post_back_url(db_agent.get_url_from_notif(id, trans_id))
-    print('----------------------------------------------------------------------------')
-    print(parsed_notif_url)
+    #print('----------------------------------------------------------------------------')  # Printg of postbcack params
+    #print(parsed_notif_url)
     config.logging.info('')
     config.logging.info(parsed_notif_url)
     config.logging.info('')
-    print('----------------------------------------------------------------------------')
+   # print('----------------------------------------------------------------------------')
     if not parsed_config_url:
         #print('Default postback config is used')
         compare_results("TranType {}".format(id), parsed_notif_url.get('trantype'), expected_trantype.lower())
