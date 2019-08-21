@@ -428,7 +428,7 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	if page_loaded == False:
 		return None
 	email = 'qateam@segpay.com'  # fake.email()
-	#config.test_data['cc'] = '4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
+	config.test_data['cc'] = '4000000000001042'#4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
 	visa_secure = options.is_visa_secure()
 	if visa_secure == 0:
 		print(colored(f"Email: {email}   |  Prepaid card  | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
