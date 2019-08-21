@@ -15,6 +15,7 @@ db_agent = DBActions()
 def sign_up_trans_web1(test_data):  # Yan
 	test_data = config.test_data  # refactor needs
 	current_transaction_record = {}
+	aprove_or_decline = None
 	for selected_language in config.available_languages:
 		for dmc in config.available_currencies:
 			try:
@@ -25,6 +26,7 @@ def sign_up_trans_web1(test_data):  # Yan
 				config.logging.info('print("======================================| SignUp Transaction |======================================\n")')
 				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.processors[0])
 				#TransActionService.verify_signup_transaction(current_transaction_record)
+				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']
 					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['pricepoint_type'],tmp['MerchantCurrency'],tmp['Language']]
