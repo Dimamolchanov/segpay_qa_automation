@@ -24,6 +24,7 @@ def sign_up_trans_web1(test_data):  # Yan
 				print("======================================| SignUp Transaction |======================================\n")
 				config.logging.info('print("======================================| SignUp Transaction |======================================\n")')
 				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.processors[0])
+				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
 				#TransActionService.verify_signup_transaction(current_transaction_record)
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']

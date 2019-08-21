@@ -19,19 +19,16 @@ from selenium.common.exceptions import *
 from pos.point_of_sale.utils import constants
 from pos.point_of_sale.utils import options
 from termcolor import colored
-
+from selenium.webdriver.chrome.options import Options
 db_agent = DBActions()
 
-
-
+#webdriver = webdriver.Chrome("C:\segpay_qa_automation/chromedriver.exe")
+#
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--window-position=-1400,0")
+chrome_options.add_argument("--window-position=-1000,0")
 
 fake = Faker()
-
-# def start_browser():
 br = Browser(driver_name='chrome', options=chrome_options)
-
 path = os.path.join((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'transguid\\TransGuidDecoderApp.exe')
 
 
@@ -428,7 +425,7 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	if page_loaded == False:
 		return None
 	email = 'qateam@segpay.com'  # fake.email()
-	#config.test_data['cc'] = '4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
+	config.test_data['cc'] = '4000000000001000'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
 	visa_secure = options.is_visa_secure()
 	if visa_secure == 0:
 		print(colored(f"Email: {email}   |  Prepaid card  | Short Form | Card {config.test_data['cc']} ", 'yellow','on_grey', attrs=['blink']))
