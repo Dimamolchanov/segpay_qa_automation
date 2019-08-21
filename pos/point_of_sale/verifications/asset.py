@@ -13,7 +13,7 @@ db_agent = DBActions()
 
 
 def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_live_record):
-	type = merchantbillconfig['Type'];
+	type = merchantbillconfig['Type']
 	asset = {}
 	live_record = multitrans_live_record['full_record']
 	current_date = (datetime.now().date())
@@ -30,7 +30,7 @@ def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_li
 		         'AuthCurrency': multitrans_base_record['MerchantCurrency'],
 		         'PurchTotal': multitrans_base_record['TransAmount'],
 		         'CustLang': multitrans_base_record['Language'],
-		         'Currency': multitrans_base_record['ProcessorCurrency'],
+		         'Currency': merchantbillconfig['Currency'],
 		         'PurchaseID': multitrans_base_record['PurchaseID'],
 		         'Processor': multitrans_base_record['Processor'],
 		         'CustEMail': multitrans_base_record['CustEMail'],
@@ -58,57 +58,63 @@ def build_asset_signup(merchantbillconfig, multitrans_base_record, multitrans_li
 		elif type == 505:
 			asset['PurchTotal'] = 0.00
 			asset['InitialAmount'] = 0.00
-			purchtype_recurring = [501, 505, 506, 507, 511]
-			if multitrans_base_record['Authorized'] == 1:
-				transdate = (datetime.now().date())
-				if type in (purchtype_recurring):
-					asset['PurchStatus'] = 801
-					asset['StatusDate'] = current_date
-					asset['PurchDate'] = current_date
-					if type == 511:
-						asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
-						asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
-					elif type == 505:
-						asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen']) + timedelta(days=merchantbillconfig['RebillLen'])
-					else:
-						asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
-						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
-
-					asset['CancelDate'] = None
-					asset['ConvDate'] = None
-					asset['LastDate'] = None
-				else:
-					asset['PurchStatus'] = 804
-					if type in [503, 510]:
-						asset['StatusDate'] = current_date
-						asset['PurchDate'] = current_date
-						asset['NextDate'] = None
-						asset['ExpiredDate'] = current_date
-						asset['CancelDate'] = current_date
-						asset['ConvDate'] = current_date
-						asset['LastDate'] = current_date
-					elif type == 502:
-						asset['PurchDate'] = current_date
-						asset['NextDate'] = None
-						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
-						asset['CancelDate'] = current_date
-						asset['ConvDate'] = current_date
-						asset['LastDate'] = current_date
-				asset['LastResult'] = None
-				asset['Purchases'] = 1
-
-			else:
-				asset['PurchStatus'] = 806
-				asset['LastResult'] = 'Declined'
-				asset['PurchTotal'] = 0
-				asset['Purchases'] = 0
+		purchtype_recurring = [501, 505, 506, 507, 511]
+		if multitrans_base_record['Authorized'] == 1:
+			transdate = (datetime.now().date())
+			if type in (purchtype_recurring):
+				asset['PurchStatus'] = 801
 				asset['StatusDate'] = current_date
 				asset['PurchDate'] = current_date
-				asset['NextDate'] = None
-				asset['ExpiredDate'] = current_date
-				asset['CancelDate'] = current_date
-				asset['ConvDate'] = current_date
-				asset['LastDate'] = current_date
+				if type == 511:
+					asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
+					asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
+				elif type == 505:
+					asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen']) + timedelta(days=merchantbillconfig['RebillLen'])
+				else:
+					asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+					asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+
+				asset['CancelDate'] = None
+				asset['ConvDate'] = None
+				asset['LastDate'] = None
+			else:
+				asset['PurchStatus'] = 804
+				if type in [503, 510]:
+					asset['StatusDate'] = current_date
+					asset['PurchDate'] = current_date
+					asset['NextDate'] = None
+					asset['ExpiredDate'] = current_date
+					asset['CancelDate'] = current_date
+					asset['ConvDate'] = current_date
+					asset['LastDate'] = current_date
+				elif type == 502:
+					asset['PurchDate'] = current_date
+					asset['NextDate'] = None
+					asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+					asset['CancelDate'] = current_date
+					asset['ConvDate'] = current_date
+					asset['LastDate'] = current_date
+			asset['LastResult'] = None
+			asset['Purchases'] = 1
+
+		else:
+			asset['PurchStatus'] = 806
+			asset['LastResult'] = 'Declined'
+			asset['PurchTotal'] = 0
+			asset['Purchases'] = 0
+			asset['StatusDate'] = current_date
+			asset['PurchDate'] = current_date
+			asset['NextDate'] = None
+			asset['ExpiredDate'] = current_date
+			asset['CancelDate'] = current_date
+			asset['ConvDate'] = current_date
+			asset['LastDate'] = current_date
+		if config.test_data['aprove_or_decline'] == False:
+			asset['LastResult'] = 'Declined'
+			#asset['MerchantCurrency'] = 'USD'
+			asset['AuthCurrency'] = 'USD'
+			asset['LastResult'] = 'Declined'
+
 
 
 	except Exception as ex:
@@ -268,7 +274,7 @@ def asset_compare(asset_base_record):  # signup
 		print(colored(f"********************* Asset  MissMatch ****************", 'red'))
 		for k, v in differences.items():
 			print(k, v)
-			config.logging.info(k, v)
+
 	return differences
 
 

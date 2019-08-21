@@ -35,7 +35,10 @@ def sign_up_trans_web1(test_data):  # Yan
 				else:
 					result = current_transaction_record['full_record']
 					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ",'red',attrs=['bold']))
-					print()
+					print("---------------------------------------")
+					#print()
+					TransActionService.verify_signup_transaction(current_transaction_record)
+
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
@@ -85,6 +88,10 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				octoken = token
 				if oc_type == 'pos':
 					one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
+					aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
+					if not one_click_record['Authorized']:
+						print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
+						print("---------------------------------------")
 				elif oc_type == 'ws':
 					one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
 				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)

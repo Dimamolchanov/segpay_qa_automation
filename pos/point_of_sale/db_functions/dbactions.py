@@ -33,6 +33,15 @@ class DBActions:
             return None
         return response
 
+    def cardinal_actions(self, resulttype, scopetype):
+        sql = f"select ResultAction from CardinalResultActions where ResultType = {resulttype} and ScopeType = {scopetype}"
+        #print(sql)
+        self.cursor.execute(sql)
+        response = self.cursor.fetchone()
+        if not response:
+            return None
+        return response
+
     def execute_select_two_parameters(self, sql, condition_first, condition_second):
         sql = sql.format(condition_first, condition_second)
         self.cursor.execute(sql)

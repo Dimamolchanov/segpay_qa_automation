@@ -270,41 +270,51 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 	if multitrans['MerchantCurrency'] == 'JPY':
 		multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
 
-	try:
-		if config.test_data['visa_secure'] == 4:
-			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
-			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {data_from_paypage['TransID']})"
-			live_record_3ds = db_agent.execute_select_with_no_params(sql)
-			if live_record_3ds:
-				if not live_record_3ds['authresponse'] == '':
-					json_authresponse = json.loads(live_record_3ds['authresponse'])
-					auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
-				xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
-				response = xml_return_string_lookuprresponse['CardinalMPI']
-
-				if response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y':
-					# if response['Enrolled'] == 'Y' and auth_response['ECIFlag'] == '07':
-					# decline
-					print(config.test_data['cc'])
-				elif response['Cavv'] == False and response['EciFlag'] == '06' and response['Enrolled'] == 'N':
-					print(config.test_data['cc'])
-				elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'U':
-					print(config.test_data['cc'])
-				elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
-					print(config.test_data['cc'])
-				elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] in ['Y', 'A'] and response['SignatureVerification'] == 'N':
-					print(config.test_data['cc'])
-				elif response['Cavv'] == False and response['EciFlag'] == False and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'error':
-					print(config.test_data['cc'])
-				elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
-					print(config.test_data['cc'])
+	if config.test_data['aprove_or_decline']  == False:
+		multitrans['Authorized'] = 0
+		multitrans['Markup'] = 0.00
+		multitrans['ExchRate'] = 0.00
+		multitrans['MerchantCurrency'] = 'USD'
+		del multitrans['AuthCode']
 
 
 
-	except Exception as ex:
-		traceback.print_exc()
-		print(f"{Exception}")
-		pass
+
+	# try:
+	# 	if config.test_data['visa_secure'] == 4:
+	# 		sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
+	# 		      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {data_from_paypage['TransID']})"
+	# 		live_record_3ds = db_agent.execute_select_with_no_params(sql)
+	# 		if live_record_3ds:
+	# 			if not live_record_3ds['authresponse'] == '':
+	# 				json_authresponse = json.loads(live_record_3ds['authresponse'])
+	# 				auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
+	# 			xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
+	# 			response = xml_return_string_lookuprresponse['CardinalMPI']
+	#
+	# 			if response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y':
+	# 				# if response['Enrolled'] == 'Y' and auth_response['ECIFlag'] == '07':
+	# 				# decline
+	# 				print(config.test_data['cc'])
+	# 			elif response['Cavv'] == False and response['EciFlag'] == '06' and response['Enrolled'] == 'N':
+	# 				print(config.test_data['cc'])
+	# 			elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'U':
+	# 				print(config.test_data['cc'])
+	# 			elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
+	# 				print(config.test_data['cc'])
+	# 			elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] in ['Y', 'A'] and response['SignatureVerification'] == 'N':
+	# 				print(config.test_data['cc'])
+	# 			elif response['Cavv'] == False and response['EciFlag'] == False and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'error':
+	# 				print(config.test_data['cc'])
+	# 			elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
+	# 				print(config.test_data['cc'])
+
+
+
+	# except Exception as ex:
+	# 	traceback.print_exc()
+	# 	print(f"{Exception}")
+	# 	pass
 
 	return multitrans
 
@@ -322,19 +332,19 @@ def multitrans_compare(multitrans_base_record, live_record):
 			print(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
 			config.logging.info(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
 		else:
-			print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			      f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			# print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
+			#       f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
-			config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			                    f" TransGuid: {multitrans_base_record['TRANSGUID']}")
-			config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
+			# config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
+			#                    # f" TransGuid: {multitrans_base_record['TRANSGUID']}")
+			#config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			for k, v in differences.items():
 				print(k, v)
 		# config.logging.info(k,v)
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
-		config.logging.info(f"Exception {Exception} ")
+		#config.logging.info(f"Exception {Exception} ")
 		pass
 	return differences
 
