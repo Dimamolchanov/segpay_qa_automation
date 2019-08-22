@@ -77,10 +77,17 @@ class DBActions:
         return p_type_list
 
     def get_value_from_postback_notif(self, trans_id, column_to_return):
+        cnt = 0
         n_type_list = []
+        rows = None
         sql = constants.POST_BACK_TYPES_FROM_NOTIFICATION.format(trans_id)
         self.cursor.execute(sql)
+        while rows == None and cnt < 5:
+            cnt += 1
+            time.sleep(1)
         rows = self.cursor.fetchall()
+        if not rows:
+            return None
         for row in rows:
             p_type = row[column_to_return]
             #print(f'Adding {p_type} to the notification list')
@@ -99,6 +106,8 @@ class DBActions:
         sql = constants.POST_BACK_CINFIG_URL_BY_ID.format(postback_id)
         self.cursor.execute(sql)
         temp = self.cursor.fetchone()
+        if not temp:
+            return None
         temp = temp['PostbackURL']
         return temp
 
@@ -225,6 +234,13 @@ class DBActions:
                         (package, merchantid, billconfigid, '2018-06-04 17:39:45.887', 'autotester', 1))
         sql = f"Update package set MerchantID = {merchantid} where PackageID = {package}"
         self.cursor.execute(sql)
+    def merchant_us_or_eu(self,merchantid):
+        sql = f'select MerchantCountry from merchants where merchantid ={merchantid}'
+        #print(sql)
+        self.cursor.execute(sql)
+        temp = self.cursor.fetchone()
+        return temp
+
 
     def multitrans_val(self, transguid):
         transid = 0

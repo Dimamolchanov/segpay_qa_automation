@@ -10,6 +10,10 @@ errors_dictionary = {}
 def find_post_backs_received(package_id, trans_id):
     postback_type_config = get_post_back_config_type(package_id)
     postback_type_notif = get_post_back_notif_type(trans_id)
+    if postback_type_notif == None:
+        compare_results("Mathced postbacks in config and notif", postback_type_config, postback_type_notif)
+        print("There is no records in POstBackNotification table")
+        return None
     #print(postback_type_config)
     #print(postback_type_notif)
     result = []
@@ -81,6 +85,9 @@ def verify_postback_url(action, package_id, trans_id):
     errors_dictionary.clear()
     get_collect_user_info_code = get_collect_user_info(package_id)
     matched_postback_types = find_post_backs_received(package_id, trans_id)
+    if matched_postback_types == None:
+        print("NO postbacks in Notification table. Skipping further verification")
+        return 0
     is_service_transaction = db_agent.get_trans_source(trans_id)
     trans_data = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, trans_id)
     trans_type = trans_data['TransType']
