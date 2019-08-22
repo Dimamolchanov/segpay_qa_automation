@@ -14,3 +14,10 @@ FRAUD_CARD_INSERT = "insert into Fraud_TestCards values ('{}', 'card inserted wi
 #----------------------------------------Multitrans---------------------------------------
 GET_DATA_FROM_MULTITRANS_BY_TRANS_ID = 'select * from multitrans where TransID = {}'
 GET_DATA_FROM_ASSETS_BY_TRANS_ID = 'select * from Assets where PurchaseID = (select PurchaseID from multitrans where TransID = {})'
+GET_DATA_FROM_MULTITRANS_BY_RELATED_TRANS_ID = 'select * from multitrans where TransID = (select RelatedTransID from multitrans where transId = {})'
+GET_DATA_FROM_TASKS = 'select * from tasks where TransID = {}'
+GET_COUNT_OF_REBILLS_FROM_MULTITRANS = 'select count(txstatus) as txstatus  from multitrans where transID ={} and txstatus = 6'
+IS_3DSAUTHENTICATED = "select * from Cardinal3dsRequests where TransGuid = '{}'"
+GET_DATA_FROM_3D_SECURE_CONFIG = 'select top 1 * from [MerchantCC3DSecureConfig] where merchantid = {} and segpayprocessorid = (select top 1 ProcessorID from ProcessorPoolsDetail where  ppid = ( select  PrefProcessorID from package where packageid = {}))'
+GET_DATA_FROM_GLOBALBINDETAILS = "select * from Globalbindatabasedetail where bin9 = '{}' and IssCountry = 'GB'"
+GET_DATA_FROM_MERCHANT_EXTENSION = 'select VISARegion from Merchants_Extension where merchantid = {}'

@@ -36,14 +36,14 @@ class RunTests(unittest.TestCase):
     #         test_methods.sign_up_trans_oc('pos', config.test_data)
             #self.assertTrue(test_methods.sign_up_trans_oc('pos', config.test_data), "Sign Up oc POS failed!!!")
 
-    # def step_3_test_sign_up_trans_oc_ws(self):
-    #     for pricepoint in self.pricepoints:
-    #         config.test_data = TransActionService.prepare_data(pricepoint, 1)
-    #         if config.test_data['pricepoint_type'] not in config.oc_list:
-    #             print("{} price point is not eligible for OC")
-    #             return False
-    #         test_methods.sign_up_trans_oc('ws', config.test_data)
-    #         #self.assertTrue(test_methods.sign_up_trans_oc('ws', config.test_data), "Sign Up oc WS failed!!!")
+    def step_3_test_sign_up_trans_oc_ws(self):
+        for pricepoint in self.pricepoints:
+            config.test_data = TransActionService.prepare_data(pricepoint, 1)
+            if config.test_data['pricepoint_type'] not in config.oc_list:
+                print("{} price point is not eligible for OC")
+                return False
+            test_methods.sign_up_trans_oc('ws', config.test_data)
+            #self.assertTrue(test_methods.sign_up_trans_oc('ws', config.test_data), "Sign Up oc WS failed!!!")
     #
     # def step_4_test_sign_up_ic_pos(self):
     #     for pricepoint in self.pricepoints:

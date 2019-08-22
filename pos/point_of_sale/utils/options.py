@@ -2,9 +2,13 @@ import random
 import string
 
 from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.config import config
+from pos.point_of_sale.utils import constants
 
 
 db_agent = DBActions()
+
+eu_countries = ['BE', 'BG', 'BL', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GF', 'GG', 'GI', 'GP', 'GR', 'HR', 'HU', 'IE', 'IM', 'IS', 'IT', 'JE', 'LI', 'LT', 'LU', 'LV', 'MF', 'MQ', 'MT']
 
 
 def randomString(stringLength=10):
@@ -56,6 +60,21 @@ def string_after(value, a):
     adjusted_pos_a = pos_a + len(a)
     if adjusted_pos_a >= len(value): return ""
     return value[adjusted_pos_a:]
+
+def is_visa_secure():
+    is_merchant_configured = db_agent.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, config.merchants[0], config.packageid)
+    is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, config.merchants[0])['VISARegion']
+    is_card_eu = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_GLOBALBINDETAILS,
+                                                       str(config.test_data['cc'])[0:9])
+    if is_card_eu:
+        is_card_eu = is_card_eu['PrePaid'] == 'N' and is_card_eu['IssCountry'] in eu_countries
+    if not is_merchant_configured or not is_card_eu:
+        return 0
+    elif is_merchant_configured and is_eu_merchant == 1 and is_card_eu:
+        return 1
+    elif is_merchant_configured and is_eu_merchant != 1:
+        return 2
+
 
 
 

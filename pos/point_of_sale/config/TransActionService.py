@@ -38,6 +38,7 @@ class TransActionService:
         test_data['eticket'] = eticket
         test_data['url_options'] = url_options
         test_data['merchantbillconfig'] = merchantbillconfig
+        test_data['cc'] = 4444333322221111
         return test_data
 
 

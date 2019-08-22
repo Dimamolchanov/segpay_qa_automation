@@ -1,11 +1,6 @@
 import random
 import decimal
 from splinter import Browser
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-from selenium.common.exceptions import TimeoutException
 from faker import Faker
 import subprocess
 from selenium import webdriver
@@ -17,6 +12,7 @@ import requests
 import copy
 import traceback
 import os
+
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.bep import bep
@@ -26,7 +22,7 @@ from pos.point_of_sale.utils import constants
 db_agent = DBActions()
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--window-position=-1400,0")
+#chrome_options.add_argument("--window-position=-1400,0")
 
 fake = Faker()
 
@@ -368,16 +364,16 @@ def FillDefault(url, selected_options, merchantid, packageid):
 
 	visa_secure = db_agent.execute_select_two_parameters(sql, merchantid, packageid)
 	if visa_secure == None:
-		cc = 4444333322221111
-	else:
 		cc = 5200000000000007
+	else:
+		cc = 5200000000000007#5200000000000007
 
 	# cc = 5200000000000007  #  4444333322221111  # 4024007102361424
 	transbin = int(str(cc)[:6])
 	card_encrypted = db_agent.encrypt_card(cc)
 	if not db_agent.execute_select_one_parameter(constants.FRAUD_CARD_CHECK, card_encrypted):
 		db_agent.execute_insert(constants.FRAUD_CARD_INSERT, card_encrypted)
-	month = ['01', '02', '03', '04']
+	month = ['01']#, '02', '03', '04']
 	expiration_date = random.choice(month)
 	year = ['21', '22', '23', '24']
 	year = f"20{random.choice(year)}"
@@ -517,9 +513,11 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 		transguid = data_from_paypage['transguid']
 
 		sql = "select * from multitrans where TransGuid = '{}'"
-		full_record = db_agent.execute_select_one_parameter(sql, transguid)
+		time.sleep(2)
+		#full_record = db_agent.execute_select_one_parameter(sql, transguid)
 
-		#full_record = db_agent.multitrans_full_record('', transguid, '')  # transid_purchaseid = db_agent.db_agent.(transguid)
+		full_record = db_agent.multitrans_full_record('', transguid, '')  # transid_purchaseid = db_agent.db_agent.(transguid)
+		full_record = full_record[0]
 		data_from_paypage['PurchaseID'] = full_record['PurchaseID']
 		data_from_paypage['TransID'] = full_record['TransID']
 		if pricepoint_type == 511:
@@ -542,6 +540,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 
 		print(f"New SignUp => Mid: {merchantid} | Eticket: {eticket} | Type: {pricepoint_type} | Processor: {data_from_paypage['processor']} |"
 		      f" DMC: {data_from_paypage['merchant_currency']} | Lnaguage: {data_from_paypage['paypage_lnaguage']}")
+		print(f"PurchaseID: {data_from_paypage['PurchaseID']} | TransID: {data_from_paypage['TransID']} | TransGuid: {data_from_paypage['transguid']}")
 
 		return data_from_paypage
 	except Exception as ex:

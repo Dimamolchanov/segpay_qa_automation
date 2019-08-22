@@ -14,9 +14,15 @@ class DBActions:
         self.cursor = DBManager.getInstance()
 
     def execute_select_one_parameter(self, sql, condition):
+        response = None
+        retry_count = 0
         sql = sql.format(condition)
-        self.cursor.execute(sql)
-        response = self.cursor.fetchone()
+        while not response and retry_count <= 5:
+            self.cursor.execute(sql)
+            retry_count += 1
+            response = self.cursor.fetchone()
+            if not response:
+                time.sleep(2)
         if not response:
             return None
         return response
@@ -45,8 +51,13 @@ class DBActions:
     def get_value_from_postback_configs(self, package_id, column_to_return):
         p_type_list = []
         sql = constants.POST_BACK_TYPES_FROM_CONFIG.format(package_id)
-        self.cursor.execute(sql)
-        rows = self.cursor.fetchall()
+        rows = None
+        retry_count = 0
+        while not rows and retry_count <=5:
+            self.cursor.execute(sql)
+            retry_count += 1
+            rows = self.cursor.fetchall()
+
         for row in rows:
             p_type = row[column_to_return]
             #print(f'Adding {p_type} to the config list')
