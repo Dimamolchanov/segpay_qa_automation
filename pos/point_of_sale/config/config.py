@@ -18,25 +18,25 @@ captures_url = ''
 server = ''
 # us merchant 21621   ppid 74 package 192060 pricepoints  27042,27041, 27064 - ic,27187 - recurring [27042,27041,27187]
 
-merchant = 'EU'
+merchant = 'US'
 
 if merchant == 'US':
 	merchants = [21621]
-	pricepoints = [27042, 27041, 27187]
+	pricepoints = [27042, 27041, 27187,27190]
 	processors = [74]
 	packageid = 192060
+	available_currencies = ['USD']
 else:
 	merchants = [27001]
 	pricepoints = [27002,27003,27002,27007,27001,27002,27003,27004,27008,27011]
 	processors = [44]
 	packageid = 99  # 192048 #192046 #,192194  dynamic for dev package 510 192059
-
+	available_currencies = ['USD']  # ,'USD']#,'USD','JPY']#,'JPY']#,'CHF','JPY']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
+available_languages = ['EN']  # ,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 
 
 template = '' #'&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
-available_currencies = ['USD']#,'USD']#,'USD','JPY']#,'JPY']#,'CHF','JPY']#,'EUR', 'GBP', 'HKD', 'JPY', 'NOK', 'SEK', 'DKK',"CHF",  "EUR", "GBP", "HKD"]
-available_languages = ['EN']#,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 oc_list = [501, 502, 503, 504, 506, 510, 511]
 
 #Global Objects to transfer data from test to test
