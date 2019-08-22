@@ -152,169 +152,137 @@ def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_
 def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
 	transdate = (datetime.now().date())
 	url = db_agent.url(package['URLID'])
+	multitrans = {}
+	try:
+		multitrans = {
+			'PurchaseID': data_from_paypage['PurchaseID'],
+			'TransID': data_from_paypage['TransID'],
+			'TRANSGUID': data_from_paypage['transguid'],
+			'BillConfigID': merchantbillconfig['BillConfigID'],
+			'PackageID': package['PackageID'],
+			'AuthCode': 'OK:0',
+			'Authorized': 1,
+			'CardExpiration': data_from_paypage['expiration_date'] + data_from_paypage['year'][-2:],
+			'CustCountry': data_from_paypage['merchant_country'],
+			'CustEMail': data_from_paypage['email_encrypt'],
+			'CustName': data_from_paypage['firstname'] + ' ' + data_from_paypage['lastname'],
+			'CustZip': data_from_paypage['zip'],
+			'Language': data_from_paypage['paypage_lnaguage'],
+			'MerchantID': merchantbillconfig['MerchantID'],
+			'PaymentAcct': data_from_paypage['card_encrypted'],
+			'PCID': None,
+			'Processor': data_from_paypage['processor'],
+			'ProcessorCurrency': merchantbillconfig['Currency'],
+			'MerchantCurrency': data_from_paypage['merchant_currency'],
+			'STANDIN': package['AllowStandin'],
+			'TransBin': data_from_paypage['transbin'],
+			'URLID': package['URLID'],
+			'URL': url,
+			'REF1': None,
+			'REF2': None,
+			'REF3': None,
+			'REF4': None,
+			'REF5': None,
+			'REF6': None,
+			'REF7': None,
+			'REF8': None,
+			'REF9': None,
+			'REF10': None,
+			'RefURL': None
+		}  # dictionary from paypage
 
-	multitrans = {
-		'PurchaseID': data_from_paypage['PurchaseID'],
-		'TransID': data_from_paypage['TransID'],
-		'TRANSGUID': data_from_paypage['transguid'],
-		'BillConfigID': merchantbillconfig['BillConfigID'],
-		'PackageID': package['PackageID'],
-		'AuthCode': 'OK:0',
-		'Authorized': 1,
-		'CardExpiration': data_from_paypage['expiration_date'] + data_from_paypage['year'][-2:],
-		'CustCountry': data_from_paypage['merchant_country'],
-		'CustEMail': data_from_paypage['email_encrypt'],
-		'CustName': data_from_paypage['firstname'] + ' ' + data_from_paypage['lastname'],
-		'CustZip': data_from_paypage['zip'],
-		'Language': data_from_paypage['paypage_lnaguage'],
-		'MerchantID': merchantbillconfig['MerchantID'],
-		'PaymentAcct': data_from_paypage['card_encrypted'],
-		'PCID': None,
-		'Processor': data_from_paypage['processor'],
-		'ProcessorCurrency': merchantbillconfig['Currency'],
-		'MerchantCurrency': data_from_paypage['merchant_currency'],
-		'STANDIN': package['AllowStandin'],
-		'TransBin': data_from_paypage['transbin'],
-		'URLID': package['URLID'],
-		'URL': url,
-		'REF1': None,
-		'REF2': None,
-		'REF3': None,
-		'REF4': None,
-		'REF5': None,
-		'REF6': None,
-		'REF7': None,
-		'REF8': None,
-		'REF9': None,
-		'REF10': None,
-		'RefURL': None
-	}  # dictionary from paypage
+		# analyzing url
+		url_parameters = url_options.split('&')
+		for var in url_parameters:
+			tmp = var.split('=')
+			if tmp[0] == 'ref1':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF1'] = val
+			elif tmp[0] == 'ref2':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF2'] = val = val
+			elif tmp[0] == 'ref3':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF3'] = val
+			elif tmp[0] == 'ref4':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF4'] = val
+			elif tmp[0] == 'ref5':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF5'] = val
+			elif tmp[0] == 'ref6':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF6'] = val
+			elif tmp[0] == 'ref7':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF7'] = val
+			elif tmp[0] == 'ref8':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF8'] = val
+			elif tmp[0] == 'ref9':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF9'] = val
+			elif tmp[0] == 'ref10':
+				val = db_agent.encrypt_string(tmp[1])
+				multitrans['REF10'] = val
+			elif tmp[0] == 'refurl':
+				val = tmp[1][:256]
+				multitrans['RefURL'] = val  # update refs  #
 
-	# analyzing url
-	url_parameters = url_options.split('&')
-	for var in url_parameters:
-		tmp = var.split('=')
-		if tmp[0] == 'ref1':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF1'] = val
-		elif tmp[0] == 'ref2':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF2'] = val = val
-		elif tmp[0] == 'ref3':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF3'] = val
-		elif tmp[0] == 'ref4':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF4'] = val
-		elif tmp[0] == 'ref5':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF5'] = val
-		elif tmp[0] == 'ref6':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF6'] = val
-		elif tmp[0] == 'ref7':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF7'] = val
-		elif tmp[0] == 'ref8':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF8'] = val
-		elif tmp[0] == 'ref9':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF9'] = val
-		elif tmp[0] == 'ref10':
-			val = db_agent.encrypt_string(tmp[1])
-			multitrans['REF10'] = val
-		elif tmp[0] == 'refurl':
-			val = tmp[1][:256]
-			multitrans['RefURL'] = val  # update refs  #
-
-	multitrans['PaymentType'] = 131
-	exchange_rate = 1
-	if merchantbillconfig['Currency'] == data_from_paypage['merchant_currency']:
+		multitrans['PaymentType'] = 131
 		exchange_rate = 1
-	else:
-		exchange_rate = db_agent.exc_rate(data_from_paypage['merchant_currency'], merchantbillconfig['Currency'])
-
-	multitrans['TxStatus'] = 2
-	if merchantbillconfig['Type'] == 505:
-		multitrans['TransSource'] = 122
-		multitrans['TransStatus'] = 184
-		multitrans['TransType'] = 105
-	else:
-		multitrans['TransSource'] = 121
-		multitrans['TransStatus'] = 184
-		multitrans['TransType'] = 101
-
-	if merchantbillconfig['Type'] == 511:
-		multitrans['TransAmount'] = data_from_paypage['initialprice511']
-		multitrans['Markup'] = round(data_from_paypage['initialprice511'] * exchange_rate, 2)
-	elif merchantbillconfig['Type'] == 510:
-		multitrans['TransAmount'] = data_from_paypage['initialprice510']
-	else:
-		if merchantbillconfig['Type'] == 505 and data_from_paypage['full_record'][0]['TransSource'] == 122:
-			multitrans['TransAmount'] = merchantbillconfig['RebillPrice']
-			multitrans['TransDate'] = transdate + timedelta(days=merchantbillconfig['InitialLen'])
-			sql = f"select  RelatedTransID  from multitrans where PurchaseID = {data_from_paypage['PurchaseID']}  and TransSource = 121 "
-			multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
+		if merchantbillconfig['Currency'] == data_from_paypage['merchant_currency']:
+			exchange_rate = 1
 		else:
-			multitrans['TransDate'] = transdate
-			multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
-			multitrans['Markup'] = round(merchantbillconfig['InitialPrice'] * exchange_rate, 2)
-			multitrans['RelatedTransID'] = 0
+			exchange_rate = db_agent.exc_rate(data_from_paypage['merchant_currency'], merchantbillconfig['Currency'])
 
-	if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
-		multitrans['TransStatus'] = 186
-		multitrans['TransAmount'] = 1.00
-	exchange_rate = round(exchange_rate, 2)
-	multitrans['ExchRate'] = exchange_rate
-	if multitrans['MerchantCurrency'] == 'JPY':
-		multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
+		multitrans['TxStatus'] = 2
+		if merchantbillconfig['Type'] == 505:
+			multitrans['TransSource'] = 122
+			multitrans['TransStatus'] = 184
+			multitrans['TransType'] = 105
+		else:
+			multitrans['TransSource'] = 121
+			multitrans['TransStatus'] = 184
+			multitrans['TransType'] = 101
 
-	if config.test_data['aprove_or_decline']  == False:
-		multitrans['Authorized'] = 0
-		multitrans['Markup'] = 0.00
-		multitrans['ExchRate'] = 0.00
-		multitrans['MerchantCurrency'] = 'USD'
-		del multitrans['AuthCode']
+		if merchantbillconfig['Type'] == 511:
+			multitrans['TransAmount'] = data_from_paypage['initialprice511']
+			multitrans['Markup'] = round(data_from_paypage['initialprice511'] * exchange_rate, 2)
+		elif merchantbillconfig['Type'] == 510:
+			multitrans['TransAmount'] = data_from_paypage['initialprice510']
+		else:
+			if merchantbillconfig['Type'] == 505 and data_from_paypage['full_record'][0]['TransSource'] == 122:
+				multitrans['TransAmount'] = merchantbillconfig['RebillPrice']
+				multitrans['TransDate'] = transdate + timedelta(days=merchantbillconfig['InitialLen'])
+				sql = f"select  RelatedTransID  from multitrans where PurchaseID = {data_from_paypage['PurchaseID']}  and TransSource = 121 "
+				multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
+			else:
+				multitrans['TransDate'] = transdate
+				multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
+				multitrans['Markup'] = round(merchantbillconfig['InitialPrice'] * exchange_rate, 2)
+				multitrans['RelatedTransID'] = 0
 
-
-
-
-	# try:
-	# 	if config.test_data['visa_secure'] == 4:
-	# 		sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
-	# 		      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {data_from_paypage['TransID']})"
-	# 		live_record_3ds = db_agent.execute_select_with_no_params(sql)
-	# 		if live_record_3ds:
-	# 			if not live_record_3ds['authresponse'] == '':
-	# 				json_authresponse = json.loads(live_record_3ds['authresponse'])
-	# 				auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
-	# 			xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
-	# 			response = xml_return_string_lookuprresponse['CardinalMPI']
-	#
-	# 			if response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y':
-	# 				# if response['Enrolled'] == 'Y' and auth_response['ECIFlag'] == '07':
-	# 				# decline
-	# 				print(config.test_data['cc'])
-	# 			elif response['Cavv'] == False and response['EciFlag'] == '06' and response['Enrolled'] == 'N':
-	# 				print(config.test_data['cc'])
-	# 			elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'U':
-	# 				print(config.test_data['cc'])
-	# 			elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
-	# 				print(config.test_data['cc'])
-	# 			elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] in ['Y', 'A'] and response['SignatureVerification'] == 'N':
-	# 				print(config.test_data['cc'])
-	# 			elif response['Cavv'] == False and response['EciFlag'] == False and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'error':
-	# 				print(config.test_data['cc'])
-	# 			elif response['Cavv'] == False and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
-	# 				print(config.test_data['cc'])
+		if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
+			multitrans['TransStatus'] = 186
+			multitrans['TransAmount'] = 1.00
+		exchange_rate = round(exchange_rate, 2)
+		multitrans['ExchRate'] = exchange_rate
+		if multitrans['MerchantCurrency'] == 'JPY':
+			multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
+		if 'aprove_or_decline' in config.test_data:
+			if config.test_data['aprove_or_decline'] == False:
+				multitrans['Authorized'] = 0
+				multitrans['Markup'] = 0.00
+				multitrans['ExchRate'] = 0.00
+				multitrans['MerchantCurrency'] = 'USD'
+				del multitrans['AuthCode']
 
 
-
-	# except Exception as ex:
-	# 	traceback.print_exc()
-	# 	print(f"{Exception}")
-	# 	pass
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}")
+		pass
 
 	return multitrans
 
@@ -337,14 +305,14 @@ def multitrans_compare(multitrans_base_record, live_record):
 			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			# config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
 			#                    # f" TransGuid: {multitrans_base_record['TRANSGUID']}")
-			#config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
+			# config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
 			for k, v in differences.items():
 				print(k, v)
-		# config.logging.info(k,v)
+	# config.logging.info(k,v)
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
-		#config.logging.info(f"Exception {Exception} ")
+		# config.logging.info(f"Exception {Exception} ")
 		pass
 	return differences
 

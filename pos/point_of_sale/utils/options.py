@@ -98,7 +98,7 @@ def aprove_decline(transid):
 	cardinal_result = {}
 	in_or_aout_scope = 0
 	try:
-		if config.test_data['visa_secure'] in [1, 3, 4]:
+		if config.test_data['visa_secure'] in [1, 3, 4, 5]:
 			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
 			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
 			live_record_3ds = db_agent.execute_select_with_no_params(sql)
@@ -109,10 +109,15 @@ def aprove_decline(transid):
 					json_authresponse = json.loads(live_record_3ds['authresponse'])
 					auth_response = {**json_authresponse['Payload'],
 					                 **json_authresponse['Payload']['Payment']['ExtendedData']}
-					response['EciFlag'] = auth_response['ECIFlag']
-					response['Cavv'] = auth_response['CAVV']
-					response['PAResStatus'] = auth_response['PAResStatus']
-					response['SignatureVerification'] = auth_response['SignatureVerification']
+
+					if 'ECIFlag' in auth_response:
+						response['EciFlag'] = auth_response['ECIFlag']
+					if 'CAVV' in auth_response:
+						response['Cavv'] = auth_response['CAVV']
+					if 'PAResStatus' in auth_response:
+						response['PAResStatus'] = auth_response['PAResStatus']
+					if 'SignatureVerification' in auth_response:
+						response['SignatureVerification'] = auth_response['SignatureVerification']
 				if config.test_data['visa_secure'] == 4:
 					in_or_aout_scope = 1171
 					if response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Y' and response['SignatureVerification'] == 'Y':
@@ -123,7 +128,7 @@ def aprove_decline(transid):
 						result_type = 1152
 					else:
 						result_type = 999
-				elif config.test_data['visa_secure'] in [1, 3]:
+				elif config.test_data['visa_secure'] in [1, 3, 5]:
 					in_or_aout_scope = 1172
 					if not 'Cavv' in response and response['EciFlag'] == '07' and not 'PAResStatus' in response:
 						# 1158	Failed Authentication
@@ -139,7 +144,7 @@ def aprove_decline(transid):
 					elif response['Cavv'] == {} and response['EciFlag'] == '06' and response['Enrolled'] == 'N' and not 'PAResStatus' in response and not 'SignatureVerification' in response:
 						# Non-Enrolled Card/Non-participating bank
 						result_type = 1153
-					elif response['Cavv'] == {} and response['EciFlag'] == '07' and response['Enrolled'] == 'U' and not 'PAResStatus' in response and not 'SignatureVerification' in response:
+					elif response['Cavv'] == {} and response['EciFlag'] == '07' and response['Enrolled'] == 'U' and not 'PAResStatus' == {} and not 'SignatureVerification' == {}:
 						# 1154	Authentication Unavailable
 						result_type = 1154
 					elif response['Cavv'] == {} and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
@@ -162,12 +167,13 @@ def aprove_decline(transid):
 					msg = "In Scope |PSD2 Required|"
 				else:
 					msg = "Out of Scope |PSD2 NOT Required|"
-				if final_action['ResultAction'] == 1181:
-					aprove_or_decline = True
-					print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1181 | ", 'grey', attrs=['bold']))
-				elif final_action['ResultAction'] == 1182:
-					aprove_or_decline = False
-					print(colored(f"This Transaction should be declined |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1182 | ", 'red', attrs=['bold']))
+				if final_action:
+					if final_action['ResultAction'] == 1181:
+						aprove_or_decline = True
+						print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1181 | ", 'grey', attrs=['bold']))
+					elif final_action['ResultAction'] == 1182:
+						aprove_or_decline = False
+						print(colored(f"This Transaction should be declined |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1182 | ", 'red', attrs=['bold']))
 
 			z = 3
 

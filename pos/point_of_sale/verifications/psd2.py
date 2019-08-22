@@ -29,7 +29,7 @@ def cardinal3dsrequests(transid):  # card
 				print(colored(f"Merchant Configured for 3DS not in scope  => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
 			else:
 				print(colored(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass ", 'green'))
-		elif visa_secure == 4:
+		elif visa_secure in [4,5]:
 			if config.test_data['cc'] in config.cards_3ds:
 				card = config.cards_3ds[config.test_data['cc']]
 				try:
