@@ -23,7 +23,7 @@ from termcolor import colored
 db_agent = DBActions()
 
 chrome_options = webdriver.ChromeOptions()
-chrome_options.add_argument("--window-position=-1400,0")
+chrome_options.add_argument("--window-position=-1000,0")
 
 fake = Faker()
 
@@ -329,12 +329,12 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	if page_loaded == False:
 		return None
 	email = 'qateam@segpay.com'  # fake.email()
-	merchant_us_or_eu = db_agent.merchant_us_or_eu(merchantid)
-	merchant_us_or_eu = merchant_us_or_eu['MerchantCountry']
+	# merchant_us_or_eu = db_agent.merchant_us_or_eu(merchantid)
+	# merchant_us_or_eu = merchant_us_or_eu['MerchantCountry']
 	config.test_data['cc'] = '4000000000001000'  # 4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
 	try:
 		visa_secure = options.is_visa_secure()
-		if merchant_us_or_eu == 'US':
+		if config.test_data['merchant_us_or_eu'] == 'US':
 			if visa_secure in [1, 4]:
 				config.test_data['visa_secure'] = 5  # Configured for 3ds
 				print(colored(f"Email: {email}   | US Merchant 3DS configured - Not in Scope  | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
@@ -499,7 +499,7 @@ def create_transaction(pricepoint_type, eticket, selected_options, merchantid, u
 			joinlink = config.url + eticket + url_options
 
 		print(joinlink)
-		config.logging.info(joinlink)
+		#config.logging.info(joinlink)
 		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.packageid)  # fill the page and return what was populated
 		transguid = data_from_paypage['transguid']
 		sql = "select * from multitrans where TransGuid = '{}'"

@@ -17,15 +17,13 @@ def sign_up_trans_web1(test_data):  # Yan
 	current_transaction_record = {}
 	aprove_or_decline = None
 	for selected_language in config.available_languages:
-		for dmc in config.available_currencies:
+		for dmc in config.merchant_data[config.test_data['merchant_us_or_eu']][3]:
 			try:
 				selected_options = [dmc, selected_language]
 				url_options = options.ref_variables() + options.refurl() + config.template
 				config.test_data['url_options'] = url_options
 				print("======================================| SignUp Transaction |======================================\n")
-				config.logging.info('print("======================================| SignUp Transaction |======================================\n")')
-				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.processors[0])
-				#TransActionService.verify_signup_transaction(current_transaction_record)
+				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.test_data['processor'])
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']
@@ -42,7 +40,7 @@ def sign_up_trans_web1(test_data):  # Yan
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
-				config.logging.info(f"{Exception} ")
+				#config.logging.info(f"{Exception} ")
 				pass
 
 	return current_transaction_record

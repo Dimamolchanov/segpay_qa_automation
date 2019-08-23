@@ -9,40 +9,38 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 import json
 
 db_agent = DBActions()
-
-
 def randomString(stringLength=10):
 	letters = string.ascii_lowercase
 	return ''.join(random.choice(letters) for i in range(stringLength))
-
-
 def refurl():
 	tmpurl = randomString(270)
 	refurl = '&refurl=wwww.test.com/' + tmpurl
 	return refurl
-
-
 def ref_variables():
 	refs = f"&ref1={randomString(5)}&ref2={randomString(4)}&ref3={randomString(5)}&ref4={randomString(4)}" \
 	       f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}" \
 	       f"&ref9={randomString(5)}&ref10={randomString(4)}"
 	return refs
-
-
-#
-# ref1 = randomString(4)
-# ref2 = randomString(4)
-# ref3 = randomString(5)
-# ref4 = randomString(6)
-# ref5 = randomString(4)
-# ref6 = randomString(4)
-# ref7 = randomString(4)
-# ref8 = randomString(2)
-# ref9 = randomString(11)
-# ref10 = randomString(8)
-# return ref1,ref4
-
-
+def clear_data_for_merchant(merchantid):
+	pricepoints = []
+	try:
+		merchant_us_or_eu = db_agent.merchant_us_or_eu(merchantid)
+		if not merchant_us_or_eu['MerchantCountry'] == 'US': merchant_us_or_eu['MerchantCountry'] = 'EU'
+		config.test_data['merchant_us_or_eu'] = merchant_us_or_eu['MerchantCountry']
+		config.test_data['merchantid'] = merchantid
+		config.oc_tokens = {}
+		config.transaction_records = []
+		if config.pricepoints_options == 'type':
+			pricepoints = db_agent.pricepoint_type(merchantid, [511, 501, 506])  # ,505
+		elif config.pricepoints_options == 'list':
+			pricepoints = db_agent.pricepoint_list(merchantid)
+		else:
+			pricepoints = config.merchant_data[merchant_us_or_eu['MerchantCountry']][0]
+		return pricepoints
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}")
+		pass
 def pricepoints_options(pricepoints_options, merchantid):
 	pricepoints = []
 	if pricepoints_options == 'single':
@@ -52,8 +50,6 @@ def pricepoints_options(pricepoints_options, merchantid):
 	elif pricepoints_options == 'list':
 		pricepoints = db_agent.pricepoint_list(merchantid)
 	return pricepoints
-
-
 def string_after(value, a):
 	# Find and validate first part.
 	pos_a = value.rfind(a)
@@ -62,8 +58,6 @@ def string_after(value, a):
 	adjusted_pos_a = pos_a + len(a)
 	if adjusted_pos_a >= len(value): return ""
 	return value[adjusted_pos_a:]
-
-
 def is_visa_secure():
 	is_card_eu = False
 	try:
@@ -90,8 +84,6 @@ def is_visa_secure():
 		traceback.print_exc()
 		print(f"{Exception}")
 		pass
-
-
 def aprove_decline(transid):
 	aprove_or_decline = None
 	result_type = 0
@@ -177,15 +169,8 @@ def aprove_decline(transid):
 
 			z = 3
 
-
-
 		config.test_data['aprove_or_decline'] = aprove_or_decline
 		return aprove_or_decline
-
-
-
-
-
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")

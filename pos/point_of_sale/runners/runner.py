@@ -10,15 +10,10 @@ from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.web import web
+from pos.point_of_sale.utils import options
 
 db_agent = DBActions()
-# start_time = datetime.now()
-pricepoints_options = 'single'
 start_time = datetime.now()
-pricepoint_type = 0
-merchantbillconfig = []
-results = [1, 1]
-config.test_data['eticket'] = ''
 actions = {'singup': partial(test_methods.sign_up_trans_web1, config.test_data),
            'oneclick_pos': partial(test_methods.signup_oc, 'pos', config.test_data['eticket'], config.test_data),
 		   'oneclick_pos_all': partial(test_methods.signup_oc_all, 'pos', config.test_data['eticket'], config.test_data), # iterrate all pricpoints in 1 click to all pricepoints
@@ -42,15 +37,8 @@ bep_basic_with_capture = ['captures', 'refunds', 'check_refunds_mt', 'check_refu
 
 # ==================================================================================================> Begining of the script
 for merchantid in config.merchants:
-	if pricepoints_options == 'type':
-		pricepoints = db_agent.pricepoint_type(merchantid, [511, 501, 506])  # ,505
-	elif pricepoints_options == 'list':
-		pricepoints = db_agent.pricepoint_list(merchantid)
-	else:
-		pricepoints = config.pricepoints
-
+	pricepoints = options.clear_data_for_merchant(merchantid)
 	for pricepoint in pricepoints:
-
 		try:
 			config.test_data = TransActionService.prepare_data(pricepoint, 1)
 			actions['singup']()
@@ -59,7 +47,7 @@ for merchantid in config.merchants:
 			traceback.print_exc()
 			print(f"Exception {Exception} ")
 			pass
-	#actions['oneclick_pos']()
+	#actions['oneclick_pos']() # this oen is for single right after trasnaction
 	actions['oneclick_pos_all']()
 
 	if len(bep_basic1) != 0:

@@ -49,7 +49,7 @@ for merchantid in config.merchants:
 					db_agent.update_pp_singleuse_promo(pricepoint, 1, 0)  # feature 1 is single use promo
 				pricepoint_type = merchantbillconfig[0]['Type']
 				package = db_agent.package(config.packageid)
-				db_agent.update_processor(config.processors[0], config.packageid)
+				db_agent.update_processor(config.test_data['processor'], config.packageid)
 				db_agent.update_package(config.packageid, merchantid, pricepoint)
 				for selected_language in config.available_languages:
 					for dmc in config.available_currencies:
@@ -60,7 +60,7 @@ for merchantid in config.merchants:
 
 						# =======================================================================================================Starting Transactions
 						transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options,
-						                                            merchantid, url_options, config.processors[0])
+						                                            merchantid, url_options, config.test_data['processor'])
 
 						multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 						                                             url_options)
