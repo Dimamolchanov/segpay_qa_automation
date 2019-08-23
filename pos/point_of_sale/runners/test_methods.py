@@ -15,17 +15,16 @@ db_agent = DBActions()
 def sign_up_trans_web1(test_data):  # Yan
 	test_data = config.test_data  # refactor needs
 	current_transaction_record = {}
+	aprove_or_decline = None
 	for selected_language in config.available_languages:
-		for dmc in config.available_currencies:
+		for dmc in config.merchant_data[config.test_data['merchant_us_or_eu']][3]:
 			try:
 				selected_options = [dmc, selected_language]
 				url_options = options.ref_variables() + options.refurl() + config.template
 				config.test_data['url_options'] = url_options
 				print("======================================| SignUp Transaction |======================================\n")
-				config.logging.info('print("======================================| SignUp Transaction |======================================\n")')
-				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.processors[0])
+				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.test_data['processor'])
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
-				#TransActionService.verify_signup_transaction(current_transaction_record)
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']
 					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['pricepoint_type'],tmp['MerchantCurrency'],tmp['Language']]
@@ -34,11 +33,14 @@ def sign_up_trans_web1(test_data):  # Yan
 				else:
 					result = current_transaction_record['full_record']
 					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ",'red',attrs=['bold']))
-					print()
+					print("---------------------------------------")
+					#print()
+					TransActionService.verify_signup_transaction(current_transaction_record)
+
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
-				config.logging.info(f"{Exception} ")
+				#config.logging.info(f"{Exception} ")
 				pass
 
 	return current_transaction_record
@@ -84,6 +86,10 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				octoken = token
 				if oc_type == 'pos':
 					one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
+					aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
+					if not one_click_record['Authorized']:
+						print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
+						print("---------------------------------------")
 				elif oc_type == 'ws':
 					one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
 				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)

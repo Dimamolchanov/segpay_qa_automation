@@ -30,10 +30,14 @@ class TransActionService:
         db_agent.update_merchantbillconfig_oneclick(pricepoint, one_click_enabled)
         db_agent.update_pp_singleuse_promo(pricepoint, 1, config.single_use_promo)
         pricepoint_type = merchantbillconfig[0]['Type']
-        package = db_agent.package(config.packageid)
-        db_agent.update_processor(config.processors[0], config.packageid)
-        db_agent.update_package(config.packageid, config.merchants[0], pricepoint)
-        eticket = str(config.packageid) + ':' + str(pricepoint)
+        merchant = config.test_data['merchant_us_or_eu']
+        merchant_data = config.merchant_data[merchant]
+        packageid = merchant_data[1]
+        package = db_agent.package(packageid)
+        config.packageid = packageid
+        db_agent.update_processor(merchant_data[2], packageid)
+        db_agent.update_package(packageid, config.test_data['merchantid'], pricepoint)
+        eticket = str(packageid) + ':' + str(pricepoint)
         url_options = options.ref_variables() + options.refurl() + config.template
         config.test_data['pricepoint_type'] = pricepoint_type
         config.test_data['package'] = package
@@ -41,6 +45,7 @@ class TransActionService:
         config.test_data['url_options'] = url_options
         config.test_data['merchantbillconfig'] = merchantbillconfig
         config.test_data['cc'] = random.choice(config.random_cards)
+        config.test_data['processor'] = merchant_data[2]
         return config.test_data
 
 
