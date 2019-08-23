@@ -9,8 +9,6 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 import json
 
 db_agent = DBActions()
-
-
 def randomString(stringLength=10):
 	letters = string.ascii_lowercase
 	return ''.join(random.choice(letters) for i in range(stringLength))
