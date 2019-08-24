@@ -8,42 +8,52 @@ from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import asset
 from termcolor import colored
-
+from pos.point_of_sale.utils import report
 db_agent = DBActions()
 
 
-def sign_up_trans_web1(test_data):  # Yan
+def sign_up_trans_web(test_data):  # Yan
 	test_data = config.test_data  # refactor needs
 	current_transaction_record = {}
 	aprove_or_decline = None
+	if config.test_data['Merchant'] == 'EU':
+		currencies = config.test_data['eu_available_currencies']
+	else:
+		currencies = config.test_data['us_available_currencies']
 	for selected_language in config.available_languages:
-		for dmc in config.merchant_data[config.test_data['merchant_us_or_eu']][3]:
+		dmc_currencies = []
+		config.test_data['lang'] = selected_language
+		for dmc in currencies:
+			config.test_data['dmc'] = dmc
 			try:
 				selected_options = [dmc, selected_language]
 				url_options = options.ref_variables() + options.refurl() + config.template
 				config.test_data['url_options'] = url_options
-				print("======================================| SignUp Transaction |======================================\n")
-				current_transaction_record = web.create_transaction(test_data['pricepoint_type'], test_data['eticket'], selected_options, config.merchants[0], url_options, config.test_data['processor'])
+				options.joinlink()
+				report.scenario()
+
+				current_transaction_record = web.create_transaction(test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
+				config.test_data['transaction_to_check'] = current_transaction_record
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']
-					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['pricepoint_type'],tmp['MerchantCurrency'],tmp['Language']]
+					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
+					result = current_transaction_record['full_record']
+					print(colored(f"Transaction Aproved : AuthCode:{result['AuthCode']} ", 'cyan', attrs=['bold']))
 					TransActionService.verify_signup_transaction(current_transaction_record)
-
 				else:
 					result = current_transaction_record['full_record']
-					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ",'red',attrs=['bold']))
-					print("---------------------------------------")
-					#print()
+					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ", 'red', attrs=['bold']))
 					TransActionService.verify_signup_transaction(current_transaction_record)
-
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
-				#config.logging.info(f"{Exception} ")
+				# config.logging.info(f"{Exception} ")
 				pass
 
 	return current_transaction_record
+
+
 def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 	result = True
 	one_click_record = {}
@@ -62,13 +72,15 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 			if one_click_record['Authorized']:
 				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)
 			else:
-				print(colored(f"OneClick Transaction DECLINED : AuthCode:{one_click_record['AuthCode']}",'red', attrs=['bold']))
+				print(colored(f"OneClick Transaction DECLINED : AuthCode:{one_click_record['AuthCode']}", 'red', attrs=['bold']))
 				print()
 		except Exception as ex:
 			traceback.print_exc()
 			print(f"{Exception}  ")
 			pass
 	return result
+
+
 def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 	result = True
 	one_click_record = {}
@@ -82,7 +94,7 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				pricepoint = current_transaction_id['full_record']['BillConfigID']
 				config.test_data = TransActionService.prepare_data(pricepoint, 1)
 				eticket = config.test_data['eticket']
-				selected_options = [config.oc_tokens[token][1],config.oc_tokens[token][2]]
+				selected_options = [config.oc_tokens[token][1], config.oc_tokens[token][2]]
 				octoken = token
 				if oc_type == 'pos':
 					one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
@@ -99,8 +111,10 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				config.logging.info(f"{Exception}  ")
 				pass
 	return result
+
+
 def verify_refunds():  # Yan
-	#refunds = config.refunds[1]
+	# refunds = config.refunds[1]
 	sql = ''
 	pid = 0
 	rkeys = config.refunds[1]

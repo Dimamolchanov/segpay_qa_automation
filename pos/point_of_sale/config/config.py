@@ -19,15 +19,34 @@ server = ''
 #test_data = {'eticket': 'test'}
 # us merchant 21621   ppid 74 package 192060 pricepoints  27042,27041, 27064 - ic,27187 - recurring [27042,27041,27187]
 
+packages = [99]
+
+test_data = {'eticket': '',
+             'traceback': True,
+             'cnt' : 0,
+             'eu_processors' : 44,
+             'us_processors' : 74,
+             'us_available_currencies' : ['USD'],
+             'eu_available_currencies' : ['USD','CHF'],
+             'processor': 0
+
+
+
+             }
+
+
+
+
+
 us_pricepoints = [27042,27041]
 us_processors = 74
 us_packageid = 192060
 us_available_currencies = ['USD']
-eu_pricepoints = [27001,27003]
+eu_pricepoints = [27001,27003,27006,27004,27010]
 eu_processors = 44
 eu_packageid = 99
-eu_available_currencies = ['USD']
-packageid = 0
+eu_available_currencies = ['USD','CHF']
+#packageid = 0
 merchant = 'US'
 merchants = [27001, 21621]
 merchant_data = {'US': [us_pricepoints, us_packageid, us_processors, us_available_currencies],
@@ -47,11 +66,14 @@ tasks_type = {}
 asset_reactivated = {}
 mt_reactivated = {}
 oc_tokens = {}
+cnt = 0
+sql_dict = {}
 
 random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
                 '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4444333322221111', '5432768030017007', '4916280519180429', '4496046701292555']
 
-test_data = {'eticket': ''}
+
+
 transids = []
 cc_number = '4000000000001091'  # '4000000000001109' # '4444333322221111' prepaid 5432768030017007
 transids_for_oc = [1234643195]
