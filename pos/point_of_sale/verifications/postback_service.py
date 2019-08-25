@@ -37,8 +37,8 @@ def find_post_backs_ids(package_id, trans_id):
 
 
 
-def get_collect_user_info(package_id):
-    get_collect_user_status = db_agent.get_collect_user_info_value(package_id)
+def get_collect_user_info(billconfigid):
+    get_collect_user_status = db_agent.get_collect_user_info_value(billconfigid)
     #print("Collect user info code is: {}".format(get_collect_user_status))
     return get_collect_user_status
 
@@ -83,7 +83,7 @@ def compare_results(text, actual, expected):
 def verify_postback_url(action, package_id, trans_id):
     id = 0 ;actual_postback_status = '' ; expected_postback_status = ''
     errors_dictionary.clear()
-    get_collect_user_info_code = get_collect_user_info(package_id)
+    get_collect_user_info_code = get_collect_user_info(config.test_data['BillConfigID'])
     matched_postback_types = find_post_backs_received(package_id, trans_id)
     if matched_postback_types == None:
         print("NO postbacks in Notification table. Skipping further verification")

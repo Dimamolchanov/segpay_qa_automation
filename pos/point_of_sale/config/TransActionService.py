@@ -25,7 +25,45 @@ class TransActionService:
         return pricepoints
 
     @staticmethod
+    def prepare_data1(pricepoint, packageid, one_click_enabled):
+        try:
+            config.test_data['cnt'] = config.test_data['cnt'] + 1
+            merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
+            config.test_data = {**config.test_data,**merchantbillconfig}
+            package = db_agent.package(packageid)
+            config.test_data = {**config.test_data,**package}
+            db_agent.update_merchantbillconfig_oneclick(pricepoint, one_click_enabled)
+            db_agent.update_pp_singleuse_promo(pricepoint, 1, config.single_use_promo)
+            eticket = str(packageid) + ':' + str(pricepoint)
+            config.test_data['eticket'] = eticket
+            url_options = options.ref_variables() + options.refurl() + config.template
+            config.test_data['cc'] = random.choice(config.random_cards)
+            config.test_data['visa_secure'] = options.is_visa_secure()
+            if config.test_data['Merchant'] == 'EU':
+                config.test_data['processor'] = config.test_data['eu_processors']
+                db_agent.update_processor(config.test_data['eu_processors'], packageid)
+            else:
+                config.test_data['processor'] = config.test_data['us_processors']
+                db_agent.update_processor(config.test_data['us_processors'], packageid)
+        except Exception as ex:
+            traceback.print_exc()
+            print(f"Function: prepare_data1 \n {Exception} ")
+            pass
+        return config.test_data
+
+
+
+
+
+
+
+
+
+
+
+    @staticmethod
     def prepare_data(pricepoint, one_click_enabled):
+        config.cnt = config.cnt + 1
         merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
         db_agent.update_merchantbillconfig_oneclick(pricepoint, one_click_enabled)
         db_agent.update_pp_singleuse_promo(pricepoint, 1, config.single_use_promo)
@@ -52,14 +90,16 @@ class TransActionService:
 
     @staticmethod
     def verify_signup_transaction(transaction_to_check):
-        multitrans_base_record = mt.build_multitrans(config.test_data['merchantbillconfig'][0], config.test_data['package'][0], transaction_to_check, config.test_data['url_options'])
-        asset_base_record = asset.build_asset_signup(config.test_data['merchantbillconfig'][0], multitrans_base_record, transaction_to_check)
+        multitrans_base_record = mt.build_multitrans()
+        asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
         differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
         differences_asset = asset.asset_compare(asset_base_record)
         if transaction_to_check['full_record']['Authorized'] == 1:
-            check_email = emails.check_email_que(config.test_data['pricepoint_type'], multitrans_base_record, 'signup')
-        differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, transaction_to_check['TransID'])
+            check_email = emails.check_email_que(config.test_data['Type'], multitrans_base_record, 'signup')
+            config.test_data['aproved_transids'] = transaction_to_check['TransID']
+        differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
         differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
+
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
         if not differences_multitrans and not differences_asset and not differences_postback: #and not differences_3ds:

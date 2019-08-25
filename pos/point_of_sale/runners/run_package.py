@@ -12,9 +12,10 @@ from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.web import web
 from pos.point_of_sale.utils import options
 
+
 db_agent = DBActions()
 start_time = datetime.now()
-actions = {'singup': partial(test_methods.sign_up_trans_web1, config.test_data),
+actions = {'singup': partial(test_methods.sign_up_trans_web, config.test_data),
            'oneclick_pos': partial(test_methods.signup_oc, 'pos', config.test_data['eticket'], config.test_data),
 		   'oneclick_pos_all': partial(test_methods.signup_oc_all, 'pos', config.test_data['eticket'], config.test_data), # iterrate all pricpoints in 1 click to all pricepoints
            'captures': partial(bep.process_captures),
@@ -36,19 +37,20 @@ bep_basic_with_capture = ['captures', 'refunds', 'check_refunds_mt', 'check_refu
 # bep_basic = ['captures', 'check_captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset']
 
 # ==================================================================================================> Begining of the script
-for merchantid in config.merchants:
-	pricepoints = options.clear_data_for_merchant(merchantid)
+for packageid in config.packages:
+	config.test_data['packageid'] = packageid
+	pricepoints = db_agent.get_pricepoints()
 	for pricepoint in pricepoints:
 		try:
-			config.test_data = TransActionService.prepare_data(pricepoint, 1)
+			config.test_data = TransActionService.prepare_data1(pricepoint, packageid,1)
 			actions['singup']()
-			config.logging.info('')
+			#config.logging.info('')
 		except Exception as ex:
 			traceback.print_exc()
 			print(f"Exception {Exception} ")
 			pass
 	#actions['oneclick_pos']() # this oen is for single right after trasnaction
-	actions['oneclick_pos_all']()
+	#actions['oneclick_pos_all']()
 
 	if len(bep_basic1) != 0:
 		for item in bep_basic1:
@@ -64,6 +66,11 @@ web.browser_quit()
 emails.check_email_status(config.transids)
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
-print(f"Total number of transaction : {config.cnt}")
-for item in config.sql_dict:
-	print(f"SQl:{item}  Cnt = > : {config.sql_dict[item][0]}  Function => : {config.sql_dict[item][1]}")
+print(f"Total number of transaction : {config.test_data['cnt']}")
+print()
+print()
+for item in config.scenarios:
+	print(item)
+
+# for item in config.sql_dict:
+# 	print(f"SQl:{item}  Cnt = > : {config.sql_dict[item][0]}  Function => : {config.sql_dict[item][1]}")

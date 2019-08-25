@@ -251,7 +251,6 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 	if option == 'pos':
 
 		url = f"{config.urlic}{token}" + selected_options
-		print(url)
 
 		page_loaded = navigate_to_url(url)
 		if page_loaded == False:
@@ -265,12 +264,7 @@ def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record,
 				print("Transguid not Found ")
 				return None
 			br.find_by_id('EMailInput').fill(email)
-			# if br.find_by_id('UserNameInput'):
-			#     br.find_by_id('UserNameInput').fill(username)
-			# if br.find_by_id('PasswordInput'):
-			#     br.find_by_id('PasswordInput').fill(password)
 			br.find_by_id('SecurePurchaseButton').click()
-
 			ic_record = db_agent.multitrans_full_record('', transguid, '')
 			full_record = ic_record[0]
 			multitrans_ic_record['TransSource'] = 122
@@ -325,50 +319,10 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	page_loaded = navigate_to_url(url)
 	transguid = ''
 	data_from_paypage = {}
-	visa_secure = ''
 	if page_loaded == False:
 		return None
-	email = 'qateam@segpay.com'  # fake.email()
-	# merchant_us_or_eu = db_agent.merchant_us_or_eu(merchantid)
-	# merchant_us_or_eu = merchant_us_or_eu['MerchantCountry']
-	config.test_data['cc'] = '4000000000001000'  # 4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
-	try:
-		visa_secure = options.is_visa_secure()
-		if config.test_data['merchant_us_or_eu'] == 'US':
-			if visa_secure in [1, 4]:
-				config.test_data['visa_secure'] = 5  # Configured for 3ds
-				print(colored(f"Email: {email}   | US Merchant 3DS configured - Not in Scope  | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-			else:
-				config.test_data['visa_secure'] = 6  # not configured at 3ds
-				print(colored(f"Email: {email}   | US Merchant 3DS not configured - Not in Scope | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-		else:
-			if visa_secure == 0:
-				print(colored(f"Email: {email}   | EU Merchant  Prepaid card  | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-				config.logging.info(colored(f"Email: {email}   |  Prepaid card  | Short Form ", 'blue'))
-			elif visa_secure == 1:
-				print(colored(f"Email: {email}   | EU Merchant 3DS configured - Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-				config.logging.info(colored(f"Email: {email}   |  3DS configured - Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']}", 'blue'))
-			elif visa_secure == 2:
-				print(colored(f"Email: {email}   | EU Merchant 3DS not configured | In Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-				config.logging.info(colored(f"Email: {email}   |  3DS not configured | In Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue', attrs=['bold']))  # will decline
-			elif visa_secure == 3:
-				print(colored(f"Email: {email}   | EU Merchant 3DS not configured | Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-				config.logging.info(colored(f"Email: {email}   |  3DS not configured | Not in Scope  for PSD2 | Short Form | Card {config.test_data['cc']} ", 'blue'))
-			elif visa_secure == 4:
-				print(colored(f"Email: {email}   | EU Merchant 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']} ", 'yellow', 'on_grey', attrs=['blink']))
-				config.logging.info(colored(f"Email: {email}   |  3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']}", 'blue'))
-			config.test_data['visa_secure'] = visa_secure
-
-	# sql = f"select top 1 * from [MerchantCC3DSecureConfig] where merchantid = {merchantid} and segpayprocessorid = " \
-	#       f"(select top 1 ProcessorID from ProcessorPoolsDetail where CardType = 'VISA' " \
-	#       f"and  ppid = ( select  PrefProcessorID from package where packageid = {packageid}))"
-	except Exception as ex:
-		traceback.print_exc()
-		print(f"{Exception}")
-		pass
-
-	# print(transguid)
-
+	email = config.test_data['email'] = 'qateam@segpay.com'  # fake.email()
+	#config.test_data['cc'] = '4444333322221111'  # 4000000000001026'# '5432768030017007'#'4444333322221111' for decline 4000000000001133
 	try:
 		if br.is_element_present_by_id('TransGUID', wait_time=10):
 			transguid = br.find_by_id('TransGUID').value
@@ -445,12 +399,6 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		data_from_paypage['merchant_country'] = merchant_country
 		while br.execute_script("return jQuery.active == 0") != True:
 			time.sleep(1)
-
-		if not visa_secure == 4:
-			if br.find_by_id('PhoneNumberInput'):
-				if br.find_by_id('PhoneNumberInput').__getattr__('visible'):
-					print('Form SHould be short eeeeeeeeeeeeeeee')
-
 		br.find_by_id('SecurePurchaseButton').click()
 
 		time.sleep((2))
@@ -474,71 +422,29 @@ def FillDefault(url, selected_options, merchantid, packageid):
 	except Exception as ex:
 		traceback.print_exc()
 		print(ex)
-		config.logging.info(ex)
-		config.logging.info('')
 	return data_from_paypage
 
 
 def create_transaction(pricepoint_type, eticket, selected_options, merchantid, url_options, processor):
 	# url = ''
-	joinlink = ''
-	pricingguid = {}
-	dynamic_price = ''
+	joinlink = config.test_data['link']
+	#db_agent = config.test_data
 	try:
-		if pricepoint_type == 510:
-			dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
-			hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
-			print(hash_url)
-			resp = requests.get(hash_url)
-			dynamic_hash = fromstring(resp.text).text
-			joinlink = f"{config.url}{eticket}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST{url_options}"
-		elif pricepoint_type == 511:
-			pricingguid = db_agent.get_pricingguid(merchantid, pricepoint_type)[0]
-			joinlink = f"{config.url}{eticket}&DynamicPricingID={pricingguid['PricingGuid']}{url_options}"  # PricingGuid, InitialPrice
-		else:
-			joinlink = config.url + eticket + url_options
-
-		print(joinlink)
-		#config.logging.info(joinlink)
-		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.packageid)  # fill the page and return what was populated
+		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.test_data['packageid'])  # fill the page and return what was populated
 		transguid = data_from_paypage['transguid']
 		sql = "select * from multitrans where TransGuid = '{}'"
 		full_record = db_agent.execute_select_one_with_wait(sql, transguid)
-		# print(full_record['PurchaseID'])
 		data_from_paypage['PurchaseID'] = full_record['PurchaseID']
 		data_from_paypage['TransID'] = full_record['TransID']
-		if pricepoint_type == 511:
-			data_from_paypage['initialprice511'] = pricingguid['InitialPrice']
-			data_from_paypage['initiallength511'] = pricingguid['InitialLength']
-			data_from_paypage['recurringlength511'] = pricingguid['RecurringLength']
-			data_from_paypage['recurringprice511'] = pricingguid['RecurringPrice']
-		elif pricepoint_type == 510:
-			data_from_paypage['initialprice510'] = dynamic_price
-
-		processor_name = {
-			26: 'PAYVISIONWE',
-			42: 'ROCKETGATEISO',
-			57: 'SPCATISO',
-			44: 'PAYVISIONPRIVMS',
-			65: 'SPKAISO1',
-			74: 'SPHBIPSP'
-		}
-		data_from_paypage['processor'] = processor_name[processor]
 		data_from_paypage['full_record'] = full_record
-
-		print(f"New SignUp => Mid: {merchantid} | Eticket: {eticket} | Type: {pricepoint_type} | Processor: {data_from_paypage['processor']} |"
-		      f" DMC: {data_from_paypage['merchant_currency']} | Lnaguage: {data_from_paypage['paypage_lnaguage']} Card: {config.test_data['cc']}")
-		print(f"PurchaseID: {data_from_paypage['PurchaseID']} | TransID: {data_from_paypage['TransID']} | TransGuid: {data_from_paypage['transguid']}")
-		config.logging.info(f"New SignUp => Mid: {merchantid} | Eticket: {eticket} | Type: {pricepoint_type} | Processor: {data_from_paypage['processor']} |"
-		                    f" DMC: {data_from_paypage['merchant_currency']} | Lnaguage: {data_from_paypage['paypage_lnaguage']} Card: {config.test_data['cc']}")
-		config.logging.info(f"PurchaseID: {data_from_paypage['PurchaseID']} | TransID: {data_from_paypage['TransID']} | TransGuid: {data_from_paypage['transguid']}")
+		config.test_data = {**config.test_data, **data_from_paypage}
 		return data_from_paypage
 	except Exception as ex:
 		print(ex)
 		config.logging.info(ex)
 		traceback.print_exc()
 		print(f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
-		config.logging.info(f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
+
 
 
 def reactivate(transids):

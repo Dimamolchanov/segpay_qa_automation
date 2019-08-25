@@ -149,34 +149,35 @@ def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_
 		pass
 
 
-def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options):
+def build_multitrans():
 	transdate = (datetime.now().date())
-	url = db_agent.url(package['URLID'])
+	#transaction_to_check = config.test_data['transaction_to_check']
+	url = db_agent.url(config.test_data['URLID'])
 	multitrans = {}
 	try:
 		multitrans = {
-			'PurchaseID': data_from_paypage['PurchaseID'],
-			'TransID': data_from_paypage['TransID'],
-			'TRANSGUID': data_from_paypage['transguid'],
-			'BillConfigID': merchantbillconfig['BillConfigID'],
-			'PackageID': package['PackageID'],
+			'PurchaseID': config.test_data['PurchaseID'],
+			'TransID': config.test_data['TransID'],
+			'TRANSGUID': config.test_data['transguid'],
+			'BillConfigID': config.test_data['BillConfigID'],
+			'PackageID': config.test_data['PackageID'],
 			'AuthCode': 'OK:0',
 			'Authorized': 1,
-			'CardExpiration': data_from_paypage['expiration_date'] + data_from_paypage['year'][-2:],
-			'CustCountry': data_from_paypage['merchant_country'],
-			'CustEMail': data_from_paypage['email_encrypt'],
-			'CustName': data_from_paypage['firstname'] + ' ' + data_from_paypage['lastname'],
-			'CustZip': data_from_paypage['zip'],
-			'Language': data_from_paypage['paypage_lnaguage'],
-			'MerchantID': merchantbillconfig['MerchantID'],
-			'PaymentAcct': data_from_paypage['card_encrypted'],
+			'CardExpiration': config.test_data['expiration_date'] + config.test_data['year'][-2:],
+			'CustCountry': config.test_data['merchant_country'],
+			'CustEMail': config.test_data['email_encrypt'],
+			'CustName': config.test_data['firstname'] + ' ' + config.test_data['lastname'],
+			'CustZip': config.test_data['zip'],
+			'Language': config.test_data['paypage_lnaguage'],
+			'MerchantID': config.test_data['MerchantID'],
+			'PaymentAcct': config.test_data['card_encrypted'],
 			'PCID': None,
-			'Processor': data_from_paypage['processor'],
-			'ProcessorCurrency': merchantbillconfig['Currency'],
-			'MerchantCurrency': data_from_paypage['merchant_currency'],
-			'STANDIN': package['AllowStandin'],
-			'TransBin': data_from_paypage['transbin'],
-			'URLID': package['URLID'],
+			'Processor': config.test_data['processor_name'],
+			'ProcessorCurrency': config.test_data['Currency'],
+			'MerchantCurrency': config.test_data['merchant_currency'],
+			'STANDIN': config.test_data['AllowStandin'],
+			'TransBin': config.test_data['transbin'],
+			'URLID': config.test_data['URLID'],
 			'URL': url,
 			'REF1': None,
 			'REF2': None,
@@ -192,7 +193,7 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 		}  # dictionary from paypage
 
 		# analyzing url
-		url_parameters = url_options.split('&')
+		url_parameters = config.test_data['url_options'].split('&')
 		for var in url_parameters:
 			tmp = var.split('=')
 			if tmp[0] == 'ref1':
@@ -231,13 +232,13 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 
 		multitrans['PaymentType'] = 131
 		exchange_rate = 1
-		if merchantbillconfig['Currency'] == data_from_paypage['merchant_currency']:
+		if config.test_data['Currency'] == config.test_data['merchant_currency']:
 			exchange_rate = 1
 		else:
-			exchange_rate = db_agent.exc_rate(data_from_paypage['merchant_currency'], merchantbillconfig['Currency'])
+			exchange_rate = db_agent.exc_rate(config.test_data['merchant_currency'], config.test_data['Currency'])
 
 		multitrans['TxStatus'] = 2
-		if merchantbillconfig['Type'] == 505:
+		if config.test_data['Type'] == 505:
 			multitrans['TransSource'] = 122
 			multitrans['TransStatus'] = 184
 			multitrans['TransType'] = 105
@@ -246,24 +247,24 @@ def build_multitrans(merchantbillconfig, package, data_from_paypage, url_options
 			multitrans['TransStatus'] = 184
 			multitrans['TransType'] = 101
 
-		if merchantbillconfig['Type'] == 511:
-			multitrans['TransAmount'] = data_from_paypage['initialprice511']
-			multitrans['Markup'] = round(data_from_paypage['initialprice511'] * exchange_rate, 2)
-		elif merchantbillconfig['Type'] == 510:
-			multitrans['TransAmount'] = data_from_paypage['initialprice510']
+		if config.test_data['Type'] == 511:
+			multitrans['TransAmount'] = config.test_data['initialprice511']
+			multitrans['Markup'] = round(config.test_data['initialprice511'] * exchange_rate, 2)
+		elif config.test_data['Type'] == 510:
+			multitrans['TransAmount'] = config.test_data['initialprice510']
 		else:
-			if merchantbillconfig['Type'] == 505 and data_from_paypage['full_record'][0]['TransSource'] == 122:
-				multitrans['TransAmount'] = merchantbillconfig['RebillPrice']
-				multitrans['TransDate'] = transdate + timedelta(days=merchantbillconfig['InitialLen'])
-				sql = f"select  RelatedTransID  from multitrans where PurchaseID = {data_from_paypage['PurchaseID']}  and TransSource = 121 "
+			if config.test_data['Type'] == 505 and config.test_data['full_record'][0]['TransSource'] == 122:
+				multitrans['TransAmount'] = config.test_data['RebillPrice']
+				multitrans['TransDate'] = transdate + timedelta(days=config.test_data['InitialLen'])
+				sql = f"select  RelatedTransID  from multitrans where PurchaseID = {config.test_data['PurchaseID']}  and TransSource = 121 "
 				multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
 			else:
 				multitrans['TransDate'] = transdate
-				multitrans['TransAmount'] = merchantbillconfig['InitialPrice']
-				multitrans['Markup'] = round(merchantbillconfig['InitialPrice'] * exchange_rate, 2)
+				multitrans['TransAmount'] = config.test_data['InitialPrice']
+				multitrans['Markup'] = round(config.test_data['InitialPrice'] * exchange_rate, 2)
 				multitrans['RelatedTransID'] = 0
 
-		if merchantbillconfig['Type'] in [501, 506] and merchantbillconfig['InitialPrice'] == 0.00:
+		if config.test_data['Type'] in [501, 506] and config.test_data['InitialPrice'] == 0.00:
 			multitrans['TransStatus'] = 186
 			multitrans['TransAmount'] = 1.00
 		exchange_rate = round(exchange_rate, 2)
