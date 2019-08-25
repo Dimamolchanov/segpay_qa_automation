@@ -35,6 +35,8 @@ def sign_up_trans_web(test_data):  # Yan
 				current_transaction_record = web.create_transaction(test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
 				config.test_data['transaction_to_check'] = current_transaction_record
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']} ",'yellow'))
+
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']
 					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
@@ -45,6 +47,9 @@ def sign_up_trans_web(test_data):  # Yan
 					result = current_transaction_record['full_record']
 					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ", 'red', attrs=['bold']))
 					TransActionService.verify_signup_transaction(current_transaction_record)
+				print(colored("___________________________________________________________Finished Scenario_______________________________________________________________________________________________________",'grey','on_yellow', attrs=['bold','dark']))
+				print()
+				print()
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")

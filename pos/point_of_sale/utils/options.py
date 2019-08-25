@@ -99,15 +99,15 @@ def is_visa_secure():
 	card_type = 'US'
 	try:
 		is_merchant_configured = db_agent.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, config.test_data['MerchantID'], config.test_data['PackageID'])
-		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, config.merchants[0])['VISARegion']
+		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, config.test_data['MerchantID'])['VISARegion']
 
 		if is_merchant_configured: config.test_data['3ds'] = True
-		if is_eu_merchant:
+		if is_eu_merchant == 1:
 			config.test_data['Merchant'] = 'EU'
 		else:
 			config.test_data['Merchant'] = 'US'
 
-		cc_card = config.test_data['cc']
+		cc_card =  config.test_data['cc'] # '4444333322221111' #
 		cc_bin = cc_card[0:9]
 		is_card = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_GLOBALBINDETAILS, cc_bin)
 		eu_countries = ['BE', 'BG', 'BL', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GF', 'GG', 'GI', 'GP', 'GR', 'HR', 'HU', 'IE', 'IM', 'IS', 'IT', 'JE', 'LI', 'LT', 'LU', 'LV', 'MF', 'MQ', 'MT']
@@ -126,6 +126,8 @@ def is_visa_secure():
 			result = 3  # no 3ds no psd2
 		elif is_merchant_configured and is_card_eu:
 			result = 4  # 3ds psd2
+		elif is_merchant_configured and not is_eu_merchant:
+			result = 5  # 3ds psd2
 		config.test_data['card_type'] = card_type
 		return result
 	except Exception as ex:
@@ -198,6 +200,8 @@ def aprove_decline(transid):
 					elif response['Cavv'] == {} and not 'EciFlag' in response and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Error' and not 'SignatureVerification' in response:
 						# 1158	Authentication Error
 						result_type = 1158
+					else:
+						aprove_or_decline = False
 
 			if result_type == 999:
 				msg = "In Scope |PSD2 Required|"

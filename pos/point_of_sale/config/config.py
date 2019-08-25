@@ -18,16 +18,15 @@ captures_url = ''
 server = ''
 #test_data = {'eticket': 'test'}
 # us merchant 21621   ppid 74 package 192060 pricepoints  27042,27041, 27064 - ic,27187 - recurring [27042,27041,27187]
-
-packages = [99]
-
+packages = [192060,99]
+scenarios = []
 test_data = {'eticket': '',
              'traceback': True,
              'cnt' : 0,
              'eu_processors' : 44,
              'us_processors' : 74,
              'us_available_currencies' : ['USD'],
-             'eu_available_currencies' : ['USD','CHF'],
+             'eu_available_currencies' : ['USD','CHF','AUD','CAD'],
              'processor': 0
 
 

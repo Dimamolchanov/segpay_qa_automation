@@ -66,6 +66,11 @@ web.browser_quit()
 emails.check_email_status(config.transids)
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
-print(f"Total number of transaction : {config.cnt}")
-for item in config.sql_dict:
-	print(f"SQl:{item}  Cnt = > : {config.sql_dict[item][0]}  Function => : {config.sql_dict[item][1]}")
+print(f"Total number of transaction : {config.test_data['cnt']}")
+print()
+print()
+for item in config.scenarios:
+	print(item)
+
+# for item in config.sql_dict:
+# 	print(f"SQl:{item}  Cnt = > : {config.sql_dict[item][0]}  Function => : {config.sql_dict[item][1]}")

@@ -26,6 +26,7 @@ def scenario():
 	password = ''
 	postbacks = ''
 	cardinal_case = 'Not a Cardinal Test_Case'
+	in_scope = False
 	try:
 		d = config.test_data
 		processor_name = {
@@ -57,20 +58,19 @@ def scenario():
 		cardinal_decline_cards = [4000000000001018, 4000000000001125, 4000000000001133, 4000000000001034, 4000000000001042, 4000000000001059, 4000000000001067, 4000000000001075, 4000000000001083, 4000000000001109, 4000000000001117]
 
 		if d['3ds'] == False:
-			msg = colored('This Transaction should be Aproved', 'geen')
+			msg = colored('This Transaction should be Aproved', 'geen',attrs=['underline','bold'])
 			aproved_declined = True
 		elif int(d['cc']) in cardinal_aprove_cards:
-			msg = colored('This Transaction should be Aproved', 'green')
+			msg = colored('This Transaction should be Aproved', 'green',attrs=['underline','bold'])
 			if d['cc'] == '4000000000001000': cardinal_case = "Test Case 1: Successful Frictionless Authentication"
 			if d['cc'] == '4000000000001091': cardinal_case = "Test Case 10: Successful Step Up Authentication"
 			if d['cc'] == '4000000000001026': cardinal_case = "Test Case 3: Attempts Stand-In Frictionless Authentication"
 			aproved_declined = True
 		elif d['card_type'] == 'Prepaid':
-			msg = colored('This Transaction should be Aproved', 'green')
-
+			msg = colored('This Transaction should be Aproved', 'green',attrs=['underline','bold'])
 			aproved_declined = True
 		elif int(d['cc']) in cardinal_decline_cards:
-			msg = colored("This Transaction should be Declined", 'red')
+			msg = colored("This Transaction should be Declined", 'red',attrs=['underline','bold'])
 			if d['cc'] == '4000000000001018': cardinal_case = "Test Case 2: Failed Frictionless Authentication"
 			if d['cc'] == '4000000000001034': cardinal_case = "Test Case 4: Unavailable Frictionless Authentication from the Issuer"
 			if d['cc'] == '4000000000001042': cardinal_case = "Test Case 5: Rejected Frictionless Authentication by the Issuer"
@@ -84,7 +84,7 @@ def scenario():
 			if d['cc'] == '4000000000001133': cardinal_case = "Test Case 14: Step Up Authentication with Merchant Bypass"
 			purch_tatus = 806
 		else:
-			msg = colored("This Transaction should be Declined", 'red') + " - | Note: Can be aproved based on the settings in CardinalResultActions if ResultAction = 1181'"
+			msg = colored("This Transaction should be Declined", 'red',attrs=['underline','bold']) + " - | Note: Can be aproved based on the settings in CardinalResultActions if ResultAction = 1181'"
 			# msg = 'This Transaction should be Declined - | Note: Can be aproved based on the settings in CardinalResultActions if ResultAction = 1181'
 			purch_tatus = 806
 		if 'ref' in d['url_options']:
@@ -116,13 +116,25 @@ def scenario():
 		else:
 			cardinal_check = f"Cardinal3dsRequests should have the response from Cardinal"
 
+		if d['Merchant'] == 'US':
+			in_scope = False
+		else:
+			if d['visa_secure'] == 4:
+				in_scope = True
+
 		tmp = colored('Scenario:', 'blue', attrs=['bold'])
 		print(colored(tmp, 'blue', attrs=['underline']))
 		print("___________________________________________________________________________________________________________________________________________________________________________________")
 		tr_type = colored("SignUp Transaction", 'blue')
 		tmp = colored(cardinal_case, 'yellow')
-		print(f"{tr_type} | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | In Scope: {'True'}  | Cardinal - {tmp} ")
-		print(f"PricePoint Type: {d['BillConfigID']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} |DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}                                ")
+		str_scenario = f"SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | Card # {d['cc']} | In Scope: {'True'}  | Cardinal - {cardinal_case} | PricePoint Type: {d['BillConfigID']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} | DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}"
+		#print(str_scenario)
+		if not str_scenario in config.scenarios:
+			config.scenarios.append(str_scenario)
+
+
+		print(f"{tr_type} | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | In Scope: {in_scope}  | Cardinal - {tmp} ")
+		print(f"PricePoint Type: {d['BillConfigID']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} |DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}")
 		print("___________________________________________________________________________________________________________________________________________________________________________________")
 		print()
 		tmp = colored('Prerequisite:', 'magenta', attrs=['bold'])
