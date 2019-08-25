@@ -264,3 +264,8 @@ def joinlink():
 		traceback.print_exc()
 		print(f"Function joinglink \n {Exception}")
 		pass
+
+def append_list(msg):
+	current_list = config.test_case['actual']
+	current_list.append(msg)
+	config.test_case['actual'] = current_list

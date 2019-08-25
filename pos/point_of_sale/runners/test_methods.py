@@ -9,11 +9,12 @@ from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import asset
 from termcolor import colored
 from pos.point_of_sale.utils import report
+
 db_agent = DBActions()
 
 
-def sign_up_trans_web(test_data):  # Yan
-	test_data = config.test_data  # refactor needs
+def sign_up_trans_web():  # Yan
+	pass_fail = False
 	current_transaction_record = {}
 	aprove_or_decline = None
 	if config.test_data['Merchant'] == 'EU':
@@ -21,10 +22,11 @@ def sign_up_trans_web(test_data):  # Yan
 	else:
 		currencies = config.test_data['us_available_currencies']
 	for selected_language in config.available_languages:
-		dmc_currencies = []
+		#dmc_currencies = []
 		config.test_data['lang'] = selected_language
 		for dmc in currencies:
 			config.test_data['dmc'] = dmc
+			config.cnt = config.cnt + 1
 			try:
 				selected_options = [dmc, selected_language]
 				url_options = options.ref_variables() + options.refurl() + config.template
@@ -32,28 +34,45 @@ def sign_up_trans_web(test_data):  # Yan
 				options.joinlink()
 				report.scenario()
 
-				current_transaction_record = web.create_transaction(test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
+				current_transaction_record = web.create_transaction(config.test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
 				config.test_data['transaction_to_check'] = current_transaction_record
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
-				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']} ",'yellow'))
-
+				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
+				config.test_case['actual'] = [f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}"]
 				if current_transaction_record['full_record']['Authorized']:
 					tmp = current_transaction_record['full_record']
 					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
 					result = current_transaction_record['full_record']
-					print(colored(f"Transaction Aproved : AuthCode:{result['AuthCode']} ", 'cyan', attrs=['bold']))
-					TransActionService.verify_signup_transaction(current_transaction_record)
+					tmpstr = f"Transaction Aproved : AuthCode:{result['AuthCode']}"
+					print(colored(tmpstr, 'cyan', attrs=['bold']))
+
 				else:
 					result = current_transaction_record['full_record']
-					print(colored(f"Transaction DECLINED : AuthCode:{result['AuthCode']} ", 'red', attrs=['bold']))
-					TransActionService.verify_signup_transaction(current_transaction_record)
-				print(colored("___________________________________________________________Finished Scenario_______________________________________________________________________________________________________",'grey','on_yellow', attrs=['bold','dark']))
+					tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
+					print(colored(tmpstr, 'red', attrs=['bold']))
+
+				pass_fail = TransActionService.verify_signup_transaction(current_transaction_record)
+				if pass_fail:
+					pf = "Scenario completed: All Passed"
+					print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
+				else:
+					print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
+					pf = "Scenario had some issues: Failed | Re-Check Manually |"
+
+
+				options.append_list(tmpstr)
+				options.append_list(pf)
+				options.append_list('_____Finished Scenario_______')
+
+				config.test_cases[config.test_data['TransID']] = config.test_case
+				config.test_case = {}
+
+				print(colored("___________________________________________________________Finished Scenario_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
 				print()
 				print()
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
-				# config.logging.info(f"{Exception} ")
 				pass
 
 	return current_transaction_record

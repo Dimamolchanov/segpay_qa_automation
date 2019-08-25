@@ -4,7 +4,7 @@ from termcolor import colored
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 import json
-
+from pos.point_of_sale.utils import options
 db_agent = DBActions()
 
 
@@ -26,8 +26,10 @@ def cardinal3dsrequests(transid):  # card
 		if visa_secure == 1:
 			live_record = db_agent.execute_select_with_no_params(sql)
 			if live_record == None:
+				options.append_list(f"Merchant Configured for 3DS not in scope  => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
 				print(colored(f"Merchant Configured for 3DS not in scope  => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
 			else:
+				options.append_list(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass ")
 				print(colored(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass ", 'green'))
 		elif visa_secure in [4,5]:
 			if config.test_data['cc'] in config.cards_3ds:
@@ -151,19 +153,24 @@ def cardinal3dsrequests(transid):  # card
 			else:
 				live_record = db_agent.execute_select_with_no_params(sql)
 				if live_record == None:
+					options.append_list(f"Merchant Configured for PSD2 => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
 					print(colored(f"Merchant Configured for PSD2 => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
 					print()
 				else:
+					options.append_list(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass")
 					print(colored(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass ", 'green'))
 
 			if len(failed) > 0:
+				options.append_list("********************* 3DS verification MissMatch *********************")
 				print()
 				print(colored(f"********************* 3DS verification MissMatch *********************", 'red'))
 				for item in failed:
 					tmp = failed[item].split('split')
+					options.append_list(f"Field : {item} =>  Expected BaseField: {tmp[0]}  | Actual : {tmp[1]}  ")
 					print(f"Field : {item} =>  Expected BaseField: {tmp[0]}  | Actual : {tmp[1]}  ")
 				print()
 			if len(failed) == 0 and live_record:
+				options.append_list(f"Cardinal3dsRequests test_case: {config.test_data['cc']} Records Compared => Pass ")
 				print(colored(f"Cardinal3dsRequests test_case: {config.test_data['cc']} Records Compared => Pass ", 'green'))
 				print()
 			return failed

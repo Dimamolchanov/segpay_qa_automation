@@ -8,6 +8,7 @@ import traceback
 import time
 from pos.point_of_sale.utils import constants
 from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.utils import options
 
 db_agent = DBActions()
 
@@ -53,8 +54,8 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 		         'REF10': multitrans_base_record['REF10']
 		         }
 		if type == 511:
-			asset['RecurringAmount'] = multitrans_live_record['recurringprice511']
-			asset['PurchPeriod'] = multitrans_live_record['recurringlength511']
+			asset['RecurringAmount'] = config.test_data['recurringprice511']
+			asset['PurchPeriod'] = config.test_data['recurringlength511']
 		elif type == 505:
 			asset['PurchTotal'] = 0.00
 			asset['InitialAmount'] = 0.00
@@ -66,8 +67,8 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 				asset['StatusDate'] = current_date
 				asset['PurchDate'] = current_date
 				if type == 511:
-					asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
-					asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['initiallength511'])
+					asset['NextDate'] = current_date + timedelta(days=config.test_data['initiallength511'])
+					asset['ExpiredDate'] = current_date + timedelta(days=config.test_data['initiallength511'])
 				elif type == 505:
 					asset['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
 				else:
@@ -111,7 +112,7 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 			asset['LastDate'] = current_date
 		if config.test_data['aprove_or_decline'] == False:
 			asset['LastResult'] = 'Declined'
-			#asset['MerchantCurrency'] = 'USD'
+			# asset['MerchantCurrency'] = 'USD'
 			asset['AuthCurrency'] = 'USD'
 			asset['LastResult'] = 'Declined'
 
@@ -262,18 +263,25 @@ def asset_instant_conversion(merchantbillconfig, asset_base_record, multitrans_l
 
 def asset_compare(asset_base_record):  # signup
 	differences = {}
-	purchaseid = asset_base_record['PurchaseID']
-	asset_live_record = db_agent.asset_full_record(purchaseid)[0]
-	asset_live_record['PCID'] = None
+	try:
+		purchaseid = asset_base_record['PurchaseID']
+		asset_live_record = db_agent.asset_full_record(purchaseid)[0]
+		asset_live_record['PCID'] = None
+		differences = bep.dictionary_compare(asset_base_record, asset_live_record)
+		if len(differences) == 0:
+			print(colored(f"Asset      Record Compared =>  Pass  ", 'green'))
+			options.append_list("Asset      Record Compared =>  Pass  ")
+		else:
+			print(colored(f"********************* Asset  MissMatch ****************", 'red'))
+			for k, v in differences.items():
+				tmp = k + " " + v
+				options.append_list(tmp)
+				print(k, v)
 
-	differences = bep.dictionary_compare(asset_base_record, asset_live_record)
-
-	if len(differences) == 0:
-		print(colored(f"Asset      Record Compared =>  Pass  ", 'green'))
-	else:
-		print(colored(f"********************* Asset  MissMatch ****************", 'red'))
-		for k, v in differences.items():
-			print(k, v)
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}")
+		pass
 
 	return differences
 
@@ -338,8 +346,8 @@ def asseets_check_refunds():
 		try:
 			differences = {}
 			base_record = refunds[pid]
-			tasks_type = config.tasks_type[pid]   #refunds[pid]['tasktype']
-			#del refunds[pid]['tasktype']
+			tasks_type = config.tasks_type[pid]  # refunds[pid]['tasktype']
+			# del refunds[pid]['tasktype']
 			if refunds[pid]['PurchType'] in [501, 505, 506, 511]:
 				if tasks_type == 842 or tasks_type == 844:
 					base_record['PurchStatus'] = 802
@@ -406,13 +414,10 @@ def assets_check_reactivation():
 				base_record['PaymentAcct'] = card_encrypted
 				base_record['CardExpiration'] = config.test_data['month'] + config.test_data['year'][-2:]
 
-
-
-
 			base_record['CancelDate'] = None
 			base_record['Retries'] = 0
 			base_record['LastResult'] = 'Reactivated'
-			#base_record['CardExpiration'] = live_record['CardExpiration']
+			# base_record['CardExpiration'] = live_record['CardExpiration']
 			if len(base_record['CardExpiration']) < 4:
 				print("Check Card Expiration - assets | Something is wrong")
 			differences = bep.dictionary_compare(base_record, live_record)
@@ -438,4 +443,3 @@ def assets_check_reactivation():
 		print(colored(f"Warning ************* Reactivation {len(reactivation_completed_failed)} records => Asset MissMatch => Check Manually ****************", 'blue'))
 
 	return [reactivation_completed, reactivation_completed_failed]
-

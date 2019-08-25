@@ -2,7 +2,7 @@ from termcolor import colored
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import constants
-
+from pos.point_of_sale.utils import options
 
 db_agent = DBActions()
 errors_dictionary = {}
@@ -304,15 +304,16 @@ def verify_postback_url(action, package_id, trans_id):
 
 
     if not errors_dictionary:
-         print(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
-         config.logging.info(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
-
+        options.append_list(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}")
+        print(colored(f"Postback Record Compared =>  Passed for collect user info: '{get_collect_user_info_code}' and postback types: {matched_postback_types}", 'green'))
     else:
          print(colored(f"********************* Postbacks MissMatch ****************", 'red'))
-         config.logging.info(colored(f"********************* Postbacks MissMatch ****************", 'red'))
+         options.append_list("********************* Postbacks MissMatch ****************")
          for param, value in errors_dictionary.items():
+             tmp = param + " " + value
+             options.append_list(tmp)
              print(param, value)
-             #config.logging.info(param, value)
+
     return errors_dictionary
 
 

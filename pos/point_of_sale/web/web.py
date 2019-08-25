@@ -366,7 +366,11 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		if br.find_by_id('CurrencyDDL'):
 			merchant_currency = br.find_by_id('CurrencyDDL').select(selected_options[0])
 		paypage_lnaguage = br.find_by_id('LanguageDDL').select(selected_options[1])
-		time.sleep(2)
+		# while br.execute_script("return jQuery.active == 0") != True:
+			#time.sleep(1)
+		if not selected_options[1] == 'EN':
+			time.sleep(2)
+		#time.sleep(2)
 		if config.enviroment == 'qa':
 			br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
 		else:
@@ -426,11 +430,9 @@ def FillDefault(url, selected_options, merchantid, packageid):
 
 
 def create_transaction(pricepoint_type, eticket, selected_options, merchantid, url_options, processor):
-	# url = ''
 	joinlink = config.test_data['link']
-	#db_agent = config.test_data
 	try:
-		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.test_data['packageid'])  # fill the page and return what was populated
+		data_from_paypage = FillDefault(joinlink, selected_options, merchantid, config.test_data['PackageID'])  # fill the page and return what was populated
 		transguid = data_from_paypage['transguid']
 		sql = "select * from multitrans where TransGuid = '{}'"
 		full_record = db_agent.execute_select_one_with_wait(sql, transguid)
