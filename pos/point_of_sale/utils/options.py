@@ -97,11 +97,15 @@ def is_visa_secure():
 	is_card_eu = False
 	result = ''
 	card_type = 'US'
+	config.test_data['scope'] = False
 	try:
 		is_merchant_configured = db_agent.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, config.test_data['MerchantID'], config.test_data['PackageID'])
 		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, config.test_data['MerchantID'])['VISARegion']
 
-		if is_merchant_configured: config.test_data['3ds'] = True
+		if is_merchant_configured:
+			config.test_data['3ds'] = True
+		else:
+			config.test_data['3ds'] = False
 		if is_eu_merchant == 1:
 			config.test_data['Merchant'] = 'EU'
 		else:
@@ -114,20 +118,21 @@ def is_visa_secure():
 		if is_card and is_card['IssCountry'] in eu_countries:
 			is_card_eu = True
 			card_type = 'EU'
-		if is_card and is_card['PrePaid'] == 'Y':
+
+		if is_card and is_card['PrePaid'] == 'Y': # out of scope
 			card_type= 'Prepaid'
 			result =  0  # no 3ds
-
-		elif is_merchant_configured and not is_card_eu:
-			result = 1  # 3ds but no psd
-		elif not is_merchant_configured and is_card_eu:
-			result = 2  # will be decline in scope
-		elif not is_merchant_configured and not is_card_eu:
-			result = 3  # no 3ds no psd2
-		elif is_merchant_configured and is_card_eu:
-			result = 4  # 3ds psd2
-		elif is_merchant_configured and not is_eu_merchant:
-			result = 5  # 3ds psd2
+		elif config.test_data['Merchant']=='EU'  and is_card_eu and  not is_merchant_configured: #Merchant EU, card is EU, not configured for 3ds in Scope decline
+			result = 1  # 3ds psd2
+			config.test_data['scope'] = True
+		elif config.test_data['Merchant']=='EU'  and is_card_eu and  is_merchant_configured: #Merchant EU, card is EU, configured for 3ds
+			result = 2  # 3ds psd2
+			config.test_data['scope'] = True
+		elif is_merchant_configured: #Any merchant configured but not in scope
+			result = 3  # 3ds psd2
+			#config.test_data['scope'] = True
+		else:
+			result = 4  # Merchant not EU not in scope
 		config.test_data['card_type'] = card_type
 		return result
 	except Exception as ex:

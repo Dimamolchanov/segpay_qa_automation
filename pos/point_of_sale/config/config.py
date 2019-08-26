@@ -18,7 +18,9 @@ captures_url = ''
 server = ''
 # test_data = {'eticket': 'test'}
 # us merchant 21621   ppid 74 package 192060 pricepoints  27042,27041, 27064 - ic,27187 - recurring [27042,27041,27187]
-packages = [192192,192261,192195,192059,192204,192046,192048]#192060, 99,192059,192041,192046,192133]
+# stage packages 192192,99,192195 eu
+
+
 scenarios = []
 test_case = {}
 test_cases = {}
@@ -32,25 +34,11 @@ initial_data = {
 }
 test_data = {'eticket': ''}
 
-# us_pricepoints = [27042, 27041]
-# us_processors = 74
-# us_packageid = 192060
-# us_available_currencies = ['USD']
-# eu_pricepoints = [27001, 27003, 27006, 27004, 27010,27011,27002]
-# eu_processors = 44
-# eu_packageid = 99
-# eu_available_currencies = ['USD', 'CHF']
-# # packageid = 0
-# merchant = 'US'
-# merchants = [27001, 21621]
-# merchant_data = {'US': [us_pricepoints, us_packageid, us_processors, us_available_currencies],
-#                  'EU': [eu_pricepoints, eu_packageid, eu_processors, eu_available_currencies]}
-
+packages = [800] # [900,901,902,903,800,801,802,803]#,192261,192195,192059,192204,192046,192048]#192060, 99,192059,192041,192046,192133]
 pricepoints_options = 'single'
 available_languages = ['EN']  # ,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 template = ''  # '&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
-oc_list = [501, 502, 503, 504, 506, 510, 511]
 
 # Global Objects to transfer data from test to test
 transaction_records = []
@@ -63,15 +51,15 @@ oc_tokens = {}
 cnt = 0
 sql_dict = {}
 
-# random_cards = ['4000000000001000', '4000000000001026'
+# random_cards = ['4000000000001083', '4000000000001083'
 #                 , '4000000000001091']
-
+#random_cards = ['4000000000001075','4000000000001034']
 
 random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
                 '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4444333322221111', '5432768030017007', '4916280519180429', '4496046701292555']
 
 transids = []
-cc_number = '4000000000001091'  # '4000000000001109' # '4444333322221111' prepaid 5432768030017007
+#cc_number = '4000000000001091'  # '4000000000001109' # '4444333322221111' prepaid 5432768030017007
 transids_for_oc = [1234643195]
 cards_3ds = {
 	"4000000000001000": {"card": "4000000000001000", 'Enrolled': 'Y', 'PAResStatus': 'Y', 'SignatureVerification': 'Y', 'Cavv': '<Cavv value>', 'EciFlag': '05', 'ACSUrl': '', 'Payload': '', 'ErrorNo': '0', 'ErrorDesc': '', 'cmpi_authenticate response': 'NO'},

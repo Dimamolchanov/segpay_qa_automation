@@ -90,6 +90,7 @@ def verify_postback_url(action, package_id, trans_id):
         return 0
     is_service_transaction = db_agent.get_trans_source(trans_id)
     trans_data = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, trans_id)
+    is_trans_authorized = trans_data['Authorized']
     trans_type = trans_data['TransType']
     data_from_3d_request = db_agent.execute_select_one_parameter(constants.IS_3DSAUTHENTICATED, trans_data['TRANSGUID'])
     if not data_from_3d_request:
@@ -112,8 +113,7 @@ def verify_postback_url(action, package_id, trans_id):
         purchase_id = trans_data['PurchaseID']
         related_trans_data = db_agent.execute_select_one_parameter(
             constants.GET_DATA_FROM_MULTITRANS_BY_RELATED_TRANS_ID, trans_id)
-
-        if is_service_transaction:
+        if is_service_transaction and is_trans_authorized:
             if get_collect_user_info_code == 0:
                 compare_results("Collect user info", (1 not in matched_postback_types and 2 not in matched_postback_types), True)
             elif get_collect_user_info_code == 1:

@@ -110,11 +110,22 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 			asset['CancelDate'] = current_date
 			asset['ConvDate'] = current_date
 			asset['LastDate'] = current_date
-		if config.test_data['aprove_or_decline'] == False:
-			asset['LastResult'] = 'Declined'
-			# asset['MerchantCurrency'] = 'USD'
-			asset['AuthCurrency'] = 'USD'
-			asset['LastResult'] = 'Declined'
+
+		if config.test_data['scope']:
+			if config.test_data['aprove_or_decline'] == False:
+				asset['LastResult'] = 'Declined'
+				# asset['MerchantCurrency'] = 'USD'
+				asset['AuthCurrency'] = 'USD'
+				asset['LastResult'] = 'Declined'
+		else:
+			if config.test_data['full_record']['Authorized'] == False:
+				asset['LastResult'] = 'Declined'
+				# asset['MerchantCurrency'] = 'USD'
+				asset['AuthCurrency'] = 'USD'
+				asset['LastResult'] = 'Declined'
+
+
+
 
 
 
