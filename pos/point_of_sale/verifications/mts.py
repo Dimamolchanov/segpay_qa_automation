@@ -10,7 +10,7 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import constants
 import json
 import simplexml
-
+from pos.point_of_sale.utils import options
 db_agent = DBActions()
 
 
@@ -294,20 +294,16 @@ def multitrans_compare(multitrans_base_record, live_record):
 		multitrans_live_record = live_record  # [0]
 		live_record['PCID'] = None
 		multitrans_live_record['TransDate'] = multitrans_live_record['TransDate'].date()
-
 		differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
-
 		if len(differences) == 0:
 			print(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
-			config.logging.info(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))
+			options.append_list("Mulitrans  Record Compared =>  Pass")
 		else:
-			# print(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			#       f" TransGuid: {multitrans_base_record['TRANSGUID']}")
 			print(colored(f"********************* Multitrans MissMatch ****************", 'red'))
-			# config.logging.info(f"PurchaseID:{multitrans_base_record['PurchaseID']} | TransId:{multitrans_base_record['TransID']} |"
-			#                    # f" TransGuid: {multitrans_base_record['TRANSGUID']}")
-			# config.logging.info(colored(f"********************* Multitrans MissMatch ****************", 'red'))
+			options.append_list("********************* Multitrans MissMatch ****************")
 			for k, v in differences.items():
+				tmp = k + " " + v
+				options.append_list(tmp)
 				print(k, v)
 	# config.logging.info(k,v)
 	except Exception as ex:

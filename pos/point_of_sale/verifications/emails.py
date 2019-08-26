@@ -1,7 +1,7 @@
 from termcolor import colored
 
 from pos.point_of_sale.db_functions.dbactions import DBActions
-
+from pos.point_of_sale.utils import options
 
 db_agent = DBActions()
 
@@ -33,6 +33,8 @@ def check_email_que(pricepoint_type, multitrans_base_record, action):
 		check_email = check_email[0]
 	if action == 'signup':
 		if check_email['EmailTypeID'] == 981:
+			options.append_list('Email      is in que       =>  Pass')
 			print(colored(f"Email      is in que       =>  Pass", 'green'))
 		else:
+			options.append_list("Could not find the email or error")
 			return "Could not find the email or error"

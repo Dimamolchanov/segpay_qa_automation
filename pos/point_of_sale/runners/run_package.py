@@ -11,11 +11,14 @@ from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.web import web
 from pos.point_of_sale.utils import options
+import yaml
+
 
 
 db_agent = DBActions()
 start_time = datetime.now()
-actions = {'singup': partial(test_methods.sign_up_trans_web, config.test_data),
+
+actions = {'singup': partial(test_methods.sign_up_trans_web),
            'oneclick_pos': partial(test_methods.signup_oc, 'pos', config.test_data['eticket'], config.test_data),
 		   'oneclick_pos_all': partial(test_methods.signup_oc_all, 'pos', config.test_data['eticket'], config.test_data), # iterrate all pricpoints in 1 click to all pricepoints
            'captures': partial(bep.process_captures),
@@ -44,13 +47,13 @@ for packageid in config.packages:
 		try:
 			config.test_data = TransActionService.prepare_data1(pricepoint, packageid,1)
 			actions['singup']()
-			#config.logging.info('')
+
 		except Exception as ex:
 			traceback.print_exc()
 			print(f"Exception {Exception} ")
 			pass
 	#actions['oneclick_pos']() # this oen is for single right after trasnaction
-	#actions['oneclick_pos_all']()
+	actions['oneclick_pos_all']()
 
 	if len(bep_basic1) != 0:
 		for item in bep_basic1:
@@ -66,9 +69,22 @@ web.browser_quit()
 emails.check_email_status(config.transids)
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
-print(f"Total number of transaction : {config.test_data['cnt']}")
+file_name = (format(end_time - start_time).split('.')[0] + ".yaml").replace(':','-')
+
+
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_run_{file_name}"
+with open(filename, 'w') as f:
+	data = yaml.dump(config.test_cases, f)
+
+
+
+
+print(f"Total number of transaction : {config.cnt}")
 print()
 print()
+
+
+
 for item in config.scenarios:
 	print(item)
 

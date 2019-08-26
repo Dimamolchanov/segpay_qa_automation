@@ -9,6 +9,7 @@ from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
 import traceback
 import random
+import yaml
 
 db_agent = DBActions()
 
@@ -27,7 +28,9 @@ class TransActionService:
     @staticmethod
     def prepare_data1(pricepoint, packageid, one_click_enabled):
         try:
-            config.test_data['cnt'] = config.test_data['cnt'] + 1
+            #config.test_data['cnt'] = config.test_data['cnt'] + 1
+            config.test_data= {}
+            config.test_data = {**config.test_data, **config.initial_data}
             merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
             config.test_data = {**config.test_data,**merchantbillconfig}
             package = db_agent.package(packageid)
@@ -45,6 +48,7 @@ class TransActionService:
             else:
                 config.test_data['processor'] = config.test_data['us_processors']
                 db_agent.update_processor(config.test_data['us_processors'], packageid)
+            #print(yaml.dump(config.test_data))
         except Exception as ex:
             traceback.print_exc()
             print(f"Function: prepare_data1 \n {Exception} ")
@@ -52,18 +56,8 @@ class TransActionService:
         return config.test_data
 
 
-
-
-
-
-
-
-
-
-
     @staticmethod
     def prepare_data(pricepoint, one_click_enabled):
-        config.cnt = config.cnt + 1
         merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
         db_agent.update_merchantbillconfig_oneclick(pricepoint, one_click_enabled)
         db_agent.update_pp_singleuse_promo(pricepoint, 1, config.single_use_promo)
@@ -99,10 +93,9 @@ class TransActionService:
             config.test_data['aproved_transids'] = transaction_to_check['TransID']
         differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
         differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
-
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
-        if not differences_multitrans and not differences_asset and not differences_postback: #and not differences_3ds:
+        if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
             return True
         else:
             return False
@@ -118,7 +111,7 @@ class TransActionService:
             differences_asset_oc = asset.asset_compare(asset_base_oc_record)
             if one_click_record['Authorized'] == 1:
                 check_email_oc = emails.check_email_que(mt_octoken_mbconfig_record[2]['Type'], one_click_record, 'signup')
-            differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_record['TransID'])
+            differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], one_click_record['TransID'])
             card = db_agent.decrypt_string(one_click_record['PaymentAcct'])
             config.test_data['cc'] = card
             differences_3ds = psd2.cardinal3dsrequests(one_click_record['TransID'])
