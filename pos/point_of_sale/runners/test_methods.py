@@ -33,7 +33,6 @@ def sign_up_trans_web():  # Yan
 				config.test_data['url_options'] = url_options
 				options.joinlink()
 				report.scenario()
-
 				current_transaction_record = web.create_transaction(config.test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
 				config.test_data['transaction_to_check'] = current_transaction_record
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
@@ -83,21 +82,30 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 	one_click_record = {}
 	for current_transaction_id in config.transaction_records:
 		try:
+			config.test_case = {}
 			print("\n======================================|       OneClick     |======================================\n")
 			pricepoint = current_transaction_id['full_record']['BillConfigID']
-			config.test_data = TransActionService.prepare_data(pricepoint, 1)
+			config.test_data = TransActionService.prepare_data1(pricepoint,current_transaction_id['full_record']['PackageID'], 1)
 			selected_options = [current_transaction_id['merchant_currency'], current_transaction_id['paypage_lnaguage']]
 			eticket = config.test_data['eticket']
 			octoken = current_transaction_id['PurchaseID']
+			url_options = options.ref_variables() + options.refurl() + config.template
+			config.test_data['url_options'] = url_options
+			config.test_case['one_click_pos'] = f"One Click Started - Eticket: {eticket}"
+			config.test_case['actual'] = f"One Click Results - Eticket: {eticket}"
+
 			if oc_type == 'pos':
-				one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
+				one_click_record = web.one_click_pos(eticket, octoken, selected_options, url_options)
 			elif oc_type == 'ws':
-				one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
+				one_click_record = web.one_click_services(eticket, octoken, selected_options, url_options)
+
+			aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
 			if one_click_record['Authorized']:
-				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)
+				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
 			else:
 				print(colored(f"OneClick Transaction DECLINED : AuthCode:{one_click_record['AuthCode']}", 'red', attrs=['bold']))
 				print()
+			config.test_cases[one_click_record['TransID']] = config.test_case
 		except Exception as ex:
 			traceback.print_exc()
 			print(f"{Exception}  ")
@@ -112,23 +120,30 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 	for current_transaction_id in config.transaction_records:
 		for token in octokens:
 			try:
+				config.test_case = {}
 				print("\n======================================|       OneClick     |======================================\n")
 				config.logging.info("\n======================================|       OneClick     |======================================\n")
 				config.logging.info('')
 				pricepoint = current_transaction_id['full_record']['BillConfigID']
-				config.test_data = TransActionService.prepare_data(pricepoint, 1)
+				config.test_data = TransActionService.prepare_data1(pricepoint,current_transaction_id['full_record']['PackageID'], 1)
 				eticket = config.test_data['eticket']
 				selected_options = [config.oc_tokens[token][1], config.oc_tokens[token][2]]
 				octoken = token
+				url_options = options.ref_variables() + options.refurl() + config.template
+				config.test_data['url_options'] = url_options
+				config.test_case['one_click_pos'] = f"One Click Started - Eticket: {eticket}"
+				config.test_case['actual'] = f"One Click Results - Eticket: {eticket}"
 				if oc_type == 'pos':
-					one_click_record = web.one_click_pos(eticket, octoken, selected_options, config.test_data['url_options'])
-					aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
+					one_click_record = web.one_click_pos(eticket, octoken, selected_options, url_options)
+					#aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
 					if not one_click_record['Authorized']:
 						print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
 						print("---------------------------------------")
 				elif oc_type == 'ws':
 					one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
-				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, config.test_data['url_options'], selected_options)
+				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
+
+				config.test_cases[one_click_record['TransID']] = config.test_case
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}  ")

@@ -111,7 +111,7 @@ class TransActionService:
             differences_asset_oc = asset.asset_compare(asset_base_oc_record)
             if one_click_record['Authorized'] == 1:
                 check_email_oc = emails.check_email_que(mt_octoken_mbconfig_record[2]['Type'], one_click_record, 'signup')
-            differences_postback = postback_service.verify_postback_url("SignUp", config.packageid, one_click_record['TransID'])
+            differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], one_click_record['TransID'])
             card = db_agent.decrypt_string(one_click_record['PaymentAcct'])
             config.test_data['cc'] = card
             differences_3ds = psd2.cardinal3dsrequests(one_click_record['TransID'])
