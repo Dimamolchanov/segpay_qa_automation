@@ -253,7 +253,7 @@ def build_multitrans():
 		elif config.test_data['Type'] == 510:
 			multitrans['TransAmount'] = config.test_data['initialprice510']
 		else:
-			if config.test_data['Type'] == 505 and config.test_data['full_record'][0]['TransSource'] == 122:
+			if config.test_data['Type'] == 505 and config.test_data['full_record']['TransSource'] == 122:
 				multitrans['TransAmount'] = config.test_data['RebillPrice']
 				multitrans['TransDate'] = transdate + timedelta(days=config.test_data['InitialLen'])
 				sql = f"select  RelatedTransID  from multitrans where PurchaseID = {config.test_data['PurchaseID']}  and TransSource = 121 "
@@ -271,14 +271,23 @@ def build_multitrans():
 		multitrans['ExchRate'] = exchange_rate
 		if multitrans['MerchantCurrency'] == 'JPY':
 			multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
-		if 'aprove_or_decline' in config.test_data:
-			if config.test_data['aprove_or_decline'] == False:
-				multitrans['Authorized'] = 0
-				multitrans['Markup'] = 0.00
-				multitrans['ExchRate'] = 0.00
-				multitrans['MerchantCurrency'] = 'USD'
-				del multitrans['AuthCode']
 
+		if config.test_data['scope']:
+			if 'aprove_or_decline' in config.test_data:
+				if config.test_data['aprove_or_decline'] == False:
+					multitrans['Authorized'] = 0
+					multitrans['Markup'] = 0.00
+					multitrans['ExchRate'] = 0.00
+					multitrans['MerchantCurrency'] = 'USD'
+					del multitrans['AuthCode']
+		else:
+			if config.test_data['full_record']['Authorized'] == False:
+				if config.test_data['aprove_or_decline'] == False:
+					multitrans['Authorized'] = 0
+					multitrans['Markup'] = 0.00
+					multitrans['ExchRate'] = 0.00
+					multitrans['MerchantCurrency'] = 'USD'
+					del multitrans['AuthCode']
 
 	except Exception as ex:
 		traceback.print_exc()

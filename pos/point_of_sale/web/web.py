@@ -52,6 +52,11 @@ def one_click_pos(eticket, octoken, currency_lang, url_options):
 	oneclick_record = None
 	dynamic_price = 9999
 	pricingguid = ''
+	if config.test_data['Type'] == 505:
+		print("___________________Delay Capture One Click is nto allowed_____________")
+		print()
+		return None
+
 	try:
 		ppid = eticket.split(':')
 		multitrans_oneclick_record = {}
