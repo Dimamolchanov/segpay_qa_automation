@@ -39,7 +39,7 @@ def randomString(stringLength=10):
 
 def refurl():
 	tmpurl = randomString(270)
-	refurl = '&refurl=wwww.test.com/' + tmpurl
+	refurl = '&refurl=wwww.regressesion.com/' #+ tmpurl
 	return refurl
 
 
@@ -47,6 +47,16 @@ def ref_variables():
 	refs = f"&ref1={randomString(5)}&ref2={randomString(4)}&ref3={randomString(5)}&ref4={randomString(4)}" \
 	       f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}" \
 	       f"&ref9={randomString(5)}&ref10={randomString(4)}"
+
+	ref1 = f"&ref1={randomString(5)}&ref2={randomString(4)}"
+	ref2 = f"&ref9={randomString(5)}&ref10={randomString(4)}"
+	ref3 =  f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}"
+	ref4 =  f"&ref9={randomString(5)}"
+	ref5  = f"&ref9={randomString(5)}&ref10={randomString(4)}" + ref4
+	ref6 = ''
+	refs = random.choice([refs,ref1,ref2,ref3,ref4,ref5,ref6])
+
+
 	return refs
 
 

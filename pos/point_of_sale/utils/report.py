@@ -58,8 +58,14 @@ def scenario():
 		cardinal_aprove_cards = [4000000000001000, 4000000000001091, 4000000000001026]  # 4000000000001026
 		cardinal_decline_cards = [4000000000001018, 4000000000001125, 4000000000001133, 4000000000001034, 4000000000001042, 4000000000001059, 4000000000001067, 4000000000001075, 4000000000001083, 4000000000001109, 4000000000001117]
 
-		if d['3ds'] == False:
-			msg = colored('This Transaction should be Aproved', 'geen', attrs=['underline', 'bold'])
+		if d['3ds'] == False and d['scope']:
+			msg = colored('This Transaction should be Declined | Merchant in scope and not configured |', 'red', attrs=['underline', 'bold'])
+			aproved_declined = False
+		elif  d['3ds'] == False and d['scope'] == False:
+			msg = colored('This Transaction should be Aproved | Merchant not in scope and not configured |', 'green', attrs=['underline', 'bold'])
+			aproved_declined = False
+
+			msg = colored('This Transaction should be Aproved', 'green', attrs=['underline', 'bold'])
 			aproved_declined = True
 		elif int(d['cc']) in cardinal_aprove_cards:
 			msg = colored('This Transaction should be Aproved', 'green', attrs=['underline', 'bold'])

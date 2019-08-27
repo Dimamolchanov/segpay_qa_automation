@@ -53,7 +53,7 @@ for packageid in config.packages:
 			print(f"Exception {Exception} ")
 			pass
 	#actions['oneclick_pos']() # this oen is for single right after trasnaction
-	#actions['oneclick_pos_all']()
+	actions['oneclick_pos_all']()
 
 	if len(bep_basic1) != 0:
 		for item in bep_basic1:
