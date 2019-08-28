@@ -53,7 +53,7 @@ def one_click_pos(eticket, octoken, currency_lang, url_options):
 	dynamic_price = 9999
 	pricingguid = ''
 	if config.test_data['Type'] == 505:
-		print("___________________Delay Capture One Click is nto allowed_____________")
+		print("___________________Delay Capture One Click is not allowed_____________")
 		print()
 		return None
 

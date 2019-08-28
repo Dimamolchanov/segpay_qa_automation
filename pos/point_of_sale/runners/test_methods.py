@@ -138,7 +138,7 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 					one_click_record = web.one_click_pos(eticket, octoken, selected_options, url_options)
 					# aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
 					if one_click_record == None:
-						print("Delay Captureis not allowed for 1Click")
+						config.test_data['1click_not_found'] = eticket
 					else:
 						if not one_click_record['Authorized']:
 							print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
