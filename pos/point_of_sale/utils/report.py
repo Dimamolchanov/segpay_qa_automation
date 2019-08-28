@@ -140,6 +140,9 @@ def scenario():
 		print("___________________________________________________________________________________________________________________________________________________________________________________")
 		tr_type = colored("SignUp Transaction", 'blue')
 		tmp = colored(cardinal_case, 'yellow')
+
+		#tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}{cardinal_case}"  # {d['Type']}
+
 		str_scenario = f"SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | Card # {d['cc']} | In Scope: {in_scope}  | Cardinal - {cardinal_case} | PricePoint Type: {d['BillConfigID']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} | DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}"
 		# print(str_scenario)
 

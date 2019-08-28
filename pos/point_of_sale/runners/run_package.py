@@ -54,6 +54,7 @@ for packageid in config.packages:
 			pass
 	#actions['oneclick_pos']() # this oen is for single right after trasnaction
 	actions['oneclick_pos_all']()
+	config.oc_tokens = {}
 
 	if len(bep_basic1) != 0:
 		for item in bep_basic1:

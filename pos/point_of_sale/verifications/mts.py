@@ -29,7 +29,7 @@ def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_
 			'TransID': one_click_record['TransID'],
 			'TRANSGUID': one_click_record['TRANSGUID'],
 			'BillConfigID': int(ppid[1]),
-			'PackageID': octoken_record['PackageID'],
+			'PackageID': one_click_record['PackageID'],
 			'AuthCode': 'OK:0',
 			'Authorized': 1,
 			'CardExpiration': octoken_record['CardExpiration'],
@@ -137,6 +137,12 @@ def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_
 		if multitrans['MerchantCurrency'] == 'JPY':
 			multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
 		one_click_record['PCID'] = None
+		if one_click_record['ProcessorTransID'] == 'FREETRIAL':
+			multitrans['TransStatus'] = 187
+			multitrans['TransAmount'] = 0.00
+
+
+
 		return multitrans, octoken_record, merchantbillconfig
 
 
@@ -288,7 +294,9 @@ def build_multitrans():
 					multitrans['ExchRate'] = 0.00
 					multitrans['MerchantCurrency'] = 'USD'
 					del multitrans['AuthCode']
-
+		if config.test_data['full_record']['ProcessorTransID'] == 'FREETRIAL':
+			multitrans['TransStatus'] = 187
+			multitrans['TransAmount'] = 0.00
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")

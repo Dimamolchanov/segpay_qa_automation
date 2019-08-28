@@ -1,15 +1,10 @@
-# from pos.point_of_sale.config.TransActionService import TransActionService
-# from pos.point_of_sale.web import web
 import random
 import decimal
 import time
 from datetime import datetime
 from xml.etree.ElementTree import fromstring
-import simplexml
 import requests
-import copy
 import traceback
-import os
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import options
@@ -25,10 +20,10 @@ cnt = 0  # transactions
 available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 eu_currencies = ['USD']  # , "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
 currencies = ['USD']
-packages = [800, 900, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 99, 999, 99]
+packages = [800, 900, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99,192317]
 random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
                 '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
-                '4444333322221111', '5432768030017007', '4916280519180429', '4496046701292555']
+                '5432768030017007', '4916280519180429']
 
 
 def joinlink():
@@ -94,23 +89,29 @@ def scenario():
 			form = 'Extended'
 		if d['Type'] == 501:
 			descr = 'Recurring'
+			m4 = 1
 		elif d['Type'] == 502:
 			descr = 'One Time'
+			m4 = 2
 		elif d['Type'] == 503:
 			descr = 'Digital Purchase'
+			m4 = 3
 		elif d['Type'] == 505:
 			descr = 'Delayed Capture'
+			m4 = 4
 		elif d['Type'] == 506:
 			descr = 'Instant Conversion'
 		elif d['Type'] == 510:
 			descr = 'Dynamic Pricing'
+			m4 = 5
 		elif d['Type'] == 511:
 			descr = 'Dynamic Recurring'
+			m4 = 6
 		cardinal_aprove_cards = [4000000000001000, 4000000000001091, 4000000000001026]  # 4000000000001026
 		cardinal_decline_cards = [4000000000001018, 4000000000001125, 4000000000001133, 4000000000001034, 4000000000001042, 4000000000001059, 4000000000001067, 4000000000001075, 4000000000001083, 4000000000001109, 4000000000001117]
 
 		if d['3ds'] == False and d['scope']:
-			msg = 'This Transaction should be Declined | Merchant in scope and not configured |'
+			msg = 'This Transaction should be Declined | C300:Merchant is not configured for Cardinal |'
 			aproved_declined = False
 		elif d['3ds'] == False and d['scope'] == False:
 			msg = 'This Transaction should be Aproved | Merchant not in scope and not configured |'
@@ -144,10 +145,8 @@ def scenario():
 		else:
 			msg = "This Transaction should be Declined", 'red'" - | Note: Can be aproved based on the settings in CardinalResultActions if ResultAction = 1181'"
 			purch_tatus = 806
-		if 'ref' in d['url_options']:
-			checkrefs = True
-		if 'refurl' in d['url_options']:
-			checkrefurl = True
+		if 'ref' in d['url_options']: checkrefs = True
+		if 'refurl' in d['url_options']: checkrefurl = True
 		if aproved_declined:
 			if d['Type'] in [501, 506, 507, 511]:
 				purch_tatus = 801
@@ -176,110 +175,62 @@ def scenario():
 		in_scope = config.test_data['scope']
 		# ===================================================================================================================================================
 
-		# tc_str = f"{d['Merchant']}{d['3ds']}{d['scope']}{d['card_type']}{d['processor_name']}{d['Type']}{cardinal_case}{d['CollectUserInfo']}{d['dmc']}"
-		# tc_str = f"Merchant:{d['Merchant']}|3ds Enabled: {d['3ds']}|Scope: {d['scope']}| Card Type: {d['card_type']}|" \
-		#          f"Processor: {d['processor_name']}|PricePointType: {d['Type']}|Cardinal Case: {cardinal_case}"
-
-		tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}"
-
+		tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}{cardinal_case}" # {d['Type']}
+		postbacks_decline = ''
 		if not tc_str in config.test_cases:
-			config.test_cases[tc_str] = tc_str
-			tc_str = f"Merchant:{d['Merchant']}|3ds Enabled: {d['3ds']}|Scope: {d['scope']}| Card Type: {d['card_type']}|" \
-			         f"Processor: {d['processor_name']}|PricePointType: {d['Type']}|Cardinal Case: {cardinal_case}"
-			config.test_cases[tc_str] = tc_str
-			print(tc_str)
-			ere = 4
+			sc = '-' * 136 + 'Start'
+			er = f"Expected Results :" + ('_' * 140)
+			end_c = '_' * 158 + 'end_Test_Case_Scenario'
+			if aproved_declined == False and postbacks:
+				postbacks_decline = postbacks.replace('1 ,', '').replace(' 2,', '')
+			if d['card_type'] == 'Prepaid':
+				tmp = f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				      f"_______________Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				      f"_______________Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)\n" \
+				      f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
+				      f"_______________3DS:         | Cardinal3dsRequests should not have any record for this transaction\n"
+			elif 'If CardinalResultActions = 1181' in msg:
+				tmp = f"If Declined  :\n_______________ Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl} |\n" \
+				      f"_______________ Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl} |\n" \
+				      f"_______________ Email:       | PointOfSaleEmailQueue should not have email for this transaction | PostBacks are only transactionals |\n" \
+				      f"_______________ PostBacks:   | PostBackNotifications should have: | {postbacks_decline} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
+				      f"If Aproved   :\n_______________ Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl} |\n" \
+				      f"_______________ Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl} |\n" \
+				      f"_______________ Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)\n" \
+				      f"_______________ PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
+				      f"_______________ 3DS:         | {cardinal_check}\n"
+			elif 'Declined' in msg:
+				tmp = f"_______________Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				      f"_______________Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl}\n" \
+				      f"_______________Email:       | PointOfSaleEmailQueue should not have email for this transaction | PostBacks are only transactionals |\n" \
+				      f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks_decline} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
+				      f"_______________3DS:         | {cardinal_check}\n"
 
-	# tc_str = f"{d['Merchant']}{d['3ds']}{d['scope']}{d['card_type']}{cardinal_case}"
-	# if not tc_str in config.test_cases:
-	# 	config.test_cases[tc_str] = tc_str
-	# 	config.test_case['scenario'] = [f"SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | In Scope: {in_scope}  | Cardinal - {cardinal_case}",
-	# 	                                f"PricePoint Type: {d['Type']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} |DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}"
-	# 	                                ]
-	# 	config.test_case['prerequisite'] = f"MerhcantID: {d['MerchantID']} | Card: {d['cc']} | Eticket: {d['eticket']} | Template: {d['PayPageTemplate']} | \nLink: {d['link']}  "
-	# 	if 'If CardinalResultActions = 1181' in msg:
-	# 		config.test_case['expected'] = [f"If Declined  :"
-	# 										f"PayPage:     | Form should be: {form} | {msg}",
-	# 		                                f"Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}",
-	# 		                                f"Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl}",
-	# 		                                f"Email:       | PointOfSaleEmailQueue should not have email for this transaction",
-	# 		                                f"PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)",
-	# 		                                f"If Aproved   :"
-	# 		                                f"Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}",
-	# 		                                f"Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}",
-	# 		                                f"Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)",
-	# 		                                f"Both cases   :",
-	# 		                                f"3DS:         | {cardinal_check}"]
-	# 	elif 'Declined' in msg:
-	# 		config.test_case['expected'] = [f"PayPage:     | Form should be: {form} | {msg}",
-	# 		                                f"Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}",
-	# 		                                f"Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl}",
-	# 		                                f"Email:       | PointOfSaleEmailQueue should not have email for this transaction",
-	# 		                                f"PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)",
-	# 		                                f"3DS:         | {cardinal_check}" ]
-	# 	config.test_case['expected'] = [f"PayPage:     | Form should be: {form} | {msg}",
-	# 	                                f"Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}",
-	# 	                                f"Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}",
-	# 	                                f"Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)",
-	# 	                                f"PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)",
-	# 	                                f"3DS:         | {cardinal_check}"]
-	#
-	# 	print('Test Case Scenario:')
-	# 	print ('-' * 136 + 'Start')
-	# 	str_scenario = f"SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | Card # {d['cc']} | In Scope: {in_scope}  | Cardinal - {cardinal_case} | PricePoint Type: {d['BillConfigID']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} | DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}"
-	# 	if not str_scenario in config.scenarios:
-	# 		config.scenarios.append(str_scenario)
-	# 	print(f"--SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | Card # {d['cc']} |\n--In Scope: {in_scope}  | Cardinal - {cardinal_case} |)")
-	# 	print(f"--PricePoint Type: {d['Type']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} |\n--DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}")
-	# 	print()
-	# 	print()
-	# 	print('Prerequisite:')
-	# 	print('-----------------')
-	# 	print(f"--MerhcantID: {d['MerchantID']} | Card: {d['cc']} | Eticket: {d['eticket']} | Template: {d['PayPageTemplate']} | \n--Link: {d['link']}  ")
-	# 	print()
-	# 	print()
-	#
-	# 	if aproved_declined == False and postbacks:
-	# 		postbacks_decline = postbacks.replace('1 ,','').replace(' 2,','')
-	#
-	# 	print(f"Expected Results :" + ('_' * 140) )
-	# 	print()
-	# 	print(f"PayPage:------------Form should be: {form} | {msg}")
-	# 	if 'If CardinalResultActions = 1181' in msg: #print("Hello"+10*x+"world");
-	# 		print(f"If Declined  :")
-	# 		print(f"_______________ Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl} |")
-	# 		print(f"_______________ Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl} |")
-	# 		print(f"_______________ Email:       | PointOfSaleEmailQueue should not have email for this transaction | PostBacks are only transactionals |")
-	# 		print(f"_______________ PostBacks:   | PostBackNotifications should have: | {postbacks_decline} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)")
-	# 		print(f"If Aproved   :")
-	# 		print(f"_______________ Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl} |")
-	# 		print(f"_______________ Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl} |")
-	# 		print(f"_______________ Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)")
-	# 		print(f"_______________ PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)")
-	# 		print(f"             | 3DS:         | {cardinal_check}")
-	# 	elif 'Declined' in msg:
-	# 		print(f"_______________Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}")
-	# 		print(f"_______________Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl}")
-	# 		print(f"_______________Email:       | PointOfSaleEmailQueue should not have email for this transaction | PostBacks are only transactionals |")
-	# 		print(f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks_decline} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)")
-	# 		print(f"_______________3DS:         | {cardinal_check}")
-	# 	else:
-	# 		print(f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}")
-	# 		print(f"_______________Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}")
-	# 		print(f"_______________Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)")
-	# 		print(f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)")
-	# 		print(f"_______________3DS:         | {cardinal_check}")
-	#
-	# 	print()
-	# 	print('_' * 158 + 'end_Test_Case_Scenario')
-	# 	print()
-	# 	print()
-	# 	print()
+			else:
+				tmp = f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				      f"_______________Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				      f"_______________Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)\n" \
+				      f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
+				      f"_______________3DS:         | {cardinal_check}\n"
+
+			final_str = f"Test Case Scenario:\n{sc}\n--SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | Card # {d['cc']} |\n" \
+			            f"--In Scope: {in_scope}  | Cardinal - {cardinal_case} |\n" \
+			            f"--PricePoint Type: {d['Type']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} |\n" \
+			            f"--DMCStatus = {d['DMCStatus']} | CollectUserInfo: {d['CollectUserInfo']}\n\n" \
+			            f"Prerequisite:\n-----------------\n--MerhcantID: {d['MerchantID']} | Card: {d['cc']} | Eticket: {d['eticket']} | Template: {d['PayPageTemplate']} | \n" \
+			            f"--Link: {d['link']}\n\n{er}\n\n{tmp}\n" \
+			            f"{end_c}\n\n\n"
+			config.test_cases[tc_str] = final_str
+
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")
 		pass
 
+
+# for item in config.test_cases:
+# 	print(config.test_cases[item])
+# 	d0 = 3
 
 # ==================================================================================================> Begining of the script
 merchantid = 27001
@@ -291,13 +242,14 @@ for packageid in packages:
 	pricepoints = db_agent.get_pricepoints()
 	for pricepoint in pricepoints:
 		for selected_language in config.available_languages:
-			config.test_data['lang'] = selected_language
+
 			for dmc in currencies:
 
 				try:
 					cnt += 1
 					config.test_data = {}
 					config.test_data['cc'] = random.choice(random_cards)
+					config.test_data['lang'] = selected_language
 					config.test_data['packageid'] = packageid
 					config.test_data = {**config.test_data, **config.initial_data}
 					merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
@@ -327,6 +279,18 @@ for packageid in packages:
 
 # print(cnt_tc)
 print(len(config.test_cases))
+
+
+keys = 	config.test_cases.keys()
+for item in sorted(keys):
+	print(config.test_cases[item])
+print()
+
+
+
+
+
+
 # web.browser_quit()
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
