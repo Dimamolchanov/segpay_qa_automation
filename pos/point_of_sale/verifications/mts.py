@@ -140,7 +140,11 @@ def build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_
 		if one_click_record['ProcessorTransID'] == 'FREETRIAL':
 			multitrans['TransStatus'] = 187
 			multitrans['TransAmount'] = 0.00
+		sql = 'select * from MultiTransValues where transid = {}'
 
+		result = db_agent.execute_select_one_parameter(sql, one_click_record['TransID'])
+		if 'PREAUTHFREETRIAL' in result:
+			multitrans['Markup'] = 1.00
 
 
 		return multitrans, octoken_record, merchantbillconfig
@@ -294,6 +298,11 @@ def build_multitrans():
 					multitrans['ExchRate'] = 0.00
 					multitrans['MerchantCurrency'] = 'USD'
 					del multitrans['AuthCode']
+		sql = 'select * from MultiTransValues where transid = {}'
+		result = db_agent.execute_select_one_parameter(sql,config.test_data['TransID'])
+		if 'PREAUTHFREETRIAL' in result:
+			multitrans['Markup'] = 1.00
+
 		if config.test_data['full_record']['ProcessorTransID'] == 'FREETRIAL':
 			multitrans['TransStatus'] = 187
 			multitrans['TransAmount'] = 0.00

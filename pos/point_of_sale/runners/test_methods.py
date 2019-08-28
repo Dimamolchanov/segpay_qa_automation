@@ -22,7 +22,7 @@ def sign_up_trans_web():  # Yan
 	else:
 		currencies = config.test_data['us_available_currencies']
 	for selected_language in config.available_languages:
-		#dmc_currencies = []
+		# dmc_currencies = []
 		config.test_data['lang'] = selected_language
 		for dmc in currencies:
 			config.test_data['dmc'] = dmc
@@ -58,7 +58,6 @@ def sign_up_trans_web():  # Yan
 					print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
 					pf = "Scenario had some issues: Failed | Re-Check Manually |"
 
-
 				options.append_list(tmpstr)
 				options.append_list(pf)
 				options.append_list('_____Finished Scenario_______')
@@ -85,7 +84,7 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 			config.test_case = {}
 			print("\n======================================|       OneClick     |======================================\n")
 			pricepoint = current_transaction_id['full_record']['BillConfigID']
-			config.test_data = TransActionService.prepare_data1(pricepoint,current_transaction_id['full_record']['PackageID'], 1)
+			config.test_data = TransActionService.prepare_data1(pricepoint, current_transaction_id['full_record']['PackageID'], 1)
 			selected_options = [current_transaction_id['merchant_currency'], current_transaction_id['paypage_lnaguage']]
 			eticket = config.test_data['eticket']
 			octoken = current_transaction_id['PurchaseID']
@@ -100,7 +99,9 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 				one_click_record = web.one_click_services(eticket, octoken, selected_options, url_options)
 
 			aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
-			if one_click_record['Authorized']:
+			if one_click_record == None:
+				print("Delay Capture")
+			elif one_click_record['Authorized']:
 				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
 			else:
 				print(colored(f"OneClick Transaction DECLINED : AuthCode:{one_click_record['AuthCode']}", 'red', attrs=['bold']))
@@ -125,7 +126,7 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				config.logging.info("\n======================================|       OneClick     |======================================\n")
 				config.logging.info('')
 				pricepoint = current_transaction_id['full_record']['BillConfigID']
-				config.test_data = TransActionService.prepare_data1(pricepoint,current_transaction_id['full_record']['PackageID'], 1)
+				config.test_data = TransActionService.prepare_data1(pricepoint, current_transaction_id['full_record']['PackageID'], 1)
 				eticket = config.test_data['eticket']
 				selected_options = [config.oc_tokens[token][1], config.oc_tokens[token][2]]
 				octoken = token
@@ -135,15 +136,21 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				config.test_case['actual'] = f"One Click Results - Eticket: {eticket}"
 				if oc_type == 'pos':
 					one_click_record = web.one_click_pos(eticket, octoken, selected_options, url_options)
-					#aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
-					if not one_click_record['Authorized']:
-						print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
-						print("---------------------------------------")
+					# aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
+					if one_click_record == None:
+						print("Delay Captureis not allowed for 1Click")
+					else:
+						if not one_click_record['Authorized']:
+							print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
+							print("---------------------------------------")
+						result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
+						config.test_cases[one_click_record['TransID']] = config.test_case
+
 				elif oc_type == 'ws':
 					one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
-				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
 
-				config.test_cases[one_click_record['TransID']] = config.test_case
+
+
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}  ")
