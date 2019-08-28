@@ -1,0 +1,46 @@
+1234652149:
+  actual:
+  - 'PurchaseID: 1000061572 | TransId:1234652149 | TransGuid: b6214ccf-dbe8-40ce-b573-0c7b74a67e41'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''2'' and postback
+    types: [2, 5, 5, 5, 5]'
+  - '********************* 3DS verification MissMatch *********************'
+  - 'Field : cErrorDesc =>  Expected BaseField: {}  | Actual : Success | SCA Required
+    |  '
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+  expected:
+  - "PayPage:     | Form should be: Extended | \e[1m\e[4m\e[32mThis Transaction should\
+    \ be Aproved\e[0m"
+  - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+    184 | TransType: 101 | RefVariables: True | RefURL: True'
+  - 'Assets:      | PurchStatus: 801 | PurchType: 506 | Processor: PAYVISIONPRIVMS
+    | UserName: Should be the Email | Password: True | RefVariables: True | RefURL:
+    True'
+  - 'Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que
+    with Status: 863 (Complete)'
+  - 'PostBacks:   | PostBackNotifications should have: | 1 , 2, 5''s PostBacks Type   with
+    | PostResults: Ok | with Status: 863 (Complete)'
+  - '3DS:         | Cardinal3dsRequests should have the response from Cardinal'
+  prerequisite: 'MerhcantID: 27001 | Card: 4000000000001091 | Eticket: 192192:27002
+    | Template: defaultpsd2 | Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=192192:27002&ref1=ramfo&ref2=rjbe&ref3=arszx&ref4=glgk&ref5=ozlmk&ref6=yqgt&ref7=ojivx&ref8=faui&ref9=nnetj&ref10=cntg&refurl=wwww.test.com/rwdqygaggjhavpkhwztuzedpzxfqzthdmyykdolbupdlfgicbwmfsbddsuvcrpalznwbtaignyzrijnmaagnceunsokmvrybdqtizpxkpyjijbbgktpbkwitrzicokrlhsifllmubeblemgsykkbiucdmnwckpegzvicbqbxxzghkhmnwaedfnmllfdjpwgypoxaqxaftriyslemhumvlwrfxnxfpasojbpzmgzuhtbzpmagztejphdoliektbplwqydtdnvljvxrw'
+  scenario:
+  - 'SignUp Transaction | Merchant: EU | 3DS Configured: True  | Card: EU | In Scope:
+    True  | Cardinal - Test Case 10: Successful Step Up Authentication '
+  - 'PricePoint Type: 27002 - Instant Conversion  | DMC: USD | Language: EN | Processor
+    PoolID: 44 |DMCStatus = 472 | CollectUserInfo: 2'
+1234652151:
+  actual:
+  - 'PurchaseID: 1000061574 | TransID: 1234652151 | TransGuid: 45cc7b52-ae25-4a18-9b62-57ff1704057d'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''2'' and postback
+    types: [2, 5, 5, 5, 5]'
+  - '********************* 3DS verification MissMatch *********************'
+  - 'Field : cErrorDesc =>  Expected BaseField: {}  | Actual : Success | SCA Required
+    |  '
+  one_click_pos: 'One Click Started - Eticket: 192192:27002'

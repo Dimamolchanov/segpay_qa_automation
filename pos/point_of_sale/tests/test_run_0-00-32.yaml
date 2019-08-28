@@ -1,0 +1,42 @@
+1234652152:
+  actual:
+  - 'PurchaseID: 1000061575 | TransId:1234652152 | TransGuid: d5318dbb-29ac-4965-bec8-bfb924034dbe'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''2'' and postback
+    types: [2, 5, 5, 5, 5]'
+  - 'Cardinal3dsRequests test_case: 4000000000001000 Records Compared => Pass '
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+  expected:
+  - "PayPage:     | Form should be: Extended | \e[1m\e[4m\e[32mThis Transaction should\
+    \ be Aproved\e[0m"
+  - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+    184 | TransType: 101 | RefVariables: True | RefURL: True'
+  - 'Assets:      | PurchStatus: 801 | PurchType: 506 | Processor: PAYVISIONPRIVMS
+    | UserName: Should be the Email | Password: True | RefVariables: True | RefURL:
+    True'
+  - 'Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que
+    with Status: 863 (Complete)'
+  - 'PostBacks:   | PostBackNotifications should have: | 1 , 2, 5''s PostBacks Type   with
+    | PostResults: Ok | with Status: 863 (Complete)'
+  - '3DS:         | Cardinal3dsRequests should have the response from Cardinal'
+  prerequisite: 'MerhcantID: 27001 | Card: 4000000000001000 | Eticket: 192192:27002
+    | Template: defaultpsd2 | Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=192192:27002&ref1=ehuxl&ref2=qiil&ref3=cqlex&ref4=apvp&ref5=phrkq&ref6=sxln&ref7=nuhjq&ref8=blkk&ref9=xesum&ref10=qvrl&refurl=wwww.test.com/coeqjulhavnoemsatlomeepwhxysxwwqksscumwohwvtlofkdgdxrnijziwgjtnfhiioialvknfgmlscbavkvntkergmgzzfzzbtqoedzzqjevjjigciqidtjrhxqxjlgwagemmnippgklmdjqrzgnmwrdfornpsjrtfeqnvzptwvilrxkofmmpxxhsnqozyadhefprtphpxrjkaoxkqtphfwcguakgpmxnghccskdbtosmmlgqywlsktahpkeafciigxjshoiigwb'
+  scenario:
+  - 'SignUp Transaction | Merchant: EU | 3DS Configured: True  | Card: EU | In Scope:
+    True  | Cardinal - Test Case 1: Successful Frictionless Authentication '
+  - 'PricePoint Type: 27002 - Instant Conversion  | DMC: USD | Language: EN | Processor
+    PoolID: 44 |DMCStatus = 472 | CollectUserInfo: 2'
+1234652153:
+  actual:
+  - 'PurchaseID: 1000061576 | TransID: 1234652153 | TransGuid: 92a80ce8-f82e-4568-9180-3bb6000d1c36'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''2'' and postback
+    types: [2, 5, 5, 5, 5]'
+  - 'Cardinal3dsRequests test_case: 4000000000001000 Records Compared => Pass '
+  one_click_pos: 'One Click Started - Eticket: 192192:27002'

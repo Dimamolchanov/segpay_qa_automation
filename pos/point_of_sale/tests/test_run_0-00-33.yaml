@@ -1,0 +1,34 @@
+1234657869:
+  actual:
+  - 'PurchaseID: 1000064281 | TransId:1234657869 | TransGuid: 737d9f53-66a9-45e8-a5a6-cb7fff1e8457'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - '********************* 3DS verification MissMatch *********************'
+  - 'Field : cErrorDesc =>  Expected BaseField: {}  | Actual : Success | SCA Required
+    |  '
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+  expected:
+  - "PayPage:     | Form should be: Short | \e[1m\e[4m\e[32mThis Transaction should\
+    \ be Aproved\e[0m"
+  - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+    184 | TransType: 101 | RefVariables: True | RefURL: True'
+  - 'Assets:      | PurchStatus: 804 | PurchType: 502 | Processor: SPHBIPSP | UserName:
+    True | Password: True | RefVariables: True | RefURL: True'
+  - 'Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que
+    with Status: 863 (Complete)'
+  - 'PostBacks:   | PostBackNotifications should have: | 1 , 2, 5''s PostBacks Type   with
+    | PostResults: Ok | with Status: 863 (Complete)'
+  - '3DS:         | Cardinal3dsRequests should have a response from Cardinal for Test
+    Case 10: Successful Step Up Authentication'
+  prerequisite: 'MerhcantID: 21621 | Card: 4000000000001091 | Eticket: 700:27041 |
+    Template: defaultpsd2 | Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=700:27041&ref1=pmfkw&ref2=dzbq&ref3=thaah&ref4=gepi&ref5=ujdur&ref6=ivur&ref7=pwwys&ref8=vowv&ref9=dtdzx&ref10=lxhf&refurl=wwww.test.com/zjddzaffxhkgjckcmuugqejpcopqdbiusjcabqzskxiwhnqgyjowrvgineivkjqpvtlgjlwvipfgdqehvazkcwyizqsnmlkyxqktdvfpctrzrfwqwuzxmumptkewaptakyvwyayveojarfihmmfdnnircfcfynqnggcbuiegsaiwzrbveforwkbmtodqtrapckrcuwzetlduozekyjqfrlushhcumfebmkcdvvysyacofewsdumvnftubxqzjkgwokfcrwilracsmy'
+  scenario:
+  - 'SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | In Scope:
+    False  | Cardinal - Test Case 10: Successful Step Up Authentication '
+  - 'PricePoint Type: 27041 - One Time  | DMC: USD | Language: EN | Processor PoolID:
+    74 |DMCStatus = 471 | CollectUserInfo: 1'
