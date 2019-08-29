@@ -4,10 +4,18 @@ import time
 from datetime import datetime
 from xml.etree.ElementTree import fromstring
 import requests
-import traceback
+from pos.point_of_sale.web import w
+from termcolor import colored
 from pos.point_of_sale.config import config
-from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import options
+from pos.point_of_sale.db_functions.dbactions import DBActions
+from pos.point_of_sale.verifications import asset
+from pos.point_of_sale.verifications import psd2
+from pos.point_of_sale.verifications import mts as mt
+from pos.point_of_sale.verifications import postback_service
+from pos.point_of_sale.verifications import emails
+import traceback
+import random
 import yaml
 
 db_agent = DBActions()
@@ -16,14 +24,7 @@ print(f"Test Cases are generated based on | Merchant: 'EU,US | 3DS Configuration
 print("________________________________________________________________________________________________________________________________________________________")
 print()
 cnt_tc = 0
-cnt = 0  # transactions
-available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-eu_currencies = ['USD']  # , "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
-currencies = ['USD']
-packages = [800, 900, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99,192317]
-random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
-                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
-                '5432768030017007', '4916280519180429']
+
 
 
 def joinlink():
@@ -60,8 +61,22 @@ def joinlink():
 		traceback.print_exc()
 		print(f"Function joinglink \n {Exception}")
 		pass
-
-
+def verify_signup_transaction(transaction_to_check):
+	multitrans_base_record = mt.build_multitrans()
+	asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
+	differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
+	differences_asset = asset.asset_compare(asset_base_record)
+	if transaction_to_check['full_record']['Authorized'] == 1:
+		check_email = emails.check_email_que(config.test_data['Type'], multitrans_base_record, 'signup')
+		config.test_data['aproved_transids'] = transaction_to_check['TransID']
+	differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
+	differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
+	config.transids.append(transaction_to_check['TransID'])
+	config.transaction_records.append(transaction_to_check)
+	if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
+		return True
+	else:
+		return False
 def scenario():
 	descr = ''
 	form = 'Short'
@@ -175,7 +190,7 @@ def scenario():
 		in_scope = config.test_data['scope']
 		# ===================================================================================================================================================
 
-		tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}{cardinal_case}" # {d['Type']}
+		tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}{cardinal_case}"  # {d['Type']}
 		postbacks_decline = ''
 		if not tc_str in config.test_cases:
 			sc = '-' * 136 + 'Start'
@@ -184,13 +199,15 @@ def scenario():
 			if aproved_declined == False and postbacks:
 				postbacks_decline = postbacks.replace('1 ,', '').replace(' 2,', '')
 			if d['card_type'] == 'Prepaid':
-				tmp = f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				tmp = f"PayPage:_______Form should be: {form} | {msg}\n" \
+				      f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
 				      f"_______________Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
 				      f"_______________Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)\n" \
 				      f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
 				      f"_______________3DS:         | Cardinal3dsRequests should not have any record for this transaction\n"
 			elif 'If CardinalResultActions = 1181' in msg:
-				tmp = f"If Declined  :\n_______________ Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl} |\n" \
+				tmp = f"PayPage:________Form should be: {form} | {msg}\n" \
+				      f"If Declined  :\n_______________ Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl} |\n" \
 				      f"_______________ Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl} |\n" \
 				      f"_______________ Email:       | PointOfSaleEmailQueue should not have email for this transaction | PostBacks are only transactionals |\n" \
 				      f"_______________ PostBacks:   | PostBackNotifications should have: | {postbacks_decline} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
@@ -200,19 +217,19 @@ def scenario():
 				      f"_______________ PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
 				      f"_______________ 3DS:         | {cardinal_check}\n"
 			elif 'Declined' in msg:
-				tmp = f"_______________Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				tmp = f"PayPage:_______Form should be: {form} | {msg}\n" \
+				      f"_______________Multitranse: | AuthCode: 'C300' or 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
 				      f"_______________Assets:      | PurchStatus: 806 | PurchType: {d['Type']} | LastResult: Declined | UserName: {username} | Password: {password} | Purchases: 0 | RefURL: {checkrefurl}\n" \
 				      f"_______________Email:       | PointOfSaleEmailQueue should not have email for this transaction | PostBacks are only transactionals |\n" \
 				      f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks_decline} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
 				      f"_______________3DS:         | {cardinal_check}\n"
-
 			else:
-				tmp = f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
+				tmp = f"PayPage:_______Form should be: {form} | {msg}\n" \
+				      f"_______________Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
 				      f"_______________Assets:      | PurchStatus: {purch_tatus} | PurchType: {d['Type']} | Processor: {processor_name[d['processor']]} | UserName: {username} | Password: {password} | RefVariables: {checkrefs} | RefURL: {checkrefurl}\n" \
 				      f"_______________Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que with Status: 863 (Complete)\n" \
 				      f"_______________PostBacks:   | PostBackNotifications should have: | {postbacks} PostBacks Type   with | PostResults: Ok | with Status: 863 (Complete)\n" \
 				      f"_______________3DS:         | {cardinal_check}\n"
-
 			final_str = f"Test Case Scenario:\n{sc}\n--SignUp Transaction | Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | Card # {d['cc']} |\n" \
 			            f"--In Scope: {in_scope}  | Cardinal - {cardinal_case} |\n" \
 			            f"--PricePoint Type: {d['Type']} - {descr}  | DMC: {d['dmc']} | Language: {d['lang']} | Processor PoolID: {d['processor']} |\n" \
@@ -220,85 +237,129 @@ def scenario():
 			            f"Prerequisite:\n-----------------\n--MerhcantID: {d['MerchantID']} | Card: {d['cc']} | Eticket: {d['eticket']} | Template: {d['PayPageTemplate']} | \n" \
 			            f"--Link: {d['link']}\n\n{er}\n\n{tmp}\n" \
 			            f"{end_c}\n\n\n"
-			config.test_cases[tc_str] = final_str
+			config.test_cases[tc_str] = [final_str, config.test_data]
+			s = 3
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}")
+		pass
+def transaction(test_cases):
+	br = w.FillPayPage()
+	try:
+		for item in test_cases:
+			config.test_case = {}
+			print(config.test_cases[item][0])
+			current_transaction_record = {}
+			test_case = test_cases[item][1]
+			br.FillDefault(test_case)
+			sql = "select * from multitrans where TransGuid = '{}'"
+			full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
+			test_case['PurchaseID'] = full_record['PurchaseID']
+			test_case['TransID'] = full_record['TransID']
+			test_case['full_record'] = full_record
+			config.test_data = test_case
+			current_transaction_record = test_case
+			config.test_data['transaction_to_check'] = current_transaction_record
+			aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+			print()
+			print(colored("___________________________________________________________Actual Results_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
+			print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
+			config.test_case['actual'] = [f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}"]
+			if current_transaction_record['full_record']['Authorized']:
+				tmp = current_transaction_record['full_record']
+				config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
+				result = current_transaction_record['full_record']
+				tmpstr = f"Transaction Aproved : AuthCode:{result['AuthCode']}"
+				print(colored(tmpstr, 'cyan', attrs=['bold']))
+			else:
+				result = current_transaction_record['full_record']
+				tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
+				print(colored(tmpstr, 'red', attrs=['bold']))
+
+			pass_fail = verify_signup_transaction(current_transaction_record)
+			if pass_fail:
+				print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
+			else:
+				print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
+
+			print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
+			print()
+			print()
+			z = 3
 
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")
 		pass
 
+def create_test_cases():
+	cnt = 0  # transactions
+	available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+	eu_currencies = ['USD']  # , "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
+	currencies = ['USD']
+	packages = [803]#, 900, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
+	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
+	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
+	                '5432768030017007', '4916280519180429']
+	for packageid in packages:
+		config.test_data['packageid'] = packageid
+		pricepoints = db_agent.get_pricepoints()
+		for pricepoint in pricepoints:
+			for selected_language in config.available_languages:
 
-# for item in config.test_cases:
-# 	print(config.test_cases[item])
-# 	d0 = 3
+				for dmc in currencies:
+					try:
+						cnt += 1
+						config.test_data = {}
+						config.test_data['cc'] = random.choice(random_cards)
+						config.test_data['lang'] = selected_language
+						config.test_data['packageid'] = packageid
+						config.test_data = {**config.test_data, **config.initial_data}
+						merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
+						config.test_data = {**config.test_data, **merchantbillconfig}
+						package = db_agent.package(packageid)
+						config.test_data['processor'] = package
+						config.test_data = {**config.test_data, **package}
+						eticket = str(packageid) + ':' + str(pricepoint)
+						config.test_data['eticket'] = eticket
+						config.test_data['url_options'] = options.ref_variables() + options.refurl() + config.template
+						config.test_data['visa_secure'] = options.is_visa_secure()
+						config.test_data['processor'] = config.test_data['PrefProcessorID']
+						if config.test_data['Merchant'] == 'EU':
+							currencies = eu_currencies
+						else:
+							currencies = ['USD']
+						config.test_data['dmc'] = dmc
+						joinlink()
+						scenario()
+						cnt += 1
+						# cnt_tc +=1
+						k = 3
+					except Exception as ex:
+						traceback.print_exc()
+						print(f"Exception {Exception} ")
+						pass
 
-# ==================================================================================================> Begining of the script
-merchantid = 27001
-# packageid = 901
-# pricepoints = db_agent.pricepoint_list(merchantid)
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
+with open(filename) as f:
+	config.test_cases = yaml.load(f, Loader=yaml.FullLoader)
+	for item in config.test_cases:
+		print(config.test_cases[item][0])
 
-for packageid in packages:
-	config.test_data['packageid'] = packageid
-	pricepoints = db_agent.get_pricepoints()
-	for pricepoint in pricepoints:
-		for selected_language in config.available_languages:
 
-			for dmc in currencies:
 
-				try:
-					cnt += 1
-					config.test_data = {}
-					config.test_data['cc'] = random.choice(random_cards)
-					config.test_data['lang'] = selected_language
-					config.test_data['packageid'] = packageid
-					config.test_data = {**config.test_data, **config.initial_data}
-					merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
-					config.test_data = {**config.test_data, **merchantbillconfig}
-					package = db_agent.package(packageid)
-					config.test_data['processor'] = package
-					config.test_data = {**config.test_data, **package}
-					eticket = str(packageid) + ':' + str(pricepoint)
-					config.test_data['eticket'] = eticket
-					config.test_data['url_options'] = options.ref_variables() + options.refurl() + config.template
-					config.test_data['visa_secure'] = options.is_visa_secure()
-					config.test_data['processor'] = config.test_data['PrefProcessorID']
-					if config.test_data['Merchant'] == 'EU':
-						currencies = eu_currencies
-					else:
-						currencies = ['USD']
-					config.test_data['dmc'] = dmc
-					joinlink()
-					scenario()
-					cnt += 1
-					# cnt_tc +=1
-					k = 3
-				except Exception as ex:
-					traceback.print_exc()
-					print(f"Exception {Exception} ")
-					pass
 
-# print(cnt_tc)
+
+create_test_cases()
+res = transaction(config.test_cases)
 print(len(config.test_cases))
-
-
-keys = 	config.test_cases.keys()
-for item in sorted(keys):
-	print(config.test_cases[item])
-print()
-
-
-
-
-
 
 # web.browser_quit()
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
-file_name = (format(end_time - start_time).split('.')[0] + ".yaml").replace(':', '-')
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_run_{file_name}"
+# file_name = (format(end_time - start_time).split('.')[0] + ".yaml").replace(':', '-')
+#filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_run_{file_name}"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 with open(filename, 'w') as f:
 	data = yaml.dump(config.test_cases, f)
 
-print(f"Total number of transaction : {cnt}")
-print()
-print()
