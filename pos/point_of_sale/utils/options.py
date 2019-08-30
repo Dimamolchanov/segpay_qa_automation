@@ -152,7 +152,7 @@ def is_visa_secure():
 
 
 def aprove_decline(transid):
-	aprove_or_decline = None
+	aprove_or_decline = False
 	result_type = 0
 	cardinal_result = {}
 	in_or_aout_scope = 0

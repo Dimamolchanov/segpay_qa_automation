@@ -14,7 +14,7 @@ from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
-#from pos.point_of_sale.runners import test_methods
+# from pos.point_of_sale.runners import test_methods
 import traceback
 import random
 import yaml
@@ -26,14 +26,17 @@ print("_________________________________________________________________________
 print()
 
 
-
 def load_test_cases():
 	filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 	with open(filename) as f:
 		test_cases_all = yaml.load(f, Loader=yaml.FullLoader)
 		return test_cases_all
-		# for item in config.test_cases:
-		# 	print(config.test_cases[item][0])
+
+
+# for item in config.test_cases:
+# 	print(config.test_cases[item][0])
+
+
 def joinlink():
 	pricingguid = {}
 	joinlink = ''
@@ -68,6 +71,8 @@ def joinlink():
 		traceback.print_exc()
 		print(f"Function joinglink \n {Exception}")
 		pass
+
+
 def verify_signup_transaction(transaction_to_check):
 	multitrans_base_record = mt.build_multitrans()
 	asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
@@ -84,6 +89,8 @@ def verify_signup_transaction(transaction_to_check):
 		return True
 	else:
 		return False
+
+
 def scenario():
 	descr = ''
 	form = 'Short'
@@ -97,6 +104,7 @@ def scenario():
 	in_scope = False
 	config.test_case = {}
 	test_cases_local = {}
+	cardinal_tc = -1
 	try:
 		d = config.test_data
 		processor_name = {
@@ -135,39 +143,78 @@ def scenario():
 
 		if d['3ds'] == False and d['scope']:
 			msg = 'This Transaction should be Declined | C300:Merchant is not configured for Cardinal |'
+			cardinal_case = "Not a Cardinal Case | 3ds Not Configured | in Scope"
+			cardinal_tc = 29
 			aproved_declined = False
 		elif d['3ds'] == False and d['scope'] == False:
 			msg = 'This Transaction should be Aproved | Merchant not in scope and not configured |'
+			cardinal_case = "Not a Cardinal Case | 3ds Not Configured | Not in Scope"
+			cardinal_tc = 30
 			aproved_declined = True
 		elif int(d['cc']) in cardinal_aprove_cards:
 			msg = 'This Transaction should be Aproved'
-			if d['cc'] == '4000000000001000': cardinal_case = "Test Case 1: Successful Frictionless Authentication"
-			if d['cc'] == '4000000000001091': cardinal_case = "Test Case 10: Successful Step Up Authentication"
-			if d['cc'] == '4000000000001026': cardinal_case = "Test Case 3: Attempts Stand-In Frictionless Authentication"
+			if d['cc'] == '4000000000001000':
+				cardinal_case = "Test Case 1: Successful Frictionless Authentication"
+				cardinal_tc = 15
+			if d['cc'] == '4000000000001091':
+				cardinal_case = "Test Case 10: Successful Step Up Authentication"
+				cardinal_tc = 16
+			if d['cc'] == '4000000000001026':
+				cardinal_case = "Test Case 3: Attempts Stand-In Frictionless Authentication"
+				cardinal_tc = 17
 			aproved_declined = True
 		elif d['card_type'] == 'Prepaid':
 			msg = 'This Transaction should be Aproved'
+			cardinal_case = "Prepaid Card"
+			cardinal_tc = 31
 			aproved_declined = True
 		elif int(d['cc']) in cardinal_decline_cards:
 			if config.test_data['scope']:
 				msg = 'This Transaction should be Declined'
 			else:
 				msg = "This Transaction can be Aproved or Declined | If CardinalResultActions = 1181 -Aprove | If CardinalResultActions = 1182 - Decline  "
-			if d['cc'] == '4000000000001018': cardinal_case = "Test Case 2: Failed Frictionless Authentication"
-			if d['cc'] == '4000000000001034': cardinal_case = "Test Case 4: Unavailable Frictionless Authentication from the Issuer"
-			if d['cc'] == '4000000000001042': cardinal_case = "Test Case 5: Rejected Frictionless Authentication by the Issuer"
-			if d['cc'] == '4000000000001059': cardinal_case = "Test Case 6: Authentication Not Available on Lookup"
-			if d['cc'] == '4000000000001067': cardinal_case = "Test Case 7: Error on Lookup"
-			if d['cc'] == '4000000000001075': cardinal_case = "Test Case 8: Timeout on cmpi_lookup Transaction"
-			if d['cc'] == '4000000000001083': cardinal_case = "Test Case 9: Bypassed Authentication"
-			if d['cc'] == '4000000000001109': cardinal_case = "Test Case 11: Failed Step Up Authentication"
-			if d['cc'] == '4000000000001117': cardinal_case = "Test Case 12: Step Up Authentication is Unavailable"
-			if d['cc'] == '4000000000001125': cardinal_case = "Test Case 13: Error on Authentication"
-			if d['cc'] == '4000000000001133': cardinal_case = "Test Case 14: Step Up Authentication with Merchant Bypass"
+			if d['cc'] == '4000000000001018':
+				cardinal_case = "Test Case 2: Failed Frictionless Authentication"
+				cardinal_tc = 18
+			if d['cc'] == '4000000000001034':
+				cardinal_case = "Test Case 4: Unavailable Frictionless Authentication from the Issuer"
+				cardinal_tc = 19
+			if d['cc'] == '4000000000001042':
+				cardinal_case = "Test Case 5: Rejected Frictionless Authentication by the Issuer"
+				cardinal_tc = 20
+			if d['cc'] == '4000000000001059':
+				cardinal_case = "Test Case 6: Authentication Not Available on Lookup"
+				cardinal_tc = 21
+			if d['cc'] == '4000000000001067':
+				cardinal_case = "Test Case 7: Error on Lookup"
+				cardinal_tc = 22
+			if d['cc'] == '4000000000001075':
+				cardinal_case = "Test Case 8: Timeout on cmpi_lookup Transaction"
+				cardinal_tc = 23
+			if d['cc'] == '4000000000001083':
+				cardinal_case = "Test Case 9: Bypassed Authentication"
+				cardinal_tc = 24
+			if d['cc'] == '4000000000001109':
+				cardinal_case = "Test Case 11: Failed Step Up Authentication"
+				cardinal_tc = 25
+			if d['cc'] == '4000000000001117':
+				cardinal_case = "Test Case 12: Step Up Authentication is Unavailable"
+				cardinal_tc = 26
+			if d['cc'] == '4000000000001125':
+				cardinal_case = "Test Case 13: Error on Authentication"
+				cardinal_tc = 27
+			if d['cc'] == '4000000000001133':
+				cardinal_case = "Test Case 14: Step Up Authentication with Merchant Bypass"
+				cardinal_tc = 28
 			purch_tatus = 806
 		else:
 			msg = "This Transaction should be Declined", 'red'" - | Note: Can be aproved based on the settings in CardinalResultActions if ResultAction = 1181'"
+			cardinal_case = "Unknown at the moment"
+			cardinal_tc = 32
 			purch_tatus = 806
+
+		# if cardinal_tc == -1:
+		# 	print('stop')
 		if 'ref' in d['url_options']: checkrefs = True
 		if 'refurl' in d['url_options']: checkrefurl = True
 		if aproved_declined:
@@ -197,8 +244,25 @@ def scenario():
 
 		in_scope = config.test_data['scope']
 		# ===================================================================================================================================================
+		if d['Merchant'] == 'EU': m = 1  # else: m = 2
+		if d['Merchant'] == 'US': m = 2
+		if d['3ds']: d3 = 3
+		if d['3ds'] == False: d3 = 4
+		if d['card_type'] == 'EU': c = 5
+		if d['card_type'] == 'US': c = 6
+		if d['card_type'] == 'Prepaid': c = 7
+		if d['Type'] == 501: t = 8
+		if d['Type'] == 502: t = 9
+		if d['Type'] == 503: t = 10
+		if d['Type'] == 505: t = 11
+		if d['Type'] == 506: t = 12
+		if d['Type'] == 510: t = 13
+		if d['Type'] == 511: t = 14
 
-		tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}{cardinal_case}"  # {d['Type']}
+		tc_str = f"{m}{d3}{c}{t}{cardinal_tc}"  # {d['Type']}
+		# print(cardinal_tc)
+
+		# tc_str = f"{d['Merchant']}{d['3ds']}{d['card_type']}{d['Type']}{cardinal_case}"  # {d['Type']}
 		postbacks_decline = ''
 		if not tc_str in config.test_cases:
 			sc = '-' * 136 + 'Start'
@@ -247,62 +311,78 @@ def scenario():
 			            f"{end_c}\n\n\n"
 			config.test_cases[tc_str] = [final_str, config.test_data]
 			if not tc_str in test_cases_all:
-				test_cases_all[tc_str] = [final_str, config.test_data]
-			#return tc_str,[final_str, config.test_data]
+				descr = f" Merchant: {d['Merchant']} | 3DS Configured: {d['3ds']}  | Card: {d['card_type']} | In Scope: {in_scope}  | Cardinal - {cardinal_case} "
+				# print(cardinal_tc)
+				# print( f"{tc_str} | {descr}")
+				test_cases_all[tc_str] = [final_str, config.test_data, descr]
+			# es = transaction(config.test_cases)
+
+			# return tc_str,[final_str, config.test_data]
 
 			s = 3
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")
 		pass
+
+
 def transaction(test_cases):
 	br = w.FillPayPage()
 	try:
 		for item in config.test_cases:
-			config.test_case = {}
-			print(config.test_cases[item][0])
-			current_transaction_record = {}
-			test_case = test_cases[item][1]
-			br.FillDefault(test_case)
-			sql = "select * from multitrans where TransGuid = '{}'"
-			full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
-			test_case['PurchaseID'] = full_record['PurchaseID']
-			test_case['TransID'] = full_record['TransID']
-			test_case['full_record'] = full_record
-			config.test_data = test_case
-			current_transaction_record = test_case
-			config.test_data['transaction_to_check'] = current_transaction_record
-			aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
-			print()
-			print(colored("___________________________________________________________Actual Results_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
-			print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
-			config.test_case['actual'] = [f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}"]
-			if current_transaction_record['full_record']['Authorized']:
-				tmp = current_transaction_record['full_record']
-				config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
-				result = current_transaction_record['full_record']
-				tmpstr = f"Transaction Aproved : AuthCode:{result['AuthCode']}"
-				print(colored(tmpstr, 'cyan', attrs=['bold']))
-			else:
-				result = current_transaction_record['full_record']
-				tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
-				print(colored(tmpstr, 'red', attrs=['bold']))
+			try:
+				config.test_case = {}
+				print(config.test_cases[item][0])
+				current_transaction_record = {}
+				test_case = test_cases[item][1]
+				br.FillDefault(test_case)
+				sql = "select * from multitrans where TransGuid = '{}'"
+				full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
+				test_case['PurchaseID'] = full_record['PurchaseID']
+				test_case['TransID'] = full_record['TransID']
+				test_case['full_record'] = full_record
+				config.test_data = test_case
+				current_transaction_record = test_case
+				config.test_data['transaction_to_check'] = current_transaction_record
+				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+				print()
+				print(f"TestCase: {item} | Description: {test_cases_all[item][2]}")
+				print(colored("___________________________________________________________Actual Results_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
+				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
+				config.test_case['actual'] = [f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}"]
+				if current_transaction_record['full_record']['Authorized']:
+					tmp = current_transaction_record['full_record']
+					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
+					result = current_transaction_record['full_record']
+					tmpstr = f"Transaction Aproved : AuthCode:{result['AuthCode']}"
+					print(colored(tmpstr, 'cyan', attrs=['bold']))
+				else:
+					result = current_transaction_record['full_record']
+					tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
+					print(colored(tmpstr, 'red', attrs=['bold']))
 
-			pass_fail = verify_signup_transaction(current_transaction_record)
-			if pass_fail:
-				print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
-			else:
-				print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
+				pass_fail = verify_signup_transaction(current_transaction_record)
+				if pass_fail:
+					print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
+				else:
+					print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
 
-			print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
-			print()
-			print()
-			z = 3
+				print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
+				print()
+				print()
+				z = 3
+
+			except Exception as ex:
+				traceback.print_exc()
+				print(f"{Exception}")
+				pass
+
 
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")
 		pass
+
 
 def create_test_cases():
 	cnt = 0  # transactions
@@ -354,28 +434,20 @@ def create_test_cases():
 						pass
 
 
-
-
-
-
-
-
-
 test_cases_all = load_test_cases()
 create_test_cases()
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 with open(filename, 'w') as f:
 	data = yaml.dump(test_cases_all, f)
 res = transaction(config.test_cases)
-#oneclick =  test_methods.signup_oc_all,('pos', config.test_data['eticket'], config.test_data)
+# oneclick =  test_methods.signup_oc_all,('pos', config.test_data['eticket'], config.test_data)
 print(len(config.test_cases))
 
 # web.browser_quit()
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
 # file_name = (format(end_time - start_time).split('.')[0] + ".yaml").replace(':', '-')
-#filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_run_{file_name}"
+# filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_run_{file_name}"
 # filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 # with open(filename, 'w') as f:
 # 	data = yaml.dump(test_cases_all, f)
-
