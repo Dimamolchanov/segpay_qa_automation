@@ -14,6 +14,7 @@ from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
+#from pos.point_of_sale.runners import test_methods
 import traceback
 import random
 import yaml
@@ -23,10 +24,16 @@ start_time = datetime.now()
 print(f"Test Cases are generated based on | Merchant: 'EU,US | 3DS Configuration | Scope | Cardinal Test Cases | Processor | CollectUserInfo | PricePoint Type |")
 print("________________________________________________________________________________________________________________________________________________________")
 print()
-cnt_tc = 0
 
 
 
+def load_test_cases():
+	filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
+	with open(filename) as f:
+		test_cases_all = yaml.load(f, Loader=yaml.FullLoader)
+		return test_cases_all
+		# for item in config.test_cases:
+		# 	print(config.test_cases[item][0])
 def joinlink():
 	pricingguid = {}
 	joinlink = ''
@@ -89,6 +96,7 @@ def scenario():
 	cardinal_case = 'Not a Cardinal Test_Case'
 	in_scope = False
 	config.test_case = {}
+	test_cases_local = {}
 	try:
 		d = config.test_data
 		processor_name = {
@@ -238,6 +246,10 @@ def scenario():
 			            f"--Link: {d['link']}\n\n{er}\n\n{tmp}\n" \
 			            f"{end_c}\n\n\n"
 			config.test_cases[tc_str] = [final_str, config.test_data]
+			if not tc_str in test_cases_all:
+				test_cases_all[tc_str] = [final_str, config.test_data]
+			#return tc_str,[final_str, config.test_data]
+
 			s = 3
 	except Exception as ex:
 		traceback.print_exc()
@@ -246,7 +258,7 @@ def scenario():
 def transaction(test_cases):
 	br = w.FillPayPage()
 	try:
-		for item in test_cases:
+		for item in config.test_cases:
 			config.test_case = {}
 			print(config.test_cases[item][0])
 			current_transaction_record = {}
@@ -295,9 +307,10 @@ def transaction(test_cases):
 def create_test_cases():
 	cnt = 0  # transactions
 	available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-	eu_currencies = ['USD']  # , "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
+	eu_currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
 	currencies = ['USD']
-	packages = [803]#, 900, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
+
+	packages = [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
 	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
 	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
 	                '5432768030017007', '4916280519180429']
@@ -306,7 +319,6 @@ def create_test_cases():
 		pricepoints = db_agent.get_pricepoints()
 		for pricepoint in pricepoints:
 			for selected_language in config.available_languages:
-
 				for dmc in currencies:
 					try:
 						cnt += 1
@@ -332,7 +344,8 @@ def create_test_cases():
 						config.test_data['dmc'] = dmc
 						joinlink()
 						scenario()
-						cnt += 1
+						# tmp  = scenario()
+						# test_cases_local[tmp[0]] = tmp[1]
 						# cnt_tc +=1
 						k = 3
 					except Exception as ex:
@@ -340,18 +353,21 @@ def create_test_cases():
 						print(f"Exception {Exception} ")
 						pass
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
-with open(filename) as f:
-	config.test_cases = yaml.load(f, Loader=yaml.FullLoader)
-	for item in config.test_cases:
-		print(config.test_cases[item][0])
 
 
 
 
 
+
+
+
+test_cases_all = load_test_cases()
 create_test_cases()
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
+with open(filename, 'w') as f:
+	data = yaml.dump(test_cases_all, f)
 res = transaction(config.test_cases)
+#oneclick =  test_methods.signup_oc_all,('pos', config.test_data['eticket'], config.test_data)
 print(len(config.test_cases))
 
 # web.browser_quit()
@@ -359,7 +375,7 @@ end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
 # file_name = (format(end_time - start_time).split('.')[0] + ".yaml").replace(':', '-')
 #filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_run_{file_name}"
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
-with open(filename, 'w') as f:
-	data = yaml.dump(config.test_cases, f)
+# filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
+# with open(filename, 'w') as f:
+# 	data = yaml.dump(test_cases_all, f)
 
