@@ -328,6 +328,7 @@ def scenario():
 
 def transaction(test_cases):
 	br = w.FillPayPage()
+	failed_test_cases = []
 	try:
 		for item in config.test_cases:
 			try:
@@ -363,8 +364,10 @@ def transaction(test_cases):
 
 				pass_fail = verify_signup_transaction(current_transaction_record)
 				if pass_fail:
+
 					print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
 				else:
+					failed_test_cases.append(item)
 					print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
 
 				print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
@@ -377,7 +380,9 @@ def transaction(test_cases):
 				print(f"{Exception}")
 				pass
 
-
+		filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\failed_test_cases.yaml"
+		with open(filename, 'w') as f:
+			data = yaml.dump(failed_test_cases, f)
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")
