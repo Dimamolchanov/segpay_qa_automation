@@ -39,7 +39,7 @@ def randomString(stringLength=10):
 
 def refurl():
 	tmpurl = randomString(270)
-	refurl = '&refurl=wwww.regressesion.com/' #+ tmpurl
+	refurl = '&refurl=wwww.regressesion.com/'  # + tmpurl
 	return refurl
 
 
@@ -50,12 +50,11 @@ def ref_variables():
 
 	ref1 = f"&ref1={randomString(5)}&ref2={randomString(4)}"
 	ref2 = f"&ref9={randomString(5)}&ref10={randomString(4)}"
-	ref3 =  f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}"
-	ref4 =  f"&ref9={randomString(5)}"
-	ref5  = f"&ref9={randomString(5)}&ref10={randomString(4)}" + ref4
+	ref3 = f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}"
+	ref4 = f"&ref9={randomString(5)}"
+	ref5 = f"&ref3={randomString(5)}&ref7={randomString(4)}"
 	ref6 = ''
-	refs = random.choice([refs,ref1,ref2,ref3,ref4,ref5,ref6])
-
+	refs = random.choice([refs, ref1, ref2, ref3, ref4, ref5, ref6])
 
 	return refs
 
@@ -121,28 +120,27 @@ def is_visa_secure():
 		else:
 			config.test_data['Merchant'] = 'US'
 
-		cc_card =  config.test_data['cc'] # '4444333322221111' #
+		cc_card = config.test_data['cc']  # '4444333322221111' #
 		cc_bin = cc_card[0:9]
 		is_card = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_GLOBALBINDETAILS, cc_bin)
 		eu_countries = ['BE', 'BG', 'BL', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GB', 'GF', 'GG', 'GI', 'GP', 'GR', 'HR', 'HU', 'IE', 'IM', 'IS', 'IT', 'JE', 'LI', 'LT', 'LU', 'LV', 'MF', 'MQ', 'MT']
 		if is_card and is_card['IssCountry'] in eu_countries:
 			is_card_eu = True
 			card_type = 'EU'
-
-		if is_card and is_card['PrePaid'] == 'Y': # out of scope
-			card_type= 'Prepaid'
-			result =  0  # no 3ds
-		elif config.test_data['Merchant']=='EU'  and is_card_eu and  not is_merchant_configured: #Merchant EU, card is EU, not configured for 3ds in Scope decline
+		if is_card and is_card['PrePaid'] == 'Y':  # out of scope
+			card_type = 'Prepaid'
+			result = 0  # no 3ds
+		elif config.test_data['Merchant'] == 'EU' and is_card_eu :  # Merchant EU, card is EU, not configured for 3ds in Scope decline  IN SCOPE
 			result = 1  # 3ds psd2
 			config.test_data['scope'] = True
-		elif config.test_data['Merchant']=='EU'  and is_card_eu and  is_merchant_configured: #Merchant EU, card is EU, configured for 3ds
-			result = 2  # 3ds psd2
-			config.test_data['scope'] = True
-		elif is_merchant_configured: #Any merchant configured but not in scope
-			result = 3  # 3ds psd2
-			#config.test_data['scope'] = True
+		# elif config.test_data['Merchant'] == 'EU' and is_card_eu and is_merchant_configured:  # Merchant EU, card is EU, configured for 3ds
+		# 	result = 2  # 3ds psd2
+		# 	config.test_data['scope'] = True
+		# elif is_merchant_configured:  # Any merchant configured but not in scope
+		# 	result = 3  # 3ds psd2
+		# config.test_data['scope'] = True
 		else:
-			result = 4  # Merchant not EU not in scope
+			result = 2  # Merchant not EU not in scope
 		config.test_data['card_type'] = card_type
 		return result
 	except Exception as ex:
@@ -157,7 +155,7 @@ def aprove_decline(transid):
 	cardinal_result = {}
 	in_or_aout_scope = 0
 	try:
-		if config.test_data['visa_secure'] in [1, 3, 4, 5]:
+		if config.test_data['visa_secure'] in [1,2]:
 			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
 			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
 			live_record_3ds = db_agent.execute_select_with_no_params(sql)
@@ -177,17 +175,21 @@ def aprove_decline(transid):
 						response['PAResStatus'] = auth_response['PAResStatus']
 					if 'SignatureVerification' in auth_response:
 						response['SignatureVerification'] = auth_response['SignatureVerification']
-				if config.test_data['visa_secure'] == 4:
+				if config.test_data['visa_secure'] == 1:
+					#msg = "In Scope |PSD2 Required|"
 					in_or_aout_scope = 1171
 					if response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Y' and response['SignatureVerification'] == 'Y':
 						# 1151	Successful Authentication
 						result_type = 1151
+						#aprove_or_decline = True
 					elif response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'A' and response['SignatureVerification'] == 'Y':
 						# 1152	Authentication Attempted
 						result_type = 1152
+						#aprove_or_decline = True
 					else:
 						result_type = 999
-				elif config.test_data['visa_secure'] in [1, 3, 5]:
+
+				elif config.test_data['visa_secure'] == 2:
 					in_or_aout_scope = 1172
 					if not 'Cavv' in response and response['EciFlag'] == '07' and not 'PAResStatus' in response:
 						# 1158	Failed Authentication
@@ -215,6 +217,13 @@ def aprove_decline(transid):
 					elif response['Cavv'] == {} and not 'EciFlag' in response and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Error' and not 'SignatureVerification' in response:
 						# 1158	Authentication Error
 						result_type = 1158
+					elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Y' and response['SignatureVerification'] == 'Y':
+						# 1151	Successful Authentication
+						result_type = 1151
+						#aprove_or_decline = True
+					elif response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'A' and response['SignatureVerification'] == 'Y':
+						# 1152	Authentication Attempted
+						result_type = 1152
 					else:
 						aprove_or_decline = False
 
@@ -279,6 +288,7 @@ def joinlink():
 		traceback.print_exc()
 		print(f"Function joinglink \n {Exception}")
 		pass
+
 
 def append_list(msg):
 	current_list = config.test_case['actual']

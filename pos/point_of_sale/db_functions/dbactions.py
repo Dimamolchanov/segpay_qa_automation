@@ -20,8 +20,6 @@ class DBActions:
 
     def __init__(self):
         self.cursor = DBManager.getInstance()
-
-
     def get_pricepoints(self):
         cnt = 0 ; pp_list = []
         rows = None
@@ -42,11 +40,6 @@ class DBActions:
                 traceback.print_exc()
             print(f"Function: get_pricepoints \n {Exception} ")
             pass
-
-
-
-
-
     def execute_select_one_with_wait(self, sql, condition):
         cnt = 0
         cnt_sql(sql,'execute_select_one_with_wait')

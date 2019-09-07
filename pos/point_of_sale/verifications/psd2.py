@@ -27,10 +27,10 @@ def cardinal3dsrequests(transid):  # card
 		if visa_secure == 0: # out of scope
 			options.append_list(f"Card is Prepaid | No 3DS record | Out of Scope")
 			print(colored(f"Card is Prepaid | No 3DS record | Out of Scope  => Pass ", 'green'))
-		if visa_secure == 1: # in scope
+		if visa_secure == 1 and not config.test_data['3ds']: # in scope
 			options.append_list(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined")
 			print(colored(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined ", 'red'))
-		elif visa_secure in [2,3]:
+		elif visa_secure == 1: #in [2,3]
 			if config.test_data['cc'] in config.cards_3ds:
 				card = config.cards_3ds[config.test_data['cc']]
 				try:
@@ -147,7 +147,14 @@ def cardinal3dsrequests(transid):  # card
 							# print(f"Expected_Field: | {item} | is missing from CardinalMPI")
 							print()
 							pass
-			elif visa_secure == 4:
+			elif visa_secure == 2 and not config.test_data['3ds']:
+				options.append_list(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
+				print(colored(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
+
+
+
+
+			elif visa_secure == 2:
 				live_record = db_agent.execute_select_with_no_params(sql)
 				if live_record == None:
 					options.append_list(f"No record found in Cardinal3dsRequests | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
@@ -155,16 +162,6 @@ def cardinal3dsrequests(transid):  # card
 				else:
 					options.append_list(f"Response received from Cardinal | Out Of scope | card {config.test_data['cc']}")
 					print(colored(f"Response received from Cardinal | Out Of scope | card {config.test_data['cc']}  => Pass ", 'green'))
-			# else:
-			# 	live_record = db_agent.execute_select_with_no_params(sql)
-			# 	if live_record == None:
-			# 		options.append_list(f"Merchant Configured for PSD2 => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
-			# 		print(colored(f"Merchant Configured for PSD2 => No record found | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
-			# 		print()
-			# 	else:
-			# 		options.append_list(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass")
-			# 		print(colored(f"Response received from Cardinal - Not a cardinal test case card {config.test_data['cc']}  => Pass ", 'green'))
-
 
 
 			if len(failed) > 0:

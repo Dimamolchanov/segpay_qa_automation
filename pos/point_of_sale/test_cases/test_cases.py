@@ -1,5 +1,6 @@
 import random
 import decimal
+from pos.point_of_sale.utils import constants
 import time
 from datetime import datetime
 from xml.etree.ElementTree import fromstring
@@ -26,8 +27,8 @@ print("_________________________________________________________________________
 print()
 
 
-def load_test_cases():
-	filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
+def load_test_cases(filename):
+	# filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 	with open(filename) as f:
 		test_cases_all = yaml.load(f, Loader=yaml.FullLoader)
 		return test_cases_all
@@ -85,7 +86,10 @@ def verify_signup_transaction(transaction_to_check):
 	differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
 	config.transids.append(transaction_to_check['TransID'])
 	config.transaction_records.append(transaction_to_check)
-	if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
+	decline_aprove = True
+	if not config.test_data['full_record']['Authorized'] == config.test_data['aprove_or_decline']:
+		decline_aprove = False
+	if not differences_multitrans and not differences_asset and not differences_postback and decline_aprove:  # and not differences_3ds:
 		return True
 	else:
 		return False
@@ -109,6 +113,7 @@ def scenario():
 		d = config.test_data
 		processor_name = {
 			26: 'PAYVISIONWE',
+			22: 'ROCKETGATE',
 			42: 'ROCKETGATEISO',
 			57: 'SPCATISO',
 			44: 'PAYVISIONPRIVMS',
@@ -329,6 +334,7 @@ def scenario():
 def transaction(test_cases):
 	br = w.FillPayPage()
 	failed_test_cases = []
+	passed_test_cases = {}
 	try:
 		for item in config.test_cases:
 			try:
@@ -364,17 +370,17 @@ def transaction(test_cases):
 
 				pass_fail = verify_signup_transaction(current_transaction_record)
 				if pass_fail:
-
+					passed_test_cases[item] = test_cases_all[item][2]
 					print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
+					print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
 				else:
 					failed_test_cases.append(item)
 					print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
 
-				print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
+					print(colored(f"________________________________________________________Verification Completed | Test_Case: {item} => FAILED__________________________________________________________________________________", 'white', 'on_grey', attrs=['bold', 'dark']))
 				print()
 				print()
 				z = 3
-
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
@@ -383,6 +389,7 @@ def transaction(test_cases):
 		filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\failed_test_cases.yaml"
 		with open(filename, 'w') as f:
 			data = yaml.dump(failed_test_cases, f)
+		return passed_test_cases
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")
@@ -393,15 +400,22 @@ def create_test_cases():
 	cnt = 0  # transactions
 	available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 	eu_currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
-	currencies = ['USD']
+	currencies = ''  # ['USD']
 
-	packages = [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
+	packages =  [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
 	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
 	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
 	                '5432768030017007', '4916280519180429']
 	for packageid in packages:
 		config.test_data['packageid'] = packageid
+		sql = "Select MerchantID from package where packageid = {}"
+		merchantid = db_agent.execute_select_one_parameter(sql, packageid)['MerchantID']
 		pricepoints = db_agent.get_pricepoints()
+		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, merchantid)['VISARegion']
+		if is_eu_merchant == 1:
+			currencies = eu_currencies
+		else:
+			currencies = ['USD']
 		for pricepoint in pricepoints:
 			for selected_language in config.available_languages:
 				for dmc in currencies:
@@ -422,10 +436,6 @@ def create_test_cases():
 						config.test_data['url_options'] = options.ref_variables() + options.refurl() + config.template
 						config.test_data['visa_secure'] = options.is_visa_secure()
 						config.test_data['processor'] = config.test_data['PrefProcessorID']
-						if config.test_data['Merchant'] == 'EU':
-							currencies = eu_currencies
-						else:
-							currencies = ['USD']
 						config.test_data['dmc'] = dmc
 						joinlink()
 						scenario()
@@ -439,11 +449,26 @@ def create_test_cases():
 						pass
 
 
-test_cases_all = load_test_cases()
-create_test_cases()
+#test_cases_all = {}
+# create_test_cases()
+
+failed = False
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
-with open(filename, 'w') as f:
-	data = yaml.dump(test_cases_all, f)
+test_cases_all = load_test_cases(filename)
+if failed:
+	filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\failed_test_cases.yaml"
+	test_cases_failed = load_test_cases(filename)
+	for item in test_cases_failed:
+		if item in test_cases_all:
+			config.test_cases[item] = test_cases_all[item]
+else:
+	create_test_cases()
+	# filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
+	with open(filename, 'w') as f:
+		data = yaml.dump(test_cases_all, f)
+
+
+
 res = transaction(config.test_cases)
 # oneclick =  test_methods.signup_oc_all,('pos', config.test_data['eticket'], config.test_data)
 print(len(config.test_cases))
