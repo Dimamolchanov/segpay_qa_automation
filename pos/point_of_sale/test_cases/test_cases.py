@@ -82,7 +82,12 @@ def verify_signup_transaction(transaction_to_check):
 	if transaction_to_check['full_record']['Authorized'] == 1:
 		check_email = emails.check_email_que(config.test_data['Type'], multitrans_base_record, 'signup')
 		config.test_data['aproved_transids'] = transaction_to_check['TransID']
-	differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
+	if config.test_data['Type'] == 505:
+		sql = "Select TransID from Multitrans where purchaseid = {} and TransSource = 121"
+		tid = db_agent.execute_select_one_parameter(sql,config.test_data['PurchaseID'])['TransID']
+		differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], tid)
+	else:
+		differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
 	differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
 	config.transids.append(transaction_to_check['TransID'])
 	config.transaction_records.append(transaction_to_check)
@@ -347,6 +352,11 @@ def transaction(test_cases):
 				full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
 				test_case['PurchaseID'] = full_record['PurchaseID']
 				test_case['TransID'] = full_record['TransID']
+				if test_case['Type'] == 505:
+					sql = "Select * from Multitrans where purchaseid = {} and TransSource = 122"
+					tmp = db_agent.execute_select_one_with_wait(sql, test_case['PurchaseID'])
+					if tmp: full_record = tmp
+
 				test_case['full_record'] = full_record
 				config.test_data = test_case
 				current_transaction_record = test_case
@@ -452,7 +462,7 @@ def create_test_cases():
 #test_cases_all = {}
 # create_test_cases()
 
-failed = False
+failed = True
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 test_cases_all = load_test_cases(filename)
 if failed:
