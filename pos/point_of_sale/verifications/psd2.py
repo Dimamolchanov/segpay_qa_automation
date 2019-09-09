@@ -17,167 +17,59 @@ def cardinal3dsrequests(transid):  # card
 	pid = 0
 	psd2_failed = []
 	item = ''
+	response = {}
+	sca = False
 	try:
 		visa_secure = config.test_data['visa_secure']
 		base_field = ''
 		live_field = ''
-		sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
-		      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
 
 		if visa_secure == 0: # out of scope
 			options.append_list(f"Card is Prepaid | No 3DS record | Out of Scope")
 			print(colored(f"Card is Prepaid | No 3DS record | Out of Scope  => Pass ", 'green'))
+			return True
 		if visa_secure == 1 and not config.test_data['3ds']: # in scope
 			options.append_list(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined")
 			print(colored(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined ", 'red'))
-		elif visa_secure == 1: #in [2,3]
-			if config.test_data['cc'] in config.cards_3ds:
-				card = config.cards_3ds[config.test_data['cc']]
-				try:
-					if 'card' in card:
-						del card['card']
-						del card['cmpi_authenticate response']
-				except Exception as ex:
-					traceback.print_exc()
-					print(f"Card is not in the dictionary")
-					print(f"{Exception}")
-					pass
-				live_record = db_agent.execute_select_with_no_params(sql)
-				if live_record == None:
-					print(colored(f"No record recieved from Cardinal ", 'red'))
-					print()
+		elif visa_secure == 2 and not config.test_data['3ds']:
+			options.append_list(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
+			print(colored(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | Out Of  Scope | Should be aproved", 'blue'))
+			return True
+		elif visa_secure in [1,2]:
+			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
+			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
+			live_record = db_agent.execute_select_with_no_params(sql)
+			if live_record:
+				xml_return_string_lookuprresponse = simplexml.loads(live_record['lookuprresponse'])
+				response = xml_return_string_lookuprresponse['CardinalMPI']
+				scope = config.test_data['scope']
+				cavv = response['Cavv']
+				eciflag = response['EciFlag']
+				enrolled = response['Enrolled']
+				parestatus = response['PAResStatus']
+				sigver = response['SignatureVerification']
+				if not live_record['authresponse'] == '':
+					json_authresponse = json.loads(live_record['authresponse'])
+					json_response = json_authresponse['Payload']['Payment']['ExtendedData']
+					if 'PAResStatus' in json_response: parestatus = json_response['PAResStatus']
+					if 'SignatureVerification' in json_response: sigver = json_response['SignatureVerification']
+					if 'CAVV' in json_response: cavv = json_response['CAVV']
+					if 'ECIFlag' in json_response: eciflag = json_response['ECIFlag']
+					sca = True
+				if cavv == "" or cavv == {}:
+					cavv = 'NO'
 				else:
-					if not live_record['authresponse'] == '':
-						json_authresponse = json.loads(live_record['authresponse'])
-						# auth_response = json_authresponse['Payload']['Payment']['ExtendedData']
-						auth_response = {**json_authresponse['Payload'], **json_authresponse['Payload']['Payment']['ExtendedData']}
-						for item in card:
-							try:
-								if item == 'cPAResStatus':
-									base_field = card[item]
-									live_field = auth_response['PAResStatus']
-								elif item == 'cSignatureVerification':
-									base_field = card[item]
-									live_field = auth_response['SignatureVerification']
-								elif item == 'cCavv':
-									base_field = 'value'
-									live_field = auth_response['CAVV']
-									if live_field != '':
-										live_field = 'value'
-								elif item == 'cEciFlag':
-									base_field = card[item]
-									live_field = auth_response['ECIFlag']
-								elif item == 'cErrorNo':
-									base_field = card[item]
-									live_field = auth_response['ErrorNumber']
-								elif item == 'cErrorDesc':
-									base_field = card[item]
-									live_field = auth_response['ErrorDescription']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-								if base_field != live_field:
-									failed[item] = f"{base_field}split{live_field} | SCA Required |"
-
-							except Exception as ex:
-								traceback.print_exc()
-								failed[item] = f"{base_field} split | Expected_Field is missing from Auth_response | SCA Required"
-								# print(f"Expected_Field: | {item[1:]} | is missing from Auth_response")
-								# print()
-								pass
-
-					xml_return_string_lookuprresponse = simplexml.loads(live_record['lookuprresponse'])
-					response = xml_return_string_lookuprresponse['CardinalMPI']
-					for item in card:
-						try:
-							if item[0] != 'c':
-								if item == 'Enrolled':
-									base_field = card[item]
-									live_field = response['Enrolled']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-								elif item == 'PAResStatus':
-									base_field = card[item]
-									live_field = response['PAResStatus']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-								elif item == 'SignatureVerification':
-									base_field = card[item]
-									live_field = response['SignatureVerification']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-								elif item == 'Cavv':
-									if card[item] == '':
-										base_field = {}
-										live_field = response['Cavv']
-								elif item == 'EciFlag':
-									base_field = card[item]
-									live_field = response['EciFlag']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-								elif item == 'ACSUrl':
-									base_field = card[item]
-									live_field = response['ACSUrl']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-									elif base_field == '<value>':
-										base_field = 'https://0merchantacsstag.cardinalcommerce.com/MerchantACSWeb/creq.jsp'
-								elif item == 'Payload':
-									base_field = card[item]
-									live_field = response['Payload']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-									elif base_field == '<value>':
-										base_field = live_field
-								elif item == 'ErrorNo':
-									base_field = card[item]
-									live_field = response['ErrorNo']
-								elif item == 'ErrorDesc':
-									base_field = card[item]
-									live_field = response['ErrorDesc']
-									if base_field == '<blank>' or base_field == '':
-										base_field = {}
-
-								if base_field != live_field:
-									failed[item] = f"{base_field}split{live_field}"
-						except Exception as ex:
-							traceback.print_exc()
-							failed[item] = f"{base_field} split | Expected_Field is missing from CardinalMPI |"
-							# print(f"Expected_Field: | {item} | is missing from CardinalMPI")
-							print()
-							pass
-			elif visa_secure == 2 and not config.test_data['3ds']:
-				options.append_list(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
-				print(colored(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
-
-
-
-
-			elif visa_secure == 2:
-				live_record = db_agent.execute_select_with_no_params(sql)
-				if live_record == None:
-					options.append_list(f"No record found in Cardinal3dsRequests | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
-					print(colored(f"No record found in Cardinal3dsRequests | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}", 'blue'))
-				else:
-					options.append_list(f"Response received from Cardinal | Out Of scope | card {config.test_data['cc']}")
-					print(colored(f"Response received from Cardinal | Out Of scope | card {config.test_data['cc']}  => Pass ", 'green'))
-
-
-			if len(failed) > 0:
-				options.append_list("********************* 3DS verification MissMatch *********************")
-				print()
-				print(colored(f"********************* 3DS verification MissMatch *********************", 'red'))
-				for item in failed:
-					tmp = failed[item].split('split')
-					options.append_list(f"Field : {item} =>  Expected BaseField: {tmp[0]}  | Actual : {tmp[1]}  ")
-					print(f"Field : {item} =>  Expected BaseField: {tmp[0]}  | Actual : {tmp[1]}  ")
-				print()
-			if len(failed) == 0 and live_record:
+					cavv = 'YES'
+				print(f"Scope: {scope} | Cavv: {cavv} | EciFlag: {eciflag} | Enrolled: {enrolled} | ParesStatus: {parestatus} | SingatureVerification: {sigver} | SCA Required: {sca} ")
 				options.append_list(f"Cardinal3dsRequests test_case: {config.test_data['cc']} Records Compared => Pass ")
 				print(colored(f"Cardinal3dsRequests test_case: {config.test_data['cc']} Records Compared => Pass ", 'green'))
 				print()
-			return failed
+				return True
+			else:
+				print(colored(f"Merchant Configured for 3DS - should have a 3ds record - No record recieved from Cardinal ", 'red'))
+				print()
+				return False
+
 		print()
 	except Exception as ex:
 		traceback.print_exc()

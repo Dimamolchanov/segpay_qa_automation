@@ -126,7 +126,7 @@ def scenario():
 			74: 'SPHBIPSP'
 		}
 		config.test_data['processor_name'] = processor_name[d['processor']]
-		if d['visa_secure'] == 2:
+		if d['visa_secure'] == 1:
 			form = 'Extended'
 		if d['Type'] == 501:
 			descr = 'Recurring'
@@ -462,7 +462,7 @@ def create_test_cases():
 #test_cases_all = {}
 # create_test_cases()
 
-failed = True
+failed = False
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
 test_cases_all = load_test_cases(filename)
 if failed:
