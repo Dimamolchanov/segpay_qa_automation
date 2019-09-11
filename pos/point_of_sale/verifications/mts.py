@@ -248,10 +248,20 @@ def build_multitrans():
 			exchange_rate = db_agent.exc_rate(config.test_data['merchant_currency'], config.test_data['Currency'])
 
 		multitrans['TxStatus'] = 2
-		if config.test_data['Type'] == 505:
+		if config.test_data['Type'] == 505 and config.test_data['aprove_or_decline']:
 			multitrans['TransSource'] = 122
 			multitrans['TransStatus'] = 184
 			multitrans['TransType'] = 105
+			sql = "Select TransID from multitrans where purchaseid = {} and TransSource = 121"
+			tid= db_agent.execute_select_one_parameter(sql,config.test_data['PurchaseID'])['TransID']
+			multitrans['RelatedTransID'] = tid
+		elif config.test_data['Type'] == 505 and config.test_data['aprove_or_decline'] == False:
+			multitrans['TransSource'] = 122
+			multitrans['TransStatus'] = 187
+			multitrans['TransType'] = 105
+			sql = "Select TransID from multitrans where purchaseid = {} and TransSource = 121"
+			tid = db_agent.execute_select_one_parameter(sql, config.test_data['PurchaseID'])['TransID']
+			multitrans['RelatedTransID'] = tid
 		else:
 			multitrans['TransSource'] = 121
 			multitrans['TransStatus'] = 184
@@ -266,17 +276,40 @@ def build_multitrans():
 			if config.test_data['Type'] == 505 and config.test_data['full_record']['TransSource'] == 122:
 				multitrans['TransAmount'] = config.test_data['RebillPrice']
 				multitrans['TransDate'] = transdate + timedelta(days=config.test_data['InitialLen'])
-				sql = f"select  RelatedTransID  from multitrans where PurchaseID = {config.test_data['PurchaseID']}  and TransSource = 121 "
-				multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
+				# sql = f"select  RelatedTransID  from multitrans where PurchaseID = {config.test_data['PurchaseID']}  and TransSource = 121 "
+				# multitrans['RelatedTransID'] = db_agent.sql(sql)[0]['RelatedTransID']
 			else:
 				multitrans['TransDate'] = transdate
 				multitrans['TransAmount'] = config.test_data['InitialPrice']
 				multitrans['Markup'] = round(config.test_data['InitialPrice'] * exchange_rate, 2)
 				multitrans['RelatedTransID'] = 0
-
-		if config.test_data['Type'] in [501, 506] and config.test_data['InitialPrice'] == 0.00:
+		type = config.test_data['Type']
+		if type in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
 			multitrans['TransStatus'] = 186
 			multitrans['TransAmount'] = 1.00
+		elif type in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] == False:
+			multitrans['TransStatus'] = 184
+			multitrans['TransAmount'] = 0.00
+
+
+
+
+
+
+
+
+
+
+
+		# if config.test_data['Type'] in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
+		# 	multitrans['TransStatus'] = 186
+		# 	multitrans['TransAmount'] = 1.00
+		# elif config.test_data['Type'] == 501 and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] ==False:
+		# 	multitrans['TransStatus'] = 184
+		# 	multitrans['TransAmount'] = 1.00
+		# elif config.test_data['Type'] == 506 and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] ==False:
+		# 	multitrans['TransStatus'] = 186
+		# 	multitrans['TransAmount'] = 1.00
 		exchange_rate = round(exchange_rate, 2)
 		multitrans['ExchRate'] = exchange_rate
 		if multitrans['MerchantCurrency'] == 'JPY':

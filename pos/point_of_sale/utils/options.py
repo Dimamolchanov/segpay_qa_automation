@@ -130,7 +130,7 @@ def is_visa_secure():
 		if is_card and is_card['PrePaid'] == 'Y':  # out of scope
 			card_type = 'Prepaid'
 			result = 0  # no 3ds
-		elif config.test_data['Merchant'] == 'EU' and is_card_eu :  # Merchant EU, card is EU, not configured for 3ds in Scope decline  IN SCOPE
+		elif config.test_data['Merchant'] == 'EU' and is_card_eu:  # Merchant EU, card is EU, not configured for 3ds in Scope decline  IN SCOPE
 			result = 1  # 3ds psd2
 			config.test_data['scope'] = True
 		# elif config.test_data['Merchant'] == 'EU' and is_card_eu and is_merchant_configured:  # Merchant EU, card is EU, configured for 3ds
@@ -155,79 +155,143 @@ def aprove_decline(transid):
 	cardinal_result = {}
 	in_or_aout_scope = 0
 	try:
-		if config.test_data['visa_secure'] in [1,2]:
-			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
-			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
+		if config.test_data['visa_secure'] in [1, 2]:
+			if config.test_data['Type'] == 505:
+				sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
+				      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid} and TransSource = 122 )"
+			else:
+				sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
+				      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
+
 			live_record_3ds = db_agent.execute_select_with_no_params(sql)
 			if live_record_3ds:
 				xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
 				response = xml_return_string_lookuprresponse['CardinalMPI']
+				if 'Cavv' in response:
+					if response['Cavv'] == {} or response['Cavv'] == '':
+						response['Cavv'] = None
+					else:
+						response['Cavv'] = response['Cavv']
+				else:
+					response['Cavv'] = None
+				if 'PAResStatus' in response:
+					if response['PAResStatus'] == {} or response['PAResStatus'] == '':
+						response['PAResStatus'] = None
+					else:
+						response['PAResStatus'] = response['PAResStatus']
+
+				if 'EciFlag' in response:
+					if response['EciFlag'] == {} or response['EciFlag'] == '':
+						response['EciFlag'] = None
+					else:
+						response['EciFlag'] = response['EciFlag']
+				else:
+					response['EciFlag'] = None
+				if 'SignatureVerification' in response:
+					if response['SignatureVerification'] == {} or response['SignatureVerification'] == '':
+						response['SignatureVerification'] = None
+					else:
+						response['SignatureVerification'] = response['SignatureVerification']
+				else:
+					response['SignatureVerification'] = None
+
+
+
+
+
+
+
 				if not live_record_3ds['authresponse'] == '':
 					json_authresponse = json.loads(live_record_3ds['authresponse'])
 					auth_response = {**json_authresponse['Payload'],
 					                 **json_authresponse['Payload']['Payment']['ExtendedData']}
 
 					if 'ECIFlag' in auth_response:
-						response['EciFlag'] = auth_response['ECIFlag']
+						if auth_response['ECIFlag'] == {} or auth_response['ECIFlag'] == '':
+							response['EciFlag'] = None
+						else:
+							response['EciFlag'] = auth_response['ECIFlag']
+					else:
+						response['EciFlag'] = None
 					if 'CAVV' in auth_response:
-						response['Cavv'] = auth_response['CAVV']
+						if auth_response['CAVV'] == {} or auth_response['CAVV'] == '':
+							response['Cavv'] = None
+						else:
+							response['Cavv'] = auth_response['CAVV']
+					else:
+						response['Cavv'] = None
 					if 'PAResStatus' in auth_response:
-						response['PAResStatus'] = auth_response['PAResStatus']
+						if auth_response['PAResStatus'] == {} or auth_response['PAResStatus'] == '':
+							response['PAResStatus'] = None
+						else:
+							response['PAResStatus'] = auth_response['PAResStatus']
+					else:
+						response['PAResStatus'] = None
 					if 'SignatureVerification' in auth_response:
-						response['SignatureVerification'] = auth_response['SignatureVerification']
+						if auth_response['SignatureVerification'] == {} or auth_response['SignatureVerification'] == '':
+							response['SignatureVerification'] = None
+						else:
+							response['SignatureVerification'] = auth_response['SignatureVerification']
+					else:
+						response['SignatureVerification'] = None
+
+
+
+
+
 				if config.test_data['visa_secure'] == 1:
-					#msg = "In Scope |PSD2 Required|"
+					# msg = "In Scope |PSD2 Required|"
 					in_or_aout_scope = 1171
 					if response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Y' and response['SignatureVerification'] == 'Y':
 						# 1151	Successful Authentication
 						result_type = 1151
-						#aprove_or_decline = True
+					# aprove_or_decline = True
 					elif response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'A' and response['SignatureVerification'] == 'Y':
 						# 1152	Authentication Attempted
 						result_type = 1152
-						#aprove_or_decline = True
+					# aprove_or_decline = True
 					else:
 						result_type = 999
 
 				elif config.test_data['visa_secure'] == 2:
 					in_or_aout_scope = 1172
-					if not 'Cavv' in response and response['EciFlag'] == '07' and not 'PAResStatus' in response:
+					if response['Cavv'] == None and response['EciFlag'] == '07' and  'PAResStatus' == None:
 						# 1158	Failed Authentication
 						result_type = 1158
 					elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] in ['Y', 'A'] and response['SignatureVerification'] == 'N':
 						# Signature Verification Failure
 						result_type = 1157
 						print(colored(f"This Transaction should be declined|PSD2 not Required|", 'white', 'on_grey', attrs=['bold']))
-					elif not 'Cavv' in response and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
+					elif response['Cavv'] == None and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
 						# Failed Authentication
 						result_type = 1159
 						print(colored(f"This Transaction should be declined|PSD2 not Required|", 'white', 'on_grey', attrs=['bold']))
-					elif response['Cavv'] == {} and response['EciFlag'] == '06' and response['Enrolled'] == 'N' and not 'PAResStatus' in response and not 'SignatureVerification' in response:
+					elif response['Cavv'] == None and response['EciFlag'] == '06' and response['Enrolled'] == 'N' and  response['PAResStatus'] == None and  response['SignatureVerification'] == None:
 						# Non-Enrolled Card/Non-participating bank
 						result_type = 1153
-					elif response['Cavv'] == {} and response['EciFlag'] == '07' and response['Enrolled'] == 'U' and not 'PAResStatus' == {} and not 'SignatureVerification' == {}:
+					elif response['Cavv'] == None  and response['EciFlag'] == '07' and response['Enrolled'] == 'U' and   response['PAResStatus'] == None and  response['SignatureVerification'] == None:
 						# 1154	Authentication Unavailable
 						result_type = 1154
-					elif response['Cavv'] == {} and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
+					elif response['Cavv'] == None  and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'U' and response['SignatureVerification'] in ['Y', 'N']:
 						# 1155	Authentication Unavailable at Issuer
 						result_type = 1155
-					elif response['Cavv'] == {} and response['EciFlag'] == '07' and response['Enrolled'] == 'B' and not 'PAResStatus' in response and not 'SignatureVerification' in response:
+					elif response['Cavv'] == None  and response['EciFlag'] == '07' and response['Enrolled'] == 'B' and response['PAResStatus'] == None and  response['SignatureVerification'] == None:
 						# 1156	Authentication Bypassed
 						result_type = 1156
-					elif response['Cavv'] == {} and not 'EciFlag' in response and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Error' and not 'SignatureVerification' in response:
+					elif response['Cavv'] == None  and  response['EciFlag'] == None and response['Enrolled'] == 'Y' and response['PAResStatus'] == None and  response['SignatureVerification']== None:
 						# 1158	Authentication Error
 						result_type = 1158
 					elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'Y' and response['SignatureVerification'] == 'Y':
 						# 1151	Successful Authentication
 						result_type = 1151
-						#aprove_or_decline = True
+					# aprove_or_decline = True
 					elif response['Cavv'] and response['EciFlag'] == '06' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'A' and response['SignatureVerification'] == 'Y':
 						# 1152	Authentication Attempted
 						result_type = 1152
 					else:
 						aprove_or_decline = False
 
-			if result_type == 999:
+			if result_type == 999 :
 				msg = "In Scope |PSD2 Required|"
 				aprove_or_decline = False
 				print(colored(f"This Transaction should be declined |{msg}|  <----------------", 'red', attrs=['bold']))
@@ -244,6 +308,9 @@ def aprove_decline(transid):
 					elif final_action['ResultAction'] == 1182:
 						aprove_or_decline = False
 						print(colored(f"This Transaction should be declined |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1182 | ", 'red', attrs=['bold']))
+				else:
+					aprove_or_decline = True
+					print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | {msg}", 'grey', attrs=['bold']))
 		elif config.test_data['visa_secure'] == 0:
 			aprove_or_decline = True
 			print(colored(f"This Transaction should be aproved |Prepaid Card|  <---------------- | ", 'grey', attrs=['bold']))

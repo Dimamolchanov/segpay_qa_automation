@@ -32,7 +32,7 @@ def cardinal3dsrequests(transid):  # card
 			options.append_list(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined")
 			print(colored(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined ", 'red'))
 		elif visa_secure == 2 and not config.test_data['3ds']:
-			options.append_list(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {config.test_data['package'][0]['PrefProcessorID']}")
+			options.append_list(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {'processor'}")
 			print(colored(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | Out Of  Scope | Should be aproved", 'blue'))
 			return True
 		elif visa_secure in [1,2]:
