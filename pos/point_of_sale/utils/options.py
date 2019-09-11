@@ -179,6 +179,8 @@ def aprove_decline(transid):
 						response['PAResStatus'] = None
 					else:
 						response['PAResStatus'] = response['PAResStatus']
+				else:
+					response['PAResStatus'] = None
 
 				if 'EciFlag' in response:
 					if response['EciFlag'] == {} or response['EciFlag'] == '':

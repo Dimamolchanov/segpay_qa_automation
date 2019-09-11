@@ -9344,6 +9344,100 @@
   xSell2Checked: false
 - ' Merchant: EU | 3DS Configured: False  | Card: Prepaid | In Scope: False  | Cardinal
   - Not a Cardinal Case | 3ds Not Configured | Not in Scope '
+'2351015':
+- "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
+  --SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | Card #\
+  \ 4000000000001000 |\n--In Scope: False  | Cardinal - Test Case 1: Successful Frictionless\
+  \ Authentication |\n--PricePoint Type: 503 - Digital Purchase  | DMC: USD | Language:\
+  \ EN | Processor PoolID: 74 |\n--DMCStatus = 471 | CollectUserInfo: 2\n\nPrerequisite:\n\
+  -----------------\n--MerhcantID: 21621 | Card: 4000000000001000 | Eticket: 801:100161\
+  \ | Template: defaultpsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=801:100161&ref3=yucwq&ref7=njst&refurl=wwww.regressesion.com/\n\
+  \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
+  \nPayPage:_______Form should be: Short | This Transaction should be Aproved\n_______________Multitranse:\
+  \ | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType:\
+  \ 101 | RefVariables: True | RefURL: True\n_______________Assets:      | PurchStatus:\
+  \ 804 | PurchType: 503 | Processor: SPHBIPSP | UserName: Should be the Email | Password:\
+  \ True | RefVariables: True | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue\
+  \ should have | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
+  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
+  \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
+  \ should have a response from Cardinal for Test Case 1: Successful Frictionless\
+  \ Authentication\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
+  \n\n"
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 100161
+  Category: 651
+  CollectUserInfo: 2
+  Currency: USD
+  DMCStatus: 471
+  Description: 501,502,503,505,506 3DS on PPID 74
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultpsd2
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultpsd2
+  ICSupportStandin: 0
+  InitialLen: 0
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '2.95'
+  IsReactivateEnabled: false
+  LanguageID: 401
+  Merchant: US
+  MerchantID: 21621
+  ModBy: vitaly@segpay.com
+  ModDate: 2019-09-09 10:26:46.403000
+  OCPayTemplate: defaultpsd2
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Digital
+  PackageID: 801
+  PackageStatus: 433
+  PayPageTemplate: defaultpsd2
+  PayTypes: '          '
+  PostBackID: 8934
+  PostPayEnabled: false
+  PrefProcessorID: 74
+  RebillLen: 0
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  Type: 503
+  URLID: 26868
+  card_type: EU
+  cc: '4000000000001000'
+  dmc: USD
+  eticket: 801:100161
+  eu_available_currencies: &id013
+  - USD
+  eu_processors: 65
+  lang: EN
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=801:100161&ref3=yucwq&ref7=njst&refurl=wwww.regressesion.com/
+  packageid: 801
+  processor: 74
+  processor_name: SPHBIPSP
+  scope: false
+  traceback: true
+  url_options: '&ref3=yucwq&ref7=njst&refurl=wwww.regressesion.com/'
+  us_available_currencies: &id014
+  - USD
+  us_processors: 74
+  visa_secure: 2
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+- ' Merchant: US | 3DS Configured: True  | Card: EU | In Scope: False  | Cardinal
+  - Test Case 1: Successful Frictionless Authentication '
 '2351016':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | Card #\
@@ -12937,6 +13031,110 @@
   xSell2Checked: false
 - ' Merchant: US | 3DS Configured: True  | Card: EU | In Scope: False  | Cardinal
   - Test Case 1: Successful Frictionless Authentication '
+'2351319':
+- "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
+  --SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | Card #\
+  \ 4000000000001034 |\n--In Scope: False  | Cardinal - Test Case 4: Unavailable Frictionless\
+  \ Authentication from the Issuer |\n--PricePoint Type: 510 - Dynamic Pricing  |\
+  \ DMC: USD | Language: EN | Processor PoolID: 74 |\n--DMCStatus = 471 | CollectUserInfo:\
+  \ 0\n\nPrerequisite:\n-----------------\n--MerhcantID: 21621 | Card: 4000000000001034\
+  \ | Eticket: 803:27189 | Template: defaultpsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=803:27189&amount=4.45&dynamictrans=78WcKVXHaoUsWnwc34aJE1uLXps%3d&dynamicdesc=QA+TEST&ref9=ivmvg&refurl=wwww.regressesion.com/\n\
+  \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
+  \nPayPage:________Form should be: Short | This Transaction can be Aproved or Declined\
+  \ | If CardinalResultActions = 1181 -Aprove | If CardinalResultActions = 1182 -\
+  \ Decline  \nIf Declined  :\n_______________ Multitranse: | AuthCode: 'C300' or\
+  \ 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 |\
+  \ RefVariables: True | RefURL: True |\n_______________ Assets:      | PurchStatus:\
+  \ 806 | PurchType: 510 | LastResult: Declined | UserName: True | Password: False\
+  \ | Purchases: 0 | RefURL: True |\n_______________ Email:       | PointOfSaleEmailQueue\
+  \ should not have email for this transaction | PostBacks are only transactionals\
+  \ |\n_______________ PostBacks:   | PostBackNotifications should have: |  5's PostBacks\
+  \ Type   with | PostResults: Ok | with Status: 863 (Complete)\nIf Aproved   :\n\
+  _______________ Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121\
+  \ | TransStatus: 184 | TransType: 101 | RefVariables: True | RefURL: True |\n_______________\
+  \ Assets:      | PurchStatus: 806 | PurchType: 510 | Processor: SPHBIPSP | UserName:\
+  \ True | Password: False | RefVariables: True | RefURL: True |\n_______________\
+  \ Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que\
+  \ with Status: 863 (Complete)\n_______________ PostBacks:   | PostBackNotifications\
+  \ should have: |  5's PostBacks Type   with | PostResults: Ok | with Status: 863\
+  \ (Complete)\n_______________ 3DS:         | Cardinal3dsRequests should have a response\
+  \ from Cardinal for Test Case 4: Unavailable Frictionless Authentication from the\
+  \ Issuer\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
+  \n\n"
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 27189
+  Category: 651
+  CollectUserInfo: 0
+  Currency: USD
+  DMCStatus: 471
+  Description: Dynamic Pricing (One time) 510 on 3ds on PPID 74
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultpsd2
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultpsd2
+  ICSupportStandin: 0
+  InitialLen: 0
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  IsReactivateEnabled: true
+  LanguageID: 401
+  Merchant: US
+  MerchantID: 21621
+  ModBy: qateam@segpay.com
+  ModDate: 2019-08-26 16:30:03.413000
+  OCPayTemplate: defaultpsd2
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Dynamic Pricing
+  PackageID: 803
+  PackageStatus: 433
+  PayPageTemplate: defaultpsd2
+  PayTypes: '          '
+  PostBackID: 8934
+  PostPayEnabled: false
+  PrefProcessorID: 74
+  RebillLen: 0
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  Type: 510
+  URLID: 26868
+  card_type: EU
+  cc: '4000000000001034'
+  dmc: USD
+  eticket: 803:27189
+  eu_available_currencies: *id013
+  eu_processors: 65
+  initialprice510: !!python/object/apply:decimal.Decimal
+  - '4.45'
+  lang: EN
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=803:27189&amount=4.45&dynamictrans=78WcKVXHaoUsWnwc34aJE1uLXps%3d&dynamicdesc=QA+TEST&ref9=ivmvg&refurl=wwww.regressesion.com/
+  packageid: 192137
+  processor: 74
+  processor_name: SPHBIPSP
+  scope: false
+  traceback: true
+  url_options: '&ref9=ivmvg&refurl=wwww.regressesion.com/'
+  us_available_currencies: *id014
+  us_processors: 74
+  visa_secure: 2
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+- ' Merchant: US | 3DS Configured: True  | Card: EU | In Scope: False  | Cardinal
+  - Test Case 4: Unavailable Frictionless Authentication from the Issuer '
 '2351320':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | Card #\
@@ -13639,7 +13837,7 @@
   cc: '4000000000001133'
   dmc: USD
   eticket: 803:27189
-  eu_available_currencies: &id013
+  eu_available_currencies: &id015
   - USD
   eu_processors: 65
   initialprice510: !!python/object/apply:decimal.Decimal
@@ -13652,7 +13850,7 @@
   scope: false
   traceback: true
   url_options: '&ref9=wdzmy&refurl=wwww.regressesion.com/'
-  us_available_currencies: &id014
+  us_available_currencies: &id016
   - USD
   us_processors: 74
   visa_secure: 2
@@ -13735,7 +13933,7 @@
   cc: '4000000000001000'
   dmc: USD
   eticket: 802:27253
-  eu_available_currencies: *id013
+  eu_available_currencies: *id015
   eu_processors: 65
   initiallength511: 3
   initialprice511: !!python/object/apply:decimal.Decimal
@@ -13751,7 +13949,7 @@
   scope: false
   traceback: true
   url_options: '&ref5=toacp&ref6=etgy&ref7=jbydg&ref8=apnc&refurl=wwww.regressesion.com/'
-  us_available_currencies: *id014
+  us_available_currencies: *id016
   us_processors: 74
   visa_secure: 2
   xSell1: null
@@ -14279,6 +14477,115 @@
   xSell2Checked: false
 - ' Merchant: US | 3DS Configured: True  | Card: EU | In Scope: False  | Cardinal
   - Test Case 7: Error on Lookup '
+'2351423':
+- "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
+  --SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | Card #\
+  \ 4000000000001075 |\n--In Scope: False  | Cardinal - Test Case 8: Timeout on cmpi_lookup\
+  \ Transaction |\n--PricePoint Type: 511 - Dynamic Recurring  | DMC: USD | Language:\
+  \ EN | Processor PoolID: 74 |\n--DMCStatus = 471 | CollectUserInfo: 0\n\nPrerequisite:\n\
+  -----------------\n--MerhcantID: 21621 | Card: 4000000000001075 | Eticket: 802:27253\
+  \ | Template: defaultpsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=802:27253&DynamicPricingID=42547f32-626e-42b1-a7d0-9d178f9dfa6e&refurl=wwww.regressesion.com/\n\
+  \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
+  \nPayPage:________Form should be: Short | This Transaction can be Aproved or Declined\
+  \ | If CardinalResultActions = 1181 -Aprove | If CardinalResultActions = 1182 -\
+  \ Decline  \nIf Declined  :\n_______________ Multitranse: | AuthCode: 'C300' or\
+  \ 'C200' | Autorized: 0 | TransSource: 121 | TransStatus: 184 | TransType: 101 |\
+  \ RefVariables: True | RefURL: True |\n_______________ Assets:      | PurchStatus:\
+  \ 806 | PurchType: 511 | LastResult: Declined | UserName: True | Password: False\
+  \ | Purchases: 0 | RefURL: True |\n_______________ Email:       | PointOfSaleEmailQueue\
+  \ should not have email for this transaction | PostBacks are only transactionals\
+  \ |\n_______________ PostBacks:   | PostBackNotifications should have: |  5's PostBacks\
+  \ Type   with | PostResults: Ok | with Status: 863 (Complete)\nIf Aproved   :\n\
+  _______________ Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: 121\
+  \ | TransStatus: 184 | TransType: 101 | RefVariables: True | RefURL: True |\n_______________\
+  \ Assets:      | PurchStatus: 806 | PurchType: 511 | Processor: SPHBIPSP | UserName:\
+  \ True | Password: False | RefVariables: True | RefURL: True |\n_______________\
+  \ Email:       | PointOfSaleEmailQueue should have | EmailType: 981 | in the que\
+  \ with Status: 863 (Complete)\n_______________ PostBacks:   | PostBackNotifications\
+  \ should have: |  5's PostBacks Type   with | PostResults: Ok | with Status: 863\
+  \ (Complete)\n_______________ 3DS:         | Cardinal3dsRequests should have a response\
+  \ from Cardinal for Test Case 8: Timeout on cmpi_lookup Transaction\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
+  \n\n"
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 27253
+  Category: 651
+  CollectUserInfo: 0
+  Currency: USD
+  DMCStatus: 471
+  Description: Dynamic Recurring 511 3ds on PPID 74
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultpsd2
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultpsd2
+  ICSupportStandin: 0
+  InitialLen: 0
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  IsReactivateEnabled: false
+  LanguageID: 401
+  Merchant: US
+  MerchantID: 21621
+  ModBy: qateam@segpay.com
+  ModDate: 2019-08-26 16:19:00.317000
+  OCPayTemplate: defaultpsd2
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: A komu lekgo
+  PackageID: 802
+  PackageStatus: 433
+  PayPageTemplate: defaultpsd2
+  PayTypes: '          '
+  PostBackID: 8934
+  PostPayEnabled: false
+  PrefProcessorID: 74
+  RebillLen: 0
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  Type: 511
+  URLID: 26868
+  card_type: EU
+  cc: '4000000000001075'
+  dmc: USD
+  eticket: 802:27253
+  eu_available_currencies:
+  - USD
+  eu_processors: 65
+  initiallength511: 3
+  initialprice511: !!python/object/apply:decimal.Decimal
+  - '3.00'
+  lang: EN
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=802:27253&DynamicPricingID=42547f32-626e-42b1-a7d0-9d178f9dfa6e&refurl=wwww.regressesion.com/
+  packageid: 803
+  processor: 74
+  processor_name: SPHBIPSP
+  recurringlength511: 30
+  recurringprice511: !!python/object/apply:decimal.Decimal
+  - '29.95'
+  scope: false
+  traceback: true
+  url_options: '&refurl=wwww.regressesion.com/'
+  us_available_currencies:
+  - USD
+  us_processors: 74
+  visa_secure: 2
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+- ' Merchant: US | 3DS Configured: True  | Card: EU | In Scope: False  | Cardinal
+  - Test Case 8: Timeout on cmpi_lookup Transaction '
 '2351427':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: US | 3DS Configured: True  | Card: EU | Card #\
@@ -15150,7 +15457,7 @@
   cc: '4000000000001067'
   dmc: USD
   eticket: 800:27190
-  eu_available_currencies: *id013
+  eu_available_currencies: *id015
   eu_processors: 65
   lang: EN
   link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:27190&ref3=jysrt&ref7=oqjz&refurl=wwww.regressesion.com/
@@ -15160,7 +15467,7 @@
   scope: false
   traceback: true
   url_options: '&ref3=jysrt&ref7=oqjz&refurl=wwww.regressesion.com/'
-  us_available_currencies: *id014
+  us_available_currencies: *id016
   us_processors: 74
   visa_secure: 2
   xSell1: null
