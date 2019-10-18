@@ -377,14 +377,16 @@ def FillDefault(url, selected_options, merchantid, packageid):
 		if not selected_options[1] == 'EN':
 			time.sleep(2)
 		#time.sleep(2)
-		if config.enviroment == 'qa':
-			br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-		else:
-			br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-		if config.enviroment == 'qa':
-			br.find_by_id('CVVInput').fill(cvv)  # new CVVInputNumeric old CVVInput
-		else:
-			br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
+		# if config.enviroment == 'qa':
+		# 	br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+		# else:
+		# 	br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+		# if config.enviroment == 'qa':
+		# 	br.find_by_id('CVVInput').fill(cvv)  # new CVVInputNumeric old CVVInput
+		# else:
+		# 	br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
+		br.find_by_id('CreditCardInputNumeric').fill(cc)
+		br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
 		while br.execute_script("return jQuery.active == 0") != True:
 			time.sleep(1)
 		br.find_by_id('CCExpMonthDDL').select(expiration_date)

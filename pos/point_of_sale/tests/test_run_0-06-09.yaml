@@ -1,0 +1,156 @@
+1234678758:
+  actual:
+  - 'PurchaseID: 1000070990 | TransId:1234678758 | TransGuid: c1a04ff2-446e-4399-8844-06da23a62aa0'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Number of postbacks with type ''5'' : Expected: 6, ==> Actual: 4'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001042 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678759:
+  actual:
+  - 'PurchaseID: 1000070991 | TransId:1234678759 | TransGuid: f293d2be-de1b-4e5a-a252-8f22e1c75a02'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001083 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678760:
+  actual:
+  - 'PurchaseID: 1000070992 | TransId:1234678760 | TransGuid: 777dddad-c366-47a4-a25a-d3dad320e8a5'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001018 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678761:
+  actual:
+  - 'PurchaseID: 1000070993 | TransId:1234678761 | TransGuid: 502d4e4b-c997-4267-9520-e71ce14b5e56'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 1000660 : Expected: 45, ==> Actual:
+    44'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001018 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678762:
+  actual:
+  - 'PurchaseID: 1000070994 | TransId:1234678762 | TransGuid: 76256efa-5cd1-4b87-995f-e46fb79aa130'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678763:
+  actual:
+  - 'PurchaseID: 1000070995 | TransId:1234678763 | TransGuid: eab67561-1aec-46b1-8b6a-b3b3bc39c44a'
+  - '********************* Multitrans MissMatch ****************'
+  - TransStatus Base:184 => Live:187
+  - RelatedTransID Base:0 => Live:1234678764
+  - 'Asset      Record Compared =>  Pass  '
+  - 'Cardinal3dsRequests test_case: 4000000000001083 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678765:
+  actual:
+  - 'PurchaseID: 1000070996 | TransId:1234678765 | TransGuid: 2f81da0f-baaa-461a-b4d3-64c037cf35dd'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001018 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678767:
+  actual:
+  - 'PurchaseID: 1000070998 | TransId:1234678767 | TransGuid: f22129c3-408b-4eae-b652-0dee321f9b23'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001059 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678768:
+  actual:
+  - 'PurchaseID: 1000070999 | TransId:1234678768 | TransGuid: 390dce29-b943-46db-ad08-28abfe6e6645'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678770:
+  actual:
+  - 'PurchaseID: 1000071001 | TransId:1234678770 | TransGuid: fce3fc95-40a9-4e69-b372-ffe7bddff3d3'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 1000660 : Expected: 45, ==> Actual:
+    44'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Transaction DECLINED : AuthCode:C200:fce3fc95-40a9-4e69-b372-ffe7bddff3d3:07::N:Y:0:0:Success'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678771:
+  actual:
+  - 'PurchaseID: 1000071002 | TransId:1234678771 | TransGuid: 1828ac82-e8b4-4a2f-b09d-a8516276489d'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001067 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678773:
+  actual:
+  - 'PurchaseID: 1000071004 | TransId:1234678773 | TransGuid: cfd6322a-e651-49b5-b24d-e463281cddcc'
+  - '********************* Multitrans MissMatch ****************'
+  - TransStatus Base:184 => Live:187
+  - RelatedTransID Base:0 => Live:1234678774
+  - 'Asset      Record Compared =>  Pass  '
+  - 'Cardinal3dsRequests test_case: 4000000000001109 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C200:cfd6322a-e651-49b5-b24d-e463281cddcc:07::N:Y:0:0:Success'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+1234678776:
+  actual:
+  - 'PurchaseID: 1000071006 | TransId:1234678776 | TransGuid: 60c1db74-cf7b-44b7-99ac-d9b431edf5e0'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 1000660 : Expected: 863, ==> Actual: 864'
+  - 'Payment Account ID 1000660 : Expected: Wrong => Check MT values, ==> Actual: '
+  - 'Cardinal3dsRequests test_case: 4000000000001075 Records Compared => Pass '
+  - 'Transaction DECLINED : AuthCode:C300:No response from ACS'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______

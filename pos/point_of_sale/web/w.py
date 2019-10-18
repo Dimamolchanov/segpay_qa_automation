@@ -87,14 +87,16 @@ class FillPayPage:
 			# time.sleep(1)
 			if not test_case['lang'] == 'EN':
 				time.sleep(2)
-			if config.enviroment == 'qa':
-				self.br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-			else:
-				self.br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
-			if config.enviroment == 'qa':
-				self.br.find_by_id('CVVInput').fill(cvv)  # new CVVInputNumeric old CVVInput
-			else:
-				self.br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
+			self.br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+			# if config.enviroment == 'qa':
+			# 	self.br.find_by_id('CreditCardInput').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+			# else:
+			# 	self.br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+			self.br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
+			# if config.enviroment == 'qa':
+			# 	self.br.find_by_id('CVVInput').fill(cvv)  # new CVVInputNumeric old CVVInput
+			# else:
+			# 	self.br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
 			while self.br.execute_script("return jQuery.active == 0") != True:
 				time.sleep(1)
 			firstname = self.fake.first_name()

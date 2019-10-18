@@ -36,8 +36,6 @@ def load_test_cases(filename):
 
 # for item in config.test_cases:
 # 	print(config.test_cases[item][0])
-
-
 def joinlink():
 	pricingguid = {}
 	joinlink = ''
@@ -72,8 +70,6 @@ def joinlink():
 		traceback.print_exc()
 		print(f"Function joinglink \n {Exception}")
 		pass
-
-
 def verify_signup_transaction(transaction_to_check):
 	multitrans_base_record = mt.build_multitrans()
 	asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
@@ -98,8 +94,6 @@ def verify_signup_transaction(transaction_to_check):
 		return True
 	else:
 		return False
-
-
 def scenario():
 	descr = ''
 	form = 'Short'
@@ -334,8 +328,57 @@ def scenario():
 		traceback.print_exc()
 		print(f"{Exception}")
 		pass
+def create_test_cases():
+	cnt = 0  # transactions
+	available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+	eu_currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
+	currencies = ''  # ['USD']
 
-
+	packages = [99,900,901,191959,191960,192041,192098 ] #  [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
+	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
+	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
+	                '5432768030017007', '4916280519180429']
+	for packageid in packages:
+		config.test_data['packageid'] = packageid
+		sql = "Select MerchantID from package where packageid = {}"
+		merchantid = db_agent.execute_select_one_parameter(sql, packageid)['MerchantID']
+		pricepoints = db_agent.get_pricepoints()
+		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, merchantid)['VISARegion']
+		if is_eu_merchant == 1:
+			currencies = eu_currencies
+		else:
+			currencies = ['USD']
+		for pricepoint in pricepoints:
+			for selected_language in config.available_languages:
+				for dmc in currencies:
+					try:
+						cnt += 1
+						config.test_data = {}
+						config.test_data['cc'] = random.choice(random_cards)
+						config.test_data['lang'] = selected_language
+						config.test_data['packageid'] = packageid
+						config.test_data = {**config.test_data, **config.initial_data}
+						merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
+						config.test_data = {**config.test_data, **merchantbillconfig}
+						package = db_agent.package(packageid)
+						config.test_data['processor'] = package
+						config.test_data = {**config.test_data, **package}
+						eticket = str(packageid) + ':' + str(pricepoint)
+						config.test_data['eticket'] = eticket
+						config.test_data['url_options'] = options.ref_variables() + options.refurl() + config.template
+						config.test_data['visa_secure'] = options.is_visa_secure()
+						config.test_data['processor'] = config.test_data['PrefProcessorID']
+						config.test_data['dmc'] = dmc
+						joinlink()
+						scenario()
+						# tmp  = scenario()
+						# test_cases_local[tmp[0]] = tmp[1]
+						# cnt_tc +=1
+						k = 3
+					except Exception as ex:
+						traceback.print_exc()
+						print(f"Exception {Exception} ")
+						pass
 def transaction(test_cases):
 	br = w.FillPayPage()
 	failed_test_cases = []
@@ -406,57 +449,7 @@ def transaction(test_cases):
 		pass
 
 
-def create_test_cases():
-	cnt = 0  # transactions
-	available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-	eu_currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
-	currencies = ''  # ['USD']
 
-	packages =  [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
-	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
-	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
-	                '5432768030017007', '4916280519180429']
-	for packageid in packages:
-		config.test_data['packageid'] = packageid
-		sql = "Select MerchantID from package where packageid = {}"
-		merchantid = db_agent.execute_select_one_parameter(sql, packageid)['MerchantID']
-		pricepoints = db_agent.get_pricepoints()
-		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, merchantid)['VISARegion']
-		if is_eu_merchant == 1:
-			currencies = eu_currencies
-		else:
-			currencies = ['USD']
-		for pricepoint in pricepoints:
-			for selected_language in config.available_languages:
-				for dmc in currencies:
-					try:
-						cnt += 1
-						config.test_data = {}
-						config.test_data['cc'] = random.choice(random_cards)
-						config.test_data['lang'] = selected_language
-						config.test_data['packageid'] = packageid
-						config.test_data = {**config.test_data, **config.initial_data}
-						merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
-						config.test_data = {**config.test_data, **merchantbillconfig}
-						package = db_agent.package(packageid)
-						config.test_data['processor'] = package
-						config.test_data = {**config.test_data, **package}
-						eticket = str(packageid) + ':' + str(pricepoint)
-						config.test_data['eticket'] = eticket
-						config.test_data['url_options'] = options.ref_variables() + options.refurl() + config.template
-						config.test_data['visa_secure'] = options.is_visa_secure()
-						config.test_data['processor'] = config.test_data['PrefProcessorID']
-						config.test_data['dmc'] = dmc
-						joinlink()
-						scenario()
-						# tmp  = scenario()
-						# test_cases_local[tmp[0]] = tmp[1]
-						# cnt_tc +=1
-						k = 3
-					except Exception as ex:
-						traceback.print_exc()
-						print(f"Exception {Exception} ")
-						pass
 
 
 #test_cases_all = {}
