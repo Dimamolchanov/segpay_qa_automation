@@ -6,6 +6,7 @@ from datetime import datetime
 from xml.etree.ElementTree import fromstring
 import requests
 from pos.point_of_sale.web import w
+from pos.point_of_sale.web import paypal
 from termcolor import colored
 from pos.point_of_sale.config import config
 from pos.point_of_sale.utils import options
@@ -36,6 +37,8 @@ def load_test_cases(filename):
 
 # for item in config.test_cases:
 # 	print(config.test_cases[item][0])
+
+
 def joinlink():
 	pricingguid = {}
 	joinlink = ''
@@ -70,6 +73,8 @@ def joinlink():
 		traceback.print_exc()
 		print(f"Function joinglink \n {Exception}")
 		pass
+
+
 def verify_signup_transaction(transaction_to_check):
 	multitrans_base_record = mt.build_multitrans()
 	asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
@@ -94,6 +99,8 @@ def verify_signup_transaction(transaction_to_check):
 		return True
 	else:
 		return False
+
+
 def scenario():
 	descr = ''
 	form = 'Short'
@@ -333,11 +340,11 @@ def create_test_cases():
 	available_languages = ['EN']  # ,'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 	eu_currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
 	currencies = ''  # ['USD']
-
-	packages = [99,900,901,191959,191960,192041,192098 ] #  [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
+	#104852
+	packages = [900]#  [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
 	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
 	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
-	                '5432768030017007', '4916280519180429']
+	               '5432768030017007', '4916280519180429']
 	for packageid in packages:
 		config.test_data['packageid'] = packageid
 		sql = "Select MerchantID from package where packageid = {}"
@@ -379,8 +386,10 @@ def create_test_cases():
 						traceback.print_exc()
 						print(f"Exception {Exception} ")
 						pass
+
 def transaction(test_cases):
-	br = w.FillPayPage()
+	#br = w.FillPayPage()
+	br = paypal.PayPal()
 	failed_test_cases = []
 	passed_test_cases = {}
 	try:
@@ -390,7 +399,8 @@ def transaction(test_cases):
 				print(config.test_cases[item][0])
 				current_transaction_record = {}
 				test_case = test_cases[item][1]
-				br.FillDefault(test_case)
+				#br.FillDefault(test_case)
+				br.fill_paypal(test_case)
 				sql = "select * from multitrans where TransGuid = '{}'"
 				full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
 				test_case['PurchaseID'] = full_record['PurchaseID']
@@ -452,12 +462,13 @@ def transaction(test_cases):
 
 
 
-#test_cases_all = {}
-# create_test_cases()
+test_cases_all = {}
+create_test_cases()
 
 failed = False
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\test_cases.yaml"
-test_cases_all = load_test_cases(filename)
+#test_cases_all = load_test_cases(filename)
+#config.test_cases = test_cases_all
 if failed:
 	filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\failed_test_cases.yaml"
 	test_cases_failed = load_test_cases(filename)
