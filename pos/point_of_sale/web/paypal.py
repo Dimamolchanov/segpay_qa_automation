@@ -21,13 +21,7 @@ class PayPal:
     def __init__(self):
         self.path = os.path.join((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                                  'transguid\\TransGuidDecoderApp.exe')
-        # self.chrome_options = webdriver.ChromeOptions()
-        # self.chrome_options.add_argument("--window-position=-1400,0")
-        # chrome_options = webdriver.ChromeOptions()
-        # self.chrome_options.add_argument("--window-position=-1400,0")
         self.fake = Faker()
-        # self.br = Browser(driver_name='chrome', options=chrome_options)
-
         self.br = webdriver.Chrome()
         self.br.set_window_position(-1400, 0)
 
@@ -68,9 +62,9 @@ class PayPal:
         try:
             window_before = self.br.window_handles[0]
 
-            if self.is_element_present(By.ID,'UserNameInput'):
+            if self.is_element_present(By.ID, 'UserNameInput'):
                 self.br.find_element_by_id('UserNameInput').send_keys("test" + str(random.randint(333, 999)))
-            if self.is_element_present(By.ID,'PasswordInput'):
+            if self.is_element_present(By.ID, 'PasswordInput'):
                 self.br.find_element_by_id('PasswordInput').send_keys("test" + str(random.randint(333, 999)))
             self.br.find_elements_by_css_selector("input[name='paymentoption'][value='1301']")[0].click()
 
@@ -106,8 +100,6 @@ class PayPal:
             test_case['merchant_currency'] = test_case['dmc']
             test_case['paypage_lnaguage'] = self.br.find_element_by_id('LanguageDDL').get_attribute('value')
 
-
-
             while self.br.find_element_by_css_selector("iframe[title='paypal_buttons']") == False:
                 time.sleep(1)
             self.br.switch_to.frame(iframe)
@@ -118,6 +110,7 @@ class PayPal:
             wait = WebDriverWait(self.br, 10)
             elem = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "div[role='button']")))
             elem.click()
+            time.sleep(2)
             window_after = self.br.window_handles[1]
             self.br.switch_to.window(window_after)
             self.br.set_window_position(-1400, 0)
@@ -127,27 +120,27 @@ class PayPal:
                 time.sleep(1)
 
             try:
-                if self.is_element_present(By.ID,'email'):
+                if self.is_element_present(By.ID, 'email'):
                     email = WebDriverWait(self.br, 10).until(EC.visibility_of_element_located((By.ID, "email")))
                     email.send_keys("yan@segpay.com")
             except NoSuchElementException:
                 print("No email field")
                 pass
             try:
-                if self.is_element_present(By.NAME,"btnNext"):
+                if self.is_element_present(By.NAME, "btnNext"):
                     self.br.find_element_by_name("btnNext").click()
             except NoSuchElementException:
                 print("no button continue")
                 pass
             try:
-                if self.is_element_present(By.ID,"password"):
+                if self.is_element_present(By.ID, "password"):
                     passw = WebDriverWait(self.br, 15).until(EC.visibility_of_element_located((By.ID, "password")))
                     passw.send_keys("Karapuz2")
             except NoSuchElementException:
                 print("no button continue")
                 pass
             try:
-                if self.is_element_present(By.NAME,"btnLogin"):
+                if self.is_element_present(By.NAME, "btnLogin"):
                     self.br.find_element_by_name("btnLogin").click()
             except NoSuchElementException:
                 print("no button continue")
@@ -163,12 +156,12 @@ class PayPal:
                 # while elem.is_displayed():
                 #     time.sleep(1)
                 #     print('spinner')
-                if self.is_element_present(By.CSS_SELECTOR,".btn.full.confirmButton.continueButton"):
+                if self.is_element_present(By.CSS_SELECTOR, ".btn.full.confirmButton.continueButton"):
                     ready_to_click = WebDriverWait(self.br, 100).until(
                         EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn.full.confirmButton.continueButton")))
                     ready_to_click.click()
                     # br.find_element_by_css_selector(".btn.full.confirmButton.continueButton").click()
-                elif self.is_element_present(By.ID,"fiSubmitButton"):
+                elif self.is_element_present(By.ID, "fiSubmitButton"):
                     ready_to_click = WebDriverWait(self.br, 100).until(
                         EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
                     ready_to_click.click()
@@ -179,12 +172,12 @@ class PayPal:
 
             try:
                 time.sleep(2)
-                if self.is_element_present(By.ID,"confirmButtonTop"):
+                if self.is_element_present(By.ID, "confirmButtonTop"):
                     ready_to_click = WebDriverWait(self.br, 100).until(
                         EC.element_to_be_clickable((By.ID, "confirmButtonTop")))
                     ready_to_click.click()
                     # br.find_element_by_id("confirmButtonTop").click()
-                elif self.is_element_present(By.ID,"consentButton"):
+                elif self.is_element_present(By.ID, "consentButton"):
                     ready_to_click = WebDriverWait(self.br, 100).until(
                         EC.element_to_be_clickable((By.ID, "consentButton")))
                     ready_to_click.click()
@@ -205,5 +198,6 @@ class PayPal:
             pass
             # br.quit()
         return test_case
+
     def __del__(self):
         self.br.quit()

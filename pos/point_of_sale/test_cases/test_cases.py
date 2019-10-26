@@ -387,11 +387,59 @@ def create_test_cases():
 						print(f"Exception {Exception} ")
 						pass
 
+def check_transaction(test_case,item):
+	try:
+		sql = "select * from multitrans where TransGuid = '{}'"
+		full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
+		test_case['PurchaseID'] = full_record['PurchaseID']
+		test_case['TransID'] = full_record['TransID']
+		if test_case['Type'] == 505:
+			sql = "Select * from Multitrans where purchaseid = {} and TransSource = 122"
+			tmp = db_agent.execute_select_one_with_wait(sql, test_case['PurchaseID'])
+			if tmp: full_record = tmp
+
+		test_case['full_record'] = full_record
+		config.test_data = test_case
+		current_transaction_record = test_case
+		config.test_data['transaction_to_check'] = current_transaction_record
+		aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+		print()
+		print(f"TestCase: {item} | Description: {test_cases_all[item][2]}")
+		print(colored(
+			"___________________________________________________________Actual Results_______________________________________________________________________________________________________",
+			'grey', 'on_yellow', attrs=['bold', 'dark']))
+		print(colored(
+			f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}",
+			'yellow'))
+		config.test_case['actual'] = [
+			f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}"]
+		if current_transaction_record['full_record']['Authorized']:
+			tmp = current_transaction_record['full_record']
+			config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
+			result = current_transaction_record['full_record']
+			tmpstr = f"Transaction Aproved : AuthCode:{result['AuthCode']}"
+			print(colored(tmpstr, 'cyan', attrs=['bold']))
+		else:
+			result = current_transaction_record['full_record']
+			tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
+			print(colored(tmpstr, 'red', attrs=['bold']))
+
+		pass_fail = verify_signup_transaction(current_transaction_record)
+		return pass_fail
+
+	except Exception as ex:
+		traceback.print_exc()
+		print(f"{Exception}")
+		pass
+
 def transaction(test_cases):
-	#br = w.FillPayPage()
-	br = paypal.PayPal()
 	failed_test_cases = []
 	passed_test_cases = {}
+	pass_fail = ''
+	br = w.FillPayPage()
+
+	#br_payal = paypal.PayPal()
+
 	try:
 		for item in config.test_cases:
 			try:
@@ -399,56 +447,30 @@ def transaction(test_cases):
 				print(config.test_cases[item][0])
 				current_transaction_record = {}
 				test_case = test_cases[item][1]
-				#br.FillDefault(test_case)
-				br.fill_paypal(test_case)
-				sql = "select * from multitrans where TransGuid = '{}'"
-				full_record = db_agent.execute_select_one_with_wait(sql, test_case['transguid'])
-				test_case['PurchaseID'] = full_record['PurchaseID']
-				test_case['TransID'] = full_record['TransID']
-				if test_case['Type'] == 505:
-					sql = "Select * from Multitrans where purchaseid = {} and TransSource = 122"
-					tmp = db_agent.execute_select_one_with_wait(sql, test_case['PurchaseID'])
-					if tmp: full_record = tmp
-
-				test_case['full_record'] = full_record
-				config.test_data = test_case
-				current_transaction_record = test_case
-				config.test_data['transaction_to_check'] = current_transaction_record
-				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
-				print()
-				print(f"TestCase: {item} | Description: {test_cases_all[item][2]}")
-				print(colored("___________________________________________________________Actual Results_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
-				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
-				config.test_case['actual'] = [f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}"]
-				if current_transaction_record['full_record']['Authorized']:
-					tmp = current_transaction_record['full_record']
-					config.oc_tokens[tmp['PurchaseID']] = [config.test_data['Type'], tmp['MerchantCurrency'], tmp['Language']]
-					result = current_transaction_record['full_record']
-					tmpstr = f"Transaction Aproved : AuthCode:{result['AuthCode']}"
-					print(colored(tmpstr, 'cyan', attrs=['bold']))
-				else:
-					result = current_transaction_record['full_record']
-					tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
-					print(colored(tmpstr, 'red', attrs=['bold']))
-
-				pass_fail = verify_signup_transaction(current_transaction_record)
-				if pass_fail:
-					passed_test_cases[item] = test_cases_all[item][2]
-					print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
-					print(colored("________________________________________________________Verification Completed_______________________________________________________________________________________________________", 'grey', 'on_yellow', attrs=['bold', 'dark']))
-				else:
-					failed_test_cases.append(item)
-					print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
-
-					print(colored(f"________________________________________________________Verification Completed | Test_Case: {item} => FAILED__________________________________________________________________________________", 'white', 'on_grey', attrs=['bold', 'dark']))
-				print()
-				print()
-				z = 3
+				br.FillDefault(test_case,'pp')
+				pass_fail = check_transaction(test_case, item)
+				br.FillDefault(test_case,'cc')
+				pass_fail = check_transaction(test_case,item)
 			except Exception as ex:
 				traceback.print_exc()
 				print(f"{Exception}")
 				pass
+			if pass_fail:
+				passed_test_cases[item] = test_cases_all[item][2]
+				print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
+				print(colored(
+					"________________________________________________________Verification Completed_______________________________________________________________________________________________________",
+					'grey', 'on_yellow', attrs=['bold', 'dark']))
+			else:
+				failed_test_cases.append(item)
+				print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red',
+							  attrs=['bold', 'underline', 'dark']))
 
+				print(colored(
+					f"________________________________________________________Verification Completed | Test_Case: {item} => FAILED__________________________________________________________________________________",
+					'white', 'on_grey', attrs=['bold', 'dark']))
+			print()
+			print()
 		filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\failed_test_cases.yaml"
 		with open(filename, 'w') as f:
 			data = yaml.dump(failed_test_cases, f)

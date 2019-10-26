@@ -1,11 +1,11 @@
 '1451029':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: EU | Card #\
-  \ 4000000000001117 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
-  \ Configured | in Scope |\n--PricePoint Type: 503 - Digital Purchase  | DMC: USD\
+  \ 4000000000001067 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
+  \ Configured | in Scope |\n--PricePoint Type: 503 - Digital Purchase  | DMC: AUD\
   \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4000000000001117\
-  \ | Eticket: 900:27004 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref9=bnewr&refurl=wwww.regressesion.com/\n\
+  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4000000000001067\
+  \ | Eticket: 900:27004 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref9=yvuze&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Extended | This Transaction should be Declined\
   \ | C300:Merchant is not configured for Cardinal |\n_______________Multitranse:\
@@ -46,7 +46,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -69,20 +69,20 @@
   Type: 503
   URLID: 26625
   card_type: EU
-  cc: '4000000000001117'
-  dmc: USD
+  cc: '4000000000001067'
+  dmc: AUD
   eticket: 900:27004
   eu_available_currencies: &id001
   - USD
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref9=bnewr&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref9=yvuze&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: true
   traceback: true
-  url_options: '&ref9=bnewr&refurl=wwww.regressesion.com/'
+  url_options: '&ref9=yvuze&refurl=wwww.regressesion.com/'
   us_available_currencies: &id002
   - USD
   us_processors: 74
@@ -96,11 +96,11 @@
 '1451129':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: EU | Card #\
-  \ 4000000000001083 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
-  \ Configured | in Scope |\n--PricePoint Type: 505 - Delayed Capture  | DMC: AUD\
+  \ 4000000000001059 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
+  \ Configured | in Scope |\n--PricePoint Type: 505 - Delayed Capture  | DMC: USD\
   \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4000000000001083\
-  \ | Eticket: 900:27005 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref9=fdqzf&ref10=wlvo&refurl=wwww.regressesion.com/\n\
+  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4000000000001059\
+  \ | Eticket: 900:27005 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref3=tjubl&ref7=zjux&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Extended | This Transaction should be Declined\
   \ | C300:Merchant is not configured for Cardinal |\n_______________Multitranse:\
@@ -141,7 +141,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -164,19 +164,19 @@
   Type: 505
   URLID: 26625
   card_type: EU
-  cc: '4000000000001083'
-  dmc: AUD
+  cc: '4000000000001059'
+  dmc: USD
   eticket: 900:27005
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref9=fdqzf&ref10=wlvo&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref3=tjubl&ref7=zjux&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: true
   traceback: true
-  url_options: '&ref9=fdqzf&ref10=wlvo&refurl=wwww.regressesion.com/'
+  url_options: '&ref3=tjubl&ref7=zjux&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 1
@@ -189,11 +189,11 @@
 '1451229':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: EU | Card #\
-  \ 4000000000001026 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
+  \ 4000000000001133 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
   \ Configured | in Scope |\n--PricePoint Type: 506 - Instant Conversion  | DMC: USD\
   \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 2\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4000000000001026\
-  \ | Eticket: 900:27002 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&ref3=odsxi&ref7=rswa&refurl=wwww.regressesion.com/\n\
+  \ 2\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4000000000001133\
+  \ | Eticket: 900:27002 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&ref9=bxfbz&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Extended | This Transaction should be Declined\
   \ | C300:Merchant is not configured for Cardinal |\n_______________Multitranse:\
@@ -234,7 +234,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -257,19 +257,19 @@
   Type: 506
   URLID: 26625
   card_type: EU
-  cc: '4000000000001026'
+  cc: '4000000000001133'
   dmc: USD
   eticket: 900:27002
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&ref3=odsxi&ref7=rswa&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&ref9=bxfbz&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: true
   traceback: true
-  url_options: '&ref3=odsxi&ref7=rswa&refurl=wwww.regressesion.com/'
+  url_options: '&ref9=bxfbz&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 1
@@ -282,11 +282,11 @@
 '145829':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: EU | Card #\
-  \ 4000000000001091 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
+  \ 4000000000001125 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
   \ Configured | in Scope |\n--PricePoint Type: 501 - Recurring  | DMC: USD | Language:\
   \ EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo: 1\n\nPrerequisite:\n\
-  -----------------\n--MerhcantID: 27001 | Card: 4000000000001091 | Eticket: 900:27003\
-  \ | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref9=epedz&refurl=wwww.regressesion.com/\n\
+  -----------------\n--MerhcantID: 27001 | Card: 4000000000001125 | Eticket: 900:27003\
+  \ | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Extended | This Transaction should be Declined\
   \ | C300:Merchant is not configured for Cardinal |\n_______________Multitranse:\
@@ -327,7 +327,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -350,19 +350,19 @@
   Type: 501
   URLID: 26625
   card_type: EU
-  cc: '4000000000001091'
+  cc: '4000000000001125'
   dmc: USD
   eticket: 900:27003
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref9=epedz&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: true
   traceback: true
-  url_options: '&ref9=epedz&refurl=wwww.regressesion.com/'
+  url_options: '&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 1
@@ -375,11 +375,11 @@
 '145929':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: EU | Card #\
-  \ 4000000000001018 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
+  \ 4000000000001091 |\n--In Scope: True  | Cardinal - Not a Cardinal Case | 3ds Not\
   \ Configured | in Scope |\n--PricePoint Type: 502 - One Time  | DMC: USD | Language:\
   \ EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo: 0\n\nPrerequisite:\n\
-  -----------------\n--MerhcantID: 27001 | Card: 4000000000001018 | Eticket: 900:27001\
-  \ | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&ref9=xnmsp&refurl=wwww.regressesion.com/\n\
+  -----------------\n--MerhcantID: 27001 | Card: 4000000000001091 | Eticket: 900:27001\
+  \ | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&ref5=wylss&ref6=aptz&ref7=zubhj&ref8=eaxt&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Extended | This Transaction should be Declined\
   \ | C300:Merchant is not configured for Cardinal |\n_______________Multitranse:\
@@ -420,7 +420,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -443,19 +443,19 @@
   Type: 502
   URLID: 26625
   card_type: EU
-  cc: '4000000000001018'
+  cc: '4000000000001091'
   dmc: USD
   eticket: 900:27001
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&ref9=xnmsp&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&ref5=wylss&ref6=aptz&ref7=zubhj&ref8=eaxt&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: true
   traceback: true
-  url_options: '&ref9=xnmsp&refurl=wwww.regressesion.com/'
+  url_options: '&ref5=wylss&ref6=aptz&ref7=zubhj&ref8=eaxt&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 1
@@ -470,9 +470,9 @@
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: US | Card #\
   \ 4916280519180429 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
   \ Not Configured | Not in Scope |\n--PricePoint Type: 503 - Digital Purchase  |\
-  \ DMC: CHF | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
+  \ DMC: USD | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
   \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
-  \ | Eticket: 900:27004 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&refurl=wwww.regressesion.com/\n\
+  \ | Eticket: 900:27004 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref3=lpmfo&ref7=frjl&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
@@ -512,7 +512,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -536,12 +536,104 @@
   URLID: 26625
   card_type: US
   cc: '4916280519180429'
-  dmc: CHF
+  dmc: USD
   eticket: 900:27004
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref3=lpmfo&ref7=frjl&refurl=wwww.regressesion.com/
+  packageid: 900
+  processor: 65
+  processor_name: SPKAISO1
+  scope: false
+  traceback: true
+  url_options: '&ref3=lpmfo&ref7=frjl&refurl=wwww.regressesion.com/'
+  us_available_currencies: *id002
+  us_processors: 74
+  visa_secure: 2
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+- ' Merchant: EU | 3DS Configured: False  | Card: US | In Scope: False  | Cardinal
+  - Not a Cardinal Case | 3ds Not Configured | Not in Scope '
+'1461230':
+- "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
+  --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: US | Card #\
+  \ 4916280519180429 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
+  \ Not Configured | Not in Scope |\n--PricePoint Type: 506 - Instant Conversion \
+  \ | DMC: CHF | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
+  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
+  \ | Eticket: 900:100137 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100137&refurl=wwww.regressesion.com/\n\
+  \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
+  \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
+  \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
+  \ | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables:\
+  \ True | RefURL: True\n_______________Assets:      | PurchStatus: 801 | PurchType:\
+  \ 506 | Processor: SPKAISO1 | UserName: True | Password: True | RefVariables: True\
+  \ | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should have\
+  \ | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
+  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
+  \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
+  \ should have the response from Cardinal\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
+  \n\n"
+- 3ds: false
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 100137
+  Category: 651
+  CollectUserInfo: 1
+  Currency: USD
+  DMCStatus: 473
+  Description: All price-points from this merchant 3ds not configured ppid 65
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: 'NewInstantConversion '
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: 'NewInstantConversion '
+  ICSupportStandin: 0
+  InitialLen: 3
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  IsReactivateEnabled: false
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2019-10-25 15:56:10.540000
+  OCPayTemplate: defaultpsd2
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Instant Conversion with free trial
+  PackageID: 900
+  PackageStatus: 433
+  PayPageTemplate: defaultPrePsd2
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: false
+  PrefProcessorID: 65
+  RebillLen: 30
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '11.95'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  Type: 506
+  URLID: 26625
+  card_type: US
+  cc: '4916280519180429'
+  dmc: CHF
+  eticket: 900:100137
+  eu_available_currencies: *id001
+  eu_processors: 44
+  lang: EN
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100137&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
@@ -557,115 +649,23 @@
   xSell2Checked: false
 - ' Merchant: EU | 3DS Configured: False  | Card: US | In Scope: False  | Cardinal
   - Not a Cardinal Case | 3ds Not Configured | Not in Scope '
-'1461130':
+'146830':
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: US | Card #\
   \ 4916280519180429 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
-  \ Not Configured | Not in Scope |\n--PricePoint Type: 505 - Delayed Capture  | DMC:\
-  \ USD | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
-  \ | Eticket: 900:27005 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref1=xvwpx&ref2=klpl&ref3=frypl&ref4=bupk&ref5=dyxva&ref6=zeux&ref7=idcjg&ref8=qqub&ref9=awzej&ref10=hixu&refurl=wwww.regressesion.com/\n\
-  \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
-  \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
-  \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
-  \ | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables:\
-  \ True | RefURL: True\n_______________Assets:      | PurchStatus: 804 | PurchType:\
-  \ 505 | Processor: SPKAISO1 | UserName: True | Password: True | RefVariables: True\
-  \ | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should have\
-  \ | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
-  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
-  \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
-  \ should have the response from Cardinal\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
-  \n\n"
-- 3ds: false
-  AddlFields: null
-  AllowShopping: 1
-  AllowStandin: 0
-  BillConfigID: 27005
-  Category: 651
-  CollectUserInfo: 1
-  Currency: USD
-  DMCStatus: 473
-  Description: All price-points from this merchant 3ds not configured ppid 65
-  DirectDebitPinPage: directdebit
-  ICAdjustTrial: 0
-  ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  ICNoStandInTemplate: 'NewInstantConversion '
-  ICReceiptTemplate: defaultpsd2
-  ICStandInTemplate: 'NewInstantConversion '
-  ICSupportStandin: 0
-  InitialLen: 3
-  InitialPeriod: 1
-  InitialPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  IsReactivateEnabled: true
-  LanguageID: 401
-  Merchant: EU
-  MerchantID: 27001
-  ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
-  OCPayTemplate: defaultpsd2
-  OCReceiptTemplate: defaultpsd2
-  OneClickEnabled: true
-  PPDescription: Delayed Capture One Click
-  PackageID: 900
-  PackageStatus: 433
-  PayPageTemplate: defaultPrePsd2
-  PayTypes: '          '
-  PostBackID: 8962
-  PostPayEnabled: true
-  PrefProcessorID: 65
-  RebillLen: 30
-  RebillPeriod: 1
-  RebillPrice: !!python/object/apply:decimal.Decimal
-  - '2.95'
-  ReceiptTemplate: defaultpsd2
-  ReportID: 0
-  RiskID: 0
-  ShoppingBlurb: ''
-  Type: 505
-  URLID: 26625
-  card_type: US
-  cc: '4916280519180429'
-  dmc: USD
-  eticket: 900:27005
-  eu_available_currencies: *id001
-  eu_processors: 44
-  lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref1=xvwpx&ref2=klpl&ref3=frypl&ref4=bupk&ref5=dyxva&ref6=zeux&ref7=idcjg&ref8=qqub&ref9=awzej&ref10=hixu&refurl=wwww.regressesion.com/
-  packageid: 900
-  processor: 65
-  processor_name: SPKAISO1
-  scope: false
-  traceback: true
-  url_options: '&ref1=xvwpx&ref2=klpl&ref3=frypl&ref4=bupk&ref5=dyxva&ref6=zeux&ref7=idcjg&ref8=qqub&ref9=awzej&ref10=hixu&refurl=wwww.regressesion.com/'
-  us_available_currencies: *id002
-  us_processors: 74
-  visa_secure: 2
-  xSell1: null
-  xSell1Checked: false
-  xSell2: null
-  xSell2Checked: false
-- ' Merchant: EU | 3DS Configured: False  | Card: US | In Scope: False  | Cardinal
-  - Not a Cardinal Case | 3ds Not Configured | Not in Scope '
-'1461230':
-- "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
-  --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: US | Card #\
-  \ 4916280519180429 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
-  \ Not Configured | Not in Scope |\n--PricePoint Type: 506 - Instant Conversion \
-  \ | DMC: AUD | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 2\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
-  \ | Eticket: 900:27002 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&ref9=kyedt&ref10=fpcn&refurl=wwww.regressesion.com/\n\
+  \ Not Configured | Not in Scope |\n--PricePoint Type: 501 - Recurring  | DMC: CHF\
+  \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
+  \ 0\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
+  \ | Eticket: 900:27072 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref1=qgqxp&ref2=txhd&ref3=ynjuf&ref4=xkfd&ref5=xihjq&ref6=ttol&ref7=znebw&ref8=rkot&ref9=qdfud&ref10=tiqe&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
   \ | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables:\
   \ True | RefURL: True\n_______________Assets:      | PurchStatus: 801 | PurchType:\
-  \ 506 | Processor: SPKAISO1 | UserName: Should be the Email | Password: True | RefVariables:\
-  \ True | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should\
-  \ have | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
-  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
+  \ 501 | Processor: SPKAISO1 | UserName: True | Password: False | RefVariables: True\
+  \ | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should have\
+  \ | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
+  \   | PostBackNotifications should have: |  5's PostBacks Type   with | PostResults:\
   \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
   \ should have the response from Cardinal\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
   \n\n"
@@ -673,9 +673,9 @@
   AddlFields: null
   AllowShopping: 1
   AllowStandin: 0
-  BillConfigID: 27002
+  BillConfigID: 27072
   Category: 651
-  CollectUserInfo: 2
+  CollectUserInfo: 0
   Currency: USD
   DMCStatus: 473
   Description: All price-points from this merchant 3ds not configured ppid 65
@@ -696,11 +696,11 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
-  PPDescription: Instant Conversion One Click
+  PPDescription: Monthly subscription with trial
   PackageID: 900
   PackageStatus: 433
   PayPageTemplate: defaultPrePsd2
@@ -716,114 +716,22 @@
   ReportID: 0
   RiskID: 0
   ShoppingBlurb: ''
-  Type: 506
-  URLID: 26625
-  card_type: US
-  cc: '4916280519180429'
-  dmc: AUD
-  eticket: 900:27002
-  eu_available_currencies: *id001
-  eu_processors: 44
-  lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&ref9=kyedt&ref10=fpcn&refurl=wwww.regressesion.com/
-  packageid: 900
-  processor: 65
-  processor_name: SPKAISO1
-  scope: false
-  traceback: true
-  url_options: '&ref9=kyedt&ref10=fpcn&refurl=wwww.regressesion.com/'
-  us_available_currencies: *id002
-  us_processors: 74
-  visa_secure: 2
-  xSell1: null
-  xSell1Checked: false
-  xSell2: null
-  xSell2Checked: false
-- ' Merchant: EU | 3DS Configured: False  | Card: US | In Scope: False  | Cardinal
-  - Not a Cardinal Case | 3ds Not Configured | Not in Scope '
-'146830':
-- "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
-  --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: US | Card #\
-  \ 4916280519180429 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
-  \ Not Configured | Not in Scope |\n--PricePoint Type: 501 - Recurring  | DMC: AUD\
-  \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
-  \ | Eticket: 900:27003 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref9=auwuu&refurl=wwww.regressesion.com/\n\
-  \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
-  \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
-  \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
-  \ | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables:\
-  \ True | RefURL: True\n_______________Assets:      | PurchStatus: 801 | PurchType:\
-  \ 501 | Processor: SPKAISO1 | UserName: True | Password: True | RefVariables: True\
-  \ | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should have\
-  \ | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
-  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
-  \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
-  \ should have the response from Cardinal\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
-  \n\n"
-- 3ds: false
-  AddlFields: null
-  AllowShopping: 1
-  AllowStandin: 0
-  BillConfigID: 27003
-  Category: 651
-  CollectUserInfo: 1
-  Currency: USD
-  DMCStatus: 473
-  Description: All price-points from this merchant 3ds not configured ppid 65
-  DirectDebitPinPage: directdebit
-  ICAdjustTrial: 0
-  ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  ICNoStandInTemplate: 'NewInstantConversion '
-  ICReceiptTemplate: defaultpsd2
-  ICStandInTemplate: 'NewInstantConversion '
-  ICSupportStandin: 0
-  InitialLen: 3
-  InitialPeriod: 1
-  InitialPrice: !!python/object/apply:decimal.Decimal
-  - '1.95'
-  IsReactivateEnabled: true
-  LanguageID: 401
-  Merchant: EU
-  MerchantID: 27001
-  ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
-  OCPayTemplate: defaultpsd2
-  OCReceiptTemplate: defaultpsd2
-  OneClickEnabled: true
-  PPDescription: Recurring One Click
-  PackageID: 900
-  PackageStatus: 433
-  PayPageTemplate: defaultPrePsd2
-  PayTypes: '          '
-  PostBackID: 8962
-  PostPayEnabled: false
-  PrefProcessorID: 65
-  RebillLen: 30
-  RebillPeriod: 1
-  RebillPrice: !!python/object/apply:decimal.Decimal
-  - '19.95'
-  ReceiptTemplate: defaultpsd2
-  ReportID: 0
-  RiskID: 0
-  ShoppingBlurb: ''
   Type: 501
   URLID: 26625
   card_type: US
   cc: '4916280519180429'
-  dmc: AUD
-  eticket: 900:27003
+  dmc: CHF
+  eticket: 900:27072
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref9=auwuu&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref1=qgqxp&ref2=txhd&ref3=ynjuf&ref4=xkfd&ref5=xihjq&ref6=ttol&ref7=znebw&ref8=rkot&ref9=qdfud&ref10=tiqe&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: false
   traceback: true
-  url_options: '&ref9=auwuu&refurl=wwww.regressesion.com/'
+  url_options: '&ref1=qgqxp&ref2=txhd&ref3=ynjuf&ref4=xkfd&ref5=xihjq&ref6=ttol&ref7=znebw&ref8=rkot&ref9=qdfud&ref10=tiqe&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 2
@@ -837,19 +745,19 @@
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: US | Card #\
   \ 4916280519180429 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
-  \ Not Configured | Not in Scope |\n--PricePoint Type: 502 - One Time  | DMC: HKD\
+  \ Not Configured | Not in Scope |\n--PricePoint Type: 502 - One Time  | DMC: EUR\
   \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 0\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
-  \ | Eticket: 900:27001 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&ref1=bsuyb&ref2=tzub&refurl=wwww.regressesion.com/\n\
+  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 4916280519180429\
+  \ | Eticket: 900:27012 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27012&ref9=zrewx&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
   \ | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables:\
   \ True | RefURL: True\n_______________Assets:      | PurchStatus: 804 | PurchType:\
-  \ 502 | Processor: SPKAISO1 | UserName: True | Password: False | RefVariables: True\
+  \ 502 | Processor: SPKAISO1 | UserName: True | Password: True | RefVariables: True\
   \ | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should have\
   \ | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
-  \   | PostBackNotifications should have: |  5's PostBacks Type   with | PostResults:\
+  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
   \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
   \ should have the response from Cardinal\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
   \n\n"
@@ -857,9 +765,9 @@
   AddlFields: null
   AllowShopping: 1
   AllowStandin: 0
-  BillConfigID: 27001
+  BillConfigID: 27012
   Category: 651
-  CollectUserInfo: 0
+  CollectUserInfo: 1
   Currency: USD
   DMCStatus: 473
   Description: All price-points from this merchant 3ds not configured ppid 65
@@ -880,11 +788,11 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
-  PPDescription: One Time One Click
+  PPDescription: One Time One Click Live Testing
   PackageID: 900
   PackageStatus: 433
   PayPageTemplate: defaultPrePsd2
@@ -904,18 +812,18 @@
   URLID: 26625
   card_type: US
   cc: '4916280519180429'
-  dmc: HKD
-  eticket: 900:27001
+  dmc: EUR
+  eticket: 900:27012
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&ref1=bsuyb&ref2=tzub&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27012&ref9=zrewx&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: false
   traceback: true
-  url_options: '&ref1=bsuyb&ref2=tzub&refurl=wwww.regressesion.com/'
+  url_options: '&ref9=zrewx&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 2
@@ -930,18 +838,18 @@
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: Prepaid | Card\
   \ # 5432768030017007 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
   \ Not Configured | Not in Scope |\n--PricePoint Type: 503 - Digital Purchase  |\
-  \ DMC: CAD | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
-  \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 5432768030017007\
-  \ | Eticket: 900:27004 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref1=cmyoi&ref2=lxzj&refurl=wwww.regressesion.com/\n\
+  \ DMC: JPY | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
+  \ 0\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 5432768030017007\
+  \ | Eticket: 900:27268 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27268&ref3=edyge&ref7=mosy&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
   \ | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | RefVariables:\
   \ True | RefURL: True\n_______________Assets:      | PurchStatus: 804 | PurchType:\
-  \ 503 | Processor: SPKAISO1 | UserName: True | Password: True | RefVariables: True\
+  \ 503 | Processor: SPKAISO1 | UserName: True | Password: False | RefVariables: True\
   \ | RefURL: True\n_______________Email:       | PointOfSaleEmailQueue should have\
   \ | EmailType: 981 | in the que with Status: 863 (Complete)\n_______________PostBacks:\
-  \   | PostBackNotifications should have: | 1 , 2, 5's PostBacks Type   with | PostResults:\
+  \   | PostBackNotifications should have: |  5's PostBacks Type   with | PostResults:\
   \ Ok | with Status: 863 (Complete)\n_______________3DS:         | Cardinal3dsRequests\
   \ should not have any record for this transaction\n\n______________________________________________________________________________________________________________________________________________________________end_Test_Case_Scenario\n\
   \n\n"
@@ -949,9 +857,9 @@
   AddlFields: null
   AllowShopping: 1
   AllowStandin: 0
-  BillConfigID: 27004
+  BillConfigID: 27268
   Category: 651
-  CollectUserInfo: 1
+  CollectUserInfo: 0
   Currency: USD
   DMCStatus: 473
   Description: All price-points from this merchant 3ds not configured ppid 65
@@ -966,23 +874,23 @@
   InitialLen: 0
   InitialPeriod: 1
   InitialPrice: !!python/object/apply:decimal.Decimal
-  - '4.95'
+  - '89.00'
   IsReactivateEnabled: true
   LanguageID: 401
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
-  PPDescription: Digital One Click
+  PPDescription: For Soft decline JPY is used
   PackageID: 900
   PackageStatus: 433
   PayPageTemplate: defaultPrePsd2
   PayTypes: '          '
   PostBackID: 8962
-  PostPayEnabled: true
+  PostPayEnabled: false
   PrefProcessorID: 65
   RebillLen: 0
   RebillPeriod: 1
@@ -996,18 +904,18 @@
   URLID: 26625
   card_type: Prepaid
   cc: '5432768030017007'
-  dmc: CAD
-  eticket: 900:27004
+  dmc: JPY
+  eticket: 900:27268
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27004&ref1=cmyoi&ref2=lxzj&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27268&ref3=edyge&ref7=mosy&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: false
   traceback: true
-  url_options: '&ref1=cmyoi&ref2=lxzj&refurl=wwww.regressesion.com/'
+  url_options: '&ref3=edyge&ref7=mosy&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 0
@@ -1024,7 +932,7 @@
   \ Not Configured | Not in Scope |\n--PricePoint Type: 505 - Delayed Capture  | DMC:\
   \ SEK | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
   \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 5432768030017007\
-  \ | Eticket: 900:27005 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref9=sfhbe&refurl=wwww.regressesion.com/\n\
+  \ | Eticket: 900:27005 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref5=rakci&ref6=tbsz&ref7=ovwkr&ref8=ouew&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
@@ -1064,7 +972,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -1093,13 +1001,13 @@
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref9=sfhbe&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27005&ref5=rakci&ref6=tbsz&ref7=ovwkr&ref8=ouew&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: false
   traceback: true
-  url_options: '&ref9=sfhbe&refurl=wwww.regressesion.com/'
+  url_options: '&ref5=rakci&ref6=tbsz&ref7=ovwkr&ref8=ouew&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 0
@@ -1114,9 +1022,9 @@
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: Prepaid | Card\
   \ # 5432768030017007 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
   \ Not Configured | Not in Scope |\n--PricePoint Type: 506 - Instant Conversion \
-  \ | DMC: EUR | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
+  \ | DMC: GBP | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
   \ 1\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 5432768030017007\
-  \ | Eticket: 900:27258 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27258&ref9=unvak&ref10=nxdf&refurl=wwww.regressesion.com/\n\
+  \ | Eticket: 900:27010 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27010&ref1=mvmli&ref2=dtrx&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
@@ -1133,34 +1041,34 @@
   AddlFields: null
   AllowShopping: 1
   AllowStandin: 0
-  BillConfigID: 27258
+  BillConfigID: 27010
   Category: 651
   CollectUserInfo: 1
   Currency: USD
   DMCStatus: 473
   Description: All price-points from this merchant 3ds not configured ppid 65
   DirectDebitPinPage: directdebit
-  ICAdjustTrial: 0
+  ICAdjustTrial: 1
   ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
+  - '10.00'
   ICNoStandInTemplate: 'NewInstantConversion '
   ICReceiptTemplate: defaultpsd2
   ICStandInTemplate: 'NewInstantConversion '
   ICSupportStandin: 0
-  InitialLen: 1
+  InitialLen: 3
   InitialPeriod: 1
   InitialPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
+  - '2.95'
   IsReactivateEnabled: true
   LanguageID: 401
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
-  PPDescription: For Auth only
+  PPDescription: Instant Conversion with Discount Pricing
   PackageID: 900
   PackageStatus: 433
   PayPageTemplate: defaultPrePsd2
@@ -1168,10 +1076,10 @@
   PostBackID: 8962
   PostPayEnabled: false
   PrefProcessorID: 65
-  RebillLen: 1
+  RebillLen: 30
   RebillPeriod: 1
   RebillPrice: !!python/object/apply:decimal.Decimal
-  - '1.00'
+  - '29.95'
   ReceiptTemplate: defaultpsd2
   ReportID: 0
   RiskID: 0
@@ -1180,18 +1088,18 @@
   URLID: 26625
   card_type: Prepaid
   cc: '5432768030017007'
-  dmc: EUR
-  eticket: 900:27258
+  dmc: GBP
+  eticket: 900:27010
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27258&ref9=unvak&ref10=nxdf&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27010&ref1=mvmli&ref2=dtrx&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: false
   traceback: true
-  url_options: '&ref9=unvak&ref10=nxdf&refurl=wwww.regressesion.com/'
+  url_options: '&ref1=mvmli&ref2=dtrx&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 0
@@ -1205,10 +1113,10 @@
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: Prepaid | Card\
   \ # 5432768030017007 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
-  \ Not Configured | Not in Scope |\n--PricePoint Type: 501 - Recurring  | DMC: SEK\
+  \ Not Configured | Not in Scope |\n--PricePoint Type: 501 - Recurring  | DMC: USD\
   \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
   \ 0\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 5432768030017007\
-  \ | Eticket: 900:27072 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref9=czyej&refurl=wwww.regressesion.com/\n\
+  \ | Eticket: 900:27072 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref3=qsoml&ref7=ojwx&refurl=wwww.regressesion.com/\n\
   \nExpected Results :____________________________________________________________________________________________________________________________________________\n\
   \nPayPage:_______Form should be: Short | This Transaction should be Aproved | Merchant\
   \ not in scope and not configured |\n_______________Multitranse: | AuthCode: 'OK:0'\
@@ -1248,7 +1156,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -1272,18 +1180,18 @@
   URLID: 26625
   card_type: Prepaid
   cc: '5432768030017007'
-  dmc: SEK
+  dmc: USD
   eticket: 900:27072
   eu_available_currencies: *id001
   eu_processors: 44
   lang: EN
-  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref9=czyej&refurl=wwww.regressesion.com/
+  link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref3=qsoml&ref7=ojwx&refurl=wwww.regressesion.com/
   packageid: 900
   processor: 65
   processor_name: SPKAISO1
   scope: false
   traceback: true
-  url_options: '&ref9=czyej&refurl=wwww.regressesion.com/'
+  url_options: '&ref3=qsoml&ref7=ojwx&refurl=wwww.regressesion.com/'
   us_available_currencies: *id002
   us_processors: 74
   visa_secure: 0
@@ -1297,7 +1205,7 @@
 - "Test Case Scenario:\n----------------------------------------------------------------------------------------------------------------------------------------Start\n\
   --SignUp Transaction | Merchant: EU | 3DS Configured: False  | Card: Prepaid | Card\
   \ # 5432768030017007 |\n--In Scope: False  | Cardinal - Not a Cardinal Case | 3ds\
-  \ Not Configured | Not in Scope |\n--PricePoint Type: 502 - One Time  | DMC: AUD\
+  \ Not Configured | Not in Scope |\n--PricePoint Type: 502 - One Time  | DMC: EUR\
   \ | Language: EN | Processor PoolID: 65 |\n--DMCStatus = 473 | CollectUserInfo:\
   \ 0\n\nPrerequisite:\n-----------------\n--MerhcantID: 27001 | Card: 5432768030017007\
   \ | Eticket: 900:27001 | Template: defaultPrePsd2 | \n--Link: https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27001&refurl=wwww.regressesion.com/\n\
@@ -1340,7 +1248,7 @@
   Merchant: EU
   MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-10-22 13:36:24.820000
+  ModDate: 2019-10-25 15:56:10.540000
   OCPayTemplate: defaultpsd2
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
@@ -1364,7 +1272,7 @@
   URLID: 26625
   card_type: Prepaid
   cc: '5432768030017007'
-  dmc: AUD
+  dmc: EUR
   eticket: 900:27001
   eu_available_currencies: *id001
   eu_processors: 44
