@@ -1,0 +1,25 @@
+223624611:
+  actual:
+  - 'PurchaseID: 200059507 | TransId:223624611 | TransGuid: 644d2401-5a21-4ff9-ae35-8db34f8a4a5c'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+223624613:
+  actual:
+  - 'PurchaseID: 200059509 | TransID: 223624613 | TransGuid: fa2f479f-490c-4d7d-ae97-1a7da941cd28'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  one_click_pos: 'One Click Started - Eticket: 192133:27003'
+223624614:
+  actual: 'One Click Results - Eticket: 192133:27003'
+  one_click_pos: 'One Click Started - Eticket: 192133:27003'

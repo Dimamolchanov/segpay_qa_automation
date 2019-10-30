@@ -341,7 +341,7 @@ def create_test_cases():
 	eu_currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
 	currencies = ''  # ['USD']
 	#104852
-	packages = [900]#  [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
+	packages =[900]# [803, 900, 901, 902, 903, 800, 801, 802, 803, 192137, 192261, 192195, 192059, 192204, 192138, 192282, 192196, 999, 99, 192317]
 	random_cards = ['4000000000001000', '4000000000001018', '4000000000001026', '4000000000001034', '4000000000001042', '4000000000001059', '4000000000001067',
 	                '4000000000001075', '4000000000001083', '4000000000001091', '4000000000001109', '4000000000001117', '4000000000001125', '4000000000001133',
 	               '5432768030017007', '4916280519180429']
@@ -447,8 +447,8 @@ def transaction(test_cases):
 				print(config.test_cases[item][0])
 				current_transaction_record = {}
 				test_case = test_cases[item][1]
-				br.FillDefault(test_case,'pp')
-				pass_fail = check_transaction(test_case, item)
+				# br.FillDefault(test_case,'pp')
+				# pass_fail = check_transaction(test_case, item)
 				br.FillDefault(test_case,'cc')
 				pass_fail = check_transaction(test_case,item)
 			except Exception as ex:

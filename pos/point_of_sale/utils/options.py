@@ -359,6 +359,11 @@ def joinlink():
 
 
 def append_list(msg):
-	current_list = config.test_case['actual']
-	current_list.append(msg)
-	config.test_case['actual'] = current_list
+	try:
+		current_list = config.test_case['actual']
+		current_list.append(msg)
+		config.test_case['actual'] = current_list
+	except Exception as ex:
+		# traceback.print_exc()
+		# print(f"{Exception}  Options.append_list")
+		pass

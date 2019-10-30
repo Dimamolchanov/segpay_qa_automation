@@ -7,7 +7,7 @@ tmp = tmp[0] + tmp[1].replace(':', '_')
 file_name = 'C:\segpay_qa_automation\\test_run_' + tmp + '.log'
 # logging.basicConfig(filename=file_name, level=logging.INFO)
 
-enviroment = 'stage'
+enviroment = 'qa'
 url = ''
 urlws = ''
 urlic = ''
@@ -26,7 +26,7 @@ test_case = {}
 test_cases = {}
 initial_data = {
     'traceback': True,
-    'eu_processors': 44,
+    'eu_processors': 65,
     'us_processors': 74,
     'us_available_currencies': ['USD'],
     'eu_available_currencies': ['USD'],  # , 'CHF', 'AUD', 'CAD','EUR'],
@@ -34,9 +34,10 @@ initial_data = {
 }
 test_data = {'eticket': ''}
 
-packages = [901,800, 99, 99, 900, 901, 902, 99, 99, 900, 901, 902, 99, 99, 900, 901, 902, 99, 99, 900, 901, 902, 99, 99,
-            900, 901, 902, 99, 99, 900, 901, 902, 99, 99, 900, 901,
-            902]  # [800,801,802,901,902,903] # [900,901,902,903,800,801,802,803]#,192261,192195,192059,192204,192046,192048]#192060, 99,192059,192041,192046,192133] [192196]-rocketgate
+packages =[192133] # [901,800, 900, 901, 902, 900, 901, 902, 900, 901, 902,900, 901, 902,
+            # 900, 901, 902,  900, 901, 902, 900, 901,
+            # 902]  # [800,801,802,901,902,903] # [900,901,902,903,800,801,802,803]#,192261,192195,192059,192204,192046,192048]#192060, 99,192059,192041,192046,192133] [192196]-rocketgate
+
 pricepoints_options = 'single'
 available_languages = ['EN']  # ,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
 template = ''  # '&template=defaultpsd2'  # '&template=defaultnopaypal'  default

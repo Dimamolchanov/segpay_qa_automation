@@ -9,12 +9,15 @@ from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import asset
 from termcolor import colored
 from pos.point_of_sale.utils import report
+#from pos.point_of_sale.runners import run_package
 
 db_agent = DBActions()
 
 
+br = web.Signup()
 def sign_up_trans_web():  # Yan
 	pass_fail = False
+
 	current_transaction_record = {}
 	aprove_or_decline = None
 	if config.test_data['Merchant'] == 'EU':
@@ -33,7 +36,13 @@ def sign_up_trans_web():  # Yan
 				config.test_data['url_options'] = url_options
 				options.joinlink()
 				report.scenario()
-				current_transaction_record = web.create_transaction(config.test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
+
+				current_transaction_record = br.create_transaction(config.test_data['Type'],
+																	config.test_data['eticket'], selected_options,
+																	config.test_data['MerchantID'], url_options,
+																	config.test_data['processor'])
+
+				#current_transaction_record = web.create_transaction(config.test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
 				config.test_data['transaction_to_check'] = current_transaction_record
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
 				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
@@ -94,7 +103,7 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 			config.test_case['actual'] = f"One Click Results - Eticket: {eticket}"
 
 			if oc_type == 'pos':
-				one_click_record = web.one_click_pos(eticket, octoken, selected_options, url_options)
+				one_click_record = br.one_click_pos(eticket, octoken, selected_options, url_options)
 			elif oc_type == 'ws':
 				one_click_record = web.one_click_services(eticket, octoken, selected_options, url_options)
 
@@ -135,7 +144,7 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 				config.test_case['one_click_pos'] = f"One Click Started - Eticket: {eticket}"
 				config.test_case['actual'] = f"One Click Results - Eticket: {eticket}"
 				if oc_type == 'pos':
-					one_click_record = web.one_click_pos(eticket, octoken, selected_options, url_options)
+					one_click_record = br.one_click_pos(eticket, octoken, selected_options, url_options)
 					# aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
 					if one_click_record == None:
 						config.test_data['1click_not_found'] = eticket

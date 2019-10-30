@@ -173,7 +173,10 @@ class FillPayPage:
 				self.wait_for_ajax(self.br)
 				self.br.find_by_id('SecurePurchaseButton').click()
 				time.sleep((2))
+				print('Credit Card payment *********************************************************************************************')
 			elif payment == 'pp':
+				print(
+					'PayPal----- payment *********************************************************************************************')
 				self.br.find_by_css("input[name='paymentoption'][value='1301']")[0].click()
 				time.sleep(1)
 				id = self.br.find_by_tag("iframe")[1]['id']
@@ -191,15 +194,15 @@ class FillPayPage:
 					if self.br.find_by_id("email").first:
 						while self.br.find_by_id("email").first.visible == False:
 							time.sleep(1)
-						self.br.find_by_id("email").first.fill('yan@segpay.com')
+						self.br.find_by_id("email").first.fill('yan@segpay.com') #('CCREJECT-REFUSED@paypal.com') #('yan@segpay.com')
 						# br.find_by_id("btnNext").first.click()
 						elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnNext")))
 						elem.click()
 						self.check_title(self.br)
 					if self.br.find_by_id("password").first:
-						while self.br.find_by_id("password").first.visible == False:
+						while self.br.find_by_id("password").first.visible == False: # password
 							time.sleep(1)
-						self.br.find_by_id("password").first.fill('Karapuz2')
+						self.br.find_by_id("password").first.fill('Karapuz2')#('PayPal2016')
 						elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnLogin")))
 						elem.click()
 					# br.find_by_id("btnLogin").first.click()
@@ -262,6 +265,8 @@ class FillPayPage:
 						time.sleep(1)
 				except Exception as e:
 					pass
+
+
 		except Exception as ex:
 			traceback.print_exc()
 		print(f"Exception {Exception} ")
