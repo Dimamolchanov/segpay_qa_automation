@@ -1,6 +1,6 @@
-223630062:
+223630049:
   actual:
-  - 'PurchaseID: 200061390 | TransId:223630062 | TransGuid: 63e51016-c5e0-403c-a9c8-13397d7d3d05'
+  - 'PurchaseID: 200061383 | TransId:223630049 | TransGuid: 938fe604-974a-4c21-8a49-5ea23f3d9bf6'
   - Mulitrans  Record Compared =>  Pass
   - 'Asset      Record Compared =>  Pass  '
   - Email      is in que       =>  Pass

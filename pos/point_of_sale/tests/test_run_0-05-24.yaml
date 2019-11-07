@@ -1,0 +1,63 @@
+223631417:
+  actual:
+  - 'PurchaseID: 200061989 | TransId:223631417 | TransGuid: 84670096-61b8-42a7-840e-b4064a0e9660'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''0'' and postback
+    types: [5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+223631418:
+  actual:
+  - 'PurchaseID: 200061990 | TransId:223631418 | TransGuid: 2653679e-33c1-42a1-bcda-4696f76b747a'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''2'' and postback
+    types: [2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+223631421:
+  actual:
+  - 'PurchaseID: 200061993 | TransId:223631421 | TransGuid: 0f49f50d-ed48-4ca8-b817-ee92631b7b40'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+223631422:
+  actual:
+  - 'PurchaseID: 200061994 | TransId:223631422 | TransGuid: 0f04b88b-fdb5-417d-89dd-5e77cf066b88'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+223631423:
+  actual:
+  - 'PurchaseID: 200061995 | TransId:223631423 | TransGuid: ebc38605-2383-446e-bec3-0052c30488fa'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______

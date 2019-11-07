@@ -1,0 +1,78 @@
+223631787:
+  actual:
+  - 'PurchaseID: 200062223 | TransId:223631787 | TransGuid: b114d761-e40d-4efe-b857-badc469631ce'
+  - '********************* Multitrans MissMatch ****************'
+  - 'CustAddress Base: => Live:123 Segpay Street'
+  - 'CustCity Base: => Live:Las Vegas'
+  - 'CustState Base: => Live:ND'
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+223631789:
+  actual:
+  - 'PurchaseID: 200062224 | TransId:223631789 | TransGuid: 076ea182-e697-4f81-b218-a2eeca3a8d0e'
+  - '********************* Multitrans MissMatch ****************'
+  - 'CustAddress Base: => Live:123 Segpay Street'
+  - 'CustCity Base: => Live:Las Vegas'
+  - 'CustState Base: => Live:ND'
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''0'' and postback
+    types: [5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+223631790:
+  actual:
+  - 'PurchaseID: 200062225 | TransId:223631790 | TransGuid: 13bf1431-1a43-4585-88f2-24698eeaff92'
+  - '********************* Multitrans MissMatch ****************'
+  - 'CustAddress Base: => Live:123 Segpay Street'
+  - 'CustCity Base: => Live:Las Vegas'
+  - 'CustState Base: => Live:ND'
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''2'' and postback
+    types: [2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+223631791:
+  actual:
+  - 'PurchaseID: 200062226 | TransId:223631791 | TransGuid: 79cb7782-74b9-4f0e-a4c9-2d30581fa615'
+  - '********************* Multitrans MissMatch ****************'
+  - 'CustAddress Base: => Live:123 Segpay Street'
+  - 'CustCity Base: => Live:Las Vegas'
+  - 'CustState Base: => Live:ND'
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+223631792:
+  actual:
+  - 'PurchaseID: 200062227 | TransId:223631792 | TransGuid: 0f2da87c-5f9b-40b6-8cd3-a49dbfaa8fa2'
+  - '********************* Multitrans MissMatch ****************'
+  - 'CustAddress Base: => Live:123 Segpay Street'
+  - 'CustCity Base: => Live:Las Vegas'
+  - 'CustState Base: => Live:ND'
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______

@@ -80,6 +80,51 @@ def clear_data_for_merchant(merchantid):
 		pass
 
 
+def collectuserinfo(cluf):
+	try:
+		if cluf == 0:
+			Ocoriginaluserinfo = 1
+		elif cluf == 1:
+			Ocoriginaluserinfo = 2
+	except Exception as ex:
+		traceback.print_exc()
+		pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def oc_tokens(merchant):
+
+	if merchant == 'EU':
+		octoken = 200062198
+	elif merchant == 'US':
+		octoken = 200062808
+	return octoken
+	# recurring = 200061829
+	# onetime = 200061829
+	# onetime_diff = 200061829
+	# recurring_diff = 200061829
+	# if oc_type == 'recurring':
+	# 	return recurring
+	# elif oc_type == 'onetime':
+	# 	return onetime
+	# elif oc_type == 'onetime_diff':
+	# 	return onetime_diff
+	# elif oc_type == 'recurring_diff':
+	# 	return recurring_diff
+
+
 def pricepoints_options(pricepoints_options, merchantid):
 	pricepoints = []
 	if pricepoints_options == 'single':
@@ -89,6 +134,36 @@ def pricepoints_options(pricepoints_options, merchantid):
 	elif pricepoints_options == 'list':
 		pricepoints = db_agent.pricepoint_list(merchantid)
 	return pricepoints
+def approved_cards():
+	approved_cards = ['4000000000001000', '4000000000001091']
+	try:
+		dmc = random.choice(approved_cards)
+		return dmc
+	except Exception as ex:
+		traceback.print_exc()
+		return False
+
+def decline_cards():
+	approved_cards = ['4000000000001000', '4000000000001091']
+	try:
+		dmc = random.choice(approved_cards)
+		return dmc
+	except Exception as ex:
+		traceback.print_exc()
+		return False
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def string_after(value, a):
@@ -99,6 +174,40 @@ def string_after(value, a):
 	adjusted_pos_a = pos_a + len(a)
 	if adjusted_pos_a >= len(value): return ""
 	return value[adjusted_pos_a:]
+
+def is_3DS(merchantid,packageid):
+	try:
+		is_merchant_configured = db_agent.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG,merchantid,packageid)
+		return is_merchant_configured
+	except Exception as ex:
+		traceback.print_exc()
+		pass
+def is_EU(merchantid):
+	try:
+		is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, merchantid)['VISARegion']
+		return is_eu_merchant
+	except Exception as ex:
+		traceback.print_exc()
+		pass
+def random_dmc():
+	dmc = ''
+	currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
+	try:
+		dmc = random.choice(currencies)
+		return dmc
+	except Exception as ex:
+		traceback.print_exc()
+		return False
+def random_lang():
+	available_languages = ['EN','ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
+	try:
+		lang = random.choice(available_languages)
+		return lang
+	except Exception as ex:
+		traceback.print_exc()
+		return False
+
+
 
 
 def is_visa_secure():
@@ -326,6 +435,7 @@ def aprove_decline(transid):
 
 def joinlink():
 	pricingguid = {}
+	extra_param = '&x-billname=QA+Segpay&x-billemail=qateam%40segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Las+Vegas&x-billstate=ND&x-billzip=33063&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
 	joinlink = ''
 	dynamic_price = ''
 	d = config.test_data
@@ -341,7 +451,7 @@ def joinlink():
 			pricingguid = db_agent.get_pricingguid(d['MerchantID'], d['Type'])[0]
 			joinlink = f"{config.url}{d['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}{d['url_options']}"  # PricingGuid, InitialPrice
 		else:
-			joinlink = config.url + d['eticket'] + d['url_options']
+			joinlink = config.url + d['eticket'] + d['url_options'] + extra_param
 		config.test_data['link'] = joinlink
 		if d['Type'] == 511:
 			config.test_data['initialprice511'] = pricingguid['InitialPrice']

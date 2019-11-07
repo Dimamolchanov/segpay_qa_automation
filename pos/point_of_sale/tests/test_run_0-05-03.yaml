@@ -1,0 +1,55 @@
+223628966:
+  actual:
+  - 'PurchaseID: 200060980 | TransId:223628966 | TransGuid: 916c2b68-a6b7-4997-9e6e-9de04dd8b16a'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+223628967:
+  actual: 'One Click Results - Eticket: 192133:27003'
+  one_click_pos: 'One Click Started - Eticket: 192133:27003'
+223628968: &id001
+  actual:
+  - 'PurchaseID: 200060983 | TransId:223628976 | TransGuid: 739f7438-bf81-4ac6-89fb-8ef2a7ddcf27'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  - Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests
+    | In  Scope | Should be declined
+  - 'Transaction Aproved : AuthCode:OK:0'
+  - 'Scenario completed: All Passed'
+  - _____Finished Scenario_______
+  one_click_pos: 'One Click Started - Eticket: 192133:27003'
+223628976: *id001
+223628977:
+  actual: 'One Click Results - Eticket: 192133:27003'
+  one_click_pos: 'One Click Started - Eticket: 192133:27003'
+223628978:
+  actual: 'One Click Results - Eticket: 900:100137'
+  one_click_pos: 'One Click Started - Eticket: 900:100137'
+223628979:
+  actual:
+  - 'PurchaseID: 200060986 | TransID: 223628979 | TransGuid: b0eeaa4d-6750-41f8-93cd-c465834a717a'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  one_click_pos: 'One Click Started - Eticket: 192133:27003'
+223628980:
+  actual:
+  - 'PurchaseID: 200060987 | TransID: 223628980 | TransGuid: d7ce439d-5142-4b47-ad35-2fad3d526fd3'
+  - Mulitrans  Record Compared =>  Pass
+  - 'Asset      Record Compared =>  Pass  '
+  - Email      is in que       =>  Pass
+  - 'Postback Record Compared =>  Passed for collect user info: ''1'' and postback
+    types: [1, 2, 5, 5, 5, 5]'
+  one_click_pos: 'One Click Started - Eticket: 900:100137'

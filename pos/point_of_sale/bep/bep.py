@@ -93,8 +93,6 @@ def process_refund(transids, taskid=0):
 				else:
 					del refunds[1][tid]
 			except Exception as ex:
-				print(ex)
-				config.logging.info(ex)
 				traceback.print_exc()
 				not_processed.append(tid)
 				pass

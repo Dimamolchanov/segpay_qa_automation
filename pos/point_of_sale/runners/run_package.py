@@ -9,6 +9,8 @@ from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
+from pos.point_of_sale.pricepoints import recurring
+from pos.point_of_sale.pricepoints import onetime
 from pos.point_of_sale.web import web
 from pos.point_of_sale.utils import options
 import yaml
@@ -29,17 +31,18 @@ actions = {'singup': partial(test_methods.sign_up_trans_web),
            'refunds': partial(bep.process_refund, config.transids, 841),
            # 'check_refunds_mt': partial(mt.multitrans_check_refunds),  #, config.results[1]
            # 'check_refunds_asset': partial(asset.asseets_check_refunds),
-           # 'reactivate': partial(web.reactivate, config.transids),
+           'reactivate': partial(test_methods.reactivate, config.transids),
            'check_asset_reactivation': partial(asset.assets_check_reactivation),
            'check_mt_reactivation': partial(mt.mt_check_reactivation),
            'check_refunds': partial(test_methods.verify_refunds)
            }
-bep_basic1 = []  # ['refunds','check_refunds']
-bep_basic = ['refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate', 'check_asset_reactivation',
-             'check_mt_reactivation']
+#bep_basic = ['refunds','check_refunds']#,'reactivate','check_asset_reactivation']  # ['refunds','check_refunds']
+# bep_basic = ['refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate', 'check_asset_reactivation',
+#              'check_mt_reactivation']
+bep_basic = ['captures','check_captures','conversion', 'refunds','check_refunds']
 bep_basic_with_capture = ['captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset', 'reactivate',
                           'check_asset_reactivation', 'check_mt_reactivation']
-# bep_basic = ['captures', 'check_captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset']
+#bep_basic = ['captures', 'check_captures', 'refunds', 'check_refunds_mt', 'check_refunds_asset']
 
 # br = web.Signup()
 
@@ -50,6 +53,15 @@ for packageid in config.packages:
     pricepoints = db_agent.get_pricepoints()
     for pricepoint in pricepoints:
         try:
+            merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
+            pp_type = merchantbillconfig['Type']
+            if pp_type in( 501,506):
+                scenario = recurring.recurring(merchantbillconfig, pricepoint, packageid)
+                recurring.generate_scenario(scenario)
+            elif pp_type == 502:
+                scenario = onetime.onetime_502(merchantbillconfig, pricepoint, packageid)
+                onetime.generate_scenario(scenario)
+            #----------------------------------------------------------------------------------------Old
             config.test_data = TransActionService.prepare_data1(pricepoint, packageid, 1)
             config.test_data['payment'] = 'cc'
             test_methods.sign_up_trans_web()
@@ -57,14 +69,13 @@ for packageid in config.packages:
             traceback.print_exc()
             print(f"Exception {Exception} ")
             pass
-    actions['oneclick_pos_all']()
-
-
-    test_methods.signup_oc('ws', config.test_data['eticket'], config.test_data)
+    # actions['one_click_services']()
+    # actions['oneclick_pos_all']()
+    #test_methods.signup_oc('ws', config.test_data['eticket'], config.test_data)
     config.oc_tokens = {}
 
-    if len(bep_basic1) != 0:
-        for item in bep_basic1:
+    if len(bep_basic) != 0:
+        for item in bep_basic:
             try:
                 config.results = actions[item]()
                 z = 3
