@@ -30,10 +30,10 @@ def cardinal3dsrequests(transid):  # card
 			return True
 		if visa_secure == 1 and not config.test_data['3ds']: # in scope
 			options.append_list(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined")
-			print(colored(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope | Should be declined ", 'red'))
+			print(colored(f"Merchant EU | Not Configured for 3DS | Card EU | No record in Cardinal3dsRequests | In  Scope ", 'blue'))
 		elif visa_secure == 2 and not config.test_data['3ds']:
 			options.append_list(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | PPID: {'processor'}")
-			print(colored(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | Out Of  Scope | Should be aproved", 'blue'))
+			print(colored(f"Merchant is not configured for 3ds | TransID: {transid} | CC: {config.test_data['cc']} | Out Of  Scope ", 'blue'))
 			return True
 		elif visa_secure in [1,2]:
 			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \

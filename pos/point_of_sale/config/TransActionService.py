@@ -7,6 +7,7 @@ from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
+from termcolor import colored
 import traceback
 import random
 import yaml
@@ -84,7 +85,9 @@ class TransActionService:
 
     @staticmethod
     def verify_signup_transaction(transaction_to_check):
+        save_case ={}
         multitrans_base_record = mt.build_multitrans()
+        config.test_case['base_record'] = multitrans_base_record
         asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
         differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
         differences_asset = asset.asset_compare(asset_base_record)
@@ -95,7 +98,7 @@ class TransActionService:
         differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
-        if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
+        if not differences_multitrans and not differences_asset and not differences_postback : #and not differences_3ds:
             return True
         else:
             return False
@@ -141,13 +144,16 @@ class TransActionService:
             differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], one_click_record['TransID'])
             card = db_agent.decrypt_string(one_click_record['PaymentAcct'])
             config.test_data['cc'] = card
-            if action == 'pos':
-                differences_3ds = psd2.cardinal3dsrequests(one_click_record['TransID'])
+            # if action == 'pos':
+            #     differences_3ds = psd2.cardinal3dsrequests(one_click_record['TransID'])
             config.transids.append(one_click_record['TransID'])
             print()
+
             if not differences_mt_oc and not differences_asset_oc and not differences_postback:
+                print(colored(f"Scenario completed: All Passed\n", 'green', attrs=['bold', 'underline', 'dark']))
                 return True
             else:
+                print(colored(f"Scenario had some issues: Failed | Re-Check Manually |\n", 'red', attrs=['bold', 'underline', 'dark']))
                 return False
         except Exception as ex:
             traceback.print_exc()

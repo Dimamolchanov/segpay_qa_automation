@@ -90,11 +90,16 @@ class DBActions:
         cnt_sql(sql, 'execute_select_one_parameter')
         sql = sql.format(condition)
         # print(sql)
-        self.cursor.execute(sql)
-        response = self.cursor.fetchone()
-        if not response:
-            return None
-        return response
+        try:
+            self.cursor.execute(sql)
+            response = self.cursor.fetchone()
+            if not response:
+                return None
+            return response
+        except Exception as ex:
+            traceback.print_exc()
+            pass
+
 
     def cardinal_actions(self, resulttype, scopetype):
         sql = f"select ResultAction from CardinalResultActions where ResultType = {resulttype} and ScopeType = {scopetype}"
@@ -417,9 +422,13 @@ class DBActions:
         retry_count = 0
         sql = f"select * from merchantbillconfig where billconfigid = {billconfigid}"
         cnt_sql(sql, 'merchantbillconfig')
-        self.cursor.execute(sql)
-        response = self.cursor.fetchone()
-        return response
+        try:
+            self.cursor.execute(sql)
+            response = self.cursor.fetchone()
+            return response
+        except Exception as ex:
+            traceback.print_exc()
+            pass
 
         # while retry_flag and retry_count < 30:
         #     try:

@@ -170,10 +170,29 @@ def build_mt_oneclick(one_click_record, action):
 
 def build_multitrans():
     transdate = (datetime.now().date())
-    # transaction_to_check = config.test_data['transaction_to_check']
     url = db_agent.url(config.test_data['URLID'])
-
     multitrans = {}
+    d = config.test_data
+    b_address = ''
+    b_city = ''
+    b_state = ''
+    try:
+        link = d['link']
+        if '&x-bill' in link:
+            tmp = link.split('&')
+            for xbill in tmp:
+                if 'x-billaddr' in xbill:
+                    val = xbill.split('=')[1]
+                    if '+' in val: b_address = val.replace('+', ' ')
+                elif 'x-billcity' in xbill:
+                    val = xbill.split('=')[1]
+                    if '+' in val: b_city = val.replace('+', ' ')
+                elif 'x-billstate' in xbill:
+                    b_state = xbill.split('=')[1]
+
+    except Exception as ex:
+        traceback.print_exc()
+        pass
     try:
         multitrans = {
             'PurchaseID': config.test_data['PurchaseID'],
@@ -185,9 +204,9 @@ def build_multitrans():
             'Authorized': 1,
             'CardExpiration': config.test_data['expiration_date'] + config.test_data['year'][-2:],
             'CustCountry': config.test_data['merchant_country'],
-            'CustAddress': '',
-            'CustCity': '',
-            'CustState': '',
+            'CustAddress': b_address,
+            'CustCity': b_city,
+            'CustState': b_state,
             'CustPhone': '',
             'CustEMail': config.test_data['email_encrypt'],
             'CustName': config.test_data['firstname'] + ' ' + config.test_data['lastname'],
@@ -346,7 +365,6 @@ def build_multitrans():
     except Exception as ex:
         traceback.print_exc()
         pass
-
     return multitrans
 
 
@@ -355,7 +373,12 @@ def multitrans_compare(multitrans_base_record, live_record):
     try:
         multitrans_live_record = live_record  # [0]
         live_record['PCID'] = None
-        multitrans_live_record['TransDate'] = multitrans_live_record['TransDate'].date()
+        try:
+            multitrans_live_record['TransDate'] = multitrans_live_record['TransDate'].date()
+        except Exception as ex:
+            #traceback.print_exc()
+            pass
+
         differences = bep.dictionary_compare(multitrans_base_record, multitrans_live_record)
         if len(differences) == 0:
             print(colored(f"Mulitrans  Record Compared =>  Pass", 'green'))

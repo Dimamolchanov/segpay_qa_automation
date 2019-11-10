@@ -191,7 +191,7 @@ def is_EU(merchantid):
 		pass
 def random_dmc():
 	dmc = ''
-	currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "HKD", "JPY", "NOK", "SEK"]
+	currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "NOK",'RUB',"ILS","INR",'CZK']           #"HKD", "JPY", , "SEK"
 	try:
 		dmc = random.choice(currencies)
 		return dmc
@@ -253,7 +253,7 @@ def is_visa_secure():
 		return result
 	except Exception as ex:
 		traceback.print_exc()
-		print(f"{Exception}")
+		#print(f"{Exception}")
 		pass
 
 
@@ -304,12 +304,6 @@ def aprove_decline(transid):
 						response['SignatureVerification'] = response['SignatureVerification']
 				else:
 					response['SignatureVerification'] = None
-
-
-
-
-
-
 
 				if not live_record_3ds['authresponse'] == '':
 					json_authresponse = json.loads(live_record_3ds['authresponse'])
@@ -371,11 +365,11 @@ def aprove_decline(transid):
 					elif response['Cavv'] and response['EciFlag'] == '05' and response['Enrolled'] == 'Y' and response['PAResStatus'] in ['Y', 'A'] and response['SignatureVerification'] == 'N':
 						# Signature Verification Failure
 						result_type = 1157
-						print(colored(f"This Transaction should be declined|PSD2 not Required|", 'white', 'on_grey', attrs=['bold']))
+						#print(colored(f"This Transaction should be declined|PSD2 not Required|", 'white', 'on_grey', attrs=['bold']))
 					elif response['Cavv'] == None and response['EciFlag'] == '07' and response['Enrolled'] == 'Y' and response['PAResStatus'] == 'N' and response['SignatureVerification'] == 'Y':
 						# Failed Authentication
 						result_type = 1159
-						print(colored(f"This Transaction should be declined|PSD2 not Required|", 'white', 'on_grey', attrs=['bold']))
+						#print(colored(f"This Transaction should be declined|PSD2 not Required|", 'white', 'on_grey', attrs=['bold']))
 					elif response['Cavv'] == None and response['EciFlag'] == '06' and response['Enrolled'] == 'N' and  response['PAResStatus'] == None and  response['SignatureVerification'] == None:
 						# Non-Enrolled Card/Non-participating bank
 						result_type = 1153
@@ -404,7 +398,7 @@ def aprove_decline(transid):
 			if result_type == 999 :
 				msg = "In Scope |PSD2 Required|"
 				aprove_or_decline = False
-				print(colored(f"This Transaction should be declined |{msg}|  <----------------", 'red', attrs=['bold']))
+				#print(colored(f"This Transaction should be declined |{msg}|  <----------------", 'red', attrs=['bold']))
 			else:
 				final_action = db_agent.cardinal_actions(result_type, in_or_aout_scope)
 				if in_or_aout_scope == 1171:
@@ -414,22 +408,22 @@ def aprove_decline(transid):
 				if final_action:
 					if final_action['ResultAction'] == 1181:
 						aprove_or_decline = True
-						print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1181 | ", 'grey', attrs=['bold']))
+						#print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1181 | ", 'grey', attrs=['bold']))
 					elif final_action['ResultAction'] == 1182:
 						aprove_or_decline = False
-						print(colored(f"This Transaction should be declined |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1182 | ", 'red', attrs=['bold']))
+						#print(colored(f"This Transaction should be declined |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1182 | ", 'red', attrs=['bold']))
 				else:
 					aprove_or_decline = True
-					print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | {msg}", 'grey', attrs=['bold']))
+					#print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | {msg}", 'grey', attrs=['bold']))
 		elif config.test_data['visa_secure'] == 0:
 			aprove_or_decline = True
-			print(colored(f"This Transaction should be aproved |Prepaid Card|  <---------------- | ", 'grey', attrs=['bold']))
+			#print(colored(f"This Transaction should be aproved |Prepaid Card|  <---------------- | ", 'grey', attrs=['bold']))
 
 		config.test_data['aprove_or_decline'] = aprove_or_decline
 		return aprove_or_decline
 	except Exception as ex:
 		traceback.print_exc()
-		print(f"{Exception}")
+		#print(f"{Exception}")
 		pass
 
 

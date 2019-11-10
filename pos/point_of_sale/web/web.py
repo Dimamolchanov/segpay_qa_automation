@@ -117,8 +117,6 @@ class Signup:
             config.test_data = {**config.test_data, **data_from_paypage}
             return data_from_paypage
         except Exception as ex:
-            print(ex)
-            # config.logging.info(ex)
             traceback.print_exc()
             print(
                 f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
@@ -133,6 +131,7 @@ class Signup:
         if page_loaded == False:
             return None
         email = 'qateam@segpay.com'  # fake.email()
+
         try:
             if self.br.is_element_present_by_id('TransGUID', wait_time=10):
                 transguid = self.br.find_by_id('TransGUID').value
@@ -174,8 +173,8 @@ class Signup:
             data_from_paypage['paypage_lnaguage'] = self.br.find_by_id('LanguageDDL').value
             self.wait_for_ajax(self.br)
             if config.test_data['payment'] == 'cc':
-                print(
-                    'Credit Card payment')
+                # print(
+                #     'Credit Card payment')
                 self.br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
                 self.br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
                 while self.br.execute_script("return jQuery.active == 0") != True:
@@ -201,6 +200,11 @@ class Signup:
                                     auth.find_by_name('UsernamePasswordEntry').click()
                             else:
                                 pass
+                    elif self.br.get_iframe('IFrame3DS'):
+                        with self.br.get_iframe('IFrame3DS') as iframe:
+                            iframe.find_by_name('continue').click()
+                            time.sleep(1)
+
                 except NoSuchFrameException:
                     pass
                 except NoSuchElementException:
@@ -340,7 +344,7 @@ class Signup:
                     time.sleep(2)
                 if d['lang'] != 'EN':
                     paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(d['lang'])
-                    #time.sleep(2)
+                    # time.sleep(2)
                     while self.br.execute_script("return jQuery.active == 0") != True:
                         time.sleep(1)
                 if d['dmc'] != 'USD':
@@ -386,63 +390,9 @@ class Signup:
                 elif pricepoint_type == 510:
                     oneclick_record['510'] = dynamic_price
                 sql = "Select PurchType from assets where purchaseid = {}"
-                token_type = db_agent.execute_select_one_parameter(sql,d['octoken'])['PurchType']
-                #3333333333333333333333333token_type = config.oc_tokens[octoken]
+                token_type = db_agent.execute_select_one_parameter(sql, d['octoken'])['PurchType']
+                # 3333333333333333333333333token_type = config.oc_tokens[octoken]
                 card = db_agent.execute_select_one_parameter(constants.GET_PAYMENTACCT_FROM_ASSET, d['octoken'])
-                #config.test_data['cc'] = card['cc']
-            try:
-                merchant_us_or_eu = db_agent.merchant_us_or_eu(merchantid)
-                merchant_us_or_eu = merchant_us_or_eu['MerchantCountry']
-                visa_secure = options.is_visa_secure()
-                if merchant_us_or_eu == 'US':
-                    if visa_secure in [1, 4]:
-                        config.test_data['visa_secure'] = 5  # Configured for 3ds
-                        print(colored(f"US Merchant 3DS configured - Not in Scope  | Card {config.test_data['cc']} ",
-                                      'yellow', 'on_grey', attrs=['blink']))
-                    else:
-                        config.test_data['visa_secure'] = 6  # not configured at 3ds
-                        print(colored(f"US Merchant 3DS not configured - Not in Scope | Card {config.test_data['cc']} ",
-                                      'yellow', 'on_grey', attrs=['blink']))
-                else:
-                    if visa_secure == 0:
-                        print(
-                            colored(f"EU Merchant  Prepaid card  | Card {config.test_data['cc']} ", 'yellow', 'on_grey',
-                                    attrs=['blink']))
-                        config.logging.info(colored(f" Prepaid card  | Short Form ", 'blue'))
-                    elif visa_secure == 1:
-                        print(colored(
-                            f"EU Merchant 3DS configured - Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
-                        config.logging.info(
-                            colored(f" 3DS configured - Not in Scope  for PSD2 | Card {config.test_data['cc']}",
-                                    'blue'))
-                    elif visa_secure == 2:
-                        print(colored(
-                            f"EU Merchant 3DS not configured | In Scope  for PSD2 | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
-                        config.logging.info(
-                            colored(f" 3DS not configured | In Scope  for PSD2 | Card {config.test_data['cc']} ",
-                                    'blue', attrs=['bold']))  # will decline
-                    elif visa_secure == 3:
-                        print(colored(
-                            f"EU Merchant 3DS not configured | Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
-                        config.logging.info(
-                            colored(f" 3DS not configured | Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
-                                    'blue'))
-                    elif visa_secure == 4:
-                        print(colored(
-                            f"EU Merchant 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
-                        config.logging.info(colored(
-                            f" 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']}",
-                            'blue'))
-                    config.test_data['visa_secure'] = visa_secure
-            except Exception as ex:
-                traceback.print_exc()
-                print(f"{Exception}")
-                pass
-
             config.test_case['actual'] = [
                 f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}"]
             print(f"OneClick POS => Eticket: {d['eticket']}  | Processor: {oneclick_record['Processor']} "
@@ -455,6 +405,97 @@ class Signup:
             pass
 
         return oneclick_record  # , pricepoint_type
+
+    def instant_conversion(self, option, signup_record):
+        transguid = ''
+        url = ''
+        multitrans_base_record = signup_record['full_record']
+        multitrans_ic_record = copy.deepcopy(multitrans_base_record)
+        token = multitrans_base_record['TRANSGUID']
+        username = fake.user_name() + str(random.randint(333, 999))
+        password = fake.user_name() + str(random.randint(333, 999))
+        try:
+            if option == 'pos':
+                url = config.test_data['link']
+                page_loaded = self.navigate_to_url(url)
+                if page_loaded == False:
+                    return None
+                else:
+                    if self.br.is_element_present_by_id('TransGUID', wait_time=10):
+                        transguid = self.br.find_by_id('TransGUID').value
+                        transguid = subprocess.run(
+                            ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
+                             '-l'],
+                            stdout=subprocess.PIPE)
+                        transguid = transguid.stdout.decode('utf-8')
+                    else:
+                        print("Transguid not Found ")
+                        return None
+                    self.br.find_by_id('EMailInput').fill(signup_record['email'])
+                    self.br.find_by_id('SecurePurchaseButton').click()
+                    full_record = db_agent.multitrans_full_record('', transguid, '')[0]
+            elif option == 'ws':
+                    resp = requests.get(config.test_data['link'])
+                    xml_return_string = simplexml.loads(resp.content)
+                    transid = int(xml_return_string['TransReturn']['TransID'])
+                    full_record = db_agent.multitrans_full_record(transid, '', '')[0]
+
+
+            config.test_data['PurchaseID'] = full_record['PurchaseID']
+            config.test_data['TransID'] = full_record['TransID']
+            config.test_data['full_record'] = full_record
+
+            # full_record = ic_record[0]
+            multitrans_ic_record['TransSource'] = 122
+            multitrans_ic_record['TransType'] = 108
+            multitrans_ic_record['TransStatus'] = 186
+            multitrans_ic_record['PurchaseID'] = full_record['PurchaseID']
+            multitrans_ic_record['TransID'] = full_record['TransID']
+            multitrans_ic_record['TRANSGUID'] = transguid
+            multitrans_ic_record['RelatedTransID'] = multitrans_base_record['TransID']
+            multitrans_ic_record['TransAmount'] = config.test_data['RebillPrice']
+            exchange_rate = 1
+            if config.test_data['Currency'] == multitrans_base_record['MerchantCurrency']:
+                exchange_rate = 1
+            else:
+                exchange_rate = db_agent.exc_rate(multitrans_base_record['MerchantCurrency'], config.test_data['Currency'])
+                if multitrans_base_record['MerchantCurrency'] != 'JPY':
+                    exchange_rate = round(exchange_rate, 2)
+            multitrans_ic_record['ExchRate'] = exchange_rate
+            markup = round(config.test_data['RebillPrice'] * exchange_rate, 2)
+            multitrans_ic_record['Markup'] = markup
+            print(
+                f"InstantConversion POS Conversion => PurchaseID: {full_record['PurchaseID']} | TransID: {full_record['TransID']} | Type: 507 | Processor: {multitrans_base_record['Processor']} "
+                f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
+
+            return multitrans_ic_record, full_record
+        except Exception as ex:
+            traceback.print_exc()
+            pass
+        #     elif option == 'ws':
+        #
+        #         resp = requests.get(config.test_data['link'])
+        #         xml_return_string = simplexml.loads(resp.content)
+        #         transid = int(xml_return_string['TransReturn']['TransID'])
+        #         oneclick_record = db_agent.multitrans_full_record(transid, '', '')
+        #         full_record = oneclick_record[0]
+        #
+        #         multitrans_ic_record['TransSource'] = 123
+        #         multitrans_ic_record['TransType'] = 1011
+        #         multitrans_ic_record['TransStatus'] = 186
+        #         multitrans_ic_record['PurchaseID'] = full_record['PurchaseID']
+        #         multitrans_ic_record['TransID'] = transid
+        #         multitrans_ic_record['TRANSGUID'] = full_record['TRANSGUID']
+        #         multitrans_ic_record['RelatedTransID'] = multitrans_base_record['TransID']
+        #         print(f"OneClick WS => Eticket: {config.test_data['eticket']} | Type: 507 | Processor: {multitrans_base_record['Processor']} "
+        #               f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
+        #
+        #         return multitrans_ic_record, oneclick_record
+        #
+        #
+        # except Exception as ex:
+        #     traceback.print_exc()
+        #     pass
 
     def oc_ws(self):
         oneclick_record = None
@@ -488,6 +529,7 @@ class Signup:
             traceback.print_exc()
             print(f"{Exception}  Eticket: {d['eticket']} Module => one_click_services ")
             pass
+
     def one_click_pos(self, eticket, octoken, currency_lang, url_options):
         oneclick_record = None
         dynamic_price = 9999
@@ -520,7 +562,7 @@ class Signup:
                 url = f"{config.url}{eticket}&octoken={octoken}" + url_options
 
             print(url)
-            #config.logging.info(url)
+            # config.logging.info(url)
 
             page_loaded = self.navigate_to_url(url)
             if page_loaded == False:
@@ -648,7 +690,8 @@ class Signup:
             pass
 
         return oneclick_record  # , pricepoint_type
-    def reactivate(self,transids):
+
+    def reactivate(self, transids):
         transguids = {}
         reactivated = []
         asset_reactivated = {}
@@ -778,9 +821,10 @@ class Signup:
             config.logging.info(f"{Exception}  Tid: {tid,}  ")
             traceback.print_exc()
             pass
+
     def __del__(self):
-        #self.br.quit()
-        z=3
+        # self.br.quit()
+        z = 3
 
 
 # br = Browser(driver_name='chrome', options=chrome_options)
@@ -840,79 +884,6 @@ def one_click_services(eticket, octoken, currency_lang, url_options):
         pass
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------ Instant Conversion POS and WS
-# def instant_conversion(option, eticket, pricepoint_type, multitrans_base_record, email, selected_options, merchantbillconfig):
-# 	transguid = ''
-# 	url = ''
-# 	multitrans_ic_record = copy.deepcopy(multitrans_base_record)
-# 	token = multitrans_base_record['TRANSGUID']
-# 	username = fake.user_name() + str(random.randint(333, 999))
-# 	password = fake.user_name() + str(random.randint(333, 999))
-#
-# 	if option == 'pos':
-#
-# 		url = f"{config.urlic}{token}" + selected_options
-#
-# 		page_loaded = navigate_to_url(url)
-# 		if page_loaded == False:
-# 			return None
-# 		else:
-# 			if br.is_element_present_by_id('TransGUID', wait_time=10):
-# 				transguid = br.find_by_id('TransGUID').value
-# 				transguid = subprocess.run([path, transguid, '-l'], stdout=subprocess.PIPE)
-# 				transguid = transguid.stdout.decode('utf-8')
-# 			else:
-# 				print("Transguid not Found ")
-# 				return None
-# 			br.find_by_id('EMailInput').fill(email)
-# 			br.find_by_id('SecurePurchaseButton').click()
-# 			ic_record = db_agent.multitrans_full_record('', transguid, '')
-# 			full_record = ic_record[0]
-# 			multitrans_ic_record['TransSource'] = 122
-# 			multitrans_ic_record['TransType'] = 108
-# 			multitrans_ic_record['TransStatus'] = 186
-# 			multitrans_ic_record['PurchaseID'] = full_record['PurchaseID']
-# 			multitrans_ic_record['TransID'] = full_record['TransID']
-# 			multitrans_ic_record['TRANSGUID'] = transguid
-# 			multitrans_ic_record['RelatedTransID'] = multitrans_base_record['TransID']
-# 			multitrans_ic_record['TransAmount'] = merchantbillconfig['RebillPrice']
-# 			exchange_rate = 1
-# 			if merchantbillconfig['Currency'] == multitrans_base_record['MerchantCurrency']:
-# 				exchange_rate = 1
-# 			else:
-# 				exchange_rate = db_agent.exc_rate(multitrans_base_record['MerchantCurrency'], merchantbillconfig['Currency'])
-# 				if multitrans_base_record['MerchantCurrency'] != 'JPY':
-# 					exchange_rate = round(exchange_rate, 2)
-# 			multitrans_ic_record['ExchRate'] = exchange_rate
-# 			markup = round(merchantbillconfig['RebillPrice'] * exchange_rate, 2)
-# 			multitrans_ic_record['Markup'] = markup
-# 			print(f"InstantConversion POS => Eticket: {eticket} | Type: {pricepoint_type} | Processor: {multitrans_base_record['Processor']} "
-# 			      f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
-#
-# 			return multitrans_ic_record, ic_record
-#
-# 	elif option == 'ws':
-# 		url = f"{config.urlicws}{token}" + selected_options
-# 		print(url)
-# 		resp = requests.get(url)
-# 		xml_return_string = simplexml.loads(resp.content)
-# 		transid = int(xml_return_string['TransReturn']['TransID'])
-# 		oneclick_record = db_agent.multitrans_full_record(transid, '', '')
-# 		full_record = oneclick_record[0]
-#
-# 		if pricepoint_type in [501, 506, 511]:
-# 			multitrans_ic_record['TransSource'] = 121
-# 		else:
-# 			multitrans_ic_record['TransSource'] = 123
-# 		multitrans_ic_record['TransType'] = 1011
-# 		multitrans_ic_record['TransStatus'] = 186
-# 		multitrans_ic_record['PurchaseID'] = full_record['PurchaseID']
-# 		multitrans_ic_record['TransID'] = transid
-# 		multitrans_ic_record['TRANSGUID'] = full_record['TRANSGUID']
-# 		multitrans_ic_record['RelatedTransID'] = multitrans_base_record['TransID']
-# 		print(f"OneClick WS => Eticket: {eticket} | Type: {pricepoint_type} | Processor: {multitrans_base_record['Processor']} "
-# 		      f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
-#
-# 		return multitrans_ic_record, oneclick_record
 
 
 # # ==========================================================================================================================BEP

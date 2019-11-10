@@ -124,11 +124,6 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 				asset['AuthCurrency'] = 'USD'
 				asset['LastResult'] = 'Declined'
 
-
-
-
-
-
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
@@ -255,21 +250,22 @@ def asset_oneclick(merchantbillconfig, asset_base_record, multitrans_live_record
 	return updated_record
 
 
-def asset_instant_conversion(merchantbillconfig, asset_base_record, multitrans_live_record):
-	type = merchantbillconfig['Type']
+def asset_instant_conversion():
 	current_date = (datetime.now().date())
-	live_record = multitrans_live_record[0]
-	updated_record = copy.deepcopy((asset_base_record))
+	sql = "Select * from assets where purchaseID = {}"
+	full_record = db_agent.execute_select_one_parameter(sql,config.test_data['PurchaseID'])
+	updated_record = copy.deepcopy((full_record))
 	current_date = (datetime.now().date())
 	updated_record['PurchType'] = 507
 	updated_record['Purchases'] = 2
 	updated_record['LastResult'] = 'OK:0'
-	updated_record['PurchTotal'] = updated_record['PurchTotal'] + multitrans_live_record[0]['TransAmount']
 	updated_record['ConvDate'] = current_date
 	updated_record['LastDate'] = current_date
-	updated_record['NextDate'] = current_date + timedelta(days=merchantbillconfig['RebillLen'])
-	updated_record['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['RebillLen'])
-	return updated_record
+	updated_record['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
+	updated_record['ExpiredDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
+	updated_record['PCID'] = None
+	config.test_data['ic_asset'] = updated_record
+	return updated_record #, full_record
 
 
 def asset_compare(asset_base_record):  # signup
