@@ -261,8 +261,13 @@ def asset_instant_conversion():
 	updated_record['LastResult'] = 'OK:0'
 	updated_record['ConvDate'] = current_date
 	updated_record['LastDate'] = current_date
-	updated_record['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
-	updated_record['ExpiredDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
+	if config.test_data['ICAdjustTrial'] == 1:
+		updated_record['NextDate'] = current_date  + timedelta(days=config.test_data['RebillLen'])
+		updated_record['ExpiredDate'] = current_date + timedelta(days=config.test_data['RebillLen'])
+
+	else:
+		updated_record['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
+		updated_record['ExpiredDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
 	updated_record['PCID'] = None
 	config.test_data['ic_asset'] = updated_record
 	return updated_record #, full_record

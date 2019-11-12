@@ -104,22 +104,27 @@ class Signup:
 
     def create_transaction(self, pricepoint_type, eticket, selected_options, merchantid, url_options, processor):
         joinlink = config.test_data['link']
+        full_record = {}
         try:
 
             data_from_paypage = self.fill_default(joinlink, selected_options, merchantid, config.test_data[
                 'PackageID'])  # fill the page and return what was populated
-            transguid = data_from_paypage['transguid']
-            sql = "select * from multitrans where TransGuid = '{}'"
-            full_record = db_agent.execute_select_one_with_wait(sql, transguid)
-            data_from_paypage['PurchaseID'] = full_record['PurchaseID']
-            data_from_paypage['TransID'] = full_record['TransID']
-            data_from_paypage['full_record'] = full_record
-            config.test_data = {**config.test_data, **data_from_paypage}
-            return data_from_paypage
+            if data_from_paypage:
+                transguid = data_from_paypage['transguid']
+                sql = "select * from multitrans where TransGuid = '{}'"
+                full_record = db_agent.execute_select_one_with_wait(sql, transguid)
+                if full_record:
+
+                    data_from_paypage['PurchaseID'] = full_record['PurchaseID']
+                    data_from_paypage['TransID'] = full_record['TransID']
+                    data_from_paypage['full_record'] = full_record
+                    config.test_data = {**config.test_data, **data_from_paypage}
+                    return data_from_paypage
+            else:
+                return False
         except Exception as ex:
             traceback.print_exc()
-            print(
-                f"Module web Function: create_transaction(pricepoint_type, eticket, selected_options, enviroment, merchantid, url_options, processor)")
+
 
     def fill_default(self, joinlink, selected_options, merchantid, packageid):
         data_from_paypage = {}
@@ -140,15 +145,18 @@ class Signup:
             else:
                 print("Transguid not Found ")
                 return None
+            paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(test_case['lang'])
+            if not test_case['lang'] == 'EN':
+                while self.br.execute_script("return jQuery.active == 0") != True:
+                    time.sleep(1)
+                #time.sleep(2)
             if self.br.find_by_id('UserNameInput'):
                 self.br.find_by_id('UserNameInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
             if self.br.find_by_id('PasswordInput'):
                 self.br.find_by_id('PasswordInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
             if self.br.find_by_id('CurrencyDDL'):
                 merchant_currency = self.br.find_by_id('CurrencyDDL').select(test_case['dmc'])
-            paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(test_case['lang'])
-            if not test_case['lang'] == 'EN':
-                time.sleep(2)
+
             merchant_country = self.br.find_by_id('CountryDDL').value
             cc = test_case['cc']
             card_encrypted = db_agent.encrypt_card(cc)
@@ -187,7 +195,9 @@ class Signup:
                 self.br.find_by_id('EMailInput').fill(email)
                 self.wait_for_ajax(self.br)
                 self.br.find_by_id('SecurePurchaseButton').click()
-                time.sleep(2)
+                #time.sleep(1)
+                while self.br.execute_script("return jQuery.active == 0") != True:
+                    time.sleep(1)
                 try:
                     if self.br.get_iframe('Cardinal-CCA-IFrame'):
                         with self.br.get_iframe('Cardinal-CCA-IFrame') as iframe:
@@ -203,6 +213,8 @@ class Signup:
                     elif self.br.get_iframe('IFrame3DS'):
                         with self.br.get_iframe('IFrame3DS') as iframe:
                             iframe.find_by_name('continue').click()
+                            while self.br.execute_script("return jQuery.active == 0") != True:
+                                time.sleep(1)
                             time.sleep(1)
 
                 except NoSuchFrameException:
@@ -211,7 +223,6 @@ class Signup:
                     pass
                 except Exception as ex:
                     traceback.print_exc()
-                    print(ex)
                 return data_from_paypage
             elif config.test_data['payment'] == 'pp':
                 print(
@@ -305,7 +316,6 @@ class Signup:
 
         except Exception as ex:
             traceback.print_exc()
-        print(f"Exception {Exception} ")
         pass
 
     def oc_pos(self):
@@ -341,7 +351,7 @@ class Signup:
                     print("Transguid not Found ")
                     return None
 
-                    time.sleep(2)
+                    #time.sleep(2)
                 if d['lang'] != 'EN':
                     paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(d['lang'])
                     # time.sleep(2)
@@ -349,7 +359,8 @@ class Signup:
                         time.sleep(1)
                 if d['dmc'] != 'USD':
                     dmc = self.br.find_by_id('CurrencyDDL').select(d['dmc'])
-                    time.sleep(2)
+                    while self.br.execute_script("return jQuery.active == 0") != True:
+                        time.sleep(1)
                 self.br.find_by_id('CVVInputNumeric').fill('333')
                 if self.br.find_by_id('UserNameInput'):
                     self.br.find_by_id('UserNameInput').fill(username)
@@ -358,7 +369,9 @@ class Signup:
                 while self.br.execute_script("return jQuery.active == 0") != True:
                     time.sleep(1)
                 self.br.find_by_id('SecurePurchaseButton').click()
-                time.sleep((2))
+                #time.sleep(1)
+                while self.br.execute_script("return jQuery.active == 0") != True:
+                    time.sleep(1)
                 try:
                     if self.br.get_iframe('Cardinal-CCA-IFrame'):
                         with self.br.get_iframe('Cardinal-CCA-IFrame') as iframe:
@@ -409,6 +422,7 @@ class Signup:
     def instant_conversion(self, option, signup_record):
         transguid = ''
         url = ''
+        full_record = {}
         multitrans_base_record = signup_record['full_record']
         multitrans_ic_record = copy.deepcopy(multitrans_base_record)
         token = multitrans_base_record['TRANSGUID']
@@ -441,34 +455,37 @@ class Signup:
                     full_record = db_agent.multitrans_full_record(transid, '', '')[0]
 
 
-            config.test_data['PurchaseID'] = full_record['PurchaseID']
-            config.test_data['TransID'] = full_record['TransID']
-            config.test_data['full_record'] = full_record
+            if full_record:
+                config.test_data['PurchaseID'] = full_record['PurchaseID']
+                config.test_data['TransID'] = full_record['TransID']
+                config.test_data['full_record'] = full_record
 
-            # full_record = ic_record[0]
-            multitrans_ic_record['TransSource'] = 122
-            multitrans_ic_record['TransType'] = 108
-            multitrans_ic_record['TransStatus'] = 186
-            multitrans_ic_record['PurchaseID'] = full_record['PurchaseID']
-            multitrans_ic_record['TransID'] = full_record['TransID']
-            multitrans_ic_record['TRANSGUID'] = transguid
-            multitrans_ic_record['RelatedTransID'] = multitrans_base_record['TransID']
-            multitrans_ic_record['TransAmount'] = config.test_data['RebillPrice']
-            exchange_rate = 1
-            if config.test_data['Currency'] == multitrans_base_record['MerchantCurrency']:
+                # full_record = ic_record[0]
+                multitrans_ic_record['TransSource'] = 122
+                multitrans_ic_record['TransType'] = 108
+                multitrans_ic_record['TransStatus'] = 186
+                multitrans_ic_record['PurchaseID'] = full_record['PurchaseID']
+                multitrans_ic_record['TransID'] = full_record['TransID']
+                multitrans_ic_record['TRANSGUID'] = transguid
+                multitrans_ic_record['RelatedTransID'] = multitrans_base_record['TransID']
+                multitrans_ic_record['TransAmount'] = config.test_data['RebillPrice']
                 exchange_rate = 1
-            else:
-                exchange_rate = db_agent.exc_rate(multitrans_base_record['MerchantCurrency'], config.test_data['Currency'])
-                if multitrans_base_record['MerchantCurrency'] != 'JPY':
-                    exchange_rate = round(exchange_rate, 2)
-            multitrans_ic_record['ExchRate'] = exchange_rate
-            markup = round(config.test_data['RebillPrice'] * exchange_rate, 2)
-            multitrans_ic_record['Markup'] = markup
-            print(
-                f"InstantConversion POS Conversion => PurchaseID: {full_record['PurchaseID']} | TransID: {full_record['TransID']} | Type: 507 | Processor: {multitrans_base_record['Processor']} "
-                f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
+                if config.test_data['Currency'] == multitrans_base_record['MerchantCurrency']:
+                    exchange_rate = 1
+                else:
+                    exchange_rate = db_agent.exc_rate(multitrans_base_record['MerchantCurrency'], config.test_data['Currency'])
+                    if multitrans_base_record['MerchantCurrency'] != 'JPY':
+                        exchange_rate = round(exchange_rate, 2)
+                multitrans_ic_record['ExchRate'] = exchange_rate
+                markup = round(config.test_data['RebillPrice'] * exchange_rate, 2)
+                multitrans_ic_record['Markup'] = markup
+                print(
+                    f"InstantConversion POS Conversion => PurchaseID: {full_record['PurchaseID']} | TransID: {full_record['TransID']} | Type: 507 | Processor: {multitrans_base_record['Processor']} "
+                    f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
 
-            return multitrans_ic_record, full_record
+                return multitrans_ic_record, full_record
+            else:
+                return False
         except Exception as ex:
             traceback.print_exc()
             pass

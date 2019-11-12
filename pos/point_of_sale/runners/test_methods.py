@@ -116,7 +116,7 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 			if one_click_record == None:
 				print("Delay Capture")
 			elif one_click_record['Authorized']:
-				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
+				result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options) # , selected_options
 			else:
 				print(colored(f"OneClick Transaction DECLINED : AuthCode:{one_click_record['AuthCode']}", 'red', attrs=['bold']))
 				print()
@@ -157,7 +157,8 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 						if not one_click_record['Authorized']:
 							print(colored(f"Transaction DECLINED : AuthCode:{one_click_record['AuthCode']} ", 'red', attrs=['bold']))
 							print("---------------------------------------")
-						result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options, selected_options)
+						#verify_oc_transaction(octoken,eticket, one_click_record, selected_options): # Yan
+						result &= TransActionService.verify_oc_transaction(octoken, eticket, one_click_record, url_options)
 						config.test_cases[one_click_record['TransID']] = config.test_case
 
 				elif oc_type == 'ws':

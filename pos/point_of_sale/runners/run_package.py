@@ -9,8 +9,8 @@ from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
-from pos.point_of_sale.pricepoints import recurring
-from pos.point_of_sale.pricepoints import onetime
+# from pos.point_of_sale.pricepoints import recurring
+# from pos.point_of_sale.pricepoints import onetime
 from pos.point_of_sale.web import web
 from pos.point_of_sale.utils import options
 import yaml
@@ -53,14 +53,14 @@ for packageid in config.packages:
     pricepoints = db_agent.get_pricepoints()
     for pricepoint in pricepoints:
         try:
-            merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
-            pp_type = merchantbillconfig['Type']
-            if pp_type in( 501,506):
-                scenario = recurring.recurring(merchantbillconfig, pricepoint, packageid)
-                recurring.generate_scenario(scenario)
-            elif pp_type == 502:
-                scenario = onetime.onetime_502(merchantbillconfig, pricepoint, packageid)
-                onetime.generate_scenario(scenario)
+            # merchantbillconfig = db_agent.merchantbillconfig(pricepoint)
+            # pp_type = merchantbillconfig['Type']
+            # if pp_type in( 501,506):
+            #     scenario = recurring.recurring(merchantbillconfig, pricepoint, packageid)
+            #     recurring.generate_scenario(scenario)
+            # elif pp_type == 502:
+            #     scenario = onetime.onetime_502(merchantbillconfig, pricepoint, packageid)
+            #     onetime.generate_scenario(scenario)
             #----------------------------------------------------------------------------------------Old
             config.test_data = TransActionService.prepare_data1(pricepoint, packageid, 1)
             config.test_data['payment'] = 'cc'
@@ -69,8 +69,8 @@ for packageid in config.packages:
             traceback.print_exc()
             print(f"Exception {Exception} ")
             pass
-    # actions['one_click_services']()
-    # actions['oneclick_pos_all']()
+        # actions['one_click_services']()
+        # actions['oneclick_pos_all']()
     #test_methods.signup_oc('ws', config.test_data['eticket'], config.test_data)
     config.oc_tokens = {}
 

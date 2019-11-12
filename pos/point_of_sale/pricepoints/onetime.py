@@ -30,6 +30,10 @@ def onetime_502(merchantbillconfig, pricepointid, packageid):
         eticket = str(packageid) + ':' + str(pricepointid)
         url_options = options.ref_variables() + options.refurl() + config.template
         merchantid = merchantbillconfig['MerchantID']
+        if merchantid == 27001:
+            merchant = 'US'
+        elif merchantid == 21621:
+            merchant = 'US'
         collectuserinfo = merchantbillconfig['CollectUserInfo']
         # ----------------------------------------------------------------------------------------------------Scenarios
         test_scenario['name'] = "OneTime: Type=502"
@@ -53,7 +57,7 @@ def onetime_502(merchantbillconfig, pricepointid, packageid):
         test_case_oc_pos['refurl'] = options.refurl()
         test_case_oc_pos['dmc'] = options.random_dmc()
         test_case_oc_pos['lang'] = options.random_lang()
-        test_case_oc_pos['octoken'] = options.oc_tokens('onetime')
+        test_case_oc_pos['octoken'] = options.oc_tokens(merchant)
         joinlink = f"{config.url}{eticket}&octoken={test_case_oc_pos['octoken']}{url_options}"
         test_case_oc_pos['joinlink'] = joinlink
         #print(joinlink)
@@ -62,7 +66,7 @@ def onetime_502(merchantbillconfig, pricepointid, packageid):
         test_case_oc_ws['refurl'] = options.refurl()
         test_case_oc_ws['dmc'] = options.random_dmc()
         test_case_oc_ws['lang'] = options.random_lang()
-        test_case_oc_ws['octoken'] = options.oc_tokens('recurring')
+        test_case_oc_ws['octoken'] = options.oc_tokens(merchant)
         joinlink = url = f"{config.urlws}{eticket}&octoken={test_case_oc_ws['octoken']}" + url_options
         test_case_oc_ws['joinlink'] = joinlink
         #print(joinlink)
@@ -71,7 +75,7 @@ def onetime_502(merchantbillconfig, pricepointid, packageid):
         test_case_oc_pos_diff_merchant['refurl'] = options.refurl()
         test_case_oc_pos_diff_merchant['dmc'] = options.random_dmc()
         test_case_oc_pos_diff_merchant['lang'] = options.random_lang()
-        test_case_oc_pos_diff_merchant['octoken'] = options.oc_tokens('onetime')
+        test_case_oc_pos_diff_merchant['octoken'] = options.oc_tokens(merchant)
         joinlink = f"{config.url}{eticket}&octoken={test_case_oc_pos['octoken']}{url_options}"
         test_case_oc_pos_diff_merchant['joinlink'] = joinlink
         #print(joinlink)

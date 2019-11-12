@@ -19,71 +19,6 @@ from pos.point_of_sale.verifications import emails
 import csv
 
 start_time = datetime.now()
-test_cases_list4 = [[501, 'one_click_pos', 'EU', 'from_url', 0, 'not_configured'],
-                    [501, 'one_click_pos', 'US', 'from_url', 1, 'not_configured'],
-                    [501, 'one_click_pos', 'US', 'from_paypage', 2, 'configured'],
-                    [501, 'oneclick_ws', 'EU', 'from_paypage', 1, 'configured'],
-                    [501, 'oneclick_ws', 'US', 'from_url', 2, 'not_configured'],
-                    [501, 'oneclick_ws', 'US', 'from_paypage', 0, 'not_configured'],
-                    [501, 'signup', 'EU', 'from_url', 1, 'configured'],
-                    [501, 'signup', 'EU', 'from_paypage', 2, 'not_configured'],
-                    [501, 'signup', 'US', 'from_url', 0, 'configured'],
-                    [502, 'one_click_pos', 'EU', 'from_url', 2, 'configured'],
-                    [502, 'one_click_pos', 'US', 'from_paypage', 0, 'not_configured'],
-                    [502, 'one_click_pos', 'US', 'from_paypage', 1, 'not_configured'],
-                    [502, 'oneclick_ws', 'EU', 'from_paypage', 1, 'not_configured'],
-                    [502, 'oneclick_ws', 'EU', 'from_paypage', 2, 'configured'],
-                    [502, 'oneclick_ws', 'US', 'from_url', 0, 'configured'],
-                    [502, 'signup', 'EU', 'from_paypage', 0, 'configured'],
-                    [502, 'signup', 'US', 'from_url', 2, 'not_configured'],
-                    [502, 'signup', 'US', 'from_url', 1, 'configured'],
-                    [503, 'one_click_pos', 'EU', 'from_url', 0, 'not_configured'],
-                    [503, 'one_click_pos', 'US', 'from_url', 1, 'configured'],
-                    [503, 'one_click_pos', 'US', 'from_paypage', 2, 'not_configured'],
-                    [503, 'oneclick_ws', 'EU', 'from_paypage', 1, 'not_configured'],
-                    [503, 'oneclick_ws', 'EU', 'from_url', 2, 'configured'],
-                    [503, 'oneclick_ws', 'US', 'from_paypage', 0, 'configured'],
-                    [503, 'signup', 'EU', 'from_paypage', 2, 'configured'],
-                    [503, 'signup', 'EU', 'from_paypage', 1, 'not_configured'],
-                    [503, 'signup', 'US', 'from_url', 0, 'not_configured'],
-                    [505, 'one_click_pos', 'EU', 'from_paypage', 0, 'not_configured'],
-                    [505, 'one_click_pos', 'EU', 'from_url', 2, 'configured'],
-                    [505, 'one_click_pos', 'US', 'from_paypage', 1, 'not_configured'],
-                    [505, 'oneclick_ws', 'EU', 'from_url', 2, 'configured'],
-                    [505, 'oneclick_ws', 'EU', 'from_paypage', 1, 'configured'],
-                    [505, 'oneclick_ws', 'US', 'from_paypage', 0, 'not_configured'],
-                    [505, 'signup', 'EU', 'from_url', 1, 'not_configured'],
-                    [505, 'signup', 'US', 'from_url', 0, 'configured'],
-                    [505, 'signup', 'US', 'from_paypage', 2, 'not_configured'],
-                    [506, 'one_click_pos', 'EU', 'from_paypage', 0, 'configured'],
-                    [506, 'one_click_pos', 'EU', 'from_url', 2, 'not_configured'],
-                    [506, 'one_click_pos', 'US', 'from_paypage', 1, 'not_configured'],
-                    [506, 'oneclick_ws', 'EU', 'from_url', 0, 'configured'],
-                    [506, 'oneclick_ws', 'US', 'from_url', 1, 'not_configured'],
-                    [506, 'oneclick_ws', 'US', 'from_paypage', 2, 'configured'],
-                    [506, 'signup', 'EU', 'from_paypage', 1, 'configured'],
-                    [506, 'signup', 'US', 'from_url', 0, 'not_configured'],
-                    [506, 'signup', 'US', 'from_url', 2, 'not_configured'],
-                    [510, 'one_click_pos', 'EU', 'from_url', 0, 'not_configured'],
-                    [510, 'one_click_pos', 'US', 'from_paypage', 2, 'configured'],
-                    [510, 'one_click_pos', 'US', 'from_paypage', 1, 'configured'],
-                    [510, 'oneclick_ws', 'EU', 'from_paypage', 2, 'not_configured'],
-                    [510, 'oneclick_ws', 'EU', 'from_url', 0, 'configured'],
-                    [510, 'oneclick_ws', 'US', 'from_url', 1, 'configured'],
-                    [510, 'signup', 'EU', 'from_url', 1, 'not_configured'],
-                    [510, 'signup', 'US', 'from_url', 0, 'configured'],
-                    [510, 'signup', 'US', 'from_url', 2, 'not_configured'],
-                    [510, 'signup', 'US', 'from_paypage', 0, 'not_configured'],
-                    [511, 'one_click_pos', 'EU', 'from_paypage', 1, 'configured'],
-                    [511, 'one_click_pos', 'EU', 'from_url', 0, 'configured'],
-                    [511, 'one_click_pos', 'US', 'from_url', 2, 'not_configured'],
-                    [511, 'oneclick_ws', 'EU', 'from_url', 0, 'configured'],
-                    [511, 'oneclick_ws', 'EU', 'from_paypage', 2, 'not_configured'],
-                    [511, 'oneclick_ws', 'US', 'from_url', 1, 'configured'],
-                    [511, 'signup', 'EU', 'from_url', 1, 'not_configured'],
-                    [511, 'signup', 'US', 'from_paypage', 0, 'not_configured'],
-                    [511, 'signup', 'US', 'from_url', 2, 'configured'],
-                    [511, 'signup', 'US', 'from_url', 1, 'not_configured']]
 packages = [197216, 197215]  # 197215 65 no 3ds  | 3ds 197216 44
 db_agent = DBActions()
 d_scenarios = {}
@@ -146,10 +81,13 @@ def asset_verification(test_case):
                 test_case['pp_type'] = 507
                 convDate = 'CurrentDate'
                 lastDate = 'CurrentDate'
-                nextDate = f"CurrentDate + {test_case['RebillLen']}"
-                expiredDate = f"CurrentDate + {test_case['RebillLen']}"
+                if config.test_data['ICAdjustTrial'] == 1:
+                    nextDate = f"CurrentDate + {test_case['RebillLen']}"
+                    expiredDate = f"CurrentDate + {test_case['RebillLen']}"
 
-
+                else:
+                    nextDate = f"CurrentDate + " + str((test_case['InitialLen'] + test_case['RebillLen']))
+                    expiredDate = f"CurrentDate + " + str((test_case['InitialLen'] + test_case['RebillLen']))
 
             else:
                 nextDate = f"CurrentDate + {test_case['InitialLen']}"
@@ -211,15 +149,18 @@ def mt_verification(test_case):
         pass
 
 
-def prepare_data(test_case, packageid):
+def prepare_data(test_case, tc):
     try:
         config.test_data = {}
-        config.test_data = test_case  # {**test_case, **config.initial_data}
-        package = db_agent.package(packageid)
-        config.test_data['processor'] = package['PrefProcessorID']
-        merchantbillconfig = db_agent.merchantbillconfig(test_case['pricepoint'])
-        config.test_data = {**config.test_data, **merchantbillconfig}
-        config.test_data = {**config.test_data, **package}
+        config.test_data = {**test_case, **tc}
+        
+        
+        # config.test_data = test_case  # {**test_case, **config.initial_data}
+        # package = db_agent.package(packageid)
+        config.test_data['processor'] = tc['PrefProcessorID']
+        # merchantbillconfig = db_agent.merchantbillconfig(test_case['pricepoint'])
+        # config.test_data = {**config.test_data, **merchantbillconfig}
+        # config.test_data = {**config.test_data, **package}
         config.test_data['visa_secure'] = options.is_visa_secure()
         processor_name = {
             26: 'PAYVISIONWE',
@@ -234,7 +175,6 @@ def prepare_data(test_case, packageid):
         return test_case
     except Exception as ex:
         traceback.print_exc()
-        print(f"Function: prepare_data1 \n {Exception} ")
         pass
 
 
@@ -351,12 +291,13 @@ def conversion(action, signup_record):  # Yan
             differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], current_transaction_record['TransID'])
             config.transids.append(current_transaction_record['TransID'])
             config.transaction_records.append(current_transaction_record)
+            if not differences_multitrans and not differences_asset and not differences_postback:
+                pass_fail = True
         else:
             tmpstr = f"Transaction DECLINED : AuthCode:{current_transaction_record['AuthCode']}"
             print(colored(tmpstr, 'red', attrs=['bold']))
 
-        if not differences_multitrans and not differences_asset and not differences_postback:
-            pass_fail = True
+
         if pass_fail:
             pf = "Scenario completed: All Passed"
             config.test_data['result'] = True
@@ -465,11 +406,10 @@ def print_scenario(scenario, testcase):
         tc.append(f"Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  ")
         tc.append(f"PostBacks    | {postbacks} ")
         tc.append(v_secure)
+        tc.append("Note: REF Variables should be Encrypted  in DB and UnEncrypted in postbacks | PaymentAcount and Email should be encrypted in DB ")
         tc.append(
             "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
-        tc.append("Actual Results:")
-        tc.append(
-            "________________________________________________________________________________________________________________________________________________________________________Results\n")
+
 
         return tc
 
@@ -491,7 +431,9 @@ with open(filename, newline='') as csvfile:
             # scenario[5] = int(scenario[5])
             if scenario[1] == 'EU':
                 test_case['dmc'] = options.random_dmc()  # 'USD'  #
+                merchantid = 27001
             else:
+                merchantid = 21621
                 test_case['dmc'] = 'USD'
             test_case['idx'] = scenario[0]
             test_case['lang'] = options.random_lang()
@@ -503,19 +445,23 @@ with open(filename, newline='') as csvfile:
             test_case['userinfo'] = scenario[4]
             test_case['visa_secure'] = scenario[5]
             scenario_name = f"{scenario[1]}:{scenario[2]}:{scenario[3]}:{scenario[4]}:{scenario[5]}:"
-            if scenario[1] == 'EU' and scenario[5] == 'configured':
-                packageid = 197216
-                merchantid = 27001
-            elif scenario[1] == 'EU' and scenario[5] == 'not_configured':
-                packageid = 197215
-                merchantid = 27001
-            elif scenario[1] == 'US' and scenario[5] == 'configured':
-                packageid = 197218
-                merchantid = 21621
-            elif scenario[1] == 'US' and scenario[5] == 'not_configured':
-                packageid = 197219
-                merchantid = 21621
-            pricepointid = db_agent.find_pricepoint(506, packageid, scenario[4])
+            
+            find_pp_package = db_agent.find_pricepoint_package(merchantid, test_case['pp_type'], test_case['userinfo'], test_case['visa_secure'])
+            pricepointid = find_pp_package['BillConfigID']
+            packageid = find_pp_package['PackageID']
+            # if scenario[1] == 'EU' and scenario[5] == 'configured':
+            #     packageid = 197216
+            #     merchantid = 27001
+            # elif scenario[1] == 'EU' and scenario[5] == 'not_configured':
+            #     packageid = 197215
+            #     merchantid = 27001
+            # elif scenario[1] == 'US' and scenario[5] == 'configured':
+            #     packageid = 197218
+            #     merchantid = 21621
+            # elif scenario[1] == 'US' and scenario[5] == 'not_configured':
+            #     packageid = 197219
+            #     merchantid = 21621
+            #pricepointid = db_agent.find_pricepoint(506, packageid, scenario[4])
             eticket = str(packageid) + ':' + str(pricepointid)
             test_case['eticket'] = eticket
             test_case['pricepoint'] = str(pricepointid)
@@ -526,7 +472,7 @@ with open(filename, newline='') as csvfile:
             test_case['link'] = url = result[0]
             test_case['url_options'] = result[1]
             test_case['ictoken'] = result[2]
-            test_case = prepare_data(test_case, packageid)
+            test_case = prepare_data(test_case, find_pp_package)
             test_cases_list[f"{scenario[0]}:{scenario_name}"] = print_scenario(scenario, test_case)
             signup_record = sign_up()
             test_cases_list[f"{scenario[0]}:{scenario_name}"] = [test_cases_list[f"{scenario[0]}:{scenario_name}"],config.test_data]
@@ -536,38 +482,46 @@ with open(filename, newline='') as csvfile:
             test_case['url_options'] = result[1]
             test_case['ictoken'] = result[2]
             try:
-                if test_case['action'] == 'ic_pos':
-                    test_case = prepare_data(test_case, packageid)
-                    test_case['transguid'] = signup_record['transguid']
-                    test_case['dmc'] = signup_record['full_record']['MerchantCurrency']
-                    test_case['lang'] = signup_record['full_record']['Language']
-                    test_cases_list[f"{scenario[0]}:{scenario_name}"] = print_scenario(scenario, test_case)
-                    if conversion('pos', signup_record):
-                        test_cases_list[f"{scenario[0]}:{scenario_name}"] = [test_cases_list[f"{scenario[0]}:{scenario_name}"], config.test_data]
-                    else:
-                        print("Instant Conversion Failed : Purchase not eligible for Instant Conversion.(ERR303)")
-                elif test_case['action'] == 'ic_ws':
-                    test_case = prepare_data(test_case, packageid)
-                    test_case['transguid'] = signup_record['transguid']
-                    test_case['dmc'] = signup_record['full_record']['MerchantCurrency']
-                    test_case['lang'] = signup_record['full_record']['Language']
-                    test_cases_list[f"{scenario[0]}:{scenario_name}"] = print_scenario(scenario, test_case)
-                    if conversion('ws', signup_record):
-                        test_cases_list[f"{scenario[0]}:{scenario_name}"] = [test_cases_list[f"{scenario[0]}:{scenario_name}"], config.test_data]
-                    else:
-                        print("******  Instant Conversion Failed : Purchase not eligible for Instant Conversion.(ERR303)*****\n")
-
+                if signup_record['full_record']['Authorized']:
+                    if test_case['action'] == 'ic_pos':
+                        test_case = prepare_data(test_case, find_pp_package)
+                        test_case['transguid'] = signup_record['transguid']
+                        test_case['dmc'] = signup_record['full_record']['MerchantCurrency']
+                        test_case['lang'] = signup_record['full_record']['Language']
+                        test_cases_list[f"{scenario[0]}:{scenario_name}"] = print_scenario(scenario, test_case)
+                        if conversion('pos', signup_record):
+                            test_cases_list[f"{scenario[0]}:{scenario_name}"] = [test_cases_list[f"{scenario[0]}:{scenario_name}"], config.test_data]
+                        else:
+                            print("Instant Conversion Failed : Purchase not eligible for Instant Conversion.(ERR303)")
+                    elif test_case['action'] == 'ic_ws':
+                        test_case = prepare_data(test_case, find_pp_package)
+                        test_case['transguid'] = signup_record['transguid']
+                        test_case['dmc'] = signup_record['full_record']['MerchantCurrency']
+                        test_case['lang'] = signup_record['full_record']['Language']
+                        test_cases_list[f"{scenario[0]}:{scenario_name}"] = print_scenario(scenario, test_case)
+                        if conversion('ws', signup_record):
+                            test_cases_list[f"{scenario[0]}:{scenario_name}"] = [test_cases_list[f"{scenario[0]}:{scenario_name}"], config.test_data]
+                        else:
+                            print("******  Instant Conversion Failed : Purchase not eligible for Instant Conversion.(ERR303)*****\n")
             except Exception as ex:
                 traceback.print_exc()
                 pass
 
-    try:
-        with open(saved_test_cases, 'w') as f:
-            print(yaml.dump(saved_test_cases))
+try:
+    with open(saved_test_cases, 'w') as f:
+        data = yaml.dump(test_cases_list, f)
+except Exception as ex:
+    traceback.print_exc()
+    pass
+try:
+    for item in test_cases_list:
+        x = test_cases_list[item][0]
+        if len(x) < 30:
+            for i in x:
+                print(i)
 
-            data = yaml.dump(saved_test_cases, f)
-    except Exception as ex:
-        traceback.print_exc()
-        pass
+except Exception as ex:
+    traceback.print_exc()
+    pass
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))

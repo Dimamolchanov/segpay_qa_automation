@@ -7,7 +7,6 @@ from pos.point_of_sale.utils import constants
 from pos.point_of_sale.db_functions.DBManager import DBManager
 import traceback
 
-
 def cnt_sql(sql, fn):
     tmpsql = sql.split('where')
     if tmpsql[0] in config.sql_dict:
@@ -15,14 +14,14 @@ def cnt_sql(sql, fn):
     else:
         config.sql_dict[tmpsql[0]] = [1, fn]
 
-
 class DBActions:
     cursor = None
-
+    
     def __init__(self):
         self.cursor = DBManager.getInstance()
-    #--------------------------------------------------------------------------------------------------------------------------Yan for test cases
-    def find_pricepoint(self,pp_type,packageid,userinfo):
+    
+    # --------------------------------------------------------------------------------------------------------------------------Yan for test cases
+    def find_pricepoint(self, pp_type, packageid, userinfo):
         cnt = 0;
         pp_list = []
         rows = None
@@ -36,22 +35,69 @@ class DBActions:
                 rows = self.cursor.fetchall()
                 time.sleep(1)
             for pp in rows:
-
                 pp_list.append(pp['BillConfigID'])
             for pricepointid in (pp_list):
                 sql = F"select CollectUserInfo, Type from MerchantBillConfig where billconfigid = {pricepointid}"
                 self.cursor.execute(sql)
                 rows = self.cursor.fetchall()
-
+                
                 if rows[0]['CollectUserInfo'] == userinfo and rows[0]['Type'] == pp_type:
                     return pricepointid
-
+        
         except Exception as ex:
             traceback.print_exc
             pass
-
+    
+    def find_pricepoint_package(self, merchantid, pp_type, userinfo ): # visa_secure
+        cnt = 0;
+        pp_list = []
+        tc = {}
+        rows = None
+        try:
+            sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} and CollectUserinfo = {userinfo}"
+            # print(sql)
+            self.cursor.execute(sql)
+            while rows == None and cnt < 3:
+                cnt += 1
+                rows = self.cursor.fetchall()
+                time.sleep(1)
+            pricepoint = rows[0]['BillConfigID']
+            tc = rows[0]
+            rows = None
+            cnt = 0
+            sql = F"select PackageID from PackageDetail where billconfigid ={pricepoint}"
+            # print(sql)
+            self.cursor.execute(sql)
+            while rows == None and cnt < 3:
+                cnt += 1
+                rows = self.cursor.fetchall()
+                time.sleep(1)
+            for package_id in rows:
+                packageid = package_id['PackageID']
+                package = self.package(packageid)
+                if package['PrefProcessorID'] != 1:
+                    tc = {**tc, **package}
+                    return tc
+                    
+                    
+                    
+                    # is_merchant_configured = self.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, merchantid, packageid)
+                    # if is_merchant_configured:
+                    #     is_merchant_configured = 'configured'
+                    # else:
+                    #     is_merchant_configured = 'not_configured'
+                    #
+                    # if is_merchant_configured == visa_secure:
+                    #     # print(is_merchant_configured)
+                    #     # package = self.package(packageid)
+                    #     tc = {**tc, **package}
+                    #     return tc
+            z=3
+        except Exception as ex:
+            traceback.print_exc
+            pass
+    
     # --------------------------------------------------------------------------------------------------------------------------
-
     def get_pricepoints(self):
         cnt = 0;
         pp_list = []
@@ -73,7 +119,7 @@ class DBActions:
                 traceback.print_exc()
             print(f"Function: get_pricepoints \n {Exception} ")
             pass
-
+    
     def execute_select_one_with_wait(self, sql, condition):
         cnt = 0
         cnt_sql(sql, 'execute_select_one_with_wait')
@@ -85,7 +131,7 @@ class DBActions:
             self.cursor.execute(sql)
             response = self.cursor.fetchone()
         return response
-
+    
     def execute_select_one_parameter(self, sql, condition):
         cnt_sql(sql, 'execute_select_one_parameter')
         sql = sql.format(condition)
@@ -99,8 +145,7 @@ class DBActions:
         except Exception as ex:
             traceback.print_exc()
             pass
-
-
+    
     def cardinal_actions(self, resulttype, scopetype):
         sql = f"select ResultAction from CardinalResultActions where ResultType = {resulttype} and ScopeType = {scopetype}"
         cnt_sql(sql, 'cardinal_actions')
@@ -110,7 +155,7 @@ class DBActions:
         if not response:
             return None
         return response
-
+    
     def execute_select_two_parameters(self, sql, condition_first, condition_second):
         sql = sql.format(condition_first, condition_second)
         cnt_sql(sql, 'execute_select_two_parameters')
@@ -120,14 +165,14 @@ class DBActions:
         if not response:
             return None
         return response
-
+    
     def execute_select_with_no_params(self, sql):
         cnt_sql(sql, 'execute_select_with_no_params')
         # cnt_sql(sql, 'execute_select_with_no_params')
         self.cursor.execute(sql)
         response = self.cursor.fetchone()
         return response
-
+    
     def execute_insert(self, sql, parameter):
         sql = sql.format(parameter)
         cnt_sql(sql, 'execute_insert')
@@ -136,7 +181,7 @@ class DBActions:
             return True
         except:
             return False
-
+    
     def get_value_from_postback_configs(self, package_id, column_to_return):
         p_type_list = []
         sql = constants.POST_BACK_TYPES_FROM_CONFIG.format(package_id)
@@ -150,7 +195,7 @@ class DBActions:
         if not p_type_list:
             print("No values to return for postback config")
         return p_type_list
-
+    
     def get_value_from_postback_notif(self, trans_id, column_to_return):
         cnt = 0
         n_type_list = []
@@ -171,16 +216,16 @@ class DBActions:
         if not n_type_list:
             print("No values to return for postback notif")
         return n_type_list
-
+    
     def get_collect_user_info_value(self, billconfigid):
         # sql = constants.COLLECT_USER_INFO_BY_PACKAGE.format(package_id)
         sql = f"select CollectUserInfo from MerchantBillConfig where BillConfigID = {billconfigid} "
-
+        
         cnt_sql(sql, 'get_collect_user_info_value')
         self.cursor.execute(sql)
         rows = self.cursor.fetchall()
         return rows[0]['CollectUserInfo']
-
+    
     def get_url_from_config(self, postback_id):
         sql = constants.POST_BACK_CINFIG_URL_BY_ID.format(postback_id)
         cnt_sql(sql, 'get_url_from_config')
@@ -190,7 +235,7 @@ class DBActions:
             return None
         temp = temp['PostbackURL']
         return temp
-
+    
     def get_url_from_notif(self, postback_id, trans_id):
         sql = constants.POST_BACK_NOTIF_URL_BY_ID.format(trans_id, postback_id)
         cnt_sql(sql, 'get_url_from_notif')
@@ -198,7 +243,7 @@ class DBActions:
         temp = self.cursor.fetchone()
         temp = temp['PostData']
         return temp
-
+    
     def get_postback_type_by_postback_id(self, postback_id):
         sql = constants.POST_BACK_TYPE_BY_POSTBACK_ID.format(postback_id)
         cnt_sql(sql, 'get_postback_type_by_postback_id')
@@ -206,7 +251,7 @@ class DBActions:
         temp = self.cursor.fetchone()
         temp = temp['PostbackType']
         return temp
-
+    
     def get_payment_acct_id(self, transaction_id):
         sql = constants.PAYMENT_ACCT_ID.format(transaction_id)
         cnt_sql(sql, 'get_payment_acct_id')
@@ -216,7 +261,7 @@ class DBActions:
             return None
         temp = temp['value']
         return temp
-
+    
     def get_postback_status_by_id(self, postback_id, trans_id):
         sql = constants.POSTBACK_STATUS_BI_ID.format(postback_id, trans_id)
         cnt_sql(sql, 'get_postback_status_by_id')
@@ -224,14 +269,14 @@ class DBActions:
         temp = self.cursor.fetchone()
         temp = temp['status']
         return temp
-
+    
     def get_trans_source(self, trans_id):
         sql = constants.POS_OR_SERVICE_TRANS_SOURCE.format(trans_id)
         cnt_sql(sql, 'get_trans_source')
         self.cursor.execute(sql)
         temp = self.cursor.fetchone()
         return temp
-
+    
     def verify_captures(self, transids):
         captures = {}
         for tid in transids:
@@ -251,12 +296,12 @@ class DBActions:
         for k, v in captures.items():
             print(k, v)
         return captures
-
+    
     def fraud_scrub(self, captures_date):
         sql = f"exec BEP_InsertFraudScrubCompletion 1,'{captures_date}','AutomationQA'"
         cnt_sql(sql, 'fraud_scrub')
         self.cursor.execute(sql)
-
+    
     def refund_task(self, tasktype, tid):
         taskid = "0"
         taskype = tasktype  # "842"  # 843 refund only, 842 RC, 841 RE
@@ -276,7 +321,7 @@ class DBActions:
                     pass
             else:
                 traceback.print_exc()
-
+    
     def tasks_table(self, tid):
         tasktype = ''
         status = ''
@@ -292,17 +337,17 @@ class DBActions:
             return [tasktype, status]
         except Exception as ex:
             print(ex)
-
+    
     def update_processor(self, processor, package):
         sql = f'UPDATE Package set PrefProcessorID = {processor} where PackageID = {package}'
         cnt_sql(sql, 'update_processor')
         self.cursor.execute(sql)
-
+    
     def update_merchantbillconfig_oneclick(self, pricepointid, enabled):
         sql = f'UPDATE MerchantBillConfig set OneClickEnabled = {enabled} where billconfigid = {pricepointid}'
         cnt_sql(sql, 'update_merchantbillconfig_oneclick')
         self.cursor.execute(sql)
-
+    
     def update_pp_singleuse_promo(self, pricepointid, featureid, enabled):
         sql = f"Select * from pricepointfeaturedetail where pricepointid = {pricepointid} and featureid = {featureid} "
         cnt_sql(sql, 'update_pp_singleuse_promo')
@@ -327,7 +372,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def update_package(self, package, merchantid, billconfigid):
         sql = f'Delete from PackageDetail where packageid = {package}'
         cnt_sql(sql, 'update_package1')
@@ -337,7 +382,7 @@ class DBActions:
         sql = f"Update package set MerchantID = {merchantid} where PackageID = {package}"
         cnt_sql(sql, 'update_package')
         self.cursor.execute(sql)
-
+    
     def merchant_us_or_eu(self, merchantid):
         sql = f'select MerchantCountry from merchants where merchantid ={merchantid}'
         cnt_sql(sql, 'merchant_us_or_eu')
@@ -345,7 +390,7 @@ class DBActions:
         self.cursor.execute(sql)
         temp = self.cursor.fetchone()
         return temp
-
+    
     def multitrans_val(self, transguid):
         transid = 0
         purchaseid = 0
@@ -371,7 +416,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def multitrans_full_record(self, transid, transguid, purchaseid):
         sql = ''
         if transid != '':
@@ -399,7 +444,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def asset_full_record(self, purchaseid):
         retry_flag = True
         retry_count = 0
@@ -416,7 +461,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def merchantbillconfig(self, billconfigid):
         retry_flag = True
         retry_count = 0
@@ -429,7 +474,6 @@ class DBActions:
         except Exception as ex:
             traceback.print_exc()
             pass
-
         # while retry_flag and retry_count < 30:
         #     try:
         #         self.cursor.execute(sql)
@@ -446,7 +490,7 @@ class DBActions:
         #         print("Retry after 1 sec")
         #         retry_count = retry_count + 1
         #         time.sleep(2)
-
+    
     def package(self, package):
         retry_flag = True
         retry_count = 0
@@ -470,7 +514,7 @@ class DBActions:
         #         print("Retry after 1 sec")
         #         retry_count = retry_count + 1
         #         time.sleep(2)
-
+    
     def exc_rate(self, currency, billconfig_currency):
         exchange_rate = ''
         retry_flag = True
@@ -492,7 +536,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def url(self, urlid):
         domain = ''
         retry_flag = True
@@ -513,7 +557,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def encrypt_email(self, email):
         email_encrypted = ''
         retry_flag = True
@@ -534,7 +578,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def encrypt_card(self, cc):
         card_encrypted = ''
         retry_flag = True
@@ -555,7 +599,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def encrypt_string(self, str):
         string_encrypted = ''
         retry_flag = True
@@ -576,7 +620,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def decrypt_string(self, str):
         string_decrypted = ''
         retry_flag = True
@@ -597,7 +641,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def check_email_que(self, transid):
         retry_flag = True
         retry_count = 0
@@ -625,7 +669,7 @@ class DBActions:
                 retry_count = retry_count + 1
                 time.sleep(2)
                 return 'noemail'
-
+    
     def sql(self, sql):
         retry_flag = True
         cnt_sql(sql, 'sql')
@@ -644,7 +688,7 @@ class DBActions:
             print("Retry after 1 sec")
             retry_count = retry_count + 1
             time.sleep(2)
-
+    
     def get_pricingguid(self, merchantid, type):
         pricingguid = ''
         initial_price = ''
@@ -667,7 +711,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def pricepoint_list(self, merchantid):
         pp_list = []
         retry_flag = True
@@ -682,7 +726,7 @@ class DBActions:
                     retry_flag = False
                     for pp in rows:
                         pp_list.append(pp['billconfigid'])
-
+                    
                     # row = ''
                     # for row in rows:
                     #     for key,value in row.items():
@@ -692,7 +736,7 @@ class DBActions:
                 print("Retry after 1 sec")
                 retry_count = retry_count + 1
                 time.sleep(2)
-
+    
     def pricepoint_type(self, merchantid, type):
         retry_flag = True
         retry_count = 0
@@ -715,6 +759,6 @@ class DBActions:
                     retry_count = retry_count + 1
                     time.sleep(2)
             return pricepoint_type_list
-
+    
     def __del__(self):
         DBManager.kill_db_session()
