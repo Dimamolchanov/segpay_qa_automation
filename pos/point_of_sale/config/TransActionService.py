@@ -1,6 +1,6 @@
 from pos.point_of_sale.config import config
 from pos.point_of_sale.utils import options
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import psd2
@@ -89,9 +89,9 @@ class TransActionService:
         multitrans_base_record = mt.build_multitrans()
         config.test_case['base_record'] = multitrans_base_record
         asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
-        differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
+        differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check)
         differences_asset = asset.asset_compare(asset_base_record)
-        if transaction_to_check['full_record']['Authorized'] == 1:
+        if transaction_to_check['Authorized'] == 1:
             check_email = emails.check_email_que(config.test_data['Type'], multitrans_base_record, 'signup')
             config.test_data['aproved_transids'] = transaction_to_check['TransID']
         differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
@@ -128,7 +128,7 @@ class TransActionService:
             print(f"{Exception}")
 
     @staticmethod  # Yan
-    def verify_oc(one_click_record,action):  # Yan
+    def verify_oc(one_click_record,action):  # Currently in use by Recurring
         #build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_lang):
         d = config.test_data
         try:
@@ -150,10 +150,10 @@ class TransActionService:
             print()
 
             if not differences_mt_oc and not differences_asset_oc and not differences_postback:
-                print(colored(f"Scenario completed: All Passed\n", 'green', attrs=['bold', 'underline', 'dark']))
+                #print(colored(f"Scenario completed: All Passed\n", 'green', attrs=['bold', 'underline', 'dark']))
                 return True
             else:
-                print(colored(f"Scenario had some issues: Failed | Re-Check Manually |\n", 'red', attrs=['bold', 'underline', 'dark']))
+                #print(colored(f"Scenario had some issues: Failed | Re-Check Manually |\n", 'red', attrs=['bold', 'underline', 'dark']))
                 return False
         except Exception as ex:
             traceback.print_exc()
@@ -179,7 +179,7 @@ class TransActionService:
     @staticmethod
     def close_browser():
         try:
-            web.browser_quit()
+            web_module.browser_quit()
             print("Webdriver closed")
         except Exception as ex:
             print(ex)

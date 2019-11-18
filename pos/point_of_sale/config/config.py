@@ -40,7 +40,7 @@ packages =[900,901,901, 902,  900, 901, 902, 900, 901,900,901,901, 902,  900, 90
 
 pricepoints_options = 'single'
 available_languages = ['EN']  # ,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-template = ''  # '&template=defaultpsd2'  # '&template=defaultnopaypal'  default
+template = '&template=defaultpsd2'  # '&template=defaultnopaypal'  default
 report = {}
 
 # Global Objects to transfer data from test to test

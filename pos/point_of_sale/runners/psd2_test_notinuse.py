@@ -8,7 +8,7 @@ from pos.point_of_sale.utils import options
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.runners import test_methods
@@ -76,7 +76,7 @@ for merchantid in config.merchants:
 		traceback.print_exc()
 		print(f"Exception {Exception} ")
 		pass
-web.browser_quit()
+web_module.browser_quit()
 emails.check_email_status(config.transids)
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))

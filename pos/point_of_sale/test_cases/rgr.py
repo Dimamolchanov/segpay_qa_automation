@@ -10,7 +10,7 @@ import requests
 from xml.etree.ElementTree import fromstring
 from pos.point_of_sale.utils import options
 from termcolor import colored
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 import yaml
 import csv
 
@@ -21,7 +21,7 @@ d_scenarios = {}
 test_case = {}
 packageid = 0
 test_cases_list = {}
-br = web.Signup()
+br = web_module.Signup()
 
 
 def joinlink(action, pp_type, merchantdid, eticket, from_url_param, merchant):

@@ -10,7 +10,7 @@ from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.utils import options
 import yaml
 import random

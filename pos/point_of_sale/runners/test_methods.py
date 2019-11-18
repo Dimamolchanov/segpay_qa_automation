@@ -3,7 +3,7 @@ from pos.point_of_sale.config import config
 from pos.point_of_sale.config.TransActionService import TransActionService
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import options
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import asset
@@ -14,7 +14,7 @@ from pos.point_of_sale.utils import report
 db_agent = DBActions()
 
 
-br = web.Signup()
+br = web_module.Signup()
 def sign_up_trans_web():  # Yan
 	pass_fail = False
 
@@ -42,7 +42,7 @@ def sign_up_trans_web():  # Yan
 																	config.test_data['MerchantID'], url_options,
 																	config.test_data['processor'])
 
-				#current_transaction_record = web.create_transaction(config.test_data['Type'], config.test_data['eticket'], selected_options, config.test_data['MerchantID'], url_options, config.test_data['processor'])
+				
 				config.test_data['transaction_to_check'] = current_transaction_record
 				aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
 				print(colored(f"PurchaseID: {config.test_data['PurchaseID']} | TransId:{config.test_data['TransID']} | TransGuid: {config.test_data['transguid']}", 'yellow'))
@@ -110,7 +110,7 @@ def signup_oc(oc_type, eticket, test_data):  # Yan  # refactor
 			elif oc_type == 'ws':
 				print(
 					"\n======================================|       OneClick   Services  |======================================\n")
-				one_click_record = web.one_click_services(eticket, octoken, selected_options, url_options)
+				one_click_record = web_module.one_click_services(eticket, octoken, selected_options, url_options)
 
 			aprove_or_decline = options.aprove_decline(one_click_record['TransID'])
 			if one_click_record == None:
@@ -162,7 +162,7 @@ def signup_oc_all(oc_type, eticket, test_data):  # Yan  # refactor
 						config.test_cases[one_click_record['TransID']] = config.test_case
 
 				elif oc_type == 'ws':
-					one_click_record = web.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
+					one_click_record = web_module.one_click_services(eticket, octoken, selected_options, config.test_data['url_options'])
 
 
 

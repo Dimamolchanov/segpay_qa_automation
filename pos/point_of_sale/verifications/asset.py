@@ -16,7 +16,7 @@ db_agent = DBActions()
 def build_asset_signup(multitrans_base_record, multitrans_live_record):
 	type = config.test_data['Type']
 	asset = {}
-	live_record = multitrans_live_record['full_record']
+	live_record = multitrans_live_record #multitrans_live_record['full_record']
 	current_date = (datetime.now().date())
 	try:
 		asset = {'RecurringAmount': config.test_data['RebillPrice'],
@@ -118,7 +118,7 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 				asset['AuthCurrency'] = 'USD'
 				asset['LastResult'] = 'Declined'
 		else:
-			if config.test_data['full_record']['Authorized'] == False:
+			if multitrans_live_record['Authorized'] == False:
 				asset['LastResult'] = 'Declined'
 				# asset['MerchantCurrency'] = 'USD'
 				asset['AuthCurrency'] = 'USD'

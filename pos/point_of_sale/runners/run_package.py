@@ -11,7 +11,7 @@ from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 # from pos.point_of_sale.pricepoints import recurring
 # from pos.point_of_sale.pricepoints import onetime
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.utils import options
 import yaml
 

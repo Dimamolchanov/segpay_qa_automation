@@ -8,7 +8,7 @@ from pos.point_of_sale.utils import options
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.bep import bep
 from pos.point_of_sale.db_functions.dbactions import DBActions
 
@@ -59,8 +59,8 @@ for merchantid in config.merchants:
 						selected_options = [dmc, selected_language]
 
 						# =======================================================================================================Starting Transactions
-						transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options,
-						                                            merchantid, url_options, config.test_data['processor'])
+						transaction_record = web_module.create_transaction(pricepoint_type, eticket, selected_options,
+                                                                           merchantid, url_options, config.test_data['processor'])
 
 						multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 						                                             url_options)
@@ -77,8 +77,8 @@ for merchantid in config.merchants:
 						print()
 
 						if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and config.one_click_pos:
-							one_click_pos_record = web.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
-							                                     transaction_record['email'], url_options, selected_options)
+							one_click_pos_record = web_module.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
+                                                                        transaction_record['email'], url_options, selected_options)
 							differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
 							asset_base_record_onelick = asset.asset_oneclick(merchantbillconfig[0], asset_base_record,
 							                                                 one_click_pos_record[1])
@@ -90,8 +90,8 @@ for merchantid in config.merchants:
 							print('*********************OneClick POS Transaction Verification Complete*********************')
 							print()
 						if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and config.one_click_ws:
-							one_click_ws_record = web.one_click('ws', eticket, pricepoint_type, multitrans_base_record,
-							                                    transaction_record['email'], url_options, selected_options)
+							one_click_ws_record = web_module.one_click('ws', eticket, pricepoint_type, multitrans_base_record,
+                                                                       transaction_record['email'], url_options, selected_options)
 							differences_oneclick_ws = mt.multitrans_compare(one_click_ws_record[0], one_click_ws_record[1])
 							asset_base_record_onelick = asset.asset_oneclick(merchantbillconfig[0], asset_base_record,
 							                                                 one_click_ws_record[1])
@@ -104,9 +104,9 @@ for merchantid in config.merchants:
 							print()
 						config.report[eticket] = [differences_multitrans, differences_asset, check_email_differences]
 						if pricepoint_type == 506 and config.instant_coversion_pos:
-							ic_pos_record = web.instant_conversion('pos', eticket, pricepoint_type, multitrans_base_record,
-							                                       transaction_record['email'], url_options,
-							                                       merchantbillconfig[0])
+							ic_pos_record = web_module.instant_conversion('pos', eticket, pricepoint_type, multitrans_base_record,
+                                                                          transaction_record['email'], url_options,
+                                                                          merchantbillconfig[0])
 							differences_ic_pos = mt.multitrans_compare(ic_pos_record[0], ic_pos_record[1])
 							asset_ic_record = asset.asset_instant_conversion(merchantbillconfig[0], asset_base_record,
 							                                                 ic_pos_record[1])
@@ -135,7 +135,7 @@ for merchantid in config.merchants:
 			check_refunds_mt = mt.multitrans_check_refunds(refunds[1])
 			check_refunds_asset = asset.asseets_check_refunds(refunds[0])
 
-		reactivate = web.reactivate(transids) #   (conversion[1])
+		reactivate = web_module.reactivate(transids) #   (conversion[1])
 		check_asset_after_reactivation = asset.assets_check_reactivation(reactivate[0])
 		check_mt_after_reactivation = mt.mt_check_reactivation(reactivate[1])
 
@@ -143,6 +143,6 @@ for merchantid in config.merchants:
 
 	except Exception as ex:
 		print(ex)
-web.browser_quit()
+web_module.browser_quit()
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))

@@ -31,17 +31,244 @@ db_agent = DBActions()
 
 fake = Faker()
 
-
 # path = os.path.join((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), 'transguid\\TransGuidDecoderApp.exe')
 class Signup:
-
+    
     def __init__(self):
         self.path = os.path.join((os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
                                  'transguid\\TransGuidDecoderApp.exe')
         self.fake = Faker()
         self.br = Browser(driver_name='chrome')
         self.br.driver.set_window_position(-1400, 0)
-
+    
+    def create_signup(self):  # Used by Recurring
+        data_from_paypage = {}
+        elem = ''
+        tc = config.test_data
+        joinlink = tc['link']
+        page_loaded = self.navigate_to_url(joinlink)
+        current_transaction_record = None
+        transguid = ''
+        
+        if page_loaded == False:
+            return None
+        email = 'qateam@segpay.com'  # fake.email()
+        
+        try:
+            if not tc['lang'] == 'EN':
+                try:
+                    paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(tc['lang'])
+                    time.sleep(1)
+                    self.wait_for_ajax(self.br)
+                except Exception as ex:
+                    traceback.print_exc()
+                    pass
+            try:
+                if self.br.is_element_present_by_id('TransGUID', wait_time=10):
+                    transguid = self.br.find_by_id('TransGUID').value
+                    transguid = subprocess.run([self.path, transguid, '-l'], stdout=subprocess.PIPE)
+                    transguid = transguid.stdout.decode('utf-8')
+                else:
+                    print("Transguid not Found ")
+                    return None
+            except Exception as ex:
+                traceback.print_exc()
+            
+            try:
+                if config.test_data['userinfo'] == 1:
+                    if self.br.driver.find_element_by_id('UserNameInput'):
+                        self.br.find_by_id('UserNameInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
+                    if self.br.driver.find_element_by_id('PasswordInput'):
+                        self.br.find_by_id('PasswordInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
+                elif config.test_data['userinfo'] == 1:
+                    if self.br.driver.find_element_by_id('PasswordInput'):
+                        self.br.find_by_id('PasswordInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
+                if self.br.driver.find_element_by_id('CurrencyDDL'):
+                    merchant_currency = self.br.find_by_id('CurrencyDDL').select(tc['dmc'])
+            except NoSuchElementException:
+                pass
+            except Exception as ex:
+                traceback.print_exc()
+                pass
+            
+            try:
+                merchant_country = self.br.find_by_id('CountryDDL').value
+                cc = tc['cc']
+                card_encrypted = db_agent.encrypt_card(cc)
+                if not db_agent.execute_select_one_parameter(constants.FRAUD_CARD_CHECK, card_encrypted):
+                    db_agent.execute_insert(constants.FRAUD_CARD_INSERT, card_encrypted)
+                cvv = str(random.randint(111, 999))
+                firstname = self.fake.first_name()
+                lastname = self.fake.first_name()
+                email_encrypt = db_agent.encrypt_email(email)
+                tc['card_encrypted'] = card_encrypted
+                tc['transbin'] = int(str(cc)[:6])
+                tc['transguid'] = transguid
+                tc['email'] = email
+                tc['zip'] = '33333'
+                tc['email_encrypt'] = email_encrypt
+                tc['merchant_country'] = merchant_country
+                tc['expiration_date'] = '01'
+                tc['year'] = '2023'
+                tc['firstname'] = firstname
+                tc['lastname'] = lastname
+                tc['merchant_currency'] = tc['dmc']
+                tc['paypage_lnaguage'] = self.br.find_by_id('LanguageDDL').value
+                self.wait_for_ajax(self.br)
+            except Exception as ex:
+                traceback.print_exc()
+                pass
+            if config.test_data['payment'] == 'CC':
+                self.br.find_by_id('CreditCardInputNumeric').fill(cc)  # CreditCardInputNumeric  older CreditCardInput
+                self.br.find_by_id('CVVInputNumeric').fill(cvv)  # new CVVInputNumeric old CVVInput
+                self.wait_for_ajax(self.br)
+                self.br.find_by_id('CCExpMonthDDL').select('01')
+                self.br.find_by_id('CCExpYearDDL').select('2023')
+                self.br.find_by_id('FirstNameInput').fill(firstname)
+                self.br.find_by_id('LastNameInput').fill(lastname)
+                self.br.find_by_id('ZipInput').fill('33333')
+                self.br.find_by_id('EMailInput').fill(email)
+                self.wait_for_ajax(self.br)
+                self.br.find_by_id('SecurePurchaseButton').click()
+                self.wait_for_ajax(self.br)
+                time.sleep(2)
+                
+                try:
+                    if self.br.get_iframe('Cardinal-CCA-IFrame'):
+                        with self.br.get_iframe('Cardinal-CCA-IFrame') as iframe:
+                            if iframe.find_by_name('challengeDataEntry'):
+                                iframe.find_by_name('challengeDataEntry').fill('1234')
+                                iframe.find_by_value('SUBMIT').click()
+                            elif iframe.get_iframe('authWindow'):
+                                with iframe.get_iframe('authWindow') as auth:
+                                    auth.find_by_id('password').fill('test')
+                                    auth.find_by_name('UsernamePasswordEntry').click()
+                            else:
+                                pass
+                    elif self.br.get_iframe('IFrame3DS'):
+                        with self.br.get_iframe('IFrame3DS') as iframe:
+                            iframe.find_by_name('continue').click()
+                            while self.br.execute_script("return jQuery.active == 0") != True:
+                                time.sleep(1)
+                            time.sleep(1)
+                
+                except NoSuchFrameException:
+                    pass
+                except NoSuchElementException:
+                    pass
+                except Exception as ex:
+                    traceback.print_exc()
+            
+            elif config.test_data['payment'] == 'pp':
+                print(
+                        'PayPal----- payment *********************************************************************************************')
+                self.br.find_by_css("input[name='paymentoption'][value='1301']")[0].click()
+                time.sleep(1)
+                id = self.br.find_by_tag("iframe")[1]['id']
+                with self.br.get_iframe(id) as iframe:
+                    iframe.find_by_id("buttons-container").first.click()
+                self.br.windows.current = self.br.windows[1]
+                self.br.driver.set_window_position(-1400, 0)
+                # 222222222222222222222222222222222222222222222222222222222222222222222
+                self.spin(self.br)
+                if self.wait_for_title:
+                    if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
+                if self.br.title == 'Log in to your PayPal account':  # Log in to your PayPal account
+                    if self.br.find_by_id("email").first:
+                        while self.br.find_by_id("email").first.visible == False:
+                            time.sleep(1)
+                        self.br.find_by_id("email").first.fill(
+                                'yan@segpay.com')  # ('CCREJECT-REFUSED@paypal.com') #('yan@segpay.com')
+                        # br.find_by_id("btnNext").first.click()
+                        elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnNext")))
+                        elem.click()
+                        self.check_title(self.br)
+                    if self.br.find_by_id("password").first:
+                        while self.br.find_by_id("password").first.visible == False:  # password
+                            time.sleep(1)
+                        self.br.find_by_id("password").first.fill('Karapuz2')  # ('PayPal2016')
+                        elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnLogin")))
+                        elem.click()
+                    self.spin(self.br)
+                    time.sleep(2)
+                
+                while self.br.title != 'PayPal Checkout - Choose a way to pay':
+                    time.sleep(1)
+                    if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
+                if self.br.title == 'PayPal Checkout - Choose a way to pay':
+                    try:
+                        if self.is_element_present(By.ID, 'button'):
+                            elem = WebDriverWait(self.br.driver, 10).until(
+                                    EC.element_to_be_clickable((By.ID, "button")))
+                        elif self.is_element_present(By.ID, 'fiSubmitButton'):
+                            elem = WebDriverWait(self.br.driver, 10).until(
+                                    EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
+                        elif self.is_element_present(By.CLASS_NAME, ".buttons.reviewButton"):
+                            elem = WebDriverWait(self.br.driver, 10).until(
+                                    EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
+                        self.spin(self.br)
+                        elem.click()
+                        self.spin(self.br)
+                        time.sleep(1)
+                    except ElementClickInterceptedException:
+                        time.sleep(2)  # Sometimes the pop-up takes time to load
+                        elem.click()
+                
+                while self.br.title != 'PayPal Checkout - Review your payment':
+                    time.sleep(1)
+                    if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
+                if self.br.title == 'PayPal Checkout - Review your payment':
+                    try:
+                        if self.is_element_present(By.ID, 'button'):
+                            elem = WebDriverWait(self.br.driver, 10).until(
+                                    EC.element_to_be_clickable((By.ID, "button")))
+                        elif self.is_element_present(By.ID, 'fiSubmitButton'):
+                            elem = WebDriverWait(self.br.driver, 10).until(
+                                    EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
+                        elif self.is_element_present(By.CLASS_NAME, ".buttons.reviewButton"):
+                            elem = WebDriverWait(self.br.driver, 10).until(
+                                    EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
+                        elem.click()
+                        time.sleep(1)
+                        # br.find_by_value('Agree & Pay').click()
+                        print(self.br.title)
+                    except ElementClickInterceptedException:
+                        time.sleep(2)  # Sometimes the pop-up takes time to load
+                        elem.click()
+                    try:
+                        while self.br.title == 'PayPal Checkout - Review your payment':
+                            time.sleep(1)
+                    except NoSuchWindowException:
+                        self.br.windows.current = self.br.windows[0]
+                        pass
+                    except Exception as e:
+                        pass
+                try:
+                    while self.br.find_by_id("SubmitSpinner").visible:
+                        time.sleep(1)
+                except Exception as e:
+                    pass
+        except Exception as ex:
+            traceback.print_exc()
+        pass
+        try:
+            cnt = 0
+            sql = "select * from multitrans where TransGuid = '{}'"
+            
+            current_transaction_record = db_agent.execute_select_one_with_wait(sql, transguid)
+            return current_transaction_record
+            # if current_transaction_record:
+            #     tc['PurchaseID'] = full_record['PurchaseID']
+            #     tc['TransID'] = full_record['TransID']
+            #     tc['full_record'] = full_record
+            #     tc['record_to_check'] = current_transaction_record
+            #     config.test_data = tc
+            #     return tc
+        
+        except Exception as ex:
+            traceback.print_exc()
+            pass
+    
     def navigate_to_url(self, url):
         retry_flag = True
         retry_count = 0
@@ -51,11 +278,11 @@ class Signup:
                 assert (self.br.url == url)
                 retry_flag = False
                 return True
-
+            
             except:
                 retry_count = retry_count + 1
                 time.sleep(1)
-
+    
     def wait_for_ajax(self, driver):
         wait = WebDriverWait(self, driver, 15)
         try:
@@ -64,7 +291,7 @@ class Signup:
             print('waiting')
         except Exception as e:
             pass
-
+    
     def check_title(self, driver):
         title = self.br.title
         if title == 'Secure Checkout':
@@ -74,7 +301,7 @@ class Signup:
             time.sleep(1)
             return False
         return True
-
+    
     def wait_for_title(self, br):
         cnt = 0
         while cnt < 15:
@@ -84,29 +311,28 @@ class Signup:
             time.sleep(1)
             cnt += 1
             print(cnt)
-
+        
         self.check_title(br)
         return False
-
+    
     def spin(self, driver):
         try:
             while self.br.find_by_id("preloaderSpinner").visible:
                 time.sleep(1)
         except Exception as e:
             pass
-
+    
     def is_element_present(self, how, what):
         try:
             self.br.driver.find_element(by=how, value=what)
         except NoSuchElementException:
             return False
         return True
-
-    def create_transaction(self, pricepoint_type, eticket, selected_options, merchantid, url_options, processor):
+    
+    def signup(self, selected_options, merchantid, url_options, processor):  # Currently in use by Yan
         joinlink = config.test_data['link']
         full_record = {}
         try:
-
             data_from_paypage = self.fill_default(joinlink, selected_options, merchantid, config.test_data[
                 'PackageID'])  # fill the page and return what was populated
             if data_from_paypage:
@@ -114,7 +340,6 @@ class Signup:
                 sql = "select * from multitrans where TransGuid = '{}'"
                 full_record = db_agent.execute_select_one_with_wait(sql, transguid)
                 if full_record:
-
                     data_from_paypage['PurchaseID'] = full_record['PurchaseID']
                     data_from_paypage['TransID'] = full_record['TransID']
                     data_from_paypage['full_record'] = full_record
@@ -124,19 +349,39 @@ class Signup:
                 return False
         except Exception as ex:
             traceback.print_exc()
-
-
+    
+    def create_transaction(self, pricepoint_type, eticket, selected_options, merchantid, url_options, processor):
+        joinlink = config.test_data['link']
+        full_record = {}
+        try:
+            data_from_paypage = self.fill_default(joinlink, selected_options, merchantid, config.test_data[
+                'PackageID'])  # fill the page and return what was populated
+            if data_from_paypage:
+                transguid = data_from_paypage['transguid']
+                sql = "select * from multitrans where TransGuid = '{}'"
+                full_record = db_agent.execute_select_one_with_wait(sql, transguid)
+                if full_record:
+                    data_from_paypage['PurchaseID'] = full_record['PurchaseID']
+                    data_from_paypage['TransID'] = full_record['TransID']
+                    data_from_paypage['full_record'] = full_record
+                    config.test_data = {**config.test_data, **data_from_paypage}
+                    return data_from_paypage
+            else:
+                return False
+        except Exception as ex:
+            traceback.print_exc()
+    
     def fill_default(self, joinlink, selected_options, merchantid, packageid):
         data_from_paypage = {}
         elem = ''
         test_case = config.test_data
         page_loaded = self.navigate_to_url(joinlink)
         transguid = ''
-
+        
         if page_loaded == False:
             return None
         email = 'qateam@segpay.com'  # fake.email()
-
+        
         try:
             if self.br.is_element_present_by_id('TransGUID', wait_time=10):
                 transguid = self.br.find_by_id('TransGUID').value
@@ -149,14 +394,14 @@ class Signup:
             if not test_case['lang'] == 'EN':
                 while self.br.execute_script("return jQuery.active == 0") != True:
                     time.sleep(1)
-                #time.sleep(2)
+                # time.sleep(2)
             if self.br.find_by_id('UserNameInput'):
                 self.br.find_by_id('UserNameInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
             if self.br.find_by_id('PasswordInput'):
                 self.br.find_by_id('PasswordInput').fill(self.fake.user_name() + str(random.randint(333, 999)))
             if self.br.find_by_id('CurrencyDDL'):
                 merchant_currency = self.br.find_by_id('CurrencyDDL').select(test_case['dmc'])
-
+            
             merchant_country = self.br.find_by_id('CountryDDL').value
             cc = test_case['cc']
             card_encrypted = db_agent.encrypt_card(cc)
@@ -195,7 +440,7 @@ class Signup:
                 self.br.find_by_id('EMailInput').fill(email)
                 self.wait_for_ajax(self.br)
                 self.br.find_by_id('SecurePurchaseButton').click()
-                #time.sleep(1)
+                # time.sleep(1)
                 while self.br.execute_script("return jQuery.active == 0") != True:
                     time.sleep(1)
                 try:
@@ -216,7 +461,7 @@ class Signup:
                             while self.br.execute_script("return jQuery.active == 0") != True:
                                 time.sleep(1)
                             time.sleep(1)
-
+                
                 except NoSuchFrameException:
                     pass
                 except NoSuchElementException:
@@ -226,7 +471,7 @@ class Signup:
                 return data_from_paypage
             elif config.test_data['payment'] == 'pp':
                 print(
-                    'PayPal----- payment *********************************************************************************************')
+                        'PayPal----- payment *********************************************************************************************')
                 self.br.find_by_css("input[name='paymentoption'][value='1301']")[0].click()
                 time.sleep(1)
                 id = self.br.find_by_tag("iframe")[1]['id']
@@ -243,7 +488,7 @@ class Signup:
                         while self.br.find_by_id("email").first.visible == False:
                             time.sleep(1)
                         self.br.find_by_id("email").first.fill(
-                            'yan@segpay.com')  # ('CCREJECT-REFUSED@paypal.com') #('yan@segpay.com')
+                                'yan@segpay.com')  # ('CCREJECT-REFUSED@paypal.com') #('yan@segpay.com')
                         # br.find_by_id("btnNext").first.click()
                         elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnNext")))
                         elem.click()
@@ -256,7 +501,7 @@ class Signup:
                         elem.click()
                     self.spin(self.br)
                     time.sleep(2)
-
+                
                 while self.br.title != 'PayPal Checkout - Choose a way to pay':
                     time.sleep(1)
                     if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
@@ -264,13 +509,13 @@ class Signup:
                     try:
                         if self.is_element_present(By.ID, 'button'):
                             elem = WebDriverWait(self.br.driver, 10).until(
-                                EC.element_to_be_clickable((By.ID, "button")))
+                                    EC.element_to_be_clickable((By.ID, "button")))
                         elif self.is_element_present(By.ID, 'fiSubmitButton'):
                             elem = WebDriverWait(self.br.driver, 10).until(
-                                EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
+                                    EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
                         elif self.is_element_present(By.CLASS_NAME, ".buttons.reviewButton"):
                             elem = WebDriverWait(self.br.driver, 10).until(
-                                EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
+                                    EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
                         self.spin(self.br)
                         elem.click()
                         self.spin(self.br)
@@ -278,7 +523,7 @@ class Signup:
                     except ElementClickInterceptedException:
                         time.sleep(2)  # Sometimes the pop-up takes time to load
                         elem.click()
-
+                
                 while self.br.title != 'PayPal Checkout - Review your payment':
                     time.sleep(1)
                     if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
@@ -286,13 +531,13 @@ class Signup:
                     try:
                         if self.is_element_present(By.ID, 'button'):
                             elem = WebDriverWait(self.br.driver, 10).until(
-                                EC.element_to_be_clickable((By.ID, "button")))
+                                    EC.element_to_be_clickable((By.ID, "button")))
                         elif self.is_element_present(By.ID, 'fiSubmitButton'):
                             elem = WebDriverWait(self.br.driver, 10).until(
-                                EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
+                                    EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
                         elif self.is_element_present(By.CLASS_NAME, ".buttons.reviewButton"):
                             elem = WebDriverWait(self.br.driver, 10).until(
-                                EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
+                                    EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
                         elem.click()
                         time.sleep(1)
                         # br.find_by_value('Agree & Pay').click()
@@ -313,12 +558,12 @@ class Signup:
                         time.sleep(1)
                 except Exception as e:
                     pass
-
+        
         except Exception as ex:
             traceback.print_exc()
         pass
-
-    def oc_pos(self):
+    
+    def oc_pos(self):  # Currently in use by recurring
         oneclick_record = None
         dynamic_price = 9999
         pricingguid = ''
@@ -327,7 +572,7 @@ class Signup:
             print("___________________Delay Capture One Click is not allowed_____________")
             print()
             return None
-
+        
         try:
             multitrans_oneclick_record = {}
             sql = "select * from MerchantBillConfig where BillConfigID = {}"
@@ -343,24 +588,28 @@ class Signup:
                 if self.br.is_element_present_by_id('TransGUID', wait_time=10):
                     transguid = self.br.find_by_id('TransGUID').value
                     transguid = subprocess.run(
-                        ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
-                         '-l'],
-                        stdout=subprocess.PIPE)
+                            ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
+                             '-l'],
+                            stdout=subprocess.PIPE)
                     transguid = transguid.stdout.decode('utf-8')
                 else:
                     print("Transguid not Found ")
                     return None
-
-                    #time.sleep(2)
+                    # time.sleep(2)
                 if d['lang'] != 'EN':
                     paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(d['lang'])
                     # time.sleep(2)
                     while self.br.execute_script("return jQuery.active == 0") != True:
                         time.sleep(1)
                 if d['dmc'] != 'USD':
-                    dmc = self.br.find_by_id('CurrencyDDL').select(d['dmc'])
-                    while self.br.execute_script("return jQuery.active == 0") != True:
-                        time.sleep(1)
+                    try:
+                        dmc = self.br.find_by_id('CurrencyDDL').select(d['dmc'])
+                        while self.br.execute_script("return jQuery.active == 0") != True:
+                            time.sleep(1)
+                    except Exception as ex:
+                        traceback.print_exc()
+                        pass
+                
                 self.br.find_by_id('CVVInputNumeric').fill('333')
                 if self.br.find_by_id('UserNameInput'):
                     self.br.find_by_id('UserNameInput').fill(username)
@@ -369,7 +618,7 @@ class Signup:
                 while self.br.execute_script("return jQuery.active == 0") != True:
                     time.sleep(1)
                 self.br.find_by_id('SecurePurchaseButton').click()
-                #time.sleep(1)
+                # time.sleep(1)
                 while self.br.execute_script("return jQuery.active == 0") != True:
                     time.sleep(1)
                 try:
@@ -390,14 +639,14 @@ class Signup:
                     traceback.print_exc()
                     print(ex)
                     config.logging.info(ex)
-
+                
                 cnt = 0
                 while oneclick_record == None and cnt < 15:
                     cnt += 1
                     time.sleep(1)
                     sql = "select * from multitrans where TransGuid = '{}'"
                     oneclick_record = db_agent.execute_select_one_parameter(sql, transguid)
-
+                
                 if pricepoint_type == 511:
                     oneclick_record['511'] = pricingguid
                 elif pricepoint_type == 510:
@@ -408,17 +657,14 @@ class Signup:
                 card = db_agent.execute_select_one_parameter(constants.GET_PAYMENTACCT_FROM_ASSET, d['octoken'])
             config.test_case['actual'] = [
                 f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}"]
-            print(f"OneClick POS => Eticket: {d['eticket']}  | Processor: {oneclick_record['Processor']} "
-                  f"| Lnaguage: {d['lang']} | Type: {pricepoint_type} TokenType: {token_type} ")
-            print(
-                f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
 
+            config.test_case['oneclick_record_pos'] = oneclick_record
         except Exception as ex:
             traceback.print_exc()
             pass
-
+        
         return oneclick_record  # , pricepoint_type
-
+    
     def instant_conversion(self, option, signup_record):
         transguid = ''
         url = ''
@@ -438,9 +684,9 @@ class Signup:
                     if self.br.is_element_present_by_id('TransGUID', wait_time=10):
                         transguid = self.br.find_by_id('TransGUID').value
                         transguid = subprocess.run(
-                            ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
-                             '-l'],
-                            stdout=subprocess.PIPE)
+                                ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
+                                 '-l'],
+                                stdout=subprocess.PIPE)
                         transguid = transguid.stdout.decode('utf-8')
                     else:
                         print("Transguid not Found ")
@@ -449,17 +695,16 @@ class Signup:
                     self.br.find_by_id('SecurePurchaseButton').click()
                     full_record = db_agent.multitrans_full_record('', transguid, '')[0]
             elif option == 'ws':
-                    resp = requests.get(config.test_data['link'])
-                    xml_return_string = simplexml.loads(resp.content)
-                    transid = int(xml_return_string['TransReturn']['TransID'])
-                    full_record = db_agent.multitrans_full_record(transid, '', '')[0]
-
-
+                resp = requests.get(config.test_data['link'])
+                xml_return_string = simplexml.loads(resp.content)
+                transid = int(xml_return_string['TransReturn']['TransID'])
+                full_record = db_agent.multitrans_full_record(transid, '', '')[0]
+            
             if full_record:
                 config.test_data['PurchaseID'] = full_record['PurchaseID']
                 config.test_data['TransID'] = full_record['TransID']
                 config.test_data['full_record'] = full_record
-
+                
                 # full_record = ic_record[0]
                 multitrans_ic_record['TransSource'] = 122
                 multitrans_ic_record['TransType'] = 108
@@ -480,9 +725,9 @@ class Signup:
                 markup = round(config.test_data['RebillPrice'] * exchange_rate, 2)
                 multitrans_ic_record['Markup'] = markup
                 print(
-                    f"InstantConversion POS Conversion => PurchaseID: {full_record['PurchaseID']} | TransID: {full_record['TransID']} | Type: 507 | Processor: {multitrans_base_record['Processor']} "
-                    f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
-
+                        f"InstantConversion POS Conversion => PurchaseID: {full_record['PurchaseID']} | TransID: {full_record['TransID']} | Type: 507 | Processor: {multitrans_base_record['Processor']} "
+                        f"| DMC: {multitrans_base_record['MerchantCurrency']} | Lnaguage: {multitrans_base_record['Language']}")
+                
                 return multitrans_ic_record, full_record
             else:
                 return False
@@ -513,7 +758,7 @@ class Signup:
         # except Exception as ex:
         #     traceback.print_exc()
         #     pass
-
+    
     def oc_ws(self):
         oneclick_record = None
         d = config.test_data
@@ -527,7 +772,6 @@ class Signup:
         pricepoint_type = d['pp_type']
         merchantid = d['MerchantID']
         try:
-
             resp = requests.get(d['link'])
             xml_return_string = simplexml.loads(resp.content)
             transid = int(xml_return_string['TransReturn']['TransID'])
@@ -537,16 +781,16 @@ class Signup:
                 time.sleep(1)
                 sql = "select * from multitrans where TransID = '{}'"
                 oneclick_record = db_agent.execute_select_one_parameter(sql, transid)
-            print(f"OneClick Web Services => Eticket: {d['eticket']}  | Processor: {oneclick_record['Processor']} "
-                  f"| DMC: {d['dmc']} | Lnaguage: {d['lang']} | Type: {pricepoint_type}")
-            print(
-                f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
+            # print(f"OneClick Web Services => Eticket: {d['eticket']}  | Processor: {oneclick_record['Processor']} "
+            #       f"| DMC: {d['dmc']} | Lnaguage: {d['lang']} | Type: {pricepoint_type}")
+            # print(
+            #         f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
             return oneclick_record
         except Exception as ex:
             traceback.print_exc()
             print(f"{Exception}  Eticket: {d['eticket']} Module => one_click_services ")
             pass
-
+    
     def one_click_pos(self, eticket, octoken, currency_lang, url_options):
         oneclick_record = None
         dynamic_price = 9999
@@ -555,7 +799,7 @@ class Signup:
             print("___________________Delay Capture One Click is not allowed_____________")
             print()
             return None
-
+        
         try:
             ppid = eticket.split(':')
             multitrans_oneclick_record = {}
@@ -565,7 +809,7 @@ class Signup:
             merchantid = mbconfig['MerchantID']
             username = 'UserName' + str(random.randint(333, 999))
             password = 'Password' + str(random.randint(333, 999))
-
+            
             if pricepoint_type == 510:
                 dynamic_price = decimal.Decimal('%d.%d' % (random.randint(3, 19), random.randint(0, 99)))
                 hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
@@ -577,10 +821,9 @@ class Signup:
                 url = f"{config.url}{eticket}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options
             else:
                 url = f"{config.url}{eticket}&octoken={octoken}" + url_options
-
+            
             print(url)
             # config.logging.info(url)
-
             page_loaded = self.navigate_to_url(url)
             if page_loaded == False:
                 return None
@@ -588,9 +831,9 @@ class Signup:
                 if self.br.is_element_present_by_id('TransGUID', wait_time=10):
                     transguid = self.br.find_by_id('TransGUID').value
                     transguid = subprocess.run(
-                        ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
-                         '-l'],
-                        stdout=subprocess.PIPE)
+                            ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
+                             '-l'],
+                            stdout=subprocess.PIPE)
                     transguid = transguid.stdout.decode('utf-8')
                 else:
                     print("Transguid not Found ")
@@ -625,14 +868,14 @@ class Signup:
                     traceback.print_exc()
                     print(ex)
                     config.logging.info(ex)
-
+                
                 cnt = 0
                 while oneclick_record == None and cnt < 15:
                     cnt += 1
                     time.sleep(1)
                     sql = "select * from multitrans where TransGuid = '{}'"
                     oneclick_record = db_agent.execute_select_one_parameter(sql, transguid)
-
+                
                 if pricepoint_type == 511:
                     oneclick_record['511'] = pricingguid
                 elif pricepoint_type == 510:
@@ -656,65 +899,65 @@ class Signup:
                 else:
                     if visa_secure == 0:
                         print(
-                            colored(f"EU Merchant  Prepaid card  | Card {config.test_data['cc']} ", 'yellow', 'on_grey',
-                                    attrs=['blink']))
+                                colored(f"EU Merchant  Prepaid card  | Card {config.test_data['cc']} ", 'yellow', 'on_grey',
+                                        attrs=['blink']))
                         config.logging.info(colored(f" Prepaid card  | Short Form ", 'blue'))
                     elif visa_secure == 1:
                         print(colored(
-                            f"EU Merchant 3DS configured - Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
+                                f"EU Merchant 3DS configured - Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
+                                'yellow', 'on_grey', attrs=['blink']))
                         config.logging.info(
-                            colored(f" 3DS configured - Not in Scope  for PSD2 | Card {config.test_data['cc']}",
-                                    'blue'))
+                                colored(f" 3DS configured - Not in Scope  for PSD2 | Card {config.test_data['cc']}",
+                                        'blue'))
                     elif visa_secure == 2:
                         print(colored(
-                            f"EU Merchant 3DS not configured | In Scope  for PSD2 | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
+                                f"EU Merchant 3DS not configured | In Scope  for PSD2 | Card {config.test_data['cc']} ",
+                                'yellow', 'on_grey', attrs=['blink']))
                         config.logging.info(
-                            colored(f" 3DS not configured | In Scope  for PSD2 | Card {config.test_data['cc']} ",
-                                    'blue', attrs=['bold']))  # will decline
+                                colored(f" 3DS not configured | In Scope  for PSD2 | Card {config.test_data['cc']} ",
+                                        'blue', attrs=['bold']))  # will decline
                     elif visa_secure == 3:
                         print(colored(
-                            f"EU Merchant 3DS not configured | Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
+                                f"EU Merchant 3DS not configured | Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
+                                'yellow', 'on_grey', attrs=['blink']))
                         config.logging.info(
-                            colored(f" 3DS not configured | Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
-                                    'blue'))
+                                colored(f" 3DS not configured | Not in Scope  for PSD2 | Card {config.test_data['cc']} ",
+                                        'blue'))
                     elif visa_secure == 4:
                         print(colored(
-                            f"EU Merchant 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']} ",
-                            'yellow', 'on_grey', attrs=['blink']))
+                                f"EU Merchant 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']} ",
+                                'yellow', 'on_grey', attrs=['blink']))
                         config.logging.info(colored(
-                            f" 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']}",
-                            'blue'))
+                                f" 3DS  configured |  in Scope  for PSD2 | Extended Form | Card {config.test_data['cc']}",
+                                'blue'))
                     config.test_data['visa_secure'] = visa_secure
             except Exception as ex:
                 traceback.print_exc()
                 print(f"{Exception}")
                 pass
-
+            
             config.test_case['actual'] = [
                 f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}"]
             print(f"OneClick POS => Eticket: {eticket}  | Processor: {oneclick_record['Processor']} "
                   f"| Lnaguage: {currency_lang[1]} | Type: {pricepoint_type} TokenType: {token_type} ")
             print(
-                f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
-
+                    f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
+        
         except Exception as ex:
             traceback.print_exc()
             print(f"{Exception}  Eticket: {eticket}  ")
             config.logging.info(f"{Exception}  Eticket: {eticket}  ")
             pass
-
+        
         return oneclick_record  # , pricepoint_type
-
+    
     def reactivate(self, transids):
         transguids = {}
         reactivated = []
         asset_reactivated = {}
         mt_reactivated = {}
         not_reactivated = []
-
+        
         tid = ''
         reactivate_tids = bep.get_data_before_action(transids, 'reactivation')
         sql = "Select TransGuid from Multitrans where TransID = {} "  # and TransType in ( 101,1011)
@@ -723,12 +966,11 @@ class Signup:
                 try:
                     pid = reactivate_tids[1][tid]['PurchaseID']
                     purch_type = reactivate_tids[0][pid]['PurchType']
-
+                    
                     if purch_type in [501, 506, 505, 511]:
                         transguid = reactivate_tids[1][tid]['TRANSGUID']
                         reactivate_record = reactivate_tids[1][tid]
                         # pid = reactivate_tids[1][tid]['PurchaseID']
-
                         config.test_data['zip'] = '33063'
                         config.test_data['firstname'] = fake.first_name()
                         config.test_data['lastname'] = fake.last_name()
@@ -742,15 +984,15 @@ class Signup:
                                                 reactivate_record['BillConfigID'])
                         self.navigate_to_url(joinlink)
                         time.sleep(1)
-
+                        
                         if 'This subscription is not eligible for reactivation.' in self.br.html:
                             not_reactivated.append(
-                                f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
-                                f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+                                    f"This subscription is not eligible for reactivation => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+                                    f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
                         else:
                             if tasks_type_status[0] == 841:
                                 self.br.find_by_id('CreditCardInputNumeric').fill(
-                                    cc)  # CreditCardInputNumeric  older CreditCardInput
+                                        cc)  # CreditCardInputNumeric  older CreditCardInput
                                 time.sleep(2)
                                 self.br.find_by_id('ZipInput').fill(config.test_data['zip'])
                                 self.br.find_by_id('FirstNameInput').fill(config.test_data['firstname'])
@@ -790,21 +1032,21 @@ class Signup:
                                     time.sleep(1)
                                 if reactivation_complete == None:
                                     print(
-                                        f"******* Warning => transaction with TransID: {tid} is not Reactiavted - Check Manually ! *******")
+                                            f"******* Warning => transaction with TransID: {tid} is not Reactiavted - Check Manually ! *******")
                                     config.logging.info(
-                                        f"******* Warning => transaction with TransID: {tid} is not Reactiavted - Check Manually ! *******")
+                                            f"******* Warning => transaction with TransID: {tid} is not Reactiavted - Check Manually ! *******")
                                     raise Exception('norecord')
                                 else:
                                     time.sleep(1)
                                     reactivated.append(
-                                        f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
-                                        f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+                                            f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+                                            f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
                             else:
                                 self.br.find_by_id('SecurePurchaseButton').click()
                                 time.sleep(1)
                                 reactivated.append(
-                                    f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
-                                    f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
+                                        f"Subscription has been reactivated => {transguid} | PurchaseID : {reactivate_record['PurchaseID']} | Type:{reactivate_tids[0][reactivate_record['PurchaseID']]['PurchType']} "
+                                        f"| DMC: {reactivate_record['MerchantCurrency']} | RefundType: {tasks_type_status[0]} | TransType: {reactivate_record['TransType']}")
                             mt_reactivated[tid] = reactivate_tids[1]
                             asset_reactivated[reactivate_record['PurchaseID']] = reactivate_tids[0]
                 except Exception as ex:
@@ -812,19 +1054,19 @@ class Signup:
                     config.logging.info(ex)
                     traceback.print_exc()
                     pass
-
+            
             print()
-
+            
             if len(not_reactivated) > 0:
                 print(
-                    "*================================>   Subscriptions are not eligible for reactivation  <================================*")
+                        "*================================>   Subscriptions are not eligible for reactivation  <================================*")
                 for i in not_reactivated:
                     print(i)
                     config.logging.info(i)
                 print()
                 config.logging.info('')
             print(
-                "*================================>   Subscriptions have been  reactivated      <================================*")
+                    "*================================>   Subscriptions have been  reactivated      <================================*")
             for i in reactivated:
                 print(i)
                 config.logging.info(i)
@@ -838,18 +1080,17 @@ class Signup:
             config.logging.info(f"{Exception}  Tid: {tid,}  ")
             traceback.print_exc()
             pass
-
+    
     def __del__(self):
         # self.br.quit()
         z = 3
-
 
 # br = Browser(driver_name='chrome', options=chrome_options)
 def one_click_services(eticket, octoken, currency_lang, url_options):
     oneclick_record = None;
     dynamic_price = 9999;
     pricingguid = ''
-
+    
     try:
         ppid = eticket.split(':')
         multitrans_oneclick_record = {}
@@ -874,14 +1115,13 @@ def one_click_services(eticket, octoken, currency_lang, url_options):
         transid = int(xml_return_string['TransReturn']['TransID'])
         # oneclick_record = db_agent.multitrans_full_record(transid, '', '')
         # full_record = oneclick_record[0]
-
         cnt = 0
         while oneclick_record == None and cnt < 15:
             cnt += 1
             time.sleep(1)
             sql = "select * from multitrans where TransID = '{}'"
             oneclick_record = db_agent.execute_select_one_parameter(sql, transid)
-
+        
         if pricepoint_type == 511:
             oneclick_record['511'] = pricingguid
         elif pricepoint_type == 510:
@@ -889,17 +1129,16 @@ def one_click_services(eticket, octoken, currency_lang, url_options):
         print(f"OneClick Web Services => Eticket: {eticket}  | Processor: {oneclick_record['Processor']} "
               f"| DMC: {currency_lang[0]} | Lnaguage: {currency_lang[1]} | Type: {pricepoint_type}")
         print(
-            f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
+                f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}")
         return oneclick_record
-
-
-
-
+    
+    
+    
+    
     except Exception as ex:
         traceback.print_exc()
         print(f"{Exception}  Eticket: {eticket} Module => one_click_services ")
         pass
-
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------ Instant Conversion POS and WS
 
 

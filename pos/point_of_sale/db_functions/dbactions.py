@@ -54,7 +54,7 @@ class DBActions:
         tc = {}
         rows = None
         try:
-            sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} and CollectUserinfo = {userinfo}"
+            sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} and CollectUserinfo = {userinfo} and Currency = '{config.test_data['currency_base']}'"
             # print(sql)
             self.cursor.execute(sql)
             while rows == None and cnt < 3:
@@ -564,7 +564,7 @@ class DBActions:
         retry_count = 0
         sql = (f"select dbo.EncryptEMail('{email}') as email")
         # cnt_sql(sql, 'encrypt_email')
-        while retry_flag and retry_count < 30:
+        while retry_flag and retry_count < 5:
             try:
                 self.cursor.execute(sql)
                 rows = self.cursor.fetchall()
@@ -585,7 +585,7 @@ class DBActions:
         retry_count = 0
         sql = (f"select dbo.EncryptCard('{cc}') as card")
         # cnt_sql(sql, 'encrypt_card')
-        while retry_flag and retry_count < 30:
+        while retry_flag and retry_count < 5:
             try:
                 self.cursor.execute(sql)
                 rows = self.cursor.fetchall()

@@ -6,6 +6,8 @@ import traceback
 import simplexml
 from termcolor import colored
 from pos.point_of_sale.db_functions.dbactions import DBActions
+import pymssql
+from pos.point_of_sale.config import config
 import json
 import random
 import decimal
@@ -49,16 +51,31 @@ def collect_userinfo():
 	except Exception as ex:
 		traceback.print_exc()
 		return False
-	
-	
+
+def get_error_from_log():
+	connection = pymssql.connect(config.server, "SPStaff", 'Toccata200e', "aspnetdb")
+	cur = connection.cursor(as_dict=True)
+	cur.execute(constants.GET_ERRORS_FROM_THE_LOG)
+	response = cur.fetchall()
+	if not response:
+		print(colored(f"No errors in the SegPayLogs in last 1 minute", 'blue', attrs=['bold', 'underline', 'dark']))
+		connection.close()
+		return None
+	else:
+		for line in response:
+			print(f"ID: {response['Id']} Meage: {response['Message']}")
+		print(colored(f"Errors in the SegPayLogs in last 1 minute:", 'red', attrs=['bold', 'underline', 'dark']))
+		connection.close()
+
 def joinlink_param():
 	extra_param = '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
 	extra_param2 = "&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose"
 	extra_param3 = extra_param + extra_param2
 	extra_param4 = ''
-	prm = [extra_param,extra_param2,extra_param3,extra_param4]
+	prm = [extra_param, extra_param2, extra_param3, extra_param4]
 	param = random.choice(prm)
 	return param
+
 def ref_variables():
 	refs = f"&ref1={randomString(5)}&ref2={randomString(4)}&ref3={randomString(5)}&ref4={randomString(4)}" \
 		   f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}" \
@@ -75,7 +92,7 @@ def ref_variables():
 
 def joinlink_xbill():
 	x_billname = "&x-billname=QA+Segpay"
-	x_billemail = "&x-billemail"
+	x_billemail = "&x-billemail=qateam@segpay.com"
 	x_billaddr = "&x-billaddr=123+Segpay+Street"
 	x_billcity = "&x-billcity=Philladelphia"
 	x_billstate = "&x-billstate=PA"
@@ -87,9 +104,10 @@ def joinlink_xbill():
 	x_bill_addr_state = x_billaddr + x_billstate
 	x_bill_many = x_billaddr + x_billcity + x_billcntry
 	x_bill_all1 = x_billname + x_billemail + x_billaddr + x_billcity + x_billstate + x_billzip + x_billcntry
-	x_bill_list = [x_many, x_bill_all, x_bill_empty, x_bill_addr_state,x_bill_many,x_bill_all1]
+	x_bill_list = [x_many, x_bill_all, x_bill_empty, x_bill_addr_state, x_bill_many, x_bill_all1]
 	x_bill = random.choice(x_bill_list)
 	return x_bill
+
 def clear_data_for_merchant(merchantid):
 	pricepoints = []
 	try:
@@ -183,7 +201,7 @@ def is_EU(merchantid):
 
 def random_dmc():
 	dmc = ''
-	currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "NOK", 'RUB', "ILS", "INR", 'CZK']  # "HKD", "JPY", , "SEK"
+	currencies = ['USD', "AUD", "CAD", "CHF"]  # , "DKK", "EUR", "GBP", "NOK", 'RUB', "ILS", "INR", 'CZK']  # "HKD", "JPY", , "SEK"
 	try:
 		dmc = random.choice(currencies)
 		return dmc
@@ -246,8 +264,6 @@ def is_visa_secure():
 		traceback.print_exc()
 		# print(f"{Exception}")
 		pass
-
-
 
 def aprove_decline(transid):
 	aprove_or_decline = False
@@ -413,7 +429,7 @@ def aprove_decline(transid):
 				# print(colored(f"This Transaction should be declined |{msg}|  <---------------- | ResultType: {result_type} | ResultAction: 1182 | ", 'red', attrs=['bold']))
 				else:
 					aprove_or_decline = True
-			# print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | {msg}", 'grey', attrs=['bold']))
+		# print(colored(f"This Transaction should be aproved |{msg}|  <---------------- | {msg}", 'grey', attrs=['bold']))
 		elif config.test_data['visa_secure'] == 0:
 			aprove_or_decline = True
 		# print(colored(f"This Transaction should be aproved |Prepaid Card|  <---------------- | ", 'grey', attrs=['bold']))

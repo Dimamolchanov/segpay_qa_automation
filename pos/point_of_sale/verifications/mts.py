@@ -305,7 +305,7 @@ def build_multitrans():
         elif config.test_data['Type'] == 510:
             multitrans['TransAmount'] = config.test_data['initialprice510']
         else:
-            if config.test_data['Type'] == 505 and config.test_data['full_record']['TransSource'] == 122:
+            if config.test_data['Type'] == 505 and config.test_data['record_to_check']['TransSource'] == 122:
                 multitrans['TransAmount'] = config.test_data['RebillPrice']
                 multitrans['TransDate'] = transdate + timedelta(days=config.test_data['InitialLen'])
             # sql = f"select  RelatedTransID  from multitrans where PurchaseID = {config.test_data['PurchaseID']}  and TransSource = 121 "
@@ -346,7 +346,7 @@ def build_multitrans():
                     multitrans['MerchantCurrency'] = 'USD'
                     del multitrans['AuthCode']
         else:
-            if config.test_data['full_record']['Authorized'] == False:
+            if config.test_data['record_to_check']['Authorized'] == False:
                 if config.test_data['aprove_or_decline'] == False:
                     multitrans['Authorized'] = 0
                     multitrans['Markup'] = 0.00
@@ -358,7 +358,7 @@ def build_multitrans():
         if 'PREAUTHFREETRIAL' in result:
             multitrans['Markup'] = 1.00
 
-        if config.test_data['full_record']['ProcessorTransID'] == 'FREETRIAL':
+        if config.test_data['record_to_check']['ProcessorTransID'] == 'FREETRIAL':
             multitrans['TransStatus'] = 187
             multitrans['TransAmount'] = 0.00
 

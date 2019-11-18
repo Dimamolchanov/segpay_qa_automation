@@ -8,7 +8,7 @@ from pos.point_of_sale.verifications import asset, postback_service
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.db_functions.dbactions import DBActions
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 
 
 db_agent = DBActions()
@@ -86,8 +86,8 @@ for merchantid in merchants:
 				db_agent.update_processor(processors[0], packageid)
 				db_agent.update_package(packageid, merchantid, pricepoint)
 
-				transaction_record = web.create_transaction(pricepoint_type, eticket, selected_options, enviroment,
-				                                            merchantid, url_options, processors[0])
+				transaction_record = web_module.create_transaction(pricepoint_type, eticket, selected_options, enviroment,
+                                                                   merchantid, url_options, processors[0])
 				multitrans_base_record = mt.build_multitrans(merchantbillconfig[0], package[0], transaction_record,
 				                                             url_options)
 				differences_multitrans = mt.multitrans_compare(multitrans_base_record,
@@ -110,8 +110,8 @@ for merchantid in merchants:
 
 
 				if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and one_click_pos:
-					one_click_pos_record = web.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
-					                                     transaction_record['email'], url_options,selected_options)
+					one_click_pos_record = web_module.one_click('pos', eticket, pricepoint_type, multitrans_base_record,
+                                                                transaction_record['email'], url_options, selected_options)
 					differences_oneclick_pos = mt.multitrans_compare(one_click_pos_record[0], one_click_pos_record[1])
 					asset_base_record_onelick = asset.asset_oneclick(merchantbillconfig[0], asset_base_record,
 					                                                 one_click_pos_record[1])
@@ -125,8 +125,8 @@ for merchantid in merchants:
 					print('*********************OneClick POS Transaction Verification Complete*********************')
 					print()
 				if pricepoint_type in [501, 502, 503, 504, 506, 510, 511] and one_click_ws:
-					one_click_ws_record = web.one_click('ws', eticket, pricepoint_type, multitrans_base_record,
-					                                    transaction_record['email'], url_options,selected_options)
+					one_click_ws_record = web_module.one_click('ws', eticket, pricepoint_type, multitrans_base_record,
+                                                               transaction_record['email'], url_options, selected_options)
 					differences_oneclick_ws = mt.multitrans_compare(one_click_ws_record[0], one_click_ws_record[1])
 					asset_base_record_onelick = asset.asset_oneclick(merchantbillconfig[0], asset_base_record,
 					                                                 one_click_ws_record[1])
@@ -142,9 +142,9 @@ for merchantid in merchants:
 				report[eticket] = [differences_multitrans, differences_asset, check_email_differences]
 
 				if pricepoint_type == 506 and instant_coversion_pos:
-					ic_pos_record = web.instant_conversion('pos', eticket, pricepoint_type, multitrans_base_record,
-					                                       transaction_record['email'], url_options,
-					                                       merchantbillconfig[0])
+					ic_pos_record = web_module.instant_conversion('pos', eticket, pricepoint_type, multitrans_base_record,
+                                                                  transaction_record['email'], url_options,
+                                                                  merchantbillconfig[0])
 					differences_ic_pos = mt.multitrans_compare(ic_pos_record[0], ic_pos_record[1])
 					asset_ic_record = asset.asset_instant_conversion(merchantbillconfig[0], asset_base_record,
 					                                                 ic_pos_record[1])
@@ -169,4 +169,4 @@ for merchantid in merchants:
 
 	except Exception as ex:
 		print(ex)
-web.browser_quit()
+web_module.browser_quit()
