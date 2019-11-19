@@ -449,9 +449,9 @@ class Signup:
             print(f"{Exception}  Eticket: {d['eticket']} Module => one_click_services ")
             pass
     
-    def __del__(self):
-        # self.br.quit()
-        z = 3
+    def close(self):
+        self.br.quit()
+        
 # br = Browser(driver_name='chrome', options=chrome_options)
 
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------ Instant Conversion POS and WS

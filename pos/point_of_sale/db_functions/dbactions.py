@@ -48,56 +48,115 @@ class DBActions:
             traceback.print_exc
             pass
     
-    def find_pricepoint_package(self, merchantid, pp_type, userinfo ): # visa_secure
-        cnt = 0;
+    # def find_pricepoint_package(self, merchantid, pp_type, userinfo ): # visa_secure
+    #     cnt = 0;
+    #     pp_list = []
+    #     tc = {}
+    #     rows = None
+    #     try:
+    #         sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} and CollectUserinfo = {userinfo} and Currency = '{config.test_data['currency_base']}'"
+    #         # print(sql)
+    #         self.cursor.execute(sql)
+    #         while rows == None and cnt < 3:
+    #             cnt += 1
+    #             rows = self.cursor.fetchall()
+    #             time.sleep(1)
+    #         pricepoint = rows[0]['BillConfigID']
+    #         tc = rows[0]
+    #         rows = None
+    #         cnt = 0
+    #         sql = F"select PackageID from PackageDetail where billconfigid ={pricepoint}"
+    #         # print(sql)
+    #         self.cursor.execute(sql)
+    #         while rows == None and cnt < 3:
+    #             cnt += 1
+    #             rows = self.cursor.fetchall()
+    #             time.sleep(1)
+    #         for package_id in rows:
+    #             packageid = package_id['PackageID']
+    #             package = self.package(packageid)
+    #             if package['PrefProcessorID'] != 1:
+    #                 tc = {**tc, **package}
+    #                 return tc
+    #
+    #
+    #
+    #                 # is_merchant_configured = self.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, merchantid, packageid)
+    #                 # if is_merchant_configured:
+    #                 #     is_merchant_configured = 'configured'
+    #                 # else:
+    #                 #     is_merchant_configured = 'not_configured'
+    #                 #
+    #                 # if is_merchant_configured == visa_secure:
+    #                 #     # print(is_merchant_configured)
+    #                 #     # package = self.package(packageid)
+    #                 #     tc = {**tc, **package}
+    #                 #     return tc
+    #         z=3
+    #     except Exception as ex:
+    #         traceback.print_exc
+    #         pass
+    # --------------------------------------------------------------------------------------------------------------------------
+    def find_pricepoint_package(self, merchantid, pp_type, userinfo):  # visa_secure
+        cnt = 0
+        currency = config.test_data['currency_base']
         pp_list = []
         tc = {}
         rows = None
         try:
-            sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} and CollectUserinfo = {userinfo} and Currency = '{config.test_data['currency_base']}'"
+            if  'FreeTrial' in  config.test_data['transaction_type']:
+                sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
+                      F"and CollectUserinfo = {userinfo} and Currency = '{currency}' and InitialPrice = 0"
+            else:
+                sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
+                      F"and CollectUserinfo = {userinfo} and Currency = '{currency}' and InitialPrice > 0"
             # print(sql)
             self.cursor.execute(sql)
             while rows == None and cnt < 3:
                 cnt += 1
                 rows = self.cursor.fetchall()
                 time.sleep(1)
+            if rows == None:
+                cnt = 0
+                self.insert_pricepoint_with_parameters(merchantid, pp_type, userinfo, currency)
+                #self.fill_package_with_pricepoints(package, config.test_data['MerchantID'])
+                time.sleep(1)
+                self.cursor.execute(sql)
+                while rows == None and cnt < 3:
+                    cnt += 1
+                    rows = self.cursor.fetchall()
+                    time.sleep(1)
             pricepoint = rows[0]['BillConfigID']
             tc = rows[0]
-            rows = None
-            cnt = 0
-            sql = F"select PackageID from PackageDetail where billconfigid ={pricepoint}"
-            # print(sql)
-            self.cursor.execute(sql)
-            while rows == None and cnt < 3:
-                cnt += 1
-                rows = self.cursor.fetchall()
-                time.sleep(1)
-            for package_id in rows:
-                packageid = package_id['PackageID']
-                package = self.package(packageid)
-                if package['PrefProcessorID'] != 1:
-                    tc = {**tc, **package}
-                    return tc
-                    
-                    
-                    
-                    # is_merchant_configured = self.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, merchantid, packageid)
-                    # if is_merchant_configured:
-                    #     is_merchant_configured = 'configured'
-                    # else:
-                    #     is_merchant_configured = 'not_configured'
-                    #
-                    # if is_merchant_configured == visa_secure:
-                    #     # print(is_merchant_configured)
-                    #     # package = self.package(packageid)
-                    #     tc = {**tc, **package}
-                    #     return tc
-            z=3
+            if config.test_data['MerchantID'] == 27001:
+                package = self.package(900)
+            elif config.test_data['MerchantID'] == 21621:
+                package = self.package(800)
+            tc = {**tc, **package}
+
+            return tc
+            z = 3
         except Exception as ex:
             traceback.print_exc
             pass
     
-    # --------------------------------------------------------------------------------------------------------------------------
+    def insert_pricepoint_with_parameters(self, merchantid, pp_type, userinfo, currency):
+        rebil_length = 30
+        rebil_price = 2.00
+        if (pp_type == 502 or pp_type == 503 or pp_type == 510):
+            rebil_length = 0
+            rebil_price = 0.00
+        if (pp_type == 503 or pp_type == 510):
+            is_postpay = 1
+        #else: is_postpay = 0
+        sql = constants.INSERT_PRICE_POINT.format(merchantid, pp_type, currency, rebil_price, rebil_length, userinfo, is_postpay)
+        cnt_sql(sql, 'execute_insert')
+        try:
+            self.cursor.execute(sql)
+            return True
+        except:
+            return False
+    
     def get_pricepoints(self):
         cnt = 0;
         pp_list = []
@@ -383,6 +442,51 @@ class DBActions:
         cnt_sql(sql, 'update_package')
         self.cursor.execute(sql)
     
+    # ------------------------------------------------------------Yan to add all pricepoints to same package
+    
+    
+    def get_all_pricepoints(self):
+        cnt = 0;
+        pp_list = []
+        rows = None
+        try:
+            sql = f"select * from MerchantBillConfig where merchantid = {config.test_data['MerchantID']}"
+            cnt_sql(sql, 'get_pricepoints')
+            self.cursor.execute(sql)
+            rows = self.cursor.fetchall()
+            # while rows == None and cnt < 3:
+            #     cnt += 1
+            #     rows = self.cursor.fetchall()
+            #     time.sleep(1)
+            for pp in rows:
+                pp_list.append(pp['BillConfigID'])
+            return pp_list
+        except Exception as ex:
+            if config.test_data['traceback']:
+                traceback.print_exc()
+            print(f"Function: get_pricepoints \n {Exception} ")
+            pass
+
+    def fill_package_with_pricepoints(self, package, merchantid, billconfigid):
+        try:
+            sql = "Select BillConfigID from PackageDetail where packageid = {} and billconfigid = {}"
+            res = self.execute_select_two_parameters(sql, package,billconfigid)
+            if res:
+                print(f"Pricepoint{billconfigid} in the package {package} already {billconfigid}")
+            else:
+                self.cursor.callproc('MP_PackageDetail_Update',
+                                     (package, merchantid, billconfigid, '2018-06-04 17:39:45.887', 'autotester', 1))
+                sql = f"Update package set MerchantID = {merchantid} where PackageID = {package}"
+                self.cursor.execute(sql)
+                print(f"Pricepoint{billconfigid} in the package {package} incerted {billconfigid}")
+    
+            z = 3
+    
+        except Exception as ex:
+            traceback.print_exc()
+            pass
+    
+    # ---------------------------------------------------------------------------------------------------------------
     def merchant_us_or_eu(self, merchantid):
         sql = f'select MerchantCountry from merchants where merchantid ={merchantid}'
         cnt_sql(sql, 'merchant_us_or_eu')

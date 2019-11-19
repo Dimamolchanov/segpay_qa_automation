@@ -29,19 +29,19 @@ def joinlink():
     pricingguid = ""  # db_agent.get_pricingguid(tc['MerchantID'], type)[0]
     
     try:
-        if config.test_data['transaction_type'] == 'Signup':
+        if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type'] == 'FreeTrial_Signup' :
             if type == 511:
                 joinlink = f"{config.url}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}{url_options}"  # PricingGuid, InitialPrice
             else:
                 joinlink = config.url + config.test_data['eticket'] + url_options
         
-        elif config.test_data['transaction_type'] == 'OneClick_POS':
+        elif config.test_data['transaction_type'] == 'OneClick_POS' or config.test_data['transaction_type'] == 'FreeTrial_POS':
             if type == 511:
                 joinlink = f"{config.url}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options
             else:
                 joinlink = f"{config.url}{config.test_data['eticket']}&octoken={octoken}" + url_options
         
-        elif config.test_data['transaction_type'] == 'OneClick_WS':
+        elif config.test_data['transaction_type'] == 'OneClick_WS' or config.test_data['transaction_type'] == 'FreeTrial_WS':
             if type == 511:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options
             else:
@@ -274,11 +274,11 @@ def verify_transaction(transaction_type, current_transaction_record):
         tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
         print(colored(tmpstr, 'red', attrs=['bold']))
     
-    if transaction_type == 'OneClick_POS':
+    if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
         pass_fail = TransActionService.verify_oc(current_transaction_record, 'pos')
-    elif transaction_type == 'Signup':
+    elif transaction_type == 'Signup' or transaction_type == 'FreeTrial_Signup':
         pass_fail = TransActionService.verify_signup_transaction(current_transaction_record)
-    elif transaction_type == 'OneClick_WS':
+    elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
         pass_fail = TransActionService.verify_oc(current_transaction_record, 'ws')
     if current_transaction_record:
         if pass_fail:
@@ -298,12 +298,13 @@ def create_transaction():
     transaction_type = config.test_data['transaction_type']
     current_transaction_record = {}
     try:
-        if transaction_type == 'OneClick_POS':
+        
+        if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
             current_transaction_record = br.oc_pos()
         
-        elif transaction_type == 'Signup':
+        elif transaction_type == 'Signup' or transaction_type == 'FreeTrial_Signup' :
             current_transaction_record = br.create_signup()
-        elif transaction_type == 'OneClick_WS':
+        elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
             current_transaction_record = br.oc_ws()
         
         if current_transaction_record:
@@ -330,10 +331,10 @@ def create_test_case(scenario):
             config.test_data['currency_base'] = 'EUR'
             config.test_data['merchant'] = 'EU'
             config.test_data['octoken'] = options.oc_tokens('EU')
-        elif scenario[0] == 'EU_GPB':
-            config.test_data['currency_base'] = 'GPB'
-            config.test_data['merchant'] = 'EU'
-            config.test_data['octoken'] = options.oc_tokens('EU')
+        # elif scenario[0] == 'EU_GPB':
+        #     config.test_data['currency_base'] = 'GPB'
+        #     config.test_data['merchant'] = 'EU'
+        #     config.test_data['octoken'] = options.oc_tokens('EU')
         elif scenario[0] == 'EU':
             config.test_data['merchant'] = 'EU'
             config.test_data['currency_base'] = 'USD'
@@ -351,17 +352,15 @@ def create_test_case(scenario):
             config.test_data['currency_base'] = 'USD'
             config.test_data['octoken'] = options.oc_tokens('EU')
         
-            
-
         config.test_data['name'] = f"{test_case_number}:{scenario[0]}:{scenario[1]}:{scenario[2]}:{scenario[3]}"
         config.test_data['test_case_number'] = test_case_number
-        #config.test_data['merchant'] = scenario[0]  # eu vs us
+        # config.test_data['merchant'] = scenario[0]  # eu vs us
         config.test_data['payment'] = scenario[1]
         config.test_data['transaction_type'] = scenario[2]
         config.test_data['action_bep'] = scenario[3]
         if config.test_data['transaction_type'] == 'OneClick_WS':
             sql = "Select AuthCurrency,CustLang  from Assets where purchaseid = {} "
-            result = db_agent.execute_select_one_parameter(sql,config.test_data['octoken'])
+            result = db_agent.execute_select_one_parameter(sql, config.test_data['octoken'])
             config.test_data['dmc'] = result['AuthCurrency']
             config.test_data['lang'] = result['CustLang']
         else:
@@ -372,7 +371,8 @@ def create_test_case(scenario):
                 config.test_data['dmc'] = 'USD'
         if config.test_data['merchant'] == 'EU':
             merchantid = 27001
-        else: merchantid = 21621
+        else:
+            merchantid = 21621
         config.test_data['MerchantID'] = merchantid
         config.test_data['userinfo'] = options.collect_userinfo()
         config.test_data['joinlink_param'] = options.joinlink_param()
@@ -382,7 +382,9 @@ def create_test_case(scenario):
         config.test_data['cc'] = options.approved_cards()
         config.test_data['pp_type'] = 501
         config.test_data['visa_secure'] = 'configured'
+        
         find_pp_package = find_package_pricepoint()
+        
         if find_pp_package:
             link = joinlink()
             config.test_data['visa_secure'] = options.is_visa_secure()
@@ -410,6 +412,7 @@ def find_package_pricepoint():
     
     try:
         while find_pp_package == None and cnt < 3:
+            cnt += 1
             find_pp_package = db_agent.find_pricepoint_package(config.test_data['MerchantID'], config.test_data['pp_type'], config.test_data['userinfo'])
         if find_pp_package == None:
             return False
@@ -426,6 +429,7 @@ def find_package_pricepoint():
 
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.csv"
 saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.yaml"
+count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
     merchantid = ''
@@ -433,35 +437,32 @@ with open(filename, newline='') as csvfile:
     heading = scenario_heading()
     for scenario in tc_reader:
         try:
+            if scenario[0] == 'Merchant'  or scenario[1] == 'Paypal':
+                print()  # ("skiping for now \n") # EU_EUR
             
-            if scenario[0] == 'Merchant' or scenario[2] == 'SUP_FreeTrial' or scenario[1] == 'Paypal':
-                print() #("skiping for now \n") # EU_EUR
-
-            
-                
-                
             else:
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
                     transaction_created = create_transaction()
                     if transaction_created:
+                        count_transactions += 1
                         pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
                         test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
                         config.test_data['action'] = scenario[2]
-                        if pass_fail :
-                            passed_test_cases [config.test_data['name']] = config.test_data
+                        if pass_fail:
+                            passed_test_cases[config.test_data['name']] = config.test_data
                         else:
                             failed_test_cases[config.test_data['name']] = config.test_data
                     else:
                         print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
                         failed_test_cases[config.test_data['name']] = config.test_data
                         raise Exception('Transaction was not created')
-            
+        
         except Exception as ex:
             traceback.print_exc()
             print()
             pass
-
+br.close()
 try:
     with open(saved_test_cases, 'w') as f:
         data = yaml.dump(test_cases_list, f)
@@ -480,4 +481,4 @@ except Exception as ex:
     pass
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))
-
+print(f"Number of scenarious: {count_transactions}")
