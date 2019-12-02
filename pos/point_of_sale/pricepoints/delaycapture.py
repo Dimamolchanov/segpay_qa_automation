@@ -280,13 +280,12 @@ def print_scenario():
         print(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
         
+
         if config.test_data['pp_type'] == 505:
             print("Note:              | Delay Capture will have 2 transaction in Multitrans | Please check all PostBacks and Emails")
-            print(
-                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-            print(
-                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-        
+            print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+            print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+
         else:
             print("Note:              | Please check all PostBacks and Emails")
             print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} "
@@ -295,7 +294,7 @@ def print_scenario():
         print(f"Assets:            | PurchStatus: {d['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  Purchases: 1 | PurchType: {scenario[1]}")
         
         print(
-                f"Dates :            | Status: {d['statusDate']} | Purch: {d['statusDate']}  | Cancel: {d['cancelDate']} | Conv: {d['convDate']} | Last: {d['lastDate']} | Next: {d['nextDate']} | Expire: {d['expiredDate']} ")
+            f"Dates :            | Status: {d['statusDate']} | Purch: {d['statusDate']}  | Cancel: {d['cancelDate']} | Conv: {d['convDate']} | Last: {d['lastDate']} | Next: {d['nextDate']} | Expire: {d['expiredDate']} ")
         print(f"Email:             | {email_msg}  ")
         print(f"PostBacks       | {postbacks} ")
         print(visa_secure_msg)
@@ -564,8 +563,8 @@ def find_package_pricepoint():
         traceback.print_exc()
         pass
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')

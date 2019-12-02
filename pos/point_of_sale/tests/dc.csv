@@ -1,0 +1,13 @@
+Merchant,Payments,Actions,Void,PP Type,DMC,UserInfo,Variables,Xbill,PostBacks
+EU,CC,Signup,Cancel,505,random,random,random,random,custom_default
+EU,CC,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
+EU,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
+EU,Paypal,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
+EU,CC,Signup,Decline,505,random,random,random,random,custom_default
+EU,Paypal,Signup,Decline,505,random,random,random,random,custom_default
+US,CC,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
+US,Paypal,Signup,Cancel,505,random,random,random,random,custom_default
+US,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
+EU_EUR,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
+EU_EUR,CC,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
+EU_EUR,CC,Signup,Decline,505,random,random,random,random,custom_default

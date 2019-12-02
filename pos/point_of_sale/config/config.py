@@ -7,7 +7,7 @@ tmp = tmp[0] + tmp[1].replace(':', '_')
 file_name = 'C:\segpay_qa_automation\\test_run_' + tmp + '.log'
 # logging.basicConfig(filename=file_name, level=logging.INFO)
 
-enviroment = 'qa'
+enviroment = 'stage'
 url = ''
 urlws = ''
 urlic = ''
@@ -20,7 +20,7 @@ server = ''
 # us merchant 21621   ppid 74 package 192060 pricepoints  27042,27041, 27064 - ic,27187 - recurring [27042,27041,27187]
 # stage packages 192192,99,192195 eu
 
-
+test_case_number = 0
 scenarios = []
 test_case = {}
 test_cases = {}
@@ -42,7 +42,7 @@ packages =[900,901,901, 902,  900, 901, 902, 900, 901,900,901,901, 902,  900, 90
 
 pricepoints_options = 'single'
 available_languages = ['EN']  # ,'ES']#,'ES', "PT"]#, "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
-template = '&template=defaultpsd2'  # '&template=defaultnopaypal'  default
+template =  ''  #'&template=defaultPrePsd2'  # '&template=defaultnopaypal'  default
 report = {}
 
 # Global Objects to transfer data from test to test

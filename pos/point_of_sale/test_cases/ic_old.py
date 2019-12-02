@@ -446,7 +446,7 @@ with open(filename, newline='') as csvfile:
             test_case['visa_secure'] = scenario[5]
             scenario_name = f"{scenario[1]}:{scenario[2]}:{scenario[3]}:{scenario[4]}:{scenario[5]}:"
             
-            find_pp_package = db_agent.find_pricepoint_package(merchantid, test_case['pp_type'], test_case['userinfo'], test_case['visa_secure'])
+            find_pp_package = db_agent.find_pricepoint_package(merchantid, test_case['pp_type'], test_case['userinfo'])
             pricepointid = find_pp_package['BillConfigID']
             packageid = find_pp_package['PackageID']
             # if scenario[1] == 'EU' and scenario[5] == 'configured':

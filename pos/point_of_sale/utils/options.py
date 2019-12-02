@@ -141,9 +141,20 @@ def collectuserinfo(cluf):
 
 def oc_tokens(merchant):
 	if merchant == 'EU':
-		octoken = 200062198
+		if config.test_data['payment'] == 'CC':
+			octoken = 1000079353  # 200062198
+		elif config.test_data['payment'] == 'Paypal':
+			octoken = 1000079349  # 200062198
+		
+		
+		
+		
 	elif merchant == 'US':
-		octoken = 200062808
+		if config.test_data['payment'] == 'CC':
+			octoken = 1000079350  # 200062198
+		elif config.test_data['payment'] == 'Paypal':
+			octoken = 1000079350  # 200062198
+		#octoken = 200062808
 	return octoken
 
 def pricepoints_options(pricepoints_options, merchantid):
@@ -201,7 +212,7 @@ def is_EU(merchantid):
 
 def random_dmc():
 	dmc = ''
-	currencies = ['USD', "AUD", "CAD", "CHF"]  # , "DKK", "EUR", "GBP", "NOK", 'RUB', "ILS", "INR", 'CZK']  # "HKD", "JPY", , "SEK"
+	currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "NOK", 'RUB', "ILS", "INR", 'CZK',"HKD", "JPY","SEK"]
 	try:
 		dmc = random.choice(currencies)
 		return dmc

@@ -90,6 +90,7 @@ def asset_verification(test_case):
     dates = {}
     
     try:
+        
         purchtype = config.test_data['Type']
         purchtype_recurring = [501, 505, 506, 511]
         statusDate = 'CurrentDate'
@@ -173,6 +174,9 @@ def mt_verification(test_case):
         mt['transstatus'] = transstatus
         mt['transtype'] = transtype
         mt['transsource'] = transsource
+
+
+        
         
         return mt
     except Exception as ex:
@@ -211,7 +215,6 @@ def print_scenario():
     try:
         if config.test_data['pp_type'] == 501: pp = 'Recurring 501'
         if config.test_data['pp_type'] == 511: pp = 'Dynamic Recurring 511'
-        if config.test_data['pp_type'] == 505: pp = 'Delay Capture 505'
         try:
             if config.test_data['PostBackID']:
                 postbacks = f"PostBackNotifications  should have postbacks for PostBackID: {config.test_data['PostBackID']}"
@@ -225,7 +228,6 @@ def print_scenario():
         if config.test_data['merchant'] == 'US': visa_secure_msg = '3DS                | Multitrans UserData should have responce from Cardinal'
         aprove_msg = 'This Transactions should be Approved'
         email_msg = 'PointOfSaleEmailQueue should  have email | EmailTypeID: 981'
-        
         if config.test_data['dmc_from'] == 'p':
             dmc_msg = "DMC From PayPage:"
         elif config.test_data['dmc_from'] == 'u':
@@ -242,7 +244,8 @@ def print_scenario():
         if config.test_data['payment'] == 'CC':
             if config.test_data['action_bep'] == 'Decline':
                 config.test_data['cc'] = '4000000000001042'
-            
+                
+                
             payment = f"Payment Method: Credit Card [ {config.test_data['cc']} ]"
             cardtype = 171
             paymenttype = 131
@@ -279,23 +282,13 @@ def print_scenario():
         print("Expected after the transaction has been created:")
         print(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+        print("Note:              | Please check all PostBacks and Emails")
         
-        if config.test_data['pp_type'] == 505:
-            print("Note:              | Delay Capture will have 2 transaction in Multitrans | Please check all PostBacks and Emails")
-            print(
-                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-            print(
-                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-        
-        else:
-            print("Note:              | Please check all PostBacks and Emails")
-            print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} "
-                  f"| Processor: {processor} | PaymentType: {paymenttype}"
-                  f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+        print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} | Processor: {processor} | PaymentType: {paymenttype}"
+                f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
         print(f"Assets:            | PurchStatus: {d['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  Purchases: 1 | PurchType: {scenario[1]}")
-        
-        print(
-                f"Dates :            | Status: {d['statusDate']} | Purch: {d['statusDate']}  | Cancel: {d['cancelDate']} | Conv: {d['convDate']} | Last: {d['lastDate']} | Next: {d['nextDate']} | Expire: {d['expiredDate']} ")
+
+        print(f"Dates :            | Status: {d['statusDate']} | Purch: {d['statusDate']}  | Cancel: {d['cancelDate']} | Conv: {d['convDate']} | Last: {d['lastDate']} | Next: {d['nextDate']} | Expire: {d['expiredDate']} ")
         print(f"Email:             | {email_msg}  ")
         print(f"PostBacks       | {postbacks} ")
         print(visa_secure_msg)

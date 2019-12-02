@@ -29,7 +29,10 @@ GET_DATA_FROM_MERCHANT_EXTENSION = 'select VISARegion from Merchants_Extension w
 #-----------------------------options----------------------------------------
 GET_ERRORS_FROM_THE_LOG = "select * from segpaylogs (nolock) where timestamp>=DATEADD(MINUTE,-1,GETDATE())  and EntryType in ( 2,1)  and Category != 'Cardinal Cruise' order by timestamp desc"
 #----------------------------------DB Actions----------------------------------------------------------------------------------
-INSERT_PRICE_POINT = "insert into merchantbillconfig values({}, 'AutoTest', {}, {}, 1, 1,1, {}, {}, 1,{},NULL, GETDATE(), 'dimasik@auto.ru', 0, 0, 0.00, 1, 1,{})"
+INSERT_PRICE_POINT = "insert into merchantbillconfig values({}, 'AutoTest', {}, '{}', {}, 1,1, {}, {}, 1,{},NULL, GETDATE(), 'dimasik@auto.ru', 0, 0, 0.00, 1, 1,{})"
+
+
+
 
 
 
