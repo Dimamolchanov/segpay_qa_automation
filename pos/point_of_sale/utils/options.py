@@ -153,7 +153,7 @@ def oc_tokens(merchant):
 		if config.test_data['payment'] == 'CC':
 			octoken = 1000079350  # 200062198
 		elif config.test_data['payment'] == 'Paypal':
-			octoken = 1000079350  # 200062198
+			octoken = 1000079353  # 200062198
 		#octoken = 200062808
 	return octoken
 

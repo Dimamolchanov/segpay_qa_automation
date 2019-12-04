@@ -20,7 +20,7 @@ test_cases_list = {}
 failed_test_cases = {}
 passed_test_cases = {}
 
-br = web_module.Signup()
+#br = web_module.Signup()
 
 def joinlink():
     joinlink = ''
@@ -242,6 +242,7 @@ def print_scenario():
     authcode = 'AuthCode: OK:0'
     try:
         if config.test_data['pp_type'] == 501: pp = 'Recurring 501'
+        if config.test_data['pp_type'] == 503: pp = 'Digital 503'
         if config.test_data['pp_type'] == 502: pp = 'OneTime 502'
         if config.test_data['pp_type'] == 511: pp = 'Dynamic Recurring 511'
         if config.test_data['pp_type'] == 505: pp = 'Delay Capture 505'
@@ -307,6 +308,8 @@ def print_scenario():
             bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Cancel]  in Merchant Portal after Completion'
         if config.test_data['action_bep'] == 'Void_Refund_Expire':
             bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Expire]  in Merchant Portal after Completion'
+        if config.test_data['action_bep'] == 'No_action':
+            bep_msg = '| No BEP actions'
         if config.test_data['action_bep'] == 'Decline':
             if config.test_data['transaction_type'] == 'OneClick_POS':
                 bep_msg = "| No Bep actions  | To decline OneClick use the wrong cvv in live testing:"
@@ -316,6 +319,29 @@ def print_scenario():
             config.test_data['transaction_type'] = config.test_data['transaction_type'] + '_Decline'
             aprove_msg = 'This Transactions should be Declined'
             email_msg = 'No Email for Declined transaction'
+            
+            
+        if config.test_data['transaction_type'] == 'OneClick_POS' and config.test_data['pp_type'] in (503,502,510):
+            sql = "Select *  from Assets where purchaseid = {} "
+            result = db_agent.execute_select_one_parameter(sql, config.test_data['octoken'])
+            config.test_data['dmc'] = result['AuthCurrency']
+            config.test_data['lang'] = result['CustLang']
+            d['purchStatus'] = result['PurchStatus']
+            d['purchDate'] = result['PurchDate']
+            d['cancelDate'] = result['CancelDate']
+            d['convDate'] = result['ConvDate']
+            d['lastDate'] = result['LastDate']
+            d['nextDate'] = result['NextDate']
+            d['expiredDate'] = result['ExpiredDate']
+            d['statusDate'] = result['StatusDate']
+            d['statusDate'] = result['StatusDate']
+            
+            
+            
+            
+            
+            
+            
         
         print(
                 f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
@@ -367,7 +393,7 @@ def print_scenario():
             print(visa_secure_msg)
         print("SegPayLogs:     | Please check SegpayLogs after each transaction to see if there are any related errors.\n")
         
-        if not config.test_data['action_bep'] == 'Decline':
+        if not (config.test_data['action_bep'] == 'Decline' or  config.test_data['action_bep'] == 'No_action'):
             print(f"Expected After {config.test_data['action_bep']}:")
             print(
                     "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
@@ -381,6 +407,18 @@ def print_scenario():
                 email = 'Refund'
                 email_type = 993
                 postbacks_bep = "Disable postback type 3 and Cancel postback type 4"
+            elif config.test_data['action_bep'] == 'Void_Refund':
+                mt_msg = f"Multitranse: | TransAmount: Negative | TxStatus: 7 (Void) or 8 (refund) | TransSource: 125 | TransStatus: 186 | TransType:  107 (Void) or 102 (Refund) | CustAddress,CustCity,CustState,CustPhone => Blank or Value"
+                transamount = 'TransAmount: Negative'
+                email = 'Refund'
+                email_type = 993
+                if config.test_data['pp_type'] in (503,510):
+                    purchstatus = d['purchStatus']
+                    canceldate = 'CurrentDate'
+                    nextdate = 'CurrentDate'
+                    expiredate = 'CurrentDate'
+                    postbacks_bep = "No additional postbacks"
+ 
             elif config.test_data['action_bep'] == 'Cancel':
                 purchstatus = 802
                 mt_msg = f"No Additional records in Multitrans"
@@ -455,6 +493,12 @@ def verify_transaction(transaction_type, current_transaction_record):
     if current_transaction_record['Authorized']:
         config.test_data['authorized'] = True
         aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+        if config.test_data['transaction_type'] == 'Decline':
+            aprove_or_decline = False
+        else:
+            aprove_or_decline = True
+        config.test_data['aprove_or_decline'] = aprove_or_decline
+        #aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
         print(colored(
                 f"PurchaseID: {current_transaction_record['PurchaseID']} | TransId:{current_transaction_record['TransID']} | TransGuid: {current_transaction_record['TRANSGUID']}",
                 'yellow'))
@@ -561,6 +605,9 @@ def create_test_case(scenario):
             config.test_data['dmc'] = result['AuthCurrency']
             config.test_data['lang'] = result['CustLang']
         
+        
+        
+        
         elif config.test_data['transaction_type'] == 'IC_POS' or config.test_data['transaction_type'] == 'IC_WS':
             config.test_data['dmc'] = 'Original Transaction'
             config.test_data['lang'] = 'Original Transaction'
@@ -593,7 +640,7 @@ def create_test_case(scenario):
         config.test_data['pp_type'] = int(scenario[4])
         config.test_data['visa_secure'] = 'configured'
         config.test_data['PurchTotal'] = 1
-        
+
         find_pp_package = find_package_pricepoint()
         
         if find_pp_package:
@@ -638,8 +685,8 @@ def find_package_pricepoint():
         traceback.print_exc()
         pass
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
@@ -654,7 +701,7 @@ with open(filename, newline='') as csvfile:
             else:
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
-                    transaction_created = create_transaction()
+                    # transaction_created = create_transaction()
                     # if transaction_created:
                     #     count_transactions += 1
                     #     pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)

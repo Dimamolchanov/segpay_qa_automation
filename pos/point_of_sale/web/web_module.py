@@ -54,14 +54,25 @@ class Signup:
             traceback.print_exc()
     
     def change_language(self):
-        if not config.test_data['lang'] == 'EN':
-            try:
-                paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(config.test_data['lang'])
-                time.sleep(1)
-                self.wait_for_ajax(self.br)
-            except Exception as ex:
-                traceback.print_exc()
-                pass
+        if not config.test_data['lang_from'] == 'u':
+            if not config.test_data['lang'] == 'EN':
+                try:
+                    paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(config.test_data['lang'])
+                    time.sleep(1)
+                    self.wait_for_ajax(self.br)
+                except Exception as ex:
+                    traceback.print_exc()
+                    pass
+    
+    def change_currency(self):
+        if not config.test_data['dmc_from'] == 'u' or config.test_data['merchant'] == 'US':
+            if self.br.driver.find_element_by_id('CurrencyDDL'):
+                merchant_currency = self.br.find_by_id('CurrencyDDL').select(config.test_data['dmc'])
+        
+        
+        
+    
+    
     
     def user_password(self):
         try:
@@ -224,6 +235,7 @@ class Signup:
                 return None
             self.change_language()
             self.get_transguid()
+            self.change_currency()
             self.user_password()
             config.test_data['merchant_country'] = self.br.find_by_id('CountryDDL').value
             config.test_data['card_encrypted'] = db_agent.encrypt_card(config.test_data['cc'])
@@ -326,78 +338,28 @@ class Signup:
             return None
         
         try:
-            multitrans_oneclick_record = {}
-            # sql = "select * from MerchantBillConfig where BillConfigID = {}"
-            # mbconfig = db_agent.execute_select_one_parameter(sql, d['pricepoint'])
-            # pricepoint_type = d['pp_type']
-            # merchantid = d['MerchantID']
-            username = 'UserName' + str(random.randint(333, 999))
-            password = 'Password' + str(random.randint(333, 999))
             page_loaded = self.navigate_to_url(d['link'])
             if page_loaded == False:
                 return None
             else:
-                if self.br.is_element_present_by_id('TransGUID', wait_time=10):
-                    transguid = self.br.find_by_id('TransGUID').value
-                    transguid = subprocess.run(
-                            ['C:\\segpay_qa_automation\\pos\\point_of_sale\\transguid\\TransGuidDecoderApp.exe', transguid,
-                             '-l'],
-                            stdout=subprocess.PIPE)
-                    transguid = transguid.stdout.decode('utf-8')
-                else:
-                    print("Transguid not Found ")
-                    return None
-                    # time.sleep(2)
-                if d['lang'] != 'EN':
-                    paypage_lnaguage = self.br.find_by_id('LanguageDDL').select(d['lang'])
-                    # time.sleep(2)
-                    while self.br.execute_script("return jQuery.active == 0") != True:
-                        time.sleep(1)
-                if d['dmc'] != 'USD':
-                    try:
-                        dmc = self.br.find_by_id('CurrencyDDL').select(d['dmc'])
-                        while self.br.execute_script("return jQuery.active == 0") != True:
-                            time.sleep(1)
-                    except Exception as ex:
-                        traceback.print_exc()
-                        pass
-                
-                self.br.find_by_id('CVVInputNumeric').fill('333')
-                if self.br.find_by_id('UserNameInput'):
-                    self.br.find_by_id('UserNameInput').fill(username)
-                if self.br.find_by_id('PasswordInput'):
-                    self.br.find_by_id('PasswordInput').fill(password)
-                while self.br.execute_script("return jQuery.active == 0") != True:
-                    time.sleep(1)
-                self.br.find_by_id('SecurePurchaseButton').click()
-                # time.sleep(1)
-                while self.br.execute_script("return jQuery.active == 0") != True:
-                    time.sleep(1)
-                try:
-                    if self.br.get_iframe('Cardinal-CCA-IFrame'):
-                        with self.br.get_iframe('Cardinal-CCA-IFrame') as iframe:
-                            if iframe.find_by_name('challengeDataEntry'):
-                                iframe.find_by_name('challengeDataEntry').fill('1234')
-                                iframe.find_by_value('SUBMIT').click()
-                            elif iframe.get_iframe('authWindow'):
-                                with iframe.get_iframe('authWindow') as auth:
-                                    auth.find_by_id('password').fill('test')
-                                    auth.find_by_name('UsernamePasswordEntry').click()
-                            else:
-                                pass
-                except NoSuchFrameException:
-                    pass
-                except Exception as ex:
-                    traceback.print_exc()
-                    print(ex)
-                    config.logging.info(ex)
-                
+                self.change_language()
+                self.get_transguid()
+                self.change_currency()
+                self.user_password()
+                if config.test_data['payment'] == 'CC':
+                    self.br.find_by_id('CVVInputNumeric').fill('333')
+                    self.br.find_by_id('SecurePurchaseButton').click()
+                elif config.test_data['payment'] == 'Paypal':
+                    self.br.find_by_id('EMailInput').fill('yan-buyer@segpay.com')
+                    self.br.find_by_id('SecurePurchaseButton').click()
+                    time.sleep(2)
+               
                 cnt = 0
                 while oneclick_record == None and cnt < 15:
                     cnt += 1
                     time.sleep(1)
                     sql = "select * from multitrans where TransGuid = '{}'"
-                    oneclick_record = db_agent.execute_select_one_parameter(sql, transguid)
+                    oneclick_record = db_agent.execute_select_one_parameter(sql, config.test_data['transguid'])
                 
                 if config.test_data['Type'] == 511:
                     oneclick_record['511'] = pricingguid

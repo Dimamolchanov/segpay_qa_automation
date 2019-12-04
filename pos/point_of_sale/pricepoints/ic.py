@@ -635,8 +635,8 @@ def find_package_pricepoint():
         traceback.print_exc()
         pass
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\ic.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\ic.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
