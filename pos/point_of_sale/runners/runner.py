@@ -9,7 +9,7 @@ from pos.point_of_sale.runners import test_methods
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import emails
 from pos.point_of_sale.verifications import mts as mt
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.utils import options
 
 db_agent = DBActions()
@@ -25,7 +25,7 @@ actions = {'singup': partial(test_methods.sign_up_trans_web1, config.test_data),
            'refunds': partial(bep.process_refund, config.transids, 841),
            #'check_refunds_mt': partial(mt.multitrans_check_refunds),  #, config.results[1]
            #'check_refunds_asset': partial(asset.asseets_check_refunds),
-           'reactivate': partial(web.reactivate, config.transids),
+           'reactivate': partial(web_module.reactivate, config.transids),
            'check_asset_reactivation': partial(asset.assets_check_reactivation),
            'check_mt_reactivation': partial(mt.mt_check_reactivation),
 		   'check_refunds': partial(test_methods.verify_refunds)
@@ -60,7 +60,7 @@ for merchantid in config.merchants:
 				print(f"Exception {Exception} ")
 				pass
 
-web.browser_quit()
+web_module.browser_quit()
 emails.check_email_status(config.transids)
 end_time = datetime.now()
 print('Full test Duration: {}'.format(end_time - start_time))

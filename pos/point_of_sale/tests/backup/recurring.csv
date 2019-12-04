@@ -1,0 +1,50 @@
+Merchant,Payments,Actions,Void,Language,DMC,UserInfo,Variables,Xbill,PostBacks,,,,
+EU,CC,FreeTrial_Signup,Cancel,random,random,random,random,random,custom_default,,,,Reactivate
+EU,CC,FreeTrial_POS,Cancel,random,random,random,random,random,custom_default,,,,Reactivate
+EU,CC,FreeTrial_POS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,Rebill
+US,CC,FreeTrial_Signup,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+US,Paypal,FreeTrial_POS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+US,Paypal,FreeTrial_WS,Cancel,random,random,random,random,random,custom_default,,,,
+EU,Paypal,FreeTrial_Signup,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+EU_EUR,Paypal,FreeTrial_Signup,Cancel,random,random,random,random,random,custom_default,,,,
+EU,CC,OneClick_WS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,Repeat set
+EU,CC,OneClick_POS,Cancel,random,random,random,random,random,custom_default,,,,Run Refunder
+EU,CC,OneClick_POS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,Reactivate
+EU,CC,Signup,Cancel,random,random,random,random,random,custom_default,,,,Capture
+EU,CC,Signup,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,Refund half
+EU,Paypal,OneClick_POS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,Refund half
+EU,Paypal,OneClick_POS,Cancel,random,random,random,random,random,custom_default,,,,Reactivate
+EU,Paypal,OneClick_WS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,Rebill
+EU,Paypal,OneClick_WS,Cancel,random,random,random,random,random,custom_default,,,,
+EU,Paypal,Signup,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+EU,Paypal,Signup,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+EU,CC,OneClick_WS,Decline,random,random,random,random,random,custom_default,,,,
+EU,CC,Signup,Decline,random,random,random,random,random,custom_default,,,,
+EU,CC,OneClick_POS,Decline,random,random,random,random,random,custom_default,,,,
+EU,Paypal,OneClick_WS,Decline,random,random,random,random,random,custom_default,,,,
+EU,Paypal,Signup,Decline,random,random,random,random,random,custom_default,,,,
+EU,Paypal,OneClick_POS,Decline,random,random,random,random,random,custom_default,,,,
+EU,Paypal,OneClick_POS,Decline,random,random,random,random,random,custom_default,,,,
+US,CC,OneClick_POS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+US,CC,OneClick_WS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+US,CC,OneClick_WS,Cancel,random,random,random,random,random,custom_default,,,,
+US,CC,Signup,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+US,Paypal,OneClick_POS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+US,Paypal,OneClick_POS,Cancel,random,random,random,random,random,custom_default,,,,
+US,Paypal,OneClick_WS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+US,Paypal,Signup,Cancel,random,random,random,random,random,custom_default,,,,
+US,Paypal,Signup,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+US_EU,Paypal,OneClick_POS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+US_EU,CC,OneClick_POS,Cancel,random,random,random,random,random,custom_default,,,,
+US_EU,Paypal,OneClick_WS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+US_EU,CC,OneClick_WS,Cancel,random,random,random,random,random,custom_default,,,,
+EU_EUR,Paypal,Signup,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+EU_EUR,CC,Signup,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+EU_EUR,Paypal,OneClick_POS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+EU_EUR,CC,OneClick_WS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+EU_EUR,Paypal,OneClick_POS,Decline,random,random,random,random,random,custom_default,,,,
+EU_EUR,CC,Signup,Decline,random,random,random,random,random,custom_default,,,,
+EU_US,Paypal,OneClick_POS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+EU_US,CC,OneClick_POS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,
+EU_US,Paypal,OneClick_WS,Void_Refund_Expire,random,random,random,random,random,custom_default,,,,
+EU_US,CC,OneClick_WS,Void_Refund_Cancel,random,random,random,random,random,custom_default,,,,

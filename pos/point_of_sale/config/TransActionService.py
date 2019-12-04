@@ -1,12 +1,13 @@
 from pos.point_of_sale.config import config
 from pos.point_of_sale.utils import options
-from pos.point_of_sale.web import web
+from pos.point_of_sale.web import web_module
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.verifications import asset
 from pos.point_of_sale.verifications import psd2
 from pos.point_of_sale.verifications import mts as mt
 from pos.point_of_sale.verifications import postback_service
 from pos.point_of_sale.verifications import emails
+from termcolor import colored
 import traceback
 import random
 import yaml
@@ -84,25 +85,27 @@ class TransActionService:
 
     @staticmethod
     def verify_signup_transaction(transaction_to_check):
+        save_case ={}
         multitrans_base_record = mt.build_multitrans()
+        config.test_case['base_record'] = multitrans_base_record
         asset_base_record = asset.build_asset_signup(multitrans_base_record, transaction_to_check)
-        differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check['full_record'])
+        differences_multitrans = mt.multitrans_compare(multitrans_base_record, transaction_to_check)
         differences_asset = asset.asset_compare(asset_base_record)
-        if transaction_to_check['full_record']['Authorized'] == 1:
+        if transaction_to_check['Authorized'] == 1:
             check_email = emails.check_email_que(config.test_data['Type'], multitrans_base_record, 'signup')
             config.test_data['aproved_transids'] = transaction_to_check['TransID']
         differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], transaction_to_check['TransID'])
         differences_3ds = psd2.cardinal3dsrequests(transaction_to_check['TransID'])
         config.transids.append(transaction_to_check['TransID'])
         config.transaction_records.append(transaction_to_check)
-        if not differences_multitrans and not differences_asset and not differences_postback and not differences_3ds:
+        if not differences_multitrans and not differences_asset and not differences_postback : #and not differences_3ds:
             return True
         else:
             return False
 
 
     @staticmethod # Yan
-    def verify_oc_transaction(octoken,eticket, one_click_record, test_data, selected_options): # Yan
+    def verify_oc_transaction(octoken,eticket, one_click_record, selected_options): # Yan
         try:
             mt_octoken_mbconfig_record = mt.build_mt_oneclick(eticket, octoken, one_click_record, config.test_data['url_options'], selected_options)
             multitrans_base_oc_record = mt_octoken_mbconfig_record[0]
@@ -124,6 +127,37 @@ class TransActionService:
             traceback.print_exc()
             print(f"{Exception}")
 
+    @staticmethod  # Yan
+    def verify_oc(one_click_record,action):  # Currently in use by Recurring
+        #build_mt_oneclick(eticket, octoken, one_click_record, url_options, currency_lang):
+        d = config.test_data
+        try:
+            mt_octoken_mbconfig_record = mt.build_mt_oneclick( one_click_record,action)
+            multitrans_base_oc_record = mt_octoken_mbconfig_record[0]
+            #return multitrans, octoken_record, d
+
+            differences_mt_oc = mt.multitrans_compare(multitrans_base_oc_record, one_click_record)
+            asset_base_oc_record = asset.build_asset_oneclick(mt_octoken_mbconfig_record[2], multitrans_base_oc_record, one_click_record, mt_octoken_mbconfig_record[1])
+            differences_asset_oc = asset.asset_compare(asset_base_oc_record)
+            if one_click_record['Authorized'] == 1:
+                check_email_oc = emails.check_email_que(mt_octoken_mbconfig_record[2]['Type'], one_click_record, 'signup')
+            differences_postback = postback_service.verify_postback_url("SignUp", config.test_data['PackageID'], one_click_record['TransID'])
+            card = db_agent.decrypt_string(one_click_record['PaymentAcct'])
+            config.test_data['cc'] = card
+            # if action == 'pos':
+            #     differences_3ds = psd2.cardinal3dsrequests(one_click_record['TransID'])
+            config.transids.append(one_click_record['TransID'])
+            print()
+
+            if not differences_mt_oc and not differences_asset_oc and not differences_postback:
+                #print(colored(f"Scenario completed: All Passed\n", 'green', attrs=['bold', 'underline', 'dark']))
+                return True
+            else:
+                #print(colored(f"Scenario had some issues: Failed | Re-Check Manually |\n", 'red', attrs=['bold', 'underline', 'dark']))
+                return False
+        except Exception as ex:
+            traceback.print_exc()
+            print(f"{Exception}")
 
 
 
@@ -145,7 +179,7 @@ class TransActionService:
     @staticmethod
     def close_browser():
         try:
-            web.browser_quit()
+            web_module.browser_quit()
             print("Webdriver closed")
         except Exception as ex:
             print(ex)

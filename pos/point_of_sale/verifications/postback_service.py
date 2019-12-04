@@ -91,7 +91,10 @@ def verify_postback_url(action, package_id, trans_id):
     if matched_postback_types == None:
         #print("NO postbacks in Notification table. Skipping further verification")
         return 0
-    is_service_transaction = db_agent.get_trans_source(trans_id)
+    
+    result = db_agent.get_trans_source(trans_id)
+    is_service_transaction = result['Value'] != 'OC Web Service'
+    
     trans_data = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MULTITRANS_BY_TRANS_ID, trans_id)
     is_trans_authorized = trans_data['Authorized']
     trans_type = trans_data['TransType']
@@ -137,8 +140,8 @@ def verify_postback_url(action, package_id, trans_id):
             actual_postback_status = db_agent.get_postback_status_by_id(id, trans_id)
             expected_postback_status = 863
             expected_trantype = "sale"
-            if trans_type == 506:
-                expected_stage = "Instant Conversion"
+            if  trans_type == 108:
+                expected_stage = "instantconversion"
             elif trans_type == 1011:
                 related_purchase_id = related_trans_data['PurchaseID']
                 if purchase_id == related_purchase_id:
