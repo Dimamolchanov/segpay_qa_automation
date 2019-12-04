@@ -1,0 +1,1966 @@
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: False|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 2|Dmc: USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 2|Dmc: USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 2|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  2|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 2|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 1: Successful Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 13: Error on Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 3: Attempts Stand-In Frictionless Authentication|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 10: Successful Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 11: Failed Step Up Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 12: Step Up Authentication is Unavailable|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 14: Step Up Authentication with Merchant Bypass|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 4: Unavailable Frictionless Authentication from the
+  Issuer|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 5: Rejected Frictionless Authentication by the Issuer|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 6: Authentication Not Available on Lookup|UserInfo:
+  0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 7: Error on Lookup|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 8: Timeout on cmpi_lookup Transaction|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: EU|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Test Case 9: Bypassed Authentication|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  501|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  502|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 1|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 2|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  503|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 2|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  505|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  506|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  510|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case'
+? 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'
+: 'Merchant:US|3ds Enabled: True|Scope: False| Card Type: US|Processor: SPHBIPSP|PricePointType:
+  511|Cardinal Case: Not a Cardinal Test_Case|UserInfo: 0|Dmc: USD|'

@@ -1,0 +1,147 @@
+82478280:
+  actual:
+  - 'PurchaseID: 55173278 | TransId:82478280 | TransGuid: 20beea3e-0b23-48b4-a75d-47900957e69b'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Invalid account number
+  - Authorized Base:1 => Live:False
+  - Markup Base:0.00 => Live:1.00
+  - PurchTotal Base:1.0 => Live:0.00
+  - PurchStatus Base:801 => Live:806
+  - NextDate Base:2019-09-19 => Live:None
+  - ExpiredDate Base:2019-09-19 => Live:2019-09-14
+  - CancelDate Base:None => Live:2019-09-14
+  - ConvDate Base:None => Live:2019-09-14
+  - LastDate Base:None => Live:2019-09-14
+  - Purchases Base:1 => Live:0
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 16090 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 16090 : Expected: 46, ==> Actual:
+    43'
+  - 'Merchant is not configured for 3ds | TransID: 82478280 | CC: 4444333322221111
+    | PPID: processor'
+  - 'Transaction DECLINED : AuthCode:Invalid account number'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+82478282:
+  actual:
+  - 'PurchaseID: 55173280 | TransId:82478282 | TransGuid: 8197e2bb-044b-4eb9-a7bb-4fb812b3f1af'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Do not honor
+  - Authorized Base:1 => Live:False
+  - PurchTotal Base:2.95 => Live:0.00
+  - PurchStatus Base:804 => Live:806
+  - Purchases Base:1 => Live:0
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 16090 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 16090 : Expected: 46, ==> Actual:
+    43'
+  - Card is Prepaid | No 3DS record | Out of Scope
+  - 'Transaction DECLINED : AuthCode:Do not honor'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+82478283:
+  actual:
+  - 'PurchaseID: 55173281 | TransId:82478283 | TransGuid: 347e15ad-9456-410e-9152-6816dfdea3f4'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Invalid account number
+  - Authorized Base:1 => Live:False
+  - TransStatus Base:184 => Live:187
+  - PurchStatus Base:801 => Live:806
+  - NextDate Base:2019-10-15 => Live:None
+  - CancelDate Base:None => Live:2019-09-14
+  - ConvDate Base:None => Live:2019-09-14
+  - LastDate Base:None => Live:2019-09-14
+  - Purchases Base:1 => Live:0
+  - 'Merchant is not configured for 3ds | TransID: 82478283 | CC: 4000000000001042
+    | PPID: processor'
+  - 'Transaction DECLINED : AuthCode:Invalid account number'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+82478285:
+  actual:
+  - 'PurchaseID: 55173282 | TransId:82478285 | TransGuid: 0c258ebf-51ac-40f4-a74d-ecf0e1625480'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Invalid account number
+  - Authorized Base:1 => Live:False
+  - PurchTotal Base:2.50 => Live:0.00
+  - PurchStatus Base:804 => Live:806
+  - ExpiredDate Base:2019-09-19 => Live:2019-09-14
+  - Purchases Base:1 => Live:0
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 16090 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 16090 : Expected: 46, ==> Actual:
+    43'
+  - 'Merchant is not configured for 3ds | TransID: 82478285 | CC: 4000000000001059
+    | PPID: processor'
+  - 'Transaction DECLINED : AuthCode:Invalid account number'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+82478286:
+  actual:
+  - 'PurchaseID: 55173283 | TransId:82478286 | TransGuid: 346b8b30-caf6-42e3-8de5-74898848b707'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Invalid account number
+  - Authorized Base:1 => Live:False
+  - PurchTotal Base:4.00 => Live:0.00
+  - PurchStatus Base:801 => Live:806
+  - NextDate Base:2019-09-19 => Live:None
+  - ExpiredDate Base:2019-09-19 => Live:2019-09-14
+  - CancelDate Base:None => Live:2019-09-14
+  - ConvDate Base:None => Live:2019-09-14
+  - LastDate Base:None => Live:2019-09-14
+  - Purchases Base:1 => Live:0
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 16090 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 16090 : Expected: 47, ==> Actual:
+    43'
+  - 'Merchant is not configured for 3ds | TransID: 82478286 | CC: 4000000000001000
+    | PPID: processor'
+  - 'Transaction DECLINED : AuthCode:Invalid account number'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+82478287:
+  actual:
+  - 'PurchaseID: 55173284 | TransId:82478287 | TransGuid: 60dfd73b-6f03-45c7-823c-73fa5fd41aa0'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Invalid account number
+  - Authorized Base:1 => Live:False
+  - PurchTotal Base:2.00 => Live:0.00
+  - PurchStatus Base:801 => Live:806
+  - NextDate Base:2019-09-17 => Live:None
+  - ExpiredDate Base:2019-09-17 => Live:2019-09-14
+  - CancelDate Base:None => Live:2019-09-14
+  - ConvDate Base:None => Live:2019-09-14
+  - LastDate Base:None => Live:2019-09-14
+  - Purchases Base:1 => Live:0
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 16090 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 16090 : Expected: 46, ==> Actual:
+    43'
+  - 'Merchant is not configured for 3ds | TransID: 82478287 | CC: 4916280519180429
+    | PPID: processor'
+  - 'Transaction DECLINED : AuthCode:Invalid account number'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______
+82478288:
+  actual:
+  - 'PurchaseID: 55173285 | TransId:82478288 | TransGuid: f184a6e3-b168-49f0-9bfd-236c589de67c'
+  - '********************* Multitrans MissMatch ****************'
+  - AuthCode Base:OK:0 => Live:Invalid account number
+  - Authorized Base:1 => Live:False
+  - PurchTotal Base:1.00 => Live:0.00
+  - PurchStatus Base:801 => Live:806
+  - NextDate Base:2019-09-17 => Live:None
+  - ExpiredDate Base:2019-09-17 => Live:2019-09-14
+  - CancelDate Base:None => Live:2019-09-14
+  - ConvDate Base:None => Live:2019-09-14
+  - LastDate Base:None => Live:2019-09-14
+  - Purchases Base:1 => Live:0
+  - '********************* Postbacks MissMatch ****************'
+  - 'Postback Status for 16090 : Expected: 863, ==> Actual: 864'
+  - 'Number of parameters for non-default postback 16090 : Expected: 47, ==> Actual:
+    43'
+  - 'Merchant is not configured for 3ds | TransID: 82478288 | CC: 4916280519180429
+    | PPID: processor'
+  - 'Transaction DECLINED : AuthCode:Invalid account number'
+  - 'Scenario had some issues: Failed | Re-Check Manually |'
+  - _____Finished Scenario_______

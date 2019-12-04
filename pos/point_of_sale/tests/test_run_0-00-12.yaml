@@ -1,0 +1,66 @@
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  501|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  502|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 0|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  503|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  505|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  506|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  510|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 1|Dmc:
+  USD|'
+? 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
+: 'Merchant:EU|3ds Enabled: True|Scope: True| Card Type: EU|Processor: SPKAISO1|PricePointType:
+  511|Cardinal Case: Test Case 2: Failed Frictionless Authentication|UserInfo: 2|Dmc:
+  USD|'
