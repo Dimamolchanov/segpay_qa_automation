@@ -20,7 +20,7 @@ test_cases_list = {}
 failed_test_cases = {}
 passed_test_cases = {}
 
-#br = web_module.Signup()
+br = web_module.Signup()
 
 def joinlink():
     joinlink = ''
@@ -90,6 +90,7 @@ def joinlink():
         elif config.test_data['transaction_type'] == 'IC_POS':
             joinlink = f"{config.urlicws}[InstantCondersion ICtoken => transguid from the original transaction]"
         
+        joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}"
         config.test_data['link'] = joinlink
         config.test_data['url_options'] = url_options
         return joinlink  # , url_options, octoken
@@ -336,17 +337,17 @@ def print_scenario():
             d['statusDate'] = result['StatusDate']
             d['statusDate'] = result['StatusDate']
             
-            
-            
-            
-            
-            
+        
+        if config.test_data['cross_merchant']:
+            cross_merchant = config.test_data['cross_merchant']
+        else:
+            cross_merchant = config.test_data['merchant']
             
         
         print(
                 f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
         print(
-                f"| {pp} | Merchant: {config.test_data['merchant']}| 3DS Configured | Action: {config.test_data['transaction_type']} | CollectUserInfo: {config.test_data['userinfo']}")
+                f"| {pp} | Merchant: {cross_merchant}| 3DS Configured | Action: {config.test_data['transaction_type']} | CollectUserInfo: {config.test_data['userinfo']}")
         print(
                 f"| Processor: {processor}  | DMCStatus: {config.test_data['DMCStatus']} | {dmc_msg} {config.test_data['dmc']} | {lang_msg} {config.test_data['lang']} | PostBackID: {config.test_data['PostBackID']}")
         print(f"| {aprove_msg} | Eticket: {config.test_data['eticket']} | {payment}")
@@ -562,6 +563,7 @@ def create_test_case(scenario):
     
     try:
         config.test_data = {}
+        config.test_data['cross_merchant'] = None
         if scenario[4] == '506':
             if scenario[5] == '0':
                 config.test_data['ic_istrial'] = True
@@ -593,11 +595,13 @@ def create_test_case(scenario):
         elif scenario[0] == 'EU_US':
             config.test_data['merchant'] = 'EU'
             config.test_data['currency_base'] = 'USD'
+            config.test_data['cross_merchant'] = 'CrossMerchant EU to US'
             config.test_data['octoken'] = options.oc_tokens('US')
         elif scenario[0] == 'US_EU':
             config.test_data['merchant'] = 'US'
             config.test_data['currency_base'] = 'USD'
             config.test_data['octoken'] = options.oc_tokens('EU')
+            config.test_data['cross_merchant'] = 'CrossMerchant US to EU'
         
         if config.test_data['transaction_type'] == 'OneClick_WS':
             sql = "Select AuthCurrency,CustLang  from Assets where purchaseid = {} "
@@ -695,7 +699,7 @@ with open(filename, newline='') as csvfile:
     heading = scenario_heading()
     for scenario in tc_reader:
         try:
-            if scenario[0] == 'Merchant':  # or scenario[1] == 'Paypal':
+            if scenario[0] == 'Merchant'   or (scenario[1] == 'Paypal' and scenario[0] == 'US'):
                 print()  # ("skiping for now \n") # EU_EUR
             
             else:
