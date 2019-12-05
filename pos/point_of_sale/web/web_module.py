@@ -65,7 +65,7 @@ class Signup:
                     pass
     
     def change_currency(self):
-        if not config.test_data['dmc_from'] == 'u' or config.test_data['merchant'] == 'US':
+        if not (config.test_data['dmc_from'] == 'u' or config.test_data['merchant'] == 'US'):
             if self.br.driver.find_element_by_id('CurrencyDDL'):
                 merchant_currency = self.br.find_by_id('CurrencyDDL').select(config.test_data['dmc'])
         
@@ -104,7 +104,8 @@ class Signup:
                 self.br.find_by_id('LastNameInput').fill(config.test_data['lastname'])
                 self.br.find_by_id('ZipInput').fill('33333')
                 self.br.find_by_id('EMailInput').fill(config.test_data['email'])
-                self.wait_for_ajax(self.br)
+                #self.wait_for_ajax(self.br)
+                time.sleep(1)
                 self.br.find_by_id('SecurePurchaseButton').click()
                 self.wait_for_ajax(self.br)
                 time.sleep(2)
@@ -255,6 +256,8 @@ class Signup:
             self.wait_for_ajax(self.br)
             if config.test_data['payment'] == 'CC':
                 self.cc_payment()
+            elif config.test_data['payment'] == 'Paypal':
+                self.paypal_payment()
         except Exception as ex:
             traceback.print_exc()
         pass
