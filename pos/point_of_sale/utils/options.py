@@ -33,14 +33,17 @@ from termcolor import colored
 
 db_agent = DBActions()
 
+
 def randomString(stringLength=10):
     letters = string.ascii_lowercase
     return ''.join(random.choice(letters) for i in range(stringLength))
+
 
 def refurl():
     tmpurl = randomString(270)
     refurl = '&refurl=wwww.regressesion.com/'  # + tmpurl
     return refurl
+
 
 def collect_userinfo():
     collectinfo = [0, 1, 2]
@@ -51,6 +54,7 @@ def collect_userinfo():
     except Exception as ex:
         traceback.print_exc()
         return False
+
 
 def get_error_from_log():
     connection = pymssql.connect(config.server, "SPStaff", 'Toccata200e', "aspnetdb")
@@ -67,6 +71,7 @@ def get_error_from_log():
         print(colored(f"Errors in the SegPayLogs in last 1 minute:", 'red', attrs=['bold', 'underline', 'dark']))
         connection.close()
 
+
 def joinlink_param():
     extra_param = '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
     extra_param2 = "&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose"
@@ -76,11 +81,12 @@ def joinlink_param():
     param = random.choice(prm)
     return param
 
+
 def ref_variables():
     refs = f"&ref1={randomString(5)}&ref2={randomString(4)}&ref3={randomString(5)}&ref4={randomString(4)}" \
            f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}" \
            f"&ref9={randomString(5)}&ref10={randomString(4)}"
-    
+
     ref1 = f"&ref1={randomString(5)}&ref2={randomString(4)}"
     ref2 = f"&ref9={randomString(5)}&ref10={randomString(4)}"
     ref3 = f"&ref5={randomString(5)}&ref6={randomString(4)}&ref7={randomString(5)}&ref8={randomString(4)}"
@@ -89,6 +95,7 @@ def ref_variables():
     ref6 = ''
     refs = random.choice([refs, ref1, ref2, ref3, ref4, ref5, ref6])
     return refs
+
 
 def joinlink_xbill():
     x_billname = "&x-billname=QA+Segpay"
@@ -107,6 +114,7 @@ def joinlink_xbill():
     x_bill_list = [x_many, x_bill_all, x_bill_empty, x_bill_addr_state, x_bill_many, x_bill_all1]
     x_bill = random.choice(x_bill_list)
     return x_bill
+
 
 def clear_data_for_merchant(merchantid):
     pricepoints = []
@@ -129,6 +137,7 @@ def clear_data_for_merchant(merchantid):
         print(f"{Exception}")
         pass
 
+
 def collectuserinfo(cluf):
     try:
         if cluf == 0:
@@ -139,23 +148,50 @@ def collectuserinfo(cluf):
         traceback.print_exc()
         pass
 
+
 def oc_tokens(merchant):
-    if merchant == 'EU':
-        if config.test_data['payment'] == 'CC':
-            octoken = 1000079353  # 200062198
-        elif config.test_data['payment'] == 'Paypal':
-            octoken = 1000079349  # 200062198
-    
-    
-    
-    
-    elif merchant == 'US':
-        if config.test_data['payment'] == 'CC':
-            octoken = 1000079350  # 200062198
-        elif config.test_data['payment'] == 'Paypal':
-            octoken = 1000079353  # 200062198
-    # octoken = 200062808
-    return octoken
+    octoken = ''
+    sql = ''
+    try:
+        if merchant == 'EU':
+            if config.test_data['payment'] == 'CC':
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor = 'SPKAISO1' and PurchDate > '2019-12-01 17:44:03.000'"
+            elif config.test_data['payment'] == 'Paypal':
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
+
+
+        # if config.test_data['payment'] == 'CC':
+        #     octoken = 1000079346  # 200062198
+        # elif config.test_data['payment'] == 'Paypal':
+        #     octoken = 1000079348  # 200062198
+
+
+
+
+        elif merchant == 'US':
+	        sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor = 'SPHBIPSP' and PurchDate > '2019-12-01 17:44:03.000'"
+
+            # if config.test_data['payment'] == 'CC':
+            #     sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor = 'SPHBIPSP' and PurchDate > '2019-12-01 17:44:03.000'"
+            # elif config.test_data['payment'] == 'Paypal':
+            #     sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
+
+        octoken = db_agent.execute_select_with_no_params(sql)
+        #     if config.test_data['payment'] == 'CC':
+        #         octoken = 1000079351  # 200062198
+        #     elif config.test_data['payment'] == 'Paypal':
+        #         octoken = 1000080068  # 200062198
+        # # octoken = 200062808
+        return octoken['PurchaseID']
+
+
+    except Exception as ex:
+        traceback.print_exc()
+        print(f"{Exception}")
+        pass
+
+
+
 
 def pricepoints_options(pricepoints_options, merchantid):
     pricepoints = []
@@ -167,6 +203,7 @@ def pricepoints_options(pricepoints_options, merchantid):
         pricepoints = db_agent.pricepoint_list(merchantid)
     return pricepoints
 
+
 def approved_cards():
     approved_cards = ['4000000000001000', '4000000000001091']
     try:
@@ -175,6 +212,7 @@ def approved_cards():
     except Exception as ex:
         traceback.print_exc()
         return False
+
 
 def decline_cards():
     approved_cards = ['4000000000001000', '4000000000001091']
@@ -185,6 +223,7 @@ def decline_cards():
         traceback.print_exc()
         return False
 
+
 def string_after(value, a):
     # Find and validate first part.
     pos_a = value.rfind(a)
@@ -194,6 +233,7 @@ def string_after(value, a):
     if adjusted_pos_a >= len(value): return ""
     return value[adjusted_pos_a:]
 
+
 def is_3DS(merchantid, packageid):
     try:
         is_merchant_configured = db_agent.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, merchantid, packageid)
@@ -202,6 +242,7 @@ def is_3DS(merchantid, packageid):
         traceback.print_exc()
         pass
 
+
 def is_EU(merchantid):
     try:
         is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, merchantid)['VISARegion']
@@ -209,6 +250,7 @@ def is_EU(merchantid):
     except Exception as ex:
         traceback.print_exc()
         pass
+
 
 def random_dmc():
     dmc = ''
@@ -220,6 +262,7 @@ def random_dmc():
         traceback.print_exc()
         return False
 
+
 def random_lang():
     available_languages = ['EN', 'ES', "PT", "IT", "FR", "DE", "NL", "EL", "RU", "SK", "SL", "JA", "ZS", "ZH"]
     try:
@@ -229,6 +272,7 @@ def random_lang():
         traceback.print_exc()
         return False
 
+
 def is_visa_secure():
     is_card_eu = False
     result = ''
@@ -237,7 +281,7 @@ def is_visa_secure():
     try:
         is_merchant_configured = db_agent.execute_select_two_parameters(constants.GET_DATA_FROM_3D_SECURE_CONFIG, config.test_data['MerchantID'], config.test_data['PackageID'])
         is_eu_merchant = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_MERCHANT_EXTENSION, config.test_data['MerchantID'])['VISARegion']
-        
+
         if is_merchant_configured:
             config.test_data['3ds'] = True
         else:
@@ -246,7 +290,7 @@ def is_visa_secure():
             config.test_data['Merchant'] = 'EU'
         else:
             config.test_data['Merchant'] = 'US'
-        
+
         cc_card = config.test_data['cc']  # '4444333322221111' #
         cc_bin = cc_card[0:9]
         is_card = db_agent.execute_select_one_parameter(constants.GET_DATA_FROM_GLOBALBINDETAILS, cc_bin)
@@ -276,6 +320,7 @@ def is_visa_secure():
         # print(f"{Exception}")
         pass
 
+
 def aprove_decline(transid):
     aprove_or_decline = False
     result_type = 0
@@ -289,7 +334,7 @@ def aprove_decline(transid):
             else:
                 sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
                       f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
-            
+
             live_record_3ds = db_agent.execute_select_with_no_params(sql)
             if live_record_3ds:
                 xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
@@ -308,7 +353,7 @@ def aprove_decline(transid):
                         response['PAResStatus'] = response['PAResStatus']
                 else:
                     response['PAResStatus'] = None
-                
+
                 if 'EciFlag' in response:
                     if response['EciFlag'] == {} or response['EciFlag'] == '':
                         response['EciFlag'] = None
@@ -323,12 +368,12 @@ def aprove_decline(transid):
                         response['SignatureVerification'] = response['SignatureVerification']
                 else:
                     response['SignatureVerification'] = None
-                
+
                 if not live_record_3ds['authresponse'] == '':
                     json_authresponse = json.loads(live_record_3ds['authresponse'])
                     auth_response = {**json_authresponse['Payload'],
                                      **json_authresponse['Payload']['Payment']['ExtendedData']}
-                    
+
                     if 'ECIFlag' in auth_response:
                         if auth_response['ECIFlag'] == {} or auth_response['ECIFlag'] == '':
                             response['EciFlag'] = None
@@ -357,7 +402,7 @@ def aprove_decline(transid):
                             response['SignatureVerification'] = auth_response['SignatureVerification']
                     else:
                         response['SignatureVerification'] = None
-                
+
                 if config.test_data['visa_secure'] == 1:
                     # msg = "In Scope |PSD2 Required|"
                     in_or_aout_scope = 1171
@@ -373,7 +418,7 @@ def aprove_decline(transid):
                     # aprove_or_decline = True
                     else:
                         result_type = 999
-                
+
                 elif config.test_data['visa_secure'] == 2:
                     in_or_aout_scope = 1172
                     if response['Cavv'] == None and response['EciFlag'] == '07' and 'PAResStatus' == None:
@@ -420,7 +465,7 @@ def aprove_decline(transid):
                         result_type = 1152
                     else:
                         aprove_or_decline = False
-            
+
             if result_type == 999:
                 msg = "In Scope |PSD2 Required|"
                 aprove_or_decline = False
@@ -451,6 +496,7 @@ def aprove_decline(transid):
         # print(f"{Exception}")
         pass
 
+
 def joinlink():
     pricingguid = {}
     extra_param = '&x-billname=QA+Segpay&x-billemail=qateam%40segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Las+Vegas&x-billstate=ND&x-billzip=33063&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
@@ -478,12 +524,13 @@ def joinlink():
             config.test_data['recurringprice511'] = pricingguid['RecurringPrice']
         elif d['Type'] == 510:
             config.test_data['initialprice510'] = dynamic_price
-    
-    
+
+
     except Exception as ex:
         traceback.print_exc()
         print(f"Function joinglink \n {Exception}")
         pass
+
 
 def append_list(msg):
     try:
