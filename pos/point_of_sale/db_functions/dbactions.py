@@ -49,7 +49,7 @@ class DBActions:
             pass
     
     # --------------------------------------------------------------------------------------------------------------------------
-    def find_pricepoint_package(self, merchantid, pp_type, userinfo):  # visa_secure
+    def find_pricepoint_package1(self, merchantid, pp_type, userinfo):  # visa_secure
         package_for_pp = None
         package = None
         if config.test_data['MerchantID'] == 27001:
@@ -82,6 +82,8 @@ class DBActions:
                 elif config.test_data['ic_istrial'] == False:
                     sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
                           F"and CollectUserinfo = {userinfo} and Currency = '{currency}' and InitialPrice > 0 and ICAdjustTrial = 0"
+            
+                
             else:
                 if pp_type == 511 or pp_type == 505:
                     sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
@@ -89,6 +91,7 @@ class DBActions:
                 else:
                     sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
                           F"and CollectUserinfo = {userinfo} and Currency = '{currency}' and InitialPrice > 0"
+            
             self.cursor.execute(sql)
             while rows == None and cnt < 3:
                 cnt += 1
@@ -117,7 +120,58 @@ class DBActions:
         except Exception as ex:
             traceback.print_exc
             pass
-    
+    def find_pricepoint_package(self, merchantid, pp_type, userinfo):  # visa_secure
+        package_for_pp = None
+        package = None
+        if config.test_data['MerchantID'] == 27001:
+            package = self.package(900)
+            package_for_pp = 900
+        elif config.test_data['MerchantID'] == 21621:
+            package = self.package(800)
+            package_for_pp = 800
+        cnt = 0
+        currency = config.test_data['currency_base']
+        pp_list = []
+        tc = {}
+        rows = None
+        initial_price = 'InitialPrice > 0'
+        if 'FreeTrial' in config.test_data['transaction_type']:
+            initial_price = 'InitialPrice = 0'
+        try:
+            sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
+                      F"and CollectUserinfo = {userinfo} and Currency = '{currency}' and {initial_price}"
+            # print(sql)
+            self.cursor.execute(sql)
+            while rows == None or cnt < 3:
+                cnt += 1
+                rows = self.cursor.fetchall()
+                time.sleep(1)
+            if not rows:
+                cnt = 0
+                self.insert_pricepoint_with_parameters(merchantid, pp_type, userinfo, currency)
+                time.sleep(1)
+                self.cursor.execute(sql)
+                while not rows and cnt < 3:
+                    cnt += 1
+                    rows = self.cursor.fetchall()
+                    time.sleep(1)
+                if not rows:
+                    print('Failed to insert pricepoint')
+                    return False
+                billconfigid = rows[0]['BillConfigID']
+                sql = "insert into PackageDetail values({}, {}, {}, GETDATE(), 'autotest', 1)".format(package_for_pp, merchantid, billconfigid)
+                self.cursor.execute(sql)
+                if (pp_type == 510 or pp_type == 511):
+                    sql = "insert into MerchantBillConfig_Extension values({}, 0, 15000.00, GETDATE(), 'dimasik@tut.by', NULL, NULL,NULL,NULL,NULL,NULL)".format(billconfigid)
+                    self.cursor.execute(sql)
+            pricepoint = rows[0]['BillConfigID']
+            tc = rows[0]
+            tc = {**tc, **package}
+            return tc
+            z = 3
+        except Exception as ex:
+            traceback.print_exc()
+            pass
     def insert_pricepoint_with_parameters(self, merchantid, pp_type, userinfo, currency):
         rebil_length = 30
         rebil_price = 2.00

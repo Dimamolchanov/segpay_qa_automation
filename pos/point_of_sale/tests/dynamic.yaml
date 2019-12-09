@@ -1,0 +1,1044 @@
+10:EU:Paypal:OneClick_POS:Decline:
+- TestCase_____________________________________________________________________________________________________________________10
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
+  CollectUserInfo: 0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  PayPal'
+- '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=19.28&dynamictrans=IE0rryNi%2bc%2fxdFTyOTDduJxdz8o%3d&dynamicdesc=QA+TEST&octoken=1000079347&ref1=sglbn&ref2=tokc&ref3=nrpuh&ref4=upzm&ref5=sjrnt&ref6=bgkb&ref7=ptyew&ref8=zbgh&ref9=vbbbb&ref10=lwvl&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=10
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+11:EU_EUR:Paypal:OneClick_POS:Decline:
+- TestCase_____________________________________________________________________________________________________________________11
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
+  CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000008 | Payment Method:
+  PayPal'
+- '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000008&amount=8.55&dynamictrans=C2yJfdQR%2fNmSvxu90D6pD9043cU%3d&dynamicdesc=QA+TEST&octoken=1000079347&ref1=neexl&ref2=qimq&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=11
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+12:EU:CC:OneClick_WS:Decline:
+- TestCase_____________________________________________________________________________________________________________________12
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_WS_Decline | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
+- '| No Bep actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=13.77&dynamictrans=BT0UcwoAab9yqWBQxRVR0d3zukc%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref1=xpoik&ref2=fscs&ref3=rbzhl&ref4=yccx&ref5=yyixa&ref6=deex&ref7=odzfv&ref8=yqsa&ref9=fkucg&ref10=sdai&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=12
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+13:EU:CC:Signup:Decline:
+- TestCase_____________________________________________________________________________________________________________________13
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup_Decline | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: NL | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
+- '| No Bep actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=12.63&dynamictrans=sIsrOoZB8pJuneF%2fNX4%2f1HgVOIk%3d&dynamicdesc=QA+TEST&ref1=lnfnq&ref2=gyzw&ref3=fmjet&ref4=ofym&ref5=xrogj&ref6=obbi&ref7=hbuur&ref8=nnls&ref9=gvmfe&ref10=gbhc&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=ILS&testcase=13
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+14:EU:Paypal:Signup:Decline:
+- TestCase_____________________________________________________________________________________________________________________14
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup_Decline | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: EL | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  PayPal'
+- '| No Bep actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=14.92&dynamictrans=Qy06xTMR2SuIiFphgwasZNj3IQQ%3d&dynamicdesc=QA+TEST&ref5=jqvzu&ref6=atmo&ref7=icgtf&ref8=wspj&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=14
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+15:EU_EUR:CC:Signup:Decline:
+- TestCase_____________________________________________________________________________________________________________________15
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup_Decline | CollectUserInfo:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000008 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
+- '| No Bep actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000008&amount=12.22&dynamictrans=w6Ko8%2b47FH75%2b0g0Svw8TMrT3jw%3d&dynamicdesc=QA+TEST&ref1=pswsz&ref2=oqla&ref3=ddibj&ref4=iqsj&ref5=yuddq&ref6=uoid&ref7=lmaxr&ref8=ccdi&ref9=tpiur&ref10=ptqo&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=RUB&paypagelanguage=EN&testcase=15
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+16:US_EU:Paypal:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________16
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  2'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: CZK | Language: EN | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000009 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000009&amount=13.8&dynamictrans=FAoqiczhQMC3M2ciH1%2bcsuZyjLo%3d&dynamicdesc=QA+TEST&octoken=1000079347&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=16
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+17:EU_US:CC:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________17
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=9.93&dynamictrans=uQV3QRFVj0BS4evk3Xg57TTL9HY%3d&dynamicdesc=QA+TEST&octoken=1000079351&ref3=muvny&ref7=tslk&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=17
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 09:27:29 | Purch: 2019-12-02 09:27:29  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 09:27:29 | Expire: 2019-12-03
+  09:27:29 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+18:US:CC:OneClick_WS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________18
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
+  0'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: EN | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000007 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000007&amount=15.10&dynamictrans=54J4%2byrhwG8HO7339DTWSHeK72Y%3d&dynamicdesc=QA+TEST&octoken=1000079351&ref3=bcyiu&ref7=cogv&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=18
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 09:27:29 | Purch: 2019-12-02 09:27:29  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 09:27:29 | Expire: 2019-12-03
+  09:27:29 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+19:EU_EUR:CC:OneClick_WS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________19
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000008 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000008&amount=15.39&dynamictrans=uP0pSB%2fzW5%2fj4mtqyq90iuE6hXs%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref5=xqtoc&ref6=gmmk&ref7=tkyog&ref8=wnlh&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=19
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+1:EU:CC:Signup:No_action:
+- TestCase_____________________________________________________________________________________________________________________1
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: ES | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- '| No BEP actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=15.84&dynamictrans=kBmUmki71qfxLjAERgzrTlsjq4U%3d&dynamicdesc=QA+TEST&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=1
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+20:EU_US:CC:OneClick_WS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________20
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=19.8&dynamictrans=7rO0TYMzz4EmL9P2XFpI0NMLjOU%3d&dynamicdesc=QA+TEST&octoken=1000079351&ref1=capnm&ref2=dfpz&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=20
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 09:27:29 | Purch: 2019-12-02 09:27:29  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 09:27:29 | Expire: 2019-12-03
+  09:27:29 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+21:EU:Paypal:Signup:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________21
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: DKK | Language: ZH | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000004 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000004&amount=6.76&dynamictrans=AG%2fvZifjd3RperoEPrAPH%2b8rVHQ%3d&dynamicdesc=QA+TEST&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=21
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: DKK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+22:US:CC:Signup:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________22
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: Signup | CollectUserInfo:
+  1'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: SK | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000010 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000010&amount=10.3&dynamictrans=Xy9mb2ODlEIH%2fMbMR0qyt%2bI4AH0%3d&dynamicdesc=QA+TEST&ref3=fswpb&ref7=ixqg&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=22
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+23:EU_EUR:CC:Signup:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________23
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: ZH | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000011 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000011&amount=18.15&dynamictrans=3EV72KUwmyLRG04QQ9qG%2bZWffkI%3d&dynamicdesc=QA+TEST&ref9=mvvct&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=23
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+24:EU:Paypal:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________24
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=4.8&dynamictrans=9Azg0HLkrH%2bdWN%2bQSz2uUGGWIgY%3d&dynamicdesc=QA+TEST&octoken=1000079347&ref1=rvwtn&ref2=qcfe&ref3=tacwg&ref4=muao&ref5=apfdh&ref6=osad&ref7=gzpks&ref8=xbzb&ref9=tlmkx&ref10=zpdz&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=24
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+25:US:CC:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________25
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  1'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: EN | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000010 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000010&amount=4.92&dynamictrans=unkLpdgJCajqIHbDwf%2b11i95c8A%3d&dynamicdesc=QA+TEST&octoken=1000079351&ref9=ozcpi&ref10=iidj&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=25
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 09:27:29 | Purch: 2019-12-02 09:27:29  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 09:27:29 | Expire: 2019-12-03
+  09:27:29 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+26:EU_EUR:Paypal:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________26
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000011 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000011&amount=12.65&dynamictrans=wuTKNRzUZdwZILH3CW8UREhpqEg%3d&dynamicdesc=QA+TEST&octoken=1000079347&ref5=yzoqv&ref6=pmjc&ref7=hukqw&ref8=vsbq&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&testcase=26
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+27:EU_US:Paypal:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________27
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=13.1&dynamictrans=%2bbCb90STBwcGdhcEYiMKg9lffgk%3d&dynamicdesc=QA+TEST&octoken=1000079351&ref3=fvuxu&ref7=lecf&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=27
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:27:29 | Purch: 2019-12-02 09:27:29  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 09:27:29 | Expire: 2019-12-03
+  09:27:29 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+28:EU:CC:OneClick_WS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________28
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=7.15&dynamictrans=ExA0rbsBw8E48fFOl13wxD%2b8Rkw%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref9=ibfht&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=28
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+29:EU:CC:Signup:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________29
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=9.95&dynamictrans=35FNGgxkSal%2fncoIxwPnU%2balLY4%3d&dynamicdesc=QA+TEST&ref3=lapyb&ref7=rdkd&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=NOK&paypagelanguage=EN&testcase=29
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+2:EU:CC:OneClick_POS:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________2
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=11.95&dynamictrans=OdB9PBdFCs9hab6dlF%2fNCTj0YW4%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref9=boiuz&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=2
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+30:EU:Paypal:Signup:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________30
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: AUD | Language: RU | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=6.55&dynamictrans=wRqG3HjbmmGJtYngASI86JBTKFg%3d&dynamicdesc=QA+TEST&ref9=cldig&ref10=fmqp&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=RU&testcase=30
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: AUD |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+31:EU_EUR:Paypal:Signup:Void_Refund:
+- TestCase_____________________________________________________________________________________________________________________31
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000012 | Payment Method:
+  PayPal'
+- ''
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000012&amount=10.98&dynamictrans=L4nLDXjTiA8HkURMWJJMX9JPC10%3d&dynamicdesc=QA+TEST&ref1=gevwm&ref2=gffb&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=HKD&paypagelanguage=EN&testcase=31
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
+  184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 804 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
+  | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+3:EU:CC:OneClick_POS:No_action:
+- TestCase_____________________________________________________________________________________________________________________3
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000004 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- '| No BEP actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000004&amount=16.15&dynamictrans=SfPnc3vc7RC2e4nDGIck%2fIzZUdk%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref3=ttwgd&ref7=wfli&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=3
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+4:EU:Paypal:OneClick_POS:No_action:
+- TestCase_____________________________________________________________________________________________________________________4
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  PayPal'
+- '| No BEP actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=5.11&dynamictrans=uDFeq%2bTjkId78fM04dtu6AuXn9s%3d&dynamicdesc=QA+TEST&octoken=1000079347&ref9=glkfo&ref10=vseh&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=4
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+5:US_EU:CC:OneClick_POS:No_action:
+- TestCase_____________________________________________________________________________________________________________________5
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
+  0'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: EN | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000007 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
+- '| No BEP actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000007&amount=3.56&dynamictrans=cJhgeh3yeOOy5aVRV5hd77kTWzc%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref9=aiuvd&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=5
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+6:US:CC:OneClick_WS:No_action:
+- TestCase_____________________________________________________________________________________________________________________6
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
+  0'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: EN | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000007 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
+- '| No BEP actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000007&amount=16.79&dynamictrans=%2fmrIVmyJfdI6TzCUjs4nFdITkk4%3d&dynamicdesc=QA+TEST&octoken=1000079351&ref1=fltel&ref2=kyxn&ref3=xdyks&ref4=sqdl&ref5=ysapg&ref6=evli&ref7=nksqt&ref8=cmty&ref9=odexd&ref10=xxvn&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=6
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 09:27:29 | Purch: 2019-12-02 09:27:29  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 09:27:29 | Expire: 2019-12-03
+  09:27:29 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+7:US_EU:CC:OneClick_WS:No_action:
+- TestCase_____________________________________________________________________________________________________________________7
+- '| Dynamic  510 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
+  0'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: EN | PostBackID:
+  8934'
+- '| This Transactions should be aproved | Eticket: 800:20000007 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
+- '| No BEP actions'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000007&amount=18.59&dynamictrans=TUQ4fVYi6XlalXswNThfHgnIp6A%3d&dynamicdesc=QA+TEST&octoken=1000079346&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=7
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
+- 3DS                | Multitrans UserData should have responce from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+8:EU:CC:OneClick_POS:Decline:
+- TestCase_____________________________________________________________________________________________________________________8
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
+  CollectUserInfo: 2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000006 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
+- '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000006&amount=5.12&dynamictrans=WQwMZ%2fIzYpE8y7D%2fWM5quqr4IsY%3d&dynamicdesc=QA+TEST&octoken=1000079346&ref9=devye&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=8
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+  CC'
+- 'Dates :      | Status: 2019-12-02 08:35:17 | Purch: 2019-12-02 08:35:17  | Cancel:
+  None | Conv: None | Last: None | Next: 2019-12-03 08:35:17 | Expire: 2019-12-03
+  08:35:17 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
+9:EU:Paypal:OneClick_POS:Decline:
+- TestCase_____________________________________________________________________________________________________________________9
+- '| Dynamic  510 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
+  CollectUserInfo: 0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: EN | PostBackID:
+  8962'
+- '| This Transactions should be aproved | Eticket: 900:20000003 | Payment Method:
+  PayPal'
+- '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
+- '|________________________________________________________________________________________________________________________________
+
+  '
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000003&amount=9.57&dynamictrans=GUOv5czyG7Zv%2bwIdSyvV67vJmA4%3d&dynamicdesc=QA+TEST&octoken=1000079347&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=9
+
+  '
+- 'Expected:'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------'
+- 'Note:        | Please check all PostBacks and Emails'
+- 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 123 | TransStatus:
+  186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
+  from JoinLink'
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+  Paypal'
+- 'Dates :      | Status: 2019-12-02 09:09:15.743000 | Purch: 2019-12-02 09:09:15.743000  |
+  Cancel: None | Conv: 2019-12-05 09:43:41.777000 | Last: 2019-12-05 09:43:41.777000
+  | Next: 2020-01-04 09:09:15.743000 | Expire: 2020-01-04 09:09:15.743000 '
+- 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
+- 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
+- 3DS                | Cardinal3dsRequests should have the response from Cardinal
+- 'SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are
+  any related errors.'
+- '------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase
+
+  '
