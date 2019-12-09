@@ -140,9 +140,9 @@ class DBActions:
         try:
             sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
                       F"and CollectUserinfo = {userinfo} and Currency = '{currency}' and {initial_price}"
-            # print(sql)
+            #print(sql)
             self.cursor.execute(sql)
-            while rows == None or cnt < 3:
+            while rows == None and cnt < 3:
                 cnt += 1
                 rows = self.cursor.fetchall()
                 time.sleep(1)

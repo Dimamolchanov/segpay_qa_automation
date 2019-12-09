@@ -107,7 +107,7 @@ def joinlink():
             joinlink = f"{config.urlicws}[InstantCondersion ICtoken => transguid from the original transaction]"
 
         joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}"
-        print(joinlink)
+        #print(joinlink)
         config.test_data['link'] = joinlink
         config.test_data['url_options'] = url_options
         return joinlink  # , url_options, octoken
@@ -377,6 +377,10 @@ def print_scenario():
         print(
             "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
 
+        
+       
+        
+        
         if config.test_data['pp_type'] == 505:
             print("Note:              | Delay Capture will have 2 transaction in Multitrans | Please check all PostBacks and Emails")
             print(
@@ -411,8 +415,15 @@ def print_scenario():
 
         if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type'] == 'FreeTrial_Signup':
             print(visa_secure_msg)
-        print("SegPayLogs:     | Please check SegpayLogs after each transaction to see if there are any related errors.\n")
+        print("SegPayLogs:     | Please check SegpayLogs after each transaction to see if there are any related errors.\n\n")
 
+        
+        
+        print("Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
+        #print('Actual Result:')
+        print("PurchaseID =             | UserName:                   | Email:                | Pas/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
+        print("|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
+        
         if not (config.test_data['action_bep'] == 'Decline' or config.test_data['action_bep'] == 'No_action'):
             print(f"Expected After {config.test_data['action_bep']}:")
             print(
@@ -721,8 +732,8 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dynamic.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dynamic.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')

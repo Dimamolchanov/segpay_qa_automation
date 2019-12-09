@@ -1,16 +1,16 @@
 10:US_EU:CC:OneClick_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________10
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  0'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: SL | PostBackID:
+  1'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: ES | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:27187 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: Credit
   Card [ 4000000000001091 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:27187&octoken=1000079346&ref5=pnbhe&ref6=sgle&ref7=vdjyu&ref8=qupm&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=10
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100232&octoken=1000079346&ref5=zmhtg&ref6=fsxe&ref7=mbsdh&ref8=ckit&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=10
 
   '
 - 'Expected:'
@@ -22,7 +22,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -34,16 +34,16 @@
 11:EU_EUR:Paypal:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________11
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: FR | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100321 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100235 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100321&octoken=1000079347&ref9=ajstw&ref10=htou&refurl=wwww.regressesion.com/&testcase=11
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100235&octoken=1000079347&ref1=pmzda&ref2=tvzg&ref3=zagtr&ref4=foni&ref5=siati&ref6=ifzy&ref7=teccd&ref8=lpwd&ref9=amzhf&ref10=dtfc&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=EN&testcase=11
 
   '
 - 'Expected:'
@@ -52,10 +52,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -67,15 +67,15 @@
 12:EU_EUR:Paypal:OneClick_POS:Decline:
 - TestCase_____________________________________________________________________________________________________________________12
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
-  CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: PT | PostBackID:
+  CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: NL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100235 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100321 | Payment Method: PayPal'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100235&octoken=1000079347&ref3=jpcdw&ref7=pkcf&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=PT&testcase=12
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100321&octoken=1000079347&ref3=fxucc&ref7=mjuv&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=JPY&paypagelanguage=NL&testcase=12
 
   '
 - 'Expected:'
@@ -99,16 +99,16 @@
 13:EU_US:Paypal:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________13
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: JA | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: ES | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&octoken=1000079351&ref5=ytdrl&ref6=yvfh&ref7=cxccb&ref8=hynq&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=JPY&paypagelanguage=JA&testcase=13
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079351&ref3=bptyc&ref7=npqv&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ES&testcase=13
 
   '
 - 'Expected:'
@@ -133,16 +133,16 @@
 - TestCase_____________________________________________________________________________________________________________________14
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
   1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: IT | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: JA | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+  Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&octoken=1000079351&ref3=vzakl&ref7=iton&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=14
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&octoken=1000079351&ref9=nwcay&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=SEK&paypagelanguage=JA&testcase=14
 
   '
 - 'Expected:'
@@ -151,7 +151,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -166,17 +166,17 @@
 15:EU:CC:OneClick_WS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________15
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
-  1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: RU | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: JA | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: Credit
   Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27003&octoken=1000079346&ref9=fvogb&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=HKD&testcase=15
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27072&octoken=1000079346&ref9=gewpx&refurl=wwww.regressesion.com/&DMCURRENCY=CZK&testcase=15
 
   '
 - 'Expected:'
@@ -185,7 +185,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -201,7 +201,7 @@
 - TestCase_____________________________________________________________________________________________________________________16
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
   1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: ZH | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: INR | Language: ES | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
@@ -209,7 +209,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27003&octoken=1000079347&ref9=patyc&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=NOK&paypagelanguage=ZH&testcase=16
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27003&octoken=1000079347&ref1=lkvsq&ref2=lrrz&ref3=uaimq&ref4=rhfr&ref5=mymdl&ref6=rsau&ref7=apojx&ref8=wvwc&ref9=prrdk&ref10=nxrx&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=INR&testcase=16
 
   '
 - 'Expected:'
@@ -218,7 +218,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: INR |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -233,15 +233,15 @@
 17:EU:Paypal:OneClick_WS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________17
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: AUD | Language: EN | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: INR | Language: IT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: PayPal'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27072&octoken=1000079347&ref9=oxqip&ref10=ikxm&refurl=wwww.regressesion.com/&DMCURRENCY=AUD&paypagelanguage=EN&testcase=17
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:100231&octoken=1000079347&ref9=ohkpn&ref10=eodw&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=17
 
   '
 - 'Expected:'
@@ -250,10 +250,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: AUD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: INR |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -266,16 +266,16 @@
 - TestCase_____________________________________________________________________________________________________________________18
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
   1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: ZH | PostBackID:
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: NL | PostBackID:
   8934'
 - '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+  Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079351&ref1=tbqfg&ref2=jowh&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=18
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079351&ref1=forps&ref2=ktjp&ref3=hbcwv&ref4=mwwy&ref5=laikq&ref6=gfqg&ref7=citkz&ref8=flwd&ref9=iyjke&ref10=zmzx&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=18
 
   '
 - 'Expected:'
@@ -299,16 +299,16 @@
 19:US:CC:OneClick_WS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________19
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
-  0'
+  1'
 - '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: EL | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:27187 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: Credit
   Card [ 4000000000001091 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:27187&octoken=1000079351&ref9=hhumb&ref10=pxxr&x-billaddr=123+Segpay+Street&x-billstate=PA&refurl=wwww.regressesion.com/&testcase=19
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079351&ref5=skpop&ref6=zwuf&ref7=tlvaz&ref8=tljh&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=19
 
   '
 - 'Expected:'
@@ -320,7 +320,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -332,16 +332,16 @@
 1:EU:CC:OneClick_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________1
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: SL | PostBackID:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: RU | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: Credit
+  Card [ 4000000000001000 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079346&ref9=fbozr&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=SL&testcase=1
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&octoken=1000079346&ref5=rtlxa&ref6=fazy&ref7=aqlmv&ref8=giqf&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=1
 
   '
 - 'Expected:'
@@ -350,7 +350,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -366,7 +366,7 @@
 - TestCase_____________________________________________________________________________________________________________________20
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
   1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: SL | PostBackID:
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: IT | PostBackID:
   8934'
 - '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
@@ -374,7 +374,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079347&ref3=xuiyq&ref7=yzre&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&testcase=20
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079347&ref5=joszt&ref6=xmku&ref7=xvngn&ref8=jtxs&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=20
 
   '
 - 'Expected:'
@@ -399,7 +399,7 @@
 - TestCase_____________________________________________________________________________________________________________________21
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
   1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: DE | PostBackID:
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: JA | PostBackID:
   8934'
 - '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: Credit
   Card [ 4000000000001000 ]'
@@ -407,7 +407,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079346&ref5=sgztj&ref6=iuxs&ref7=zaxbf&ref8=vrxm&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=DE&testcase=21
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=800:100232&octoken=1000079346&ref1=fydux&ref2=enwp&ref3=cooqx&ref4=adsc&ref5=relco&ref6=ryqv&ref7=pjrpw&ref8=fljf&ref9=pbuky&ref10=gedd&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=JA&testcase=21
 
   '
 - 'Expected:'
@@ -432,7 +432,7 @@
 - TestCase_____________________________________________________________________________________________________________________22
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
   0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: ZH | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: PT | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:100234 | Payment Method: Credit
   Card [ 4000000000001091 ]'
@@ -441,7 +441,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:100234&octoken=1000079346&ref1=vcivf&ref2=suei&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=22
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:100234&octoken=1000079346&ref1=whvdl&ref2=bykt&ref3=znjdy&ref4=xgfn&ref5=ogapd&ref6=lvvi&ref7=apoog&ref8=vbtn&ref9=olgpw&ref10=aoow&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&DMCURRENCY=HKD&paypagelanguage=PT&testcase=22
 
   '
 - 'Expected:'
@@ -450,7 +450,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -465,16 +465,16 @@
 23:EU_US:Paypal:OneClick_WS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________23
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: DE | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: JA | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27072&octoken=1000079351&ref5=yymla&ref6=tdzi&ref7=dbvgg&ref8=iwix&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&paypagelanguage=DE&testcase=23
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:100231&octoken=1000079351&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=ILS&paypagelanguage=JA&testcase=23
 
   '
 - 'Expected:'
@@ -483,10 +483,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -499,7 +499,7 @@
 - TestCase_____________________________________________________________________________________________________________________24
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_WS | CollectUserInfo:
   0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EL | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: JA | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: Credit
   Card [ 4000000000001000 ]'
@@ -508,7 +508,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27072&octoken=1000079351&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=USD&paypagelanguage=EL&testcase=24
+- 'JoinLink : https://stgsvc.segpay.com/OneClickSales.asmx/SalesService?eticketid=900:27072&octoken=1000079351&ref5=jvppv&ref6=nvyg&ref7=ssoja&ref8=vriy&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=NOK&testcase=24
 
   '
 - 'Expected:'
@@ -517,7 +517,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -532,16 +532,16 @@
 25:EU:CC:Signup:Cancel:
 - TestCase_____________________________________________________________________________________________________________________25
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: EL | PostBackID:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: EUR | Language: SK | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: Credit
   Card [ 4000000000001000 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=CAD&testcase=25
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref5=ceoaq&ref6=wqfk&ref7=gbuhm&ref8=ppzh&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=25
 
   '
 - 'Expected:'
@@ -550,10 +550,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: EUR |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
+  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -565,17 +565,17 @@
 26:EU:CC:Signup:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________26
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: IT | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: FR | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: Credit
+  Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref9=uvnlz&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=26
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&ref1=aprtm&ref2=iimx&ref3=bgysh&ref4=pewy&ref5=cwiqw&ref6=gywu&ref7=ydqkm&ref8=dbzw&ref9=jwucs&ref10=dcfr&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=FR&testcase=26
 
   '
 - 'Expected:'
@@ -587,7 +587,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -600,7 +600,7 @@
 - TestCase_____________________________________________________________________________________________________________________27
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
   0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: DKK | Language: RU | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: ZS | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
@@ -608,7 +608,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref9=ucusv&ref10=amzb&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=DKK&paypagelanguage=RU&testcase=27
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref9=ykvvh&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=ILS&testcase=27
 
   '
 - 'Expected:'
@@ -617,7 +617,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: DKK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -632,16 +632,16 @@
 28:EU:Paypal:Signup:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________28
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: NL | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: ZH | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref9=tsrsf&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&testcase=28
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=28
 
   '
 - 'Expected:'
@@ -650,10 +650,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -666,7 +666,7 @@
 - TestCase_____________________________________________________________________________________________________________________29
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup_Decline | CollectUserInfo:
   1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: JA | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: IT | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: Credit
   Card [ 4000000000001042 ]'
@@ -674,7 +674,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref1=kfkaj&ref2=pstl&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=CAD&testcase=29
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&ref1=vyupd&ref2=mcoh&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=29
 
   '
 - 'Expected:'
@@ -683,7 +683,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -698,17 +698,17 @@
 2:EU:CC:OneClick_POS:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________2
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: AUD | Language: EL | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: SL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: Credit
+  Card [ 4000000000001000 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079346&ref9=bperq&ref10=cagc&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=AUD&testcase=2
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&octoken=1000079346&ref3=pfohw&ref7=ickw&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=SEK&paypagelanguage=SL&testcase=2
 
   '
 - 'Expected:'
@@ -717,10 +717,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: AUD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -733,14 +733,14 @@
 - TestCase_____________________________________________________________________________________________________________________30
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup_Decline | CollectUserInfo:
   0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: AUD | Language: JA | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: PT | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
 - '| No Bep actions'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref1=umsbc&ref2=amyq&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=30
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&ref1=umyys&ref2=yadd&ref3=rbdna&ref4=uvls&ref5=amedp&ref6=hgux&ref7=owiwq&ref8=onau&ref9=ltwbo&ref10=rcuo&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=PT&testcase=30
 
   '
 - 'Expected:'
@@ -749,7 +749,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: AUD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -765,7 +765,7 @@
 - TestCase_____________________________________________________________________________________________________________________31
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: Signup | CollectUserInfo:
   1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: DE | PostBackID:
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: ZH | PostBackID:
   8934'
 - '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: Credit
   Card [ 4000000000001000 ]'
@@ -774,7 +774,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100232&ref5=ptsqq&ref6=cntp&ref7=zjwel&ref8=xmnm&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=DE&testcase=31
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100232&ref5=rdrxn&ref6=kota&ref7=xrebh&ref8=nvem&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=31
 
   '
 - 'Expected:'
@@ -798,16 +798,16 @@
 32:EU_EUR:Paypal:Signup:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________32
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: ZS | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: ZH | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100234 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100235 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100234&ref3=jwape&ref7=frau&refurl=wwww.regressesion.com/&DMCURRENCY=NOK&testcase=32
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100235&ref1=wwepx&ref2=tque&ref3=almkj&ref4=kgwk&ref5=wrirt&ref6=jjvn&ref7=rwjti&ref8=myrx&ref9=gdtwi&ref10=ewnt&refurl=wwww.regressesion.com/&DMCURRENCY=HKD&paypagelanguage=ZH&testcase=32
 
   '
 - 'Expected:'
@@ -816,7 +816,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -831,17 +831,17 @@
 33:EU_EUR:CC:Signup:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________33
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: IT | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: GBP | Language: IT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100234 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+- '| This Transactions should be aproved | Eticket: 900:100235 | Payment Method: Credit
+  Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100234&ref3=ysoqc&ref7=alpi&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=SEK&testcase=33
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100235&ref3=oercl&ref7=zipa&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=33
 
   '
 - 'Expected:'
@@ -850,7 +850,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: GBP |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -865,16 +865,16 @@
 34:EU_EUR:CC:Signup:Decline:
 - TestCase_____________________________________________________________________________________________________________________34
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: Signup_Decline | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: EN | PostBackID:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: FR | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100235 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:100321 | Payment Method: Credit
   Card [ 4000000000001042 ]'
 - '| No Bep actions'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100235&ref9=ujcen&refurl=wwww.regressesion.com/&testcase=34
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100321&ref1=pcsie&ref2=lrht&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=CZK&paypagelanguage=FR&testcase=34
 
   '
 - 'Expected:'
@@ -883,7 +883,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -898,16 +898,16 @@
 35:EU:CC:FreeTrial_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________35
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: FreeTrial_POS | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: NL | PostBackID:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100269 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:27273 | Payment Method: Credit
   Card [ 4000000000001000 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100269&octoken=1000079346&ref9=dbukw&ref10=aftn&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=NOK&paypagelanguage=NL&testcase=35
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27273&octoken=1000079346&ref9=bjlcn&ref10=hsdt&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=EN&testcase=35
 
   '
 - 'Expected:'
@@ -915,10 +915,10 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -931,16 +931,16 @@
 - TestCase_____________________________________________________________________________________________________________________36
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: FreeTrial_POS | CollectUserInfo:
   2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: IT | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: ES | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:100269 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+  Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100269&octoken=1000079346&ref9=lczul&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=CHF&paypagelanguage=IT&testcase=36
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100269&octoken=1000079346&ref9=umaks&ref10=qdre&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&paypagelanguage=ES&testcase=36
 
   '
 - 'Expected:'
@@ -948,7 +948,7 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
@@ -963,16 +963,16 @@
 37:EU:CC:FreeTrial_Signup:Cancel:
 - TestCase_____________________________________________________________________________________________________________________37
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: FreeTrial_Signup | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: JA | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: DKK | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100269 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+- '| This Transactions should be aproved | Eticket: 900:100236 | Payment Method: Credit
+  Card [ 4000000000001091 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100269&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=JA&testcase=37
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100236&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=DKK&testcase=37
 
   '
 - 'Expected:'
@@ -980,10 +980,10 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: DKK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -995,17 +995,17 @@
 38:US:CC:FreeTrial_Signup:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________38
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: FreeTrial_Signup | CollectUserInfo:
-  2'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: FR | PostBackID:
+  1'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: IT | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:100397 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 800:100237 | Payment Method: Credit
   Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100397&ref9=yvxmj&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=FR&testcase=38
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100237&ref9=nxqcj&ref10=zpea&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=38
 
   '
 - 'Expected:'
@@ -1016,7 +1016,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -1028,16 +1028,16 @@
 39:EU:Paypal:FreeTrial_Signup:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________39
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: FreeTrial_Signup | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: PT | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: EL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100269 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100236 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100269&ref3=stxzb&ref7=lenc&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=39
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100236&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=EL&testcase=39
 
   '
 - 'Expected:'
@@ -1045,10 +1045,10 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1060,16 +1060,16 @@
 3:EU:Paypal:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________3
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: NL | PostBackID:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: EL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079347&ref1=ywydg&ref2=zdri&ref3=qnven&ref4=hrdw&ref5=vqomk&ref6=miou&ref7=pndkd&ref8=iwyb&ref9=ykrsb&ref10=gkwa&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=3
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&octoken=1000079347&ref1=ydpzb&ref2=nldc&x-billaddr=123+Segpay+Street&x-billstate=PA&refurl=wwww.regressesion.com/&paypagelanguage=EL&testcase=3
 
   '
 - 'Expected:'
@@ -1078,7 +1078,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
@@ -1093,15 +1093,15 @@
 40:EU_EUR:Paypal:FreeTrial_Signup:Cancel:
 - TestCase_____________________________________________________________________________________________________________________40
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: FreeTrial_Signup | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: SK | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: IT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100327 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100239 | Payment Method: PayPal'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100327&ref1=vwtjs&ref2=ffdj&ref3=osolk&ref4=ejnr&ref5=btlaa&ref6=xfni&ref7=tiojv&ref8=wxzw&ref9=jaegi&ref10=dhjk&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=HKD&testcase=40
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100239&ref3=gfxht&ref7=toaz&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=40
 
   '
 - 'Expected:'
@@ -1109,10 +1109,10 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1124,16 +1124,16 @@
 41:EU:CC:FreeTrial_Signup:Cancel:
 - TestCase_____________________________________________________________________________________________________________________41
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: FreeTrial_Signup
-  | CollectUserInfo: 1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: SK | PostBackID:
+  | CollectUserInfo: 2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: DE | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100240 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: Credit
   Card [ 4000000000001091 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100240&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref3=hkalo&ref7=smqt&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=SK&testcase=41
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref1=bands&ref2=qfja&ref3=ejaob&ref4=edpd&ref5=potkc&ref6=ovxm&ref7=ejsbv&ref8=pkpc&ref9=qgkir&ref10=buqn&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=USD&paypagelanguage=DE&testcase=41
 
   '
 - 'Expected:'
@@ -1144,7 +1144,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
+  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1157,7 +1157,7 @@
 - TestCase_____________________________________________________________________________________________________________________42
 - '| Dynamic Recurring 511 | Merchant: US| 3DS Configured | Action: FreeTrial_Signup
   | CollectUserInfo: 2'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: RU | PostBackID:
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: JA | PostBackID:
   8934'
 - '| This Transactions should be aproved | Eticket: 800:100241 | Payment Method: Credit
   Card [ 4000000000001091 ]'
@@ -1166,7 +1166,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100241&DynamicPricingID=6255d8ea-6a9a-4d6a-a44f-61855b03612b&ref5=eiprj&ref6=rmsn&ref7=tfgfe&ref8=ektv&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=42
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100241&DynamicPricingID=6255d8ea-6a9a-4d6a-a44f-61855b03612b&ref3=tavix&ref7=mkhm&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=JA&testcase=42
 
   '
 - 'Expected:'
@@ -1190,7 +1190,7 @@
 - TestCase_____________________________________________________________________________________________________________________43
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: FreeTrial_Signup
   | CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: EN | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: JA | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
@@ -1198,7 +1198,7 @@
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=JPY&paypagelanguage=EN&testcase=43
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref9=zzqrg&ref10=lknt&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=43
 
   '
 - 'Expected:'
@@ -1206,7 +1206,7 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
@@ -1221,15 +1221,15 @@
 44:EU_EUR:Paypal:FreeTrial_Signup:Cancel:
 - TestCase_____________________________________________________________________________________________________________________44
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: FreeTrial_Signup
-  | CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: EL | PostBackID:
+  | CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: FR | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100242 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100351 | Payment Method: PayPal'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100242&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref9=vhzlz&ref10=owvi&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=ILS&paypagelanguage=EL&testcase=44
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100351&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref1=evzkj&ref2=qryn&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=44
 
   '
 - 'Expected:'
@@ -1237,10 +1237,10 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
+  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1252,16 +1252,16 @@
 45:EU:CC:OneClick_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________45
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: SL | PostBackID:
+  CollectUserInfo: 0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: PT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: Credit
   Card [ 4000000000001091 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079346&ref1=ayqoh&ref2=qvkm&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=SL&testcase=45
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079346&DMCURRENCY=NOK&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=45
 
   '
 - 'Expected:'
@@ -1270,10 +1270,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1285,17 +1285,17 @@
 46:EU:CC:OneClick_POS:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________46
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: INR | Language: SK | PostBackID:
+  CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: ZS | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 900:20000043 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079346&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=SK&testcase=46
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000043&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079346&ref3=gvfcn&ref7=huyf&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ZS&testcase=46
 
   '
 - 'Expected:'
@@ -1304,10 +1304,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: INR |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1319,16 +1319,16 @@
 47:EU:Paypal:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________47
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: NL | PostBackID:
+  CollectUserInfo: 0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&DMCURRENCY=HKD&ref1=lzgco&ref2=txtb&ref3=xnnpt&ref4=frnn&ref5=rpqlm&ref6=qqih&ref7=ehvsc&ref8=rxve&ref9=lzlrg&ref10=fdaj&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&paypagelanguage=NL&testcase=47
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&ref9=ifrgs&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=EN&testcase=47
 
   '
 - 'Expected:'
@@ -1337,10 +1337,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1353,14 +1353,14 @@
 - TestCase_____________________________________________________________________________________________________________________48
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
   CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: AUD | Language: ZH | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: INR | Language: NL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100318 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: PayPal'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&DMCURRENCY=AUD&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=48
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=48
 
   '
 - 'Expected:'
@@ -1369,10 +1369,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: AUD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: INR |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1384,16 +1384,16 @@
 49:EU:CC:OneClick_POS:Decline:
 - TestCase_____________________________________________________________________________________________________________________49
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline
-  | CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: ES | PostBackID:
+  | CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: PT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: Credit
-  Card [ 4000000000001042 ]'
+- '| This Transactions should be aproved | Eticket: 900:20000043 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079346&DMCURRENCY=JPY&ref3=dsces&ref7=bdba&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=49
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000043&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079346&ref9=xbmrz&ref10=jfme&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=PT&testcase=49
 
   '
 - 'Expected:'
@@ -1402,7 +1402,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1417,15 +1417,15 @@
 4:EU:Paypal:OneClick_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________4
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: SK | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: PT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&octoken=1000079347&ref9=odqvt&ref10=ugvd&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=SK&testcase=4
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079347&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&DMCURRENCY=CHF&testcase=4
 
   '
 - 'Expected:'
@@ -1434,10 +1434,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
+  Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1450,14 +1450,14 @@
 - TestCase_____________________________________________________________________________________________________________________50
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline
   | CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: GBP | Language: IT | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: EUR | Language: ZS | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100318 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: PayPal'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&ref9=yzivk&ref10=ihae&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=50
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&DMCURRENCY=EUR&ref9=yxfwj&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=50
 
   '
 - 'Expected:'
@@ -1466,7 +1466,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: GBP |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: EUR |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1481,15 +1481,16 @@
 51:EU:Paypal:OneClick_POS:Decline:
 - TestCase_____________________________________________________________________________________________________________________51
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline
-  | CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: DE | PostBackID:
+  | CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:20000043 | Payment Method:
+  PayPal'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&DMCURRENCY=RUB&ref1=vdqcn&ref2=oetw&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=DE&testcase=51
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000043&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&testcase=51
 
   '
 - 'Expected:'
@@ -1498,7 +1499,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1513,17 +1514,17 @@
 52:US:CC:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________52
 - '| Dynamic Recurring 511 | Merchant: US| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: JA | PostBackID:
+  CollectUserInfo: 0'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: IT | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:100412 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 800:20000044 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100412&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&octoken=1000079351&ref9=lulsa&ref10=wbnu&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=JA&testcase=52
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000044&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&octoken=1000079351&ref9=exijb&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=52
 
   '
 - 'Expected:'
@@ -1535,7 +1536,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -1547,16 +1548,17 @@
 53:US_EU:Paypal:OneClick_POS:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________53
 - '| Dynamic Recurring 511 | Merchant: US| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: PT | PostBackID:
+  CollectUserInfo: 2'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: JA | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:100412 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 800:20000045 | Payment Method:
+  PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100412&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&octoken=1000079347&ref1=bnfyu&ref2=cavu&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=53
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000045&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&octoken=1000079347&ref5=okcaw&ref6=jtlk&ref7=mhvbh&ref8=ljtx&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&paypagelanguage=JA&testcase=53
 
   '
 - 'Expected:'
@@ -1568,7 +1570,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -1580,16 +1582,16 @@
 54:US_EU:CC:OneClick_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________54
 - '| Dynamic Recurring 511 | Merchant: US| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 2'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: NL | PostBackID:
+  CollectUserInfo: 1'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: IT | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:100241 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+- '| This Transactions should be aproved | Eticket: 800:20000046 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100241&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&octoken=1000079346&ref3=sdnmh&ref7=urez&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&testcase=54
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000046&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&octoken=1000079346&ref5=fmset&ref6=gqbz&ref7=yorhf&ref8=tjty&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=54
 
   '
 - 'Expected:'
@@ -1613,16 +1615,17 @@
 55:EU_EUR:Paypal:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________55
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: JA | PostBackID:
+  CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: ES | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100242 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:20000047 | Payment Method:
+  PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100242&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&ref9=sidiq&ref10=rxyj&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=JA&testcase=55
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000047&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&DMCURRENCY=ILS&ref9=bjlrp&ref10=vysq&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ES&testcase=55
 
   '
 - 'Expected:'
@@ -1631,7 +1634,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -1646,15 +1649,16 @@
 56:EU_EUR:Paypal:OneClick_POS:Decline:
 - TestCase_____________________________________________________________________________________________________________________56
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline
-  | CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: NL | PostBackID:
+  | CollectUserInfo: 2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100242 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:20000048 | Payment Method:
+  PayPal'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100242&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=NL&testcase=56
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000048&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079347&ref9=ovoly&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=EN&testcase=56
 
   '
 - 'Expected:'
@@ -1663,7 +1667,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1678,16 +1682,17 @@
 57:EU_US:Paypal:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________57
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
-  CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: EUR | Language: JA | PostBackID:
+  CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: FR | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:20000043 | Payment Method:
+  PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079351&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=57
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000043&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079351&ref1=iefmd&ref2=ymfz&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&testcase=57
 
   '
 - 'Expected:'
@@ -1696,10 +1701,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: EUR |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1712,16 +1717,16 @@
 - TestCase_____________________________________________________________________________________________________________________58
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: OneClick_POS |
   CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: EL | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: PT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100318 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: Credit
+  Card [ 4000000000001000 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079351&ref1=fevgk&ref2=wage&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=58
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&octoken=1000079351&DMCURRENCY=CHF&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=58
 
   '
 - 'Expected:'
@@ -1730,10 +1735,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1745,16 +1750,16 @@
 59:EU:CC:Signup:Cancel:
 - TestCase_____________________________________________________________________________________________________________________59
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: DE | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: ZH | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100240 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: Credit
   Card [ 4000000000001000 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100240&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=kxkuc&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=SEK&paypagelanguage=DE&testcase=59
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=vrrpd&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=59
 
   '
 - 'Expected:'
@@ -1763,7 +1768,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -1778,16 +1783,16 @@
 5:EU:CC:OneClick_POS:Decline:
 - TestCase_____________________________________________________________________________________________________________________5
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
-  CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: SK | PostBackID:
+  CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: USD | Language: JA | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:27003 | Payment Method: Credit
   Card [ 4000000000001042 ]'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&octoken=1000079346&ref9=sdpoa&ref10=pnpv&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=5
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27003&octoken=1000079346&ref1=ucete&ref2=dixy&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=USD&testcase=5
 
   '
 - 'Expected:'
@@ -1796,7 +1801,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1812,16 +1817,16 @@
 - TestCase_____________________________________________________________________________________________________________________60
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
   2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: GBP | Language: ZS | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: ES | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 900:20000049 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=rierz&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&paypagelanguage=ZS&testcase=60
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000049&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=cfhcy&ref10=lvej&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ES&testcase=60
 
   '
 - 'Expected:'
@@ -1830,10 +1835,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: GBP |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1845,16 +1850,16 @@
 61:EU:Paypal:Signup:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________61
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: EUR | Language: JA | PostBackID:
+  0'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: SK | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=61
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=lwfwi&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=CAD&testcase=61
 
   '
 - 'Expected:'
@@ -1863,10 +1868,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: EUR |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -1878,16 +1883,17 @@
 62:EU:Paypal:Signup:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________62
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: ZH | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: EN | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100240 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:20000049 | Payment Method:
+  PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100240&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref1=tjguk&ref2=yycd&ref3=uyzgx&ref4=gndy&ref5=piczk&ref6=mxzc&ref7=denuv&ref8=hjnu&ref9=befwc&ref10=cuoa&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=62
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000049&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref3=cinoa&ref7=cddu&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=ILS&paypagelanguage=EN&testcase=62
 
   '
 - 'Expected:'
@@ -1896,7 +1902,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -1911,16 +1917,16 @@
 63:EU:CC:Signup:Decline:
 - TestCase_____________________________________________________________________________________________________________________63
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup_Decline
-  | CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CHF | Language: RU | PostBackID:
+  | CollectUserInfo: 2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: ES | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100318 | Payment Method: Credit
-  Card [ 4000000000001042 ]'
+- '| This Transactions should be aproved | Eticket: 900:20000049 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
 - '| No Bep actions'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref1=ncsna&ref2=xvhe&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=CHF&paypagelanguage=RU&testcase=63
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000049&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref5=grrfo&ref6=eqzg&ref7=xfnht&ref8=hssx&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ES&testcase=63
 
   '
 - 'Expected:'
@@ -1929,7 +1935,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: CHF |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1945,14 +1951,14 @@
 - TestCase_____________________________________________________________________________________________________________________64
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup_Decline
   | CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: DKK | Language: ZS | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CZK | Language: PT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100318 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100243 | Payment Method: PayPal'
 - '| No Bep actions'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref3=rlnzg&ref7=llcf&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=64
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100243&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref1=qncie&ref2=ibij&ref3=duogi&ref4=wtus&ref5=cygwc&ref6=klws&ref7=cfavv&ref8=twqa&ref9=vlzxi&ref10=yygx&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=64
 
   '
 - 'Expected:'
@@ -1961,7 +1967,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: DKK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: CZK |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -1976,17 +1982,17 @@
 65:US:CC:Signup:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________65
 - '| Dynamic Recurring 511 | Merchant: US| 3DS Configured | Action: Signup | CollectUserInfo:
-  1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: NL | PostBackID:
+  0'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: SK | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:100412 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+- '| This Transactions should be aproved | Eticket: 800:20000044 | Payment Method:
+  Credit Card [ 4000000000001091 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100412&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&ref9=bwdwf&ref10=pfuc&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=NL&testcase=65
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:20000044&DynamicPricingID=74575918-42bd-430d-90db-030965d43f92&ref9=ibygu&ref10=blaf&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=SK&testcase=65
 
   '
 - 'Expected:'
@@ -1998,7 +2004,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -2010,16 +2016,17 @@
 66:EU_EUR:Paypal:Signup:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________66
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: GBP | Language: ZS | PostBackID:
+  1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: RUB | Language: SL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100352 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:20000047 | Payment Method:
+  PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100352&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=66
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000047&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref1=cssgp&ref2=btrr&ref3=qoelg&ref4=lrbx&ref5=jbksb&ref6=ulua&ref7=pzgmu&ref8=gwty&ref9=gbvuo&ref10=qzxd&refurl=wwww.regressesion.com/&DMCURRENCY=RUB&testcase=66
 
   '
 - 'Expected:'
@@ -2028,10 +2035,10 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: GBP |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: RUB |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -2043,17 +2050,17 @@
 67:EU_EUR:CC:Signup:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________67
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup | CollectUserInfo:
-  0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: EUR | Language: IT | PostBackID:
+  2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: SK | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100242 | Payment Method: Credit
-  Card [ 4000000000001000 ]'
+- '| This Transactions should be aproved | Eticket: 900:20000048 | Payment Method:
+  Credit Card [ 4000000000001000 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100242&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref1=izgks&ref2=nlod&ref3=lfvcl&ref4=bhpc&ref5=jmwpk&ref6=htbh&ref7=anpay&ref8=wgxv&ref9=vgcff&ref10=ajux&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=67
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000048&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=vghsl&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=JPY&testcase=67
 
   '
 - 'Expected:'
@@ -2062,7 +2069,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: EUR |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
@@ -2078,15 +2085,15 @@
 - TestCase_____________________________________________________________________________________________________________________68
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: Signup_Decline
   | CollectUserInfo: 1'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: CAD | Language: NL | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: NL | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:100351 | Payment Method: Credit
-  Card [ 4000000000001042 ]'
+- '| This Transactions should be aproved | Eticket: 900:20000047 | Payment Method:
+  Credit Card [ 4000000000001042 ]'
 - '| No Bep actions'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100351&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref9=dqlfq&ref10=vpmp&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=NL&testcase=68
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:20000047&DynamicPricingID=04fa210b-feae-4547-86a6-04c2008bdb5f&ref1=ibpdw&ref2=xbft&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=JPY&paypagelanguage=NL&testcase=68
 
   '
 - 'Expected:'
@@ -2095,7 +2102,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   184 | TransType: 101 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: CAD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -2110,16 +2117,16 @@
 69:EU:CC:FreeTrial_POS:Cancel:
 - TestCase_____________________________________________________________________________________________________________________69
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: FreeTrial_POS
-  | CollectUserInfo: 2'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: NOK | Language: DE | PostBackID:
+  | CollectUserInfo: 1'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: ILS | Language: SK | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27011 | Payment Method: Credit
+- '| This Transactions should be aproved | Eticket: 900:100240 | Payment Method: Credit
   Card [ 4000000000001000 ]'
 - '| This Transaction need to be Canceled in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27011&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&octoken=1000079346&DMCURRENCY=NOK&ref9=pijgp&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=DE&testcase=69
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100240&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&octoken=1000079346&DMCURRENCY=ILS&ref5=nzwnk&ref6=auey&ref7=qqmdf&ref8=vtgw&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=SK&testcase=69
 
   '
 - 'Expected:'
@@ -2127,10 +2134,10 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: NOK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: ILS |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8962 '
 - 3DS                | Cardinal3dsRequests should have the response from Cardinal
@@ -2142,15 +2149,15 @@
 6:EU:Paypal:OneClick_POS:Decline:
 - TestCase_____________________________________________________________________________________________________________________6
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
-  CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: JPY | Language: NL | PostBackID:
+  CollectUserInfo: 2'
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: GBP | Language: IT | PostBackID:
   8962'
-- '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 900:100231 | Payment Method: PayPal'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079347&ref9=dgysc&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=JPY&testcase=6
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100231&octoken=1000079347&ref3=acbdt&ref7=xhok&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&refurl=wwww.regressesion.com/&DMCURRENCY=GBP&paypagelanguage=IT&testcase=6
 
   '
 - 'Expected:'
@@ -2159,7 +2166,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: JPY |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: GBP |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -2175,16 +2182,16 @@
 - TestCase_____________________________________________________________________________________________________________________70
 - '| Dynamic Recurring 511 | Merchant: EU| 3DS Configured | Action: FreeTrial_POS
   | CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: HKD | Language: IT | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: FR | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:100318 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+  Card [ 4000000000001000 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&octoken=1000079346&DMCURRENCY=HKD&ref1=radjg&ref2=pqpb&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=70
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:100318&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&octoken=1000079346&ref1=mrlgc&ref2=ajvw&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=70
 
   '
 - 'Expected:'
@@ -2192,7 +2199,7 @@
 - 'Note:        | Please check all PostBacks and Emails'
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 0 | TransStatus:  |
   TransType:  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink'
-- 'Assets:      | PurchStatus: 801 | AuthCurrency: HKD |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 801 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
   Null | Last: Null | Next: CurrentDate + 0 | Expire: CurrentDate + 0 '
@@ -2208,14 +2215,14 @@
 - TestCase_____________________________________________________________________________________________________________________7
 - '| Recurring 501 | Merchant: EU| 3DS Configured | Action: OneClick_POS_Decline |
   CollectUserInfo: 0'
-- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: SEK | Language: IT | PostBackID:
+- '| Processor: SPKAISO1  | DMCStatus: 473 | DMC: INR | Language: DE | PostBackID:
   8962'
 - '| This Transactions should be aproved | Eticket: 900:27072 | Payment Method: PayPal'
 - '| No Bep actions  | To decline OneClick use the wrong cvv in live testing:'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079347&ref5=lkadt&ref6=swgi&ref7=hapie&ref8=vxxj&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=SEK&testcase=7
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=900:27072&octoken=1000079347&ref1=qlkei&ref2=lrov&ref3=cqypq&ref4=wdpa&ref5=gjahb&ref6=ilal&ref7=balhj&ref8=simm&ref9=aexhk&ref10=upek&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=7
 
   '
 - 'Expected:'
@@ -2224,7 +2231,7 @@
 - 'Multitranse: | AuthCode: ''OK:0'' | TxStatus: 2 | TransSource: 121 | TransStatus:
   186 | TransType: 1011 | CustAddress,CustCity,CustState,CustPhone => Blank or Value
   from JoinLink'
-- 'Assets:      | PurchStatus: 806 | AuthCurrency: SEK |  Purchases: 1 | PurchType:
+- 'Assets:      | PurchStatus: 806 | AuthCurrency: INR |  Purchases: 1 | PurchType:
   Paypal'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate
   | Conv: CurrentDate | Last: CurrentDate | Next: None | Expire: CurrentDate '
@@ -2239,17 +2246,17 @@
 8:US:CC:OneClick_POS:Void_Refund_Expire:
 - TestCase_____________________________________________________________________________________________________________________8
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  0'
+  2'
 - '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: ZH | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:27187 | Payment Method: Credit
-  Card [ 4000000000001091 ]'
+- '| This Transactions should be aproved | Eticket: 800:100233 | Payment Method: Credit
+  Card [ 4000000000001000 ]'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Expire]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:27187&octoken=1000079351&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&testcase=8
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100233&octoken=1000079351&ref1=fafrk&ref2=oqks&ref3=zuntr&ref4=dozg&ref5=swyyj&ref6=guxz&ref7=sqajy&ref8=toxk&ref9=rcurn&ref10=pqqb&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=8
 
   '
 - 'Expected:'
@@ -2261,7 +2268,7 @@
 - 'Assets:      | PurchStatus: 801 | AuthCurrency: USD |  Purchases: 1 | PurchType:
   CC'
 - 'Dates :      | Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv:
-  Null | Last: Null | Next: CurrentDate + 2 | Expire: CurrentDate + 2 '
+  Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1 '
 - 'Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  '
 - 'PostBacks    | PostBackNotifications  should have postbacks for PostBackID: 8934 '
 - 3DS                | Multitrans UserData should have responce from Cardinal
@@ -2273,16 +2280,16 @@
 9:US_EU:Paypal:OneClick_POS:Void_Refund_Cancel:
 - TestCase_____________________________________________________________________________________________________________________9
 - '| Recurring 501 | Merchant: US| 3DS Configured | Action: OneClick_POS | CollectUserInfo:
-  1'
-- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: ES | PostBackID:
+  2'
+- '| Processor: SPHBIPSP  | DMCStatus: 471 | DMC: USD | Language: ZH | PostBackID:
   8934'
-- '| This Transactions should be aproved | Eticket: 800:100232 | Payment Method: PayPal'
+- '| This Transactions should be aproved | Eticket: 800:100233 | Payment Method: PayPal'
 - '| This Transaction will be voided (before capture) or refunded (after capture)
   - Select [Refund and Cancel]  in Merchant Portal after Completion'
 - '|________________________________________________________________________________________________________________________________
 
   '
-- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100232&octoken=1000079347&ref9=fxcfr&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=ES&testcase=9
+- 'JoinLink : https://stgs2.segpay.com/billing/poset.cgi?x-eticketid=800:100233&octoken=1000079347&ref1=dfxzl&ref2=cxbi&ref3=wzmyx&ref4=wwfg&ref5=sqigr&ref6=lqnk&ref7=bhehn&ref8=ndje&ref9=zekdq&ref10=adwz&x-billaddr=123+Segpay+Street&x-billstate=PA&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&paypagelanguage=ZH&testcase=9
 
   '
 - 'Expected:'
