@@ -421,7 +421,7 @@ def print_scenario():
         
         print("Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
         #print('Actual Result:')
-        print("PurchaseID =             | UserName:                   | Email:                | Pas/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
+        print("PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
         print("|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
         
         if not (config.test_data['action_bep'] == 'Decline' or config.test_data['action_bep'] == 'No_action'):
@@ -732,8 +732,8 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\onetime.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dynamic.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dynamic.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')

@@ -7,8 +7,8 @@ from pos.point_of_sale.db_functions.dbactions import DBActions
 db_agent = DBActions()
 start_time = datetime.now()
 
-config.test_data['packageid'] = 900
-config.test_data['MerchantID'] = 27001
+config.test_data['packageid'] = 800
+config.test_data['MerchantID'] = 21621
 
 # ==================================================================================================> Begining of the script
 
