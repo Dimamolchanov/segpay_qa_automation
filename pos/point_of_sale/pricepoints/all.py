@@ -206,7 +206,7 @@ def mt_verification(test_case):
                 transsource = 123
             else:
                 transsource = 121
-        if config.test_data['transaction_type'] == 'Signup':
+        if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type']=='FreeTrial_POS':
             transstatus = 184
             transsource = 121
             transtype = 101
@@ -387,7 +387,7 @@ def print_scenario():
                 f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(
                 f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-            print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  Purchases: 1 | PurchType: {scenario[1]}")
+            print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
             print(
                 f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
 
@@ -396,7 +396,7 @@ def print_scenario():
             print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 "
                   f"| Processor: {processor} | PaymentType: {paymenttype}"
                   f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-            print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  Purchases: 1 | PurchType: 507")
+            print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: 507")
 
             print(
                 f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
@@ -406,7 +406,7 @@ def print_scenario():
             print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} "
                   f"| Processor: {processor} | PaymentType: {paymenttype}"
                   f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
-            print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  Purchases: 1 | PurchType: {scenario[1]}")
+            print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
             print(
                 f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} |"
                 f" Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
@@ -420,7 +420,6 @@ def print_scenario():
         
         
         print("Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
-        #print('Actual Result:')
         print("PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
         print("|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
         
@@ -667,7 +666,7 @@ def create_test_case(scenario):
         if 'OneClick' in config.test_data['transaction_type']:
             sql = "Select *  from Assets where purchaseid = {} "
             result = db_agent.execute_select_one_parameter(sql, config.test_data['octoken'])
-            if config.test_data['pp_type'] in (501, 505, 506, 511) or result['PurchType'] in (503, 502, 510):  # always new purchaseid
+            if config.test_data['pp_type'] in (501, 505, 506, 511) or result['PurchType'] in (503, 502, 510) or config.test_data['cross_merchant']:  # always new purchaseid
                 random_lang_cur()
             else:
                 config.test_data['dmc'] = result['AuthCurrency']
@@ -732,8 +731,8 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dynamic.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dynamic.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
