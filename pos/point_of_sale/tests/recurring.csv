@@ -1,4 +1,5 @@
 Merchant,Payments,Actions,Void,PP Type,DMC,UserInfo,Variables,Xbill,PostBacks,,,,
+EU,CC,FreeTrial_Signup,Cancel,511,random,random,random,random,custom_default,,,,
 EU,CC,OneClick_POS,Cancel,501,random,random,random,random,custom_default,,,,Repeat set
 EU,CC,OneClick_POS,Void_Refund_Cancel,501,random,random,random,random,custom_default,,,,Run Refunder
 EU,Paypal,OneClick_POS,Void_Refund_Expire,501,random,random,random,random,custom_default,,,,Reactivate

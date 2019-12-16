@@ -206,7 +206,7 @@ def mt_verification(test_case):
                 transsource = 123
             else:
                 transsource = 121
-        if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type']=='FreeTrial_POS':
+        if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type']=='FreeTrial_POS' or config.test_data['transaction_type']=='FreeTrial_Signup':
             transstatus = 184
             transsource = 121
             transtype = 101
@@ -731,8 +731,8 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
