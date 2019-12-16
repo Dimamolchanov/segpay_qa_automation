@@ -199,18 +199,29 @@ def mt_verification(test_case):
         transtype = ''
         mt = {}
         pp_type = config.test_data['Type']
-        if config.test_data['transaction_type'] == 'OneClick_POS':
-            transstatus = 186
+        # if config.test_data['transaction_type'] == 'OneClick_POS':
+        #     transstatus = 186
+        #     transtype = 1011
+        #     if pp_type in (502, 503, 510):
+        #         transsource = 123
+        #     else:
+        #         transsource = 121
+        if config.test_data['transaction_type'] == 'Signup' :
+            transstatus = 184
+            transsource = 121
+            transtype = 101
+        elif config.test_data['transaction_type'] == 'FreeTrial_Signup':
+            transstatus = 187
+            transsource = 121
+            transtype = 101
+        elif config.test_data['transaction_type'] == 'FreeTrial_POS':
+            transstatus = 187
             transtype = 1011
             if pp_type in (502, 503, 510):
                 transsource = 123
             else:
                 transsource = 121
-        if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type']=='FreeTrial_POS' or config.test_data['transaction_type']=='FreeTrial_Signup':
-            transstatus = 184
-            transsource = 121
-            transtype = 101
-        if config.test_data['transaction_type'] == 'OneClick_WS':
+        elif config.test_data['transaction_type'] == 'OneClick_WS'  or config.test_data['transaction_type'] == 'OneClick_POS':
             transstatus = 186
             transtype = 1011
             if pp_type in (502, 503, 510):
@@ -731,8 +742,8 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
