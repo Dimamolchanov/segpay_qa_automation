@@ -162,7 +162,8 @@ class DBActions:
                 sql = "insert into PackageDetail values({}, {}, {}, GETDATE(), 'autotest', 1)".format(package_for_pp, merchantid, billconfigid)
                 self.cursor.execute(sql)
                 if (pp_type == 510 or pp_type == 511):
-                    sql = "insert into MerchantBillConfig_Extension values({}, 0, 15000.00, GETDATE(), 'dimasik@tut.by', NULL, NULL,NULL,NULL,NULL,NULL)".format(billconfigid)
+                    #sql = "insert into MerchantBillConfig_Extension values({}, 0, 15000.00, GETDATE(), 'dimasik@tut.by', NULL, NULL,NULL,NULL,NULL,NULL)".format(billconfigid)
+                    sql = "insert into MerchantBillConfig_Extension values({}, 0.00, 40.00, GETDATE(), 'dimasik@tut.by', 2.95, 40.00,3,365,30,30)".format(billconfigid)
                     self.cursor.execute(sql)
             pricepoint = rows[0]['BillConfigID']
             tc = rows[0]

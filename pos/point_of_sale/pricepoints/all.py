@@ -678,7 +678,20 @@ def create_test_case(scenario):
             sql = "Select *  from Assets where purchaseid = {} "
             result = db_agent.execute_select_one_parameter(sql, config.test_data['octoken'])
             if config.test_data['pp_type'] in (501, 505, 506, 511) or result['PurchType'] in (503, 502, 510) or config.test_data['cross_merchant']:  # always new purchaseid
-                random_lang_cur()
+                if config.test_data['transaction_type'] == 'OneClick_WS':
+                    config.test_data['dmc'] = result['AuthCurrency']
+                    config.test_data['lang'] = result['CustLang']
+                    config.test_data['purchStatus'] = result['PurchStatus']
+                    config.test_data['purchDate'] = result['PurchDate']
+                    config.test_data['cancelDate'] = result['CancelDate']
+                    config.test_data['convDate'] = result['ConvDate']
+                    config.test_data['lastDate'] = result['LastDate']
+                    config.test_data['nextDate'] = result['NextDate']
+                    config.test_data['expiredDate'] = result['ExpiredDate']
+                    config.test_data['statusDate'] = result['StatusDate']
+                else:
+                    random_lang_cur()
+
             else:
                 config.test_data['dmc'] = result['AuthCurrency']
                 config.test_data['lang'] = result['CustLang']
@@ -742,8 +755,9 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.csv"
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.yaml"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.csv"
+
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
