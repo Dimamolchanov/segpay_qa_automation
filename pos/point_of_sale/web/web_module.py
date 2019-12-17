@@ -228,7 +228,93 @@ class Signup:
                 time.sleep(1)
         except Exception as e:
             pass
-        
+
+    def paypal_paymentoc(self):
+        elem = ''
+
+        id = self.br.find_by_tag("iframe")[1]['id']
+        with self.br.get_iframe(id) as iframe:
+            iframe.find_by_id("buttons-container").first.click()
+        self.br.windows.current = self.br.windows[1]
+        self.br.driver.set_window_position(-1400, 0)
+        self.spin(self.br)
+        if self.wait_for_title:
+            if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
+        if self.br.title == 'Log in to your PayPal account':  # Log in to your PayPal account
+            if self.br.find_by_id("email").first:
+                while self.br.find_by_id("email").first.visible == False:
+                    time.sleep(1)
+                self.br.find_by_id("email").first.fill(
+                    'yan@segpay.com')  # ('CCREJECT-REFUSED@paypal.com') #('yan@segpay.com')
+                # br.find_by_id("btnNext").first.click()
+                elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnNext")))
+                elem.click()
+                self.check_title(self.br)
+            if self.br.find_by_id("password").first:
+                while self.br.find_by_id("password").first.visible == False:  # password
+                    time.sleep(1)
+                self.br.find_by_id("password").first.fill('Karapuz2')  # ('PayPal2016')
+                elem = WebDriverWait(self.br.driver, 10).until(EC.element_to_be_clickable((By.ID, "btnLogin")))
+                elem.click()
+            self.spin(self.br)
+            time.sleep(2)
+
+        while self.br.title != 'PayPal Checkout - Choose a way to pay':
+            time.sleep(1)
+            if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
+        if self.br.title == 'PayPal Checkout - Choose a way to pay':
+            try:
+                if self.is_element_present(By.ID, 'button'):
+                    elem = WebDriverWait(self.br.driver, 10).until(
+                        EC.element_to_be_clickable((By.ID, "button")))
+                elif self.is_element_present(By.ID, 'fiSubmitButton'):
+                    elem = WebDriverWait(self.br.driver, 10).until(
+                        EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
+                elif self.is_element_present(By.CLASS_NAME, ".buttons.reviewButton"):
+                    elem = WebDriverWait(self.br.driver, 10).until(
+                        EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
+                self.spin(self.br)
+                elem.click()
+                self.spin(self.br)
+                time.sleep(1)
+            except ElementClickInterceptedException:
+                time.sleep(2)  # Sometimes the pop-up takes time to load
+                elem.click()
+
+        while self.br.title != 'PayPal Checkout - Review your payment':
+            time.sleep(1)
+            if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
+        if self.br.title == 'PayPal Checkout - Review your payment':
+            try:
+                if self.is_element_present(By.ID, 'button'):
+                    elem = WebDriverWait(self.br.driver, 10).until(
+                        EC.element_to_be_clickable((By.ID, "button")))
+                elif self.is_element_present(By.ID, 'fiSubmitButton'):
+                    elem = WebDriverWait(self.br.driver, 10).until(
+                        EC.element_to_be_clickable((By.ID, "fiSubmitButton")))
+                elif self.is_element_present(By.CLASS_NAME, ".buttons.reviewButton"):
+                    elem = WebDriverWait(self.br.driver, 10).until(
+                        EC.element_to_be_clickable((By.CLASS_NAME, ".buttons.reviewButton")))
+                elem.click()
+                time.sleep(1)
+                # br.find_by_value('Agree & Pay').click()
+                print(self.br.title)
+            except ElementClickInterceptedException:
+                time.sleep(2)  # Sometimes the pop-up takes time to load
+                elem.click()
+            try:
+                while self.br.title == 'PayPal Checkout - Review your payment':
+                    time.sleep(1)
+            except NoSuchWindowException:
+                self.br.windows.current = self.br.windows[0]
+                pass
+            except Exception as e:
+                pass
+        try:
+            while self.br.find_by_id("SubmitSpinner").visible:
+                time.sleep(1)
+        except Exception as e:
+            pass
     def create_signup(self):  # Used by Recurring
         current_transaction_record = None
         try:
@@ -353,9 +439,17 @@ class Signup:
                     self.br.find_by_id('CVVInputNumeric').fill('333')
                     self.br.find_by_id('SecurePurchaseButton').click()
                 elif config.test_data['payment'] == 'Paypal':
-                    self.br.find_by_id('EMailInput').fill('yan-buyer@segpay.com')
-                    self.br.find_by_id('SecurePurchaseButton').click()
-                    time.sleep(2)
+                    if self.br.find_by_id('EMailInput').first.visible:
+                        self.br.find_by_id('EMailInput').fill('yan-buyer@segpay.com')
+                        self.br.find_by_id('SecurePurchaseButton').click()
+                        time.sleep(2)
+                    else:
+                        self.paypal_paymentoc()
+                        id = self.br.find_by_tag("iframe")[1]['id']
+                        with self.br.get_iframe(id) as iframe:
+                            iframe.find_by_id("buttons-container").first.click()
+
+
                
                 cnt = 0
                 while oneclick_record == None and cnt < 15:

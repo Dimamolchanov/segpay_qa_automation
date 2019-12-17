@@ -53,7 +53,7 @@ def build_mt_oneclick(one_click_record, action):
             'MerchantID': one_click_record['MerchantID'],
             'PaymentAcct': octoken_record['PaymentAcct'],
             'PCID': None,
-            'Processor': d['processor_name'],
+            # 'Processor': d['processor_name'],
             'ProcessorCurrency': d['Currency'],  # octoken_record['Currency'],
             'MerchantCurrency': currency,
             'STANDIN': one_click_record['STANDIN'],
@@ -72,6 +72,10 @@ def build_mt_oneclick(one_click_record, action):
             'REF10': None,
             'RefURL': one_click_record['RefURL']
         }  #
+        #if config.test_data['payment'] == 'Paypal':
+        multitrans['Processor'] = octoken_record['Processor']
+
+
         url_parameters = d['url_options'].split('&')
         for var in url_parameters:
             tmp = var.split('=')
@@ -108,7 +112,12 @@ def build_mt_oneclick(one_click_record, action):
             elif tmp[0] == 'refurl':
                 val = tmp[1][:256]
                 multitrans['RefURL'] = val  # update refs  #
-        multitrans['PaymentType'] = 131
+        if config.test_data['payment']  == 'CC':
+            multitrans['PaymentType'] = 131
+        elif config.test_data['payment']  == 'Pypal':
+            multitrans['PaymentType'] = 1301
+
+        #multitrans['PaymentType'] = octoken_record['PaymentType']
         exchange_rate = 1
         if d['Currency'] == d['dmc']:
             exchange_rate = 1
