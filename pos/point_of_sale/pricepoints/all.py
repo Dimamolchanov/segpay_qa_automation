@@ -755,9 +755,9 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.csv"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.csv"
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.yaml"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\digital.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
@@ -791,7 +791,7 @@ with open(filename, newline='') as csvfile:
             traceback.print_exc()
             print()
             pass
-# br.close()
+br.close()
 try:
     with open(saved_test_cases, 'w') as f:
         data = yaml.dump(test_cases_list, f)
