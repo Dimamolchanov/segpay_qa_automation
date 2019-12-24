@@ -135,7 +135,7 @@ class DBActions:
         tc = {}
         rows = None
         initial_price = 'InitialPrice > 0'
-        if 'FreeTrial' in config.test_data['transaction_type']:
+        if 'FreeTrial' in config.test_data['transaction_type'] or pp_type == 505:
             initial_price = 'InitialPrice = 0'
         try:
             sql = F"select top 1 * from merchantbillconfig where merchantid = {merchantid} and type = {pp_type} " \
@@ -178,7 +178,7 @@ class DBActions:
         rebil_price = 2.00
         initial_price = 1
         is_postpay = 0
-        if 'FreeTrial' in config.test_data['transaction_type']:
+        if 'FreeTrial' in config.test_data['transaction_type'] or pp_type == 505:
             initial_price = 0
         if (pp_type == 502 or pp_type == 503 or pp_type == 510):
             rebil_length = 0
