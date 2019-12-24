@@ -755,9 +755,9 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.csv"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.csv"
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.yaml"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\recurring.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
@@ -766,26 +766,26 @@ with open(filename, newline='') as csvfile:
     # heading = scenario_heading()
     for scenario in tc_reader:
         try:
-            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[0] == 'US'):
+            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS'):
                 print()  # ("skiping for now \n") # EU_EUR
 
             else:
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
-            transaction_created = create_transaction()
-            if transaction_created:
-                count_transactions += 1
-                pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
-                test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
-                config.test_data['action'] = scenario[2]
-                if pass_fail:
-                    passed_test_cases[config.test_data['name']] = config.test_data
-                else:
-                    failed_test_cases[config.test_data['name']] = config.test_data
-            else:
-                print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
-                failed_test_cases[config.test_data['name']] = config.test_data
-                raise Exception('Transaction was not created')
+                    transaction_created = create_transaction()
+                    if transaction_created:
+                        count_transactions += 1
+                        pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
+                        test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
+                        config.test_data['action'] = scenario[2]
+                        if pass_fail:
+                            passed_test_cases[config.test_data['name']] = config.test_data
+                        else:
+                            failed_test_cases[config.test_data['name']] = config.test_data
+                    else:
+                        print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
+                        failed_test_cases[config.test_data['name']] = config.test_data
+                        raise Exception('Transaction was not created')
 
         except Exception as ex:
             traceback.print_exc()

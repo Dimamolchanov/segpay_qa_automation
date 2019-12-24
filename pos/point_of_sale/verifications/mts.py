@@ -308,10 +308,10 @@ def build_multitrans():
             multitrans['TransStatus'] = 184
             multitrans['TransType'] = 101
 
-        if config.test_data['Type'] == 511:
-            multitrans['TransAmount'] = config.test_data['initialprice511']
-            multitrans['Markup'] = round(config.test_data['initialprice511'] * exchange_rate, 2)
-        elif config.test_data['Type'] == 510:
+        # if config.test_data['Type'] == 511:
+        #     multitrans['TransAmount'] = config.test_data['initialprice511']
+        #     multitrans['Markup'] = round(config.test_data['initialprice511'] * exchange_rate, 2)
+        if config.test_data['Type'] == 510:
             multitrans['TransAmount'] = config.test_data['initialprice510']
         else:
             if config.test_data['Type'] == 505 and config.test_data['record_to_check']['TransSource'] == 122:

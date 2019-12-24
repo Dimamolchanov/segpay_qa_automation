@@ -63,7 +63,8 @@ def get_error_from_log():
         return None
     else:
         for line in response:
-            print(f"ID: {response['Id']} Meage: {response['Message']}")
+            
+            print(f"ID: {line['Id']} Message: {line['Message']}")
         print(colored(f"Errors in the SegPayLogs in last 1 minute:", 'red', attrs=['bold', 'underline', 'dark']))
         connection.close()
 

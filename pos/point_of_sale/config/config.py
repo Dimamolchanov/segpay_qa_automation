@@ -7,7 +7,7 @@ tmp = tmp[0] + tmp[1].replace(':', '_')
 file_name = 'C:\segpay_qa_automation\\test_run_' + tmp + '.log'
 # logging.basicConfig(filename=file_name, level=logging.INFO)
 
-enviroment = 'qa'
+enviroment = 'stage'
 url = ''
 urlws = ''
 urlic = ''

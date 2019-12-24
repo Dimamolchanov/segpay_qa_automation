@@ -53,10 +53,10 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 		         'REF9': multitrans_base_record['REF9'],
 		         'REF10': multitrans_base_record['REF10']
 		         }
-		if type == 511:
-			asset['RecurringAmount'] = config.test_data['recurringprice511']
-			asset['PurchPeriod'] = config.test_data['recurringlength511']
-		elif type == 505:
+		# if type == 511:
+		# 	asset['RecurringAmount'] = config.test_data['recurringprice511']
+		# 	asset['PurchPeriod'] = config.test_data['recurringlength511']
+		if type == 505:
 			asset['PurchTotal'] = 0.00
 			asset['InitialAmount'] = 0.00
 		purchtype_recurring = [501, 505, 506, 507, 511]
@@ -66,10 +66,10 @@ def build_asset_signup(multitrans_base_record, multitrans_live_record):
 				asset['PurchStatus'] = 801
 				asset['StatusDate'] = current_date
 				asset['PurchDate'] = current_date
-				if type == 511:
-					asset['NextDate'] = current_date + timedelta(days=config.test_data['initiallength511'])
-					asset['ExpiredDate'] = current_date + timedelta(days=config.test_data['initiallength511'])
-				elif type == 505:
+				# if type == 511:
+				# 	asset['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen'])
+				# 	asset['ExpiredDate'] = current_date + timedelta(days=config.test_data['InitialLen'])
+				if type == 505:
 					asset['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen']) + timedelta(days=config.test_data['RebillLen'])
 				else:
 					asset['NextDate'] = current_date + timedelta(days=config.test_data['InitialLen'])
