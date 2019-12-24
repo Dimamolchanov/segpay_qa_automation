@@ -786,7 +786,7 @@ with open(filename, newline='') as csvfile:
                 print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
                 failed_test_cases[config.test_data['name']] = config.test_data
                 raise Exception('Transaction was not created')
-
+                
         except Exception as ex:
             traceback.print_exc()
             print()
