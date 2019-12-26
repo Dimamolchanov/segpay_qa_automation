@@ -150,7 +150,10 @@ def oc_tokens(merchant):
             elif config.test_data['payment'] == 'Paypal':
                 sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
         elif merchant == 'US':
-            sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor = 'SPHBIPSP' and PurchDate > '2019-12-01 17:44:03.000'"
+            if config.test_data['payment'] == 'CC':
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor = 'SPHBIPSP' and PurchDate > '2019-12-01 17:44:03.000'"
+            elif config.test_data['payment'] == 'Paypal':
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
         octoken = db_agent.execute_select_with_no_params(sql)
         return octoken['PurchaseID']
     

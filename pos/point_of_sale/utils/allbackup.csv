@@ -1,5 +1,10 @@
 Merchant,Payments,Actions,Void,PP Type,DMC,UserInfo,Variables,Xbill,PostBacks
+EU,CC,Signup,Cancel,505,random,random,random,random,custom_default
+EU,CC,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
+EU,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
+EU,Paypal,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
 EU,CC,Signup,Decline,505,random,random,random,random,custom_default
+EU,Paypal,Signup,Decline,505,random,random,random,random,custom_default
 US,CC,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
 US,Paypal,Signup,Cancel,505,random,random,random,random,custom_default
 US,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
@@ -10,6 +15,7 @@ Merchant,Payments,Actions,Void,PP Type
 EU,CC,Signup,No_action,503
 EU,CC,OneClick_POS,Void_Refund,503
 EU,CC,OneClick_POS,No_action,503
+EU,Paypal,OneClick_POS,No_action,503
 US,Paypal,OneClick_POS,No_action,503
 US_EU,CC,OneClick_POS,No_action,503
 US,CC,OneClick_WS,No_action,503
@@ -193,6 +199,7 @@ US_EU,Paypal,OneClick_POS,Void_Refund_Cancel,501,random,random,random,random,cus
 US_EU,CC,OneClick_POS,Cancel,501,random,random,random,random,custom_default,,,,
 EU_EUR,Paypal,OneClick_POS,Void_Refund_Expire,501,random,random,random,random,custom_default,,,,
 EU_EUR,Paypal,OneClick_POS,Decline,501,random,random,random,random,custom_default,,,,
+EU_US,Paypal,OneClick_POS,Void_Refund_Expire,501,random,random,random,random,custom_default,,,,
 EU_US,CC,OneClick_POS,Void_Refund_Cancel,501,random,random,random,random,custom_default,,,,
 EU,CC,OneClick_WS,Void_Refund_Expire,501,random,random,random,random,custom_default,,,,
 EU,Paypal,OneClick_WS,Void_Refund_Cancel,501,random,random,random,random,custom_default,,,,

@@ -146,7 +146,7 @@ class Signup:
         with self.br.get_iframe(id) as iframe:
             iframe.find_by_id("buttons-container").first.click()
         self.br.windows.current = self.br.windows[1]
-        self.br.driver.set_window_position(-1400, 0)
+        #self.br.driver.set_window_position(-1400, 0)
         self.spin(self.br)
         if self.wait_for_title:
             if self.check_title(self.br) == False: raise ValueError('Wrong Frame')
@@ -244,7 +244,7 @@ class Signup:
         with self.br.get_iframe(id) as iframe:
             iframe.find_by_id("buttons-container").first.click()
         self.br.windows.current = self.br.windows[1]
-        self.br.driver.set_window_position(-1400, 0)
+        #self.br.driver.set_window_position(-1400, 0)
         self.spin(self.br)
         if self.wait_for_title:
             if self.check_title(self.br) == False: raise ValueError('Wrong Frame')

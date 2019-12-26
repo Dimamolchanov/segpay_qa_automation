@@ -532,9 +532,10 @@ def print_scenario():
 
 def verify_transaction(transaction_type, current_transaction_record):
     pass_fail = ''
+    aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
     if current_transaction_record['Authorized']:
         config.test_data['authorized'] = True
-        aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+        
         if config.test_data['transaction_type'] == 'Decline':
             aprove_or_decline = False
         else:
@@ -551,13 +552,13 @@ def verify_transaction(transaction_type, current_transaction_record):
         tmpstr = f"Transaction Aproved : AuthCode:{current_transaction_record['AuthCode']}"
         print(colored(tmpstr, 'cyan', attrs=['bold']))
     else:
-        result = current_transaction_record['full_record']
-        tmpstr = f"Transaction DECLINED : AuthCode:{result['AuthCode']}"
+        config.test_data['aprove_or_decline'] = False
+        tmpstr = f"Transaction DECLINED : AuthCode:{current_transaction_record['AuthCode']}"
         print(colored(tmpstr, 'red', attrs=['bold']))
 
     if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
         pass_fail = TransActionService.verify_oc(current_transaction_record, 'pos')
-    elif transaction_type == 'Signup' or transaction_type == 'FreeTrial_Signup':
+    elif transaction_type == 'Signup' or transaction_type == 'Signup_Decline' or transaction_type == 'FreeTrial_Signup':
         pass_fail = TransActionService.verify_signup_transaction(current_transaction_record)
     elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
         pass_fail = TransActionService.verify_oc(current_transaction_record, 'ws')
@@ -583,7 +584,7 @@ def create_transaction():
         if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
             current_transaction_record = br.oc_pos()
 
-        elif transaction_type == 'Signup' or transaction_type == 'FreeTrial_Signup':
+        elif transaction_type == 'Signup' or transaction_type == 'Signup_Decline'  or transaction_type == 'FreeTrial_Signup':
             current_transaction_record = br.create_signup()
         elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
             current_transaction_record = br.oc_ws()
