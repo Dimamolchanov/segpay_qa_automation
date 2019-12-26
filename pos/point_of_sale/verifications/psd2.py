@@ -39,7 +39,7 @@ def cardinal3dsrequests(transid):  # card
 			sql = f"select dbo.DecryptString(lookupresponsedata) as lookuprresponse,dbo.DecryptString(AuthResponseData) as authresponse " \
 			      f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
 			live_record = db_agent.execute_select_with_no_params(sql)
-			if live_record:
+			if live_record and live_record['lookuprresponse']:
 				xml_return_string_lookuprresponse = simplexml.loads(live_record['lookuprresponse'])
 				response = xml_return_string_lookuprresponse['CardinalMPI']
 				scope = config.test_data['scope']

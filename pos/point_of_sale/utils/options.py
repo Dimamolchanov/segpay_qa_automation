@@ -294,7 +294,7 @@ def aprove_decline(transid):
                       f" from Cardinal3dsRequests where transguid =  (select Transguid from multitrans where transid = {transid})"
             
             live_record_3ds = db_agent.execute_select_with_no_params(sql)
-            if live_record_3ds:
+            if live_record_3ds and live_record_3ds['lookuprresponse']:
                 xml_return_string_lookuprresponse = simplexml.loads(live_record_3ds['lookuprresponse'])
                 response = xml_return_string_lookuprresponse['CardinalMPI']
                 if 'Cavv' in response:

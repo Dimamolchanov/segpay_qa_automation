@@ -766,7 +766,7 @@ with open(filename, newline='') as csvfile:
     # heading = scenario_heading()
     for scenario in tc_reader:
         try:
-            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[0] == 'US'):
+            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS'):
                 print()  # ("skiping for now \n") # EU_EUR
 
             else:
