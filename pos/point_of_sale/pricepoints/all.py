@@ -27,6 +27,7 @@ passed_test_cases = {}
 br = web_module.Signup()
 
 def joinlink():
+    dynamiclink_websrevices = 'https://qasvc.segpay.com/OneClickSales.asmx/SalesServiceDynamic?eticketid='
     joinlink = ''
     dynamic_price = ''
     dmc_from = ''
