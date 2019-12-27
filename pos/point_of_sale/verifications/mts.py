@@ -387,6 +387,7 @@ def build_multitrans():
             multitrans['CustEMail'] = 'w2nMk0ozBbSpaz1vfCN+Rg=='
             multitrans['CustName'] = 'Yan Karob'
             multitrans['CustZip'] = ''
+            multitrans['CustState'] = ''
             multitrans['PaymentAcct'] = 'rWdXYj56QxCwTxPFzux5Rt8DqpSknfe2'
             multitrans['Processor'] = 'PAYPAL'
             multitrans['TransBin'] = 411111
