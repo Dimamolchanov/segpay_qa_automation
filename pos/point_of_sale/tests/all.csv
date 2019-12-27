@@ -1,38 +1,4 @@
 Merchant,Payments,Actions,Void,PP Type,DMC,UserInfo,Variables,Xbill,PostBacks
-EU,CC,Signup,Decline,505,random,random,random,random,custom_default
-US,CC,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
-US,Paypal,Signup,Cancel,505,random,random,random,random,custom_default
-US,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
-EU_EUR,Paypal,Signup,Void_Refund_Expire,505,random,random,random,random,custom_default
-EU_EUR,CC,Signup,Void_Refund_Cancel,505,random,random,random,random,custom_default
-EU_EUR,CC,Signup,Decline,505,random,random,random,random,custom_default
-Merchant,Payments,Actions,Void,PP Type
-EU,CC,Signup,No_action,503
-EU,CC,OneClick_POS,Void_Refund,503
-EU,CC,OneClick_POS,No_action,503
-US,Paypal,OneClick_POS,No_action,503
-US_EU,CC,OneClick_POS,No_action,503
-US,CC,OneClick_WS,No_action,503
-US_EU,CC,OneClick_WS,No_action,503
-US,Paypal,Signup,No_action,503
-EU,CC,OneClick_POS,Decline,503
-EU,Paypal,OneClick_POS,Decline,503
-EU,Paypal,OneClick_POS,Decline,503
-EU_EUR,Paypal,OneClick_POS,Decline,503
-EU,CC,OneClick_WS,Decline,503
-EU,CC,Signup,Decline,503
-EU,Paypal,Signup,Decline,503
-EU_EUR,CC,Signup,Decline,503
-US,Paypal,OneClick_POS,Void_Refund,503
-US_EU,Paypal,OneClick_POS,Void_Refund,503
-EU_US,CC,OneClick_POS,Void_Refund,503
-US,CC,OneClick_WS,Void_Refund,503
-EU_EUR,CC,OneClick_WS,Void_Refund,503
-EU_US,CC,OneClick_WS,Void_Refund,503
-EU,Paypal,Signup,Void_Refund,503
-US,CC,Signup,Void_Refund,503
-EU_EUR,CC,Signup,Void_Refund,503
-EU,Paypal,OneClick_POS,Void_Refund,503
 US,CC,OneClick_POS,Void_Refund,503
 EU_EUR,Paypal,OneClick_POS,Void_Refund,503
 EU_US,Paypal,OneClick_POS,Void_Refund,503
@@ -100,6 +66,7 @@ EU,Paypal,OneClick_WS,Cancel,506,1
 EU,CC,OneClick_WS,Decline,506,0
 EU,Paypal,OneClick_WS,Decline,506,0
 US,CC,OneClick_WS,Void_Refund_Cancel,506,0
+US,Paypal,OneClick_POS,No_action,503
 US,CC,OneClick_WS,Cancel,506,0
 US,Paypal,OneClick_WS,Void_Refund_Expire,506,1
 US_EU,Paypal,OneClick_WS,Void_Refund_Cancel,506,0

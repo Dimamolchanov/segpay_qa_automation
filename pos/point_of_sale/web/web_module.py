@@ -43,7 +43,8 @@ class Signup:
             if self.br.is_element_present_by_id('TransGUID', wait_time=10):
                 transguid = self.br.find_by_id('TransGUID').value
                 transguid = subprocess.run([self.path, transguid, '-l'], stdout=subprocess.PIPE)
-                config.test_data['transguid'] =transguid.stdout.decode('utf-8')
+                config.test_data['transguid'] = transguid.stdout.decode('utf-8')
+                print(config.test_data['transguid'])
             else:
                 print("Transguid not Found ")
                 return None
@@ -481,18 +482,20 @@ class Signup:
                     sql = "select * from multitrans where TransGuid = '{}'"
                     oneclick_record = db_agent.execute_select_one_parameter(sql, config.test_data['transguid'])
                 
-                if config.test_data['Type'] == 511:
-                    oneclick_record['511'] = pricingguid
-                elif config.test_data['Type'] == 510:
-                    oneclick_record['510'] = dynamic_price
-                sql = "Select PurchType from assets where purchaseid = {}"
-                token_type = db_agent.execute_select_one_parameter(sql, d['octoken'])['PurchType']
-                # 3333333333333333333333333token_type = config.oc_tokens[octoken]
-                card = db_agent.execute_select_one_parameter(constants.GET_PAYMENTACCT_FROM_ASSET, d['octoken'])
-            config.test_case['actual'] = [
-                f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}"]
-            
-            config.test_case['oneclick_record_pos'] = oneclick_record
+                if oneclick_record:
+                    if config.test_data['Type'] == 511:
+                        oneclick_record['511'] = pricingguid
+                    elif config.test_data['Type'] == 510:
+                        oneclick_record['510'] = dynamic_price
+                    sql = "Select PurchType from assets where purchaseid = {}"
+                    token_type = db_agent.execute_select_one_parameter(sql, d['octoken'])['PurchType']
+                    card = db_agent.execute_select_one_parameter(constants.GET_PAYMENTACCT_FROM_ASSET, d['octoken'])
+                    config.test_case['actual'] = [
+                        f"PurchaseID: {oneclick_record['PurchaseID']} | TransID: {oneclick_record['TransID']} | TransGuid: {oneclick_record['TRANSGUID']}"]
+                    
+                    config.test_case['oneclick_record_pos'] = oneclick_record
+                else:
+                    print("OneClickPOS record  error, record has not been created")
         except Exception as ex:
             traceback.print_exc()
             pass

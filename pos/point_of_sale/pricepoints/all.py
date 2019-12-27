@@ -38,6 +38,7 @@ def joinlink():
         hash_url = f"https://srs.segpay.com/PricingHash/PricingHash.svc/GetDynamicTrans?value={dynamic_price}"
         resp = requests.get(hash_url)
         dynamic_hash = fromstring(resp.text).text
+        config.test_data['510'] = dynamic_price
     elif config.test_data['pp_type'] == 511:
         pricingguid_records = db_agent.get_pricingguid_records(config.test_data['MerchantID'], config.test_data['pp_type'])
         if config.test_data['transaction_type'] == 'FreeTrial_Signup' or config.test_data['transaction_type'] == 'FreeTrial_POS':
@@ -94,7 +95,7 @@ def joinlink():
             if config.test_data['pp_type'] == 511:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options + dmc_from + lang_from
             elif config.test_data['pp_type'] == 510:
-                joinlink = f"{config.url}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}{url_options}{dmc_from}" + lang_from
+                joinlink = f"{config.urlws}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}{url_options}{dmc_from}" + lang_from
             else:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&octoken={octoken}" + url_options + dmc_from + lang_from
 
@@ -756,9 +757,9 @@ def find_package_pricepoint():
         pass
 
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.csv"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\all.yaml"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
 count_transactions = 0
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
@@ -767,7 +768,7 @@ with open(filename, newline='') as csvfile:
     # heading = scenario_heading()
     for scenario in tc_reader:
         try:
-            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS'):
+            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS') or ( 'OneClick' in  scenario[2] and scenario[3]) == 'Decline' or ( scenario[1] == 'Paypal' and scenario[3]) == 'Decline':
                 print()  # ("skiping for now \n") # EU_EUR
 
             else:
@@ -792,7 +793,7 @@ with open(filename, newline='') as csvfile:
             traceback.print_exc()
             print()
             pass
-# br.close()
+br.close()
 try:
     with open(saved_test_cases, 'w') as f:
         data = yaml.dump(test_cases_list, f)

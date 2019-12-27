@@ -24,6 +24,7 @@ def build_mt_oneclick(one_click_record, action):
     pp_type = d['Type']
 
     try:
+        url = db_agent.url(config.test_data['URLID'])
         sql = "select * from assets where PurchaseID = {}"
         octoken_record = db_agent.execute_select_one_parameter(sql, d['octoken'])
         if action == 'pos':
@@ -58,8 +59,8 @@ def build_mt_oneclick(one_click_record, action):
             'MerchantCurrency': currency,
             'STANDIN': one_click_record['STANDIN'],
             'TransBin': one_click_record['TransBin'],
-            'URLID': octoken_record['URLID'],
-            'URL': one_click_record['URL'],
+            'URLID': config.test_data['URLID'], #octoken_record['URLID'],
+            'URL': url, #one_click_record['URL'],
             'REF1': None,
             'REF2': None,
             'REF3': None,
@@ -138,7 +139,7 @@ def build_mt_oneclick(one_click_record, action):
             multitrans['TransAmount'] = trans_amount
             multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
         elif d['Type'] == 510:
-            trans_amount = one_click_record['510']
+            trans_amount = config.test_data['510']
             multitrans['TransAmount'] = trans_amount
             multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
         else:
@@ -166,11 +167,21 @@ def build_mt_oneclick(one_click_record, action):
         result = db_agent.execute_select_one_parameter(sql, one_click_record['TransID'])
         if 'PREAUTHFREETRIAL' in result:
             multitrans['Markup'] = 1.00
-
+        if config.test_data['payment'] == 'Paypal':
+            multitrans['CardExpiration'] = '9999'
+            multitrans['CustAddress'] = ''
+            multitrans['CustEMail'] = 'w2nMk0ozBbSpaz1vfCN+Rg=='
+            multitrans['CustName'] = 'Yan Karob'
+            multitrans['CustZip'] = ''
+            multitrans['PaymentAcct'] = 'rWdXYj56QxCwTxPFzux5Rt8DqpSknfe2'
+            multitrans['Processor'] = 'PAYPAL'
+            multitrans['TransBin'] = 411111
+            multitrans['PaymentType'] = 1301
         return multitrans, octoken_record, d
-
-
-
+        
+            
+            
+            
 
     except Exception as ex:
         traceback.print_exc()
@@ -312,7 +323,7 @@ def build_multitrans():
         #     multitrans['TransAmount'] = config.test_data['initialprice511']
         #     multitrans['Markup'] = round(config.test_data['initialprice511'] * exchange_rate, 2)
         if config.test_data['Type'] == 510:
-            multitrans['TransAmount'] = config.test_data['initialprice510']
+            multitrans['TransAmount'] = config.test_data['510'] #config.test_data['initialprice510']
         else:
             if config.test_data['Type'] == 505 and config.test_data['record_to_check']['TransSource'] == 122:
                 multitrans['TransAmount'] = config.test_data['RebillPrice']
@@ -370,7 +381,16 @@ def build_multitrans():
         if config.test_data['record_to_check']['ProcessorTransID'] == 'FREETRIAL':
             multitrans['TransStatus'] = 187
             multitrans['TransAmount'] = 0.00
-
+        if config.test_data['payment'] == 'Paypal':
+            multitrans['CardExpiration'] = '9999'
+            multitrans['CustAddress'] = ''
+            multitrans['CustEMail'] = 'w2nMk0ozBbSpaz1vfCN+Rg=='
+            multitrans['CustName'] = 'Yan Karob'
+            multitrans['CustZip'] = ''
+            multitrans['PaymentAcct'] = 'rWdXYj56QxCwTxPFzux5Rt8DqpSknfe2'
+            multitrans['Processor'] = 'PAYPAL'
+            multitrans['TransBin'] = 411111
+            multitrans['PaymentType'] = 1301
     except Exception as ex:
         traceback.print_exc()
         pass
