@@ -134,11 +134,11 @@ def build_mt_oneclick(one_click_record, action):
         multitrans['TransStatus'] = 186
         multitrans['TransType'] = 1011
 
-        if pp_type == 511:
-            trans_amount = one_click_record['511']['InitialPrice']
-            multitrans['TransAmount'] = trans_amount
-            multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
-        elif d['Type'] == 510:
+        # if pp_type == 511:
+        #     trans_amount = one_click_record['511']['InitialPrice']
+        #     multitrans['TransAmount'] = trans_amount
+        #     multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
+        if d['Type'] == 510:
             trans_amount = config.test_data['510']
             multitrans['TransAmount'] = trans_amount
             multitrans['Markup'] = round(trans_amount * exchange_rate, 2)

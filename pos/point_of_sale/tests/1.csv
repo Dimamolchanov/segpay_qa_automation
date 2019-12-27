@@ -1,3 +1,5 @@
+EU,CC,FreeTrial_Signup,Cancel,511,random,random,random,random,custom_default,,,,
+EU,CC,Signup,Cancel,511,random,random,random,random,custom_default,,,,
 EU,Paypal,OneClick_POS,Void_Refund_Expire,506,1
 US,Paypal,Signup,No_action,510
 EU,CC,OneClick_POS,Decline,510
