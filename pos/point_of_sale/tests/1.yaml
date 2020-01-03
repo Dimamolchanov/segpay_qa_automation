@@ -1,438 +1,6 @@
-1:EU:CC:FreeTrial_Signup:Cancel:
+11:EU:CC:OneClick_POS:Void_Refund_Cancel:
 - !!set
-  1:EU:CC:FreeTrial_Signup:Cancel: null
-- 3ds: true
-  AddlFields: null
-  AllowShopping: 1
-  AllowStandin: 0
-  BillConfigID: 100252
-  Category: 651
-  CollectUserInfo: 0
-  Currency: USD
-  DMCStatus: 473
-  Description: All price-points from this merchant 3ds not configured ppid 65
-  DirectDebitPinPage: directdebit
-  ICAdjustTrial: 1
-  ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '2.00'
-  ICNoStandInTemplate: defaultpaypal
-  ICReceiptTemplate: defaultpsd2
-  ICStandInTemplate: defaultpaypal
-  ICSupportStandin: 0
-  InitialLen: 3
-  InitialPeriod: 1
-  InitialPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  IsReactivateEnabled: false
-  LanguageID: 401
-  Merchant: EU
-  MerchantID: 27001
-  ModBy: qateam@segpay.com
-  ModDate: 2019-12-17 09:34:58.937000
-  OCPayTemplate: defaultpaypal
-  OCReceiptTemplate: defaultpsd2
-  OneClickEnabled: true
-  PPDescription: Dynamic Recurring 0
-  PackageID: 900
-  PackageStatus: 433
-  PayPageTemplate: defaultpaypal
-  PayTypes: '          '
-  PostBackID: 8962
-  PostPayEnabled: false
-  PrefProcessorID: 65
-  PurchTotal: 1
-  PurchaseID: 200095150
-  RebillLen: 54
-  RebillPeriod: 1
-  RebillPrice: !!python/object/apply:decimal.Decimal
-  - '3.95'
-  ReceiptTemplate: defaultpsd2
-  ReportID: 0
-  RiskID: 666
-  ShoppingBlurb: ''
-  TransID: 223688161
-  Type: 511
-  URLID: 29166
-  action: FreeTrial_Signup
-  action_bep: Cancel
-  actual:
-  - 'PurchaseID: 200095150 | TransId:223688161 | TransGuid: 22c610a2-b47c-4f99-a1d9-0c5f91dcb28f'
-  aprove_or_decline: true
-  aproved_transids: 223688161
-  authorized: true
-  cancelDate: 'Null'
-  card_encrypted: zvVzZ58Ume+i0AS+29dzrfRYV9Yvscjk
-  card_type: EU
-  cc: '4000000000001091'
-  convDate: 'Null'
-  cross_merchant: null
-  currency_base: USD
-  dmc: USD
-  dmc_from: p
-  email: qateam@segpay.com
-  email_encrypt: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
-  eticket: 900:100252
-  expiration_date: '01'
-  expiredDate: CurrentDate + 0
-  firstname: Colleen
-  joinlink_param: '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
-  joinlink_xbill: '&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US'
-  lang: JA
-  lang_from: p
-  lastDate: 'Null'
-  lastname: Anthony
-  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:100252&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref9=sgnzv&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=1
-  merchant: EU
-  merchant_country: US
-  merchant_currency: USD
-  name: 1:EU:CC:FreeTrial_Signup:Cancel
-  nextDate: CurrentDate + 0
-  octoken: 200080821
-  payment: CC
-  paypage_lnaguage: JA
-  pp_type: 511
-  pricepoint: '100252'
-  processor_name: SPKAISO1
-  purchDate: CurrentDate
-  purchStatus: 801
-  record_to_check:
-    AffiliateID: 0
-    AuthCode: OK:0
-    Authorized: true
-    BillConfigID: 100252
-    BinCountry: ZZ
-    CardExpiration: '0123'
-    CardType: 171
-    CardholderLocale: N/A
-    CustAddress: 123 Segpay Street
-    CustCity: Philladelphia
-    CustCountry: US
-    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
-    CustIP: 192.168.1.98
-    CustName: Colleen Anthony
-    CustPhone: ''
-    CustState: ''
-    CustZip: '33333'
-    ExchRate: !!python/object/apply:decimal.Decimal
-    - '1.00'
-    FeeRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    IPCountry: US
-    IntCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPDueDate: null
-    LTPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Language: JA
-    Markup: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    MemberID: 0
-    MerchantCurrency: USD
-    MerchantID: 27001
-    MerchantPartnerID: rgvalitor
-    MgrComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    PCID: null
-    PackageID: 900
-    PaymentAcct: zvVzZ58Ume+i0AS+29dzrfRYV9Yvscjk
-    PaymentRouting: N/A
-    PaymentType: 131
-    ProcessingFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Processor: SPKAISO1
-    ProcessorCurrency: USD
-    ProcessorReserve: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransID: FREETRIAL
-    PurchaseID: 200095150
-    REF1: null
-    REF10: null
-    REF2: null
-    REF3: null
-    REF4: null
-    REF5: null
-    REF6: null
-    REF7: null
-    REF8: null
-    REF9: o002tNBdNi4=
-    RefURL: wwww.regressesion.com/
-    RelatedTransID: 0
-    SOURCEMACHINE: QAWEB1
-    SRComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STANDIN: 0
-    STPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPDueDate: null
-    STPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    SalesRep: N/A
-    SettleFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TRANSGUID: 22c610a2-b47c-4f99-a1d9-0c5f91dcb28f
-    TaxRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TimeZoneOffset: 0
-    TransAmount: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TransBin: 400000
-    TransDate: 2019-12-27
-    TransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TransID: 223688161
-    TransSource: 121
-    TransStatus: 187
-    TransTime: 2019-12-27 19:45:17
-    TransType: 101
-    TxStatus: !!python/object/apply:decimal.Decimal
-    - '2'
-    URL: www.google.com
-    URLID: 29166
-    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><DYNAMICPRICINGID>cd377db7-304f-40f5-a6e3-1f784c611ab2</DYNAMICPRICINGID><MERCHANTPARTNERID>rgvalitor</MERCHANTPARTNERID><FOREIGNID>validmember1</FOREIGNID><NATSSESS>djslkafq3rf0i3wmefk34q434</NATSSESS><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><TESTCASE>1</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><PP-ETICKETID>900%253A100252</PP-ETICKETID><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYTYPE>creditcard</PAYTYPE><PAYMENTOPTION>131</PAYMENTOPTION><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
-  ref_variables: '&ref9=sgnzv'
-  refurl: '&refurl=wwww.regressesion.com/'
-  scope: true
-  statusDate: CurrentDate
-  test_case_number: 1
-  transaction_type: FreeTrial_Signup
-  transbin: 400000
-  transguid: 22c610a2-b47c-4f99-a1d9-0c5f91dcb28f
-  url_options: '&ref9=sgnzv&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
-  userinfo: 0
-  visa_secure: 1
-  xSell1: null
-  xSell1Checked: false
-  xSell2: null
-  xSell2Checked: false
-  year: '2023'
-  zip: '33333'
-2:EU:CC:Signup:Cancel:
-- !!set
-  2:EU:CC:Signup:Cancel: null
-- 3ds: true
-  AddlFields: null
-  AllowShopping: 1
-  AllowStandin: 0
-  BillConfigID: 20000087
-  Category: 651
-  CollectUserInfo: 1
-  Currency: USD
-  DMCStatus: 473
-  Description: All price-points from this merchant 3ds not configured ppid 65
-  DirectDebitPinPage: directdebit
-  ICAdjustTrial: 0
-  ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  ICNoStandInTemplate: defaultpaypal
-  ICReceiptTemplate: defaultpsd2
-  ICStandInTemplate: defaultpaypal
-  ICSupportStandin: 0
-  InitialLen: 3
-  InitialPeriod: 1
-  InitialPrice: !!python/object/apply:decimal.Decimal
-  - '1.21'
-  IsReactivateEnabled: true
-  LanguageID: 401
-  Merchant: EU
-  MerchantID: 27001
-  ModBy: qateam@segpay.com
-  ModDate: 2019-12-17 09:34:58.937000
-  OCPayTemplate: defaultpaypal
-  OCReceiptTemplate: defaultpsd2
-  OneClickEnabled: true
-  PPDescription: AutoTest
-  PackageID: 900
-  PackageStatus: 433
-  PayPageTemplate: defaultpaypal
-  PayTypes: '          '
-  PostBackID: 8962
-  PostPayEnabled: false
-  PrefProcessorID: 65
-  PurchTotal: 1
-  PurchaseID: 200095152
-  RebillLen: 30
-  RebillPeriod: 1
-  RebillPrice: !!python/object/apply:decimal.Decimal
-  - '29.95'
-  ReceiptTemplate: defaultpsd2
-  ReportID: 0
-  RiskID: 666
-  ShoppingBlurb: ''
-  TransID: 223688163
-  Type: 511
-  URLID: 29166
-  action: Signup
-  action_bep: Cancel
-  actual:
-  - 'PurchaseID: 200095152 | TransId:223688163 | TransGuid: 15fa98d5-49a9-4e6b-ad49-42c72dcca54a'
-  aprove_or_decline: true
-  aproved_transids: 223688163
-  authorized: true
-  cancelDate: 'Null'
-  card_encrypted: zvVzZ58Ume+i0AS+29dzrfRYV9Yvscjk
-  card_type: EU
-  cc: '4000000000001091'
-  convDate: 'Null'
-  cross_merchant: null
-  currency_base: USD
-  dmc: EUR
-  dmc_from: u
-  email: qateam@segpay.com
-  email_encrypt: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
-  eticket: 900:20000087
-  expiration_date: '01'
-  expiredDate: CurrentDate + 1
-  firstname: Jennifer
-  joinlink_param: ''
-  joinlink_xbill: ''
-  lang: DE
-  lang_from: p
-  lastDate: 'Null'
-  lastname: Anna
-  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:20000087&DynamicPricingID=2ac8e216-2552-492f-b853-980acaea2ec0&ref1=wvada&ref2=lwka&ref3=owymu&ref4=kkvz&ref5=zdoxe&ref6=okwf&ref7=kseiv&ref8=hroz&ref9=ahtkg&ref10=nics&refurl=wwww.regressesion.com/&DMCURRENCY=EUR&testcase=2
-  merchant: EU
-  merchant_country: US
-  merchant_currency: EUR
-  name: 2:EU:CC:Signup:Cancel
-  nextDate: CurrentDate + 1
-  octoken: 200080821
-  payment: CC
-  paypage_lnaguage: DE
-  pp_type: 511
-  pricepoint: '20000087'
-  processor_name: SPKAISO1
-  purchDate: CurrentDate
-  purchStatus: 801
-  record_to_check:
-    AffiliateID: 0
-    AuthCode: OK:0
-    Authorized: true
-    BillConfigID: 20000087
-    BinCountry: ZZ
-    CardExpiration: '0123'
-    CardType: 171
-    CardholderLocale: N/A
-    CustAddress: ''
-    CustCity: ''
-    CustCountry: US
-    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
-    CustIP: 192.168.1.98
-    CustName: Jennifer Anna
-    CustPhone: ''
-    CustState: ''
-    CustZip: '33333'
-    ExchRate: !!python/object/apply:decimal.Decimal
-    - '1.00'
-    FeeRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    IPCountry: US
-    IntCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPDueDate: null
-    LTPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Language: DE
-    Markup: !!python/object/apply:decimal.Decimal
-    - '1.21'
-    MemberID: 0
-    MerchantCurrency: EUR
-    MerchantID: 27001
-    MerchantPartnerID: null
-    MgrComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    PCID: null
-    PackageID: 900
-    PaymentAcct: zvVzZ58Ume+i0AS+29dzrfRYV9Yvscjk
-    PaymentRouting: N/A
-    PaymentType: 131
-    ProcessingFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Processor: SPKAISO1
-    ProcessorCurrency: USD
-    ProcessorReserve: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransID: 529629607:1748992415
-    PurchaseID: 200095152
-    REF1: BExVG4aC7JE=
-    REF10: xX99W5BWfXk=
-    REF2: 6wRCGVAcMuw=
-    REF3: fNAqM3cSHco=
-    REF4: aIEZsg4BZl4=
-    REF5: K7SJQVitTso=
-    REF6: l35IwQkuN2c=
-    REF7: AF50PhxbxDw=
-    REF8: agts7wrUSFg=
-    REF9: Fqv1DHggviU=
-    RefURL: wwww.regressesion.com/
-    RelatedTransID: 0
-    SOURCEMACHINE: QAWEB1
-    SRComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STANDIN: 0
-    STPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPDueDate: null
-    STPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    SalesRep: N/A
-    SettleFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TRANSGUID: 15fa98d5-49a9-4e6b-ad49-42c72dcca54a
-    TaxRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TimeZoneOffset: 0
-    TransAmount: !!python/object/apply:decimal.Decimal
-    - '1.21'
-    TransBin: 400000
-    TransDate: 2019-12-27
-    TransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TransID: 223688163
-    TransSource: 121
-    TransStatus: 184
-    TransTime: 2019-12-27 19:45:29
-    TransType: 101
-    TxStatus: !!python/object/apply:decimal.Decimal
-    - '2'
-    URL: www.google.com
-    URLID: 29166
-    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><DYNAMICPRICINGID>2ac8e216-2552-492f-b853-980acaea2ec0</DYNAMICPRICINGID><DMCURRENCY>EUR</DMCURRENCY><TESTCASE>2</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><PP-ETICKETID>900%253A20000087</PP-ETICKETID><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYTYPE>creditcard</PAYTYPE><PAYMENTOPTION>131</PAYMENTOPTION><USERNAME>tracey34889</USERNAME><PASSWORD>ldavila575</PASSWORD><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
-  ref_variables: '&ref1=wvada&ref2=lwka&ref3=owymu&ref4=kkvz&ref5=zdoxe&ref6=okwf&ref7=kseiv&ref8=hroz&ref9=ahtkg&ref10=nics'
-  refurl: '&refurl=wwww.regressesion.com/'
-  scope: true
-  statusDate: CurrentDate
-  test_case_number: 2
-  transaction_type: Signup
-  transbin: 400000
-  transguid: 15fa98d5-49a9-4e6b-ad49-42c72dcca54a
-  url_options: '&ref1=wvada&ref2=lwka&ref3=owymu&ref4=kkvz&ref5=zdoxe&ref6=okwf&ref7=kseiv&ref8=hroz&ref9=ahtkg&ref10=nics&refurl=wwww.regressesion.com/'
-  userinfo: 1
-  visa_secure: 1
-  xSell1: null
-  xSell1Checked: false
-  xSell2: null
-  xSell2Checked: false
-  year: '2023'
-  zip: '33333'
-3:EU:Paypal:OneClick_POS:Void_Refund_Expire:
-- !!set
-  3:EU:Paypal:OneClick_POS:Void_Refund_Expire: null
+  11:EU:CC:OneClick_POS:Void_Refund_Cancel: null
 - 3ds: true
   AddlFields: null
   AllowShopping: 1
@@ -473,43 +41,244 @@
   PostPayEnabled: false
   PrefProcessorID: 65
   PurchTotal: 1
-  PurchaseID: 200095153
+  PurchaseID: 200101784
   RebillLen: 30
   RebillPeriod: 1
   RebillPrice: !!python/object/apply:decimal.Decimal
   - '29.95'
   ReceiptTemplate: defaultpsd2
   ReportID: 0
-  RiskID: 666
+  RiskID: 6
   ShoppingBlurb: ''
-  TransID: 223688164
+  TransID: 223711348
+  Type: 506
+  URLID: 29166
+  action: OneClick_POS
+  action_bep: Void_Refund_Cancel
+  actual:
+  - 'PurchaseID: 200101784 | TransId:223711348 | TransGuid: 640d5a18-2b13-4339-8818-0b71f6bcc665'
+  aprove_or_decline: true
+  authorized: true
+  cancelDate: 'Null'
+  card_type: EU
+  cc: '4000000000001000'
+  convDate: 'Null'
+  cross_merchant: null
+  currency_base: USD
+  dmc: INR
+  dmc_from: p
+  eticket: 900:27010
+  expiredDate: CurrentDate + 33
+  ic_istrial: true
+  joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
+  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billstate=PA'
+  lang: ES
+  lang_from: p
+  lastDate: 'Null'
+  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:27010&octoken=200080821&ref9=mqsib&ref10=psyl&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=11
+  merchant: EU
+  name: 11:EU:CC:OneClick_POS:Void_Refund_Cancel
+  nextDate: CurrentDate + 33
+  octoken: 200080821
+  payment: CC
+  pp_type: 506
+  pricepoint: '27010'
+  processor_name: SPKAISO1
+  purchDate: CurrentDate
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: 0
+    AuthCode: OK:0
+    Authorized: true
+    BillConfigID: 27010
+    BinCountry: ZZ
+    CardExpiration: '0225'
+    CardType: 171
+    CardholderLocale: N/A
+    CustAddress: ''
+    CustCity: ''
+    CustCountry: US
+    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+    CustIP: 192.168.1.98
+    CustName: Christine Charles
+    CustPhone: ''
+    CustState: ''
+    CustZip: '33333'
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '78.94'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: US
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: ES
+    Markup: !!python/object/apply:decimal.Decimal
+    - '232.86'
+    MemberID: 0
+    MerchantCurrency: INR
+    MerchantID: 27001
+    MerchantPartnerID: null
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 900
+    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+    PaymentRouting: N/A
+    PaymentType: 131
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: SPKAISO1
+    ProcessorCurrency: USD
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: 532384595:1754121047
+    PurchaseID: 200101784
+    REF1: null
+    REF10: GOcde1+9DPI=
+    REF2: null
+    REF3: null
+    REF4: null
+    REF5: null
+    REF6: null
+    REF7: null
+    REF8: null
+    REF9: vUuwfcqSt2g=
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 223711339
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: 640d5a18-2b13-4339-8818-0b71f6bcc665
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '2.95'
+    TransBin: 400000
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711348
+    TransSource: 121
+    TransStatus: 186
+    TransTime: 2020-01-03 16:18:44
+    TransType: 1011
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><OCTOKEN>200080821</OCTOKEN><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><TESTCASE>11</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><PP-ETICKETID>900%253A27010</PP-ETICKETID><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><USERNAME>joshua21807</USERNAME><PASSWORD>kristincrane643</PASSWORD><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
+  ref_variables: '&ref9=mqsib&ref10=psyl'
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: CurrentDate
+  test_case_number: 11
+  transaction_type: OneClick_POS
+  transguid: 640d5a18-2b13-4339-8818-0b71f6bcc665
+  url_options: '&ref9=mqsib&ref10=psyl&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  userinfo: 1
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+12:EU:Paypal:OneClick_POS:Void_Refund_Expire:
+- !!set
+  12:EU:Paypal:OneClick_POS:Void_Refund_Expire: null
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 27010
+  Category: 651
+  CollectUserInfo: 1
+  Currency: USD
+  DMCStatus: 473
+  Description: All price-points from this merchant 3ds not configured ppid 65
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '10.00'
+  ICNoStandInTemplate: defaultpaypal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultpaypal
+  ICSupportStandin: 0
+  InitialLen: 3
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '2.95'
+  IsReactivateEnabled: false
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2019-12-17 09:34:58.937000
+  OCPayTemplate: defaultpaypal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Instant Conversion with Discount Pricing
+  PackageID: 900
+  PackageStatus: 433
+  PayPageTemplate: defaultpaypal
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: false
+  PrefProcessorID: 65
+  PurchTotal: 1
+  PurchaseID: 200101785
+  RebillLen: 30
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '29.95'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 6
+  ShoppingBlurb: ''
+  TransID: 223711349
   Type: 506
   URLID: 29166
   action: OneClick_POS
   action_bep: Void_Refund_Expire
-  actual:
-  - 'PurchaseID: 200095153 | TransId:223688164 | TransGuid: baa5b446-560a-465d-b7fd-735207efd2e5'
-  aprove_or_decline: true
-  authorized: true
+  aprove_or_decline: false
   cancelDate: 'Null'
   card_type: EU
   cc: '4111111111111111'
   convDate: 'Null'
   cross_merchant: null
   currency_base: USD
-  dmc: CZK
+  dmc: AUD
   dmc_from: u
   eticket: 900:27010
   expiredDate: CurrentDate + 33
   ic_istrial: false
-  joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
-  joinlink_xbill: '&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US'
-  lang: NL
-  lang_from: u
+  joinlink_param: ''
+  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billstate=PA'
+  lang: ZS
+  lang_from: p
   lastDate: 'Null'
-  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:27010&octoken=200081737&ref9=bbjzj&ref10=oyfi&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&DMCURRENCY=CZK&paypagelanguage=NL&testcase=3
+  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:27010&octoken=200081737&x-billaddr=123+Segpay+Street&x-billstate=PA&refurl=wwww.regressesion.com/&DMCURRENCY=AUD&testcase=12
   merchant: EU
-  name: 3:EU:Paypal:OneClick_POS:Void_Refund_Expire
+  name: 12:EU:Paypal:OneClick_POS:Void_Refund_Expire
   nextDate: CurrentDate + 33
   octoken: 200081737
   payment: Paypal
@@ -520,8 +289,8 @@
   purchStatus: 801
   record_to_check:
     AffiliateID: 0
-    AuthCode: OK:0
-    Authorized: true
+    AuthCode: PAYPAL:PayPalOrderCapturingStatus=NoAuthorizations:No authorizations
+    Authorized: false
     BillConfigID: 27010
     BinCountry: N/A
     CardExpiration: '9999'
@@ -537,7 +306,7 @@
     CustState: ''
     CustZip: ''
     ExchRate: !!python/object/apply:decimal.Decimal
-    - '26.01'
+    - '1.61'
     FeeRate: !!python/object/apply:decimal.Decimal
     - '0.00'
     IPCountry: US
@@ -550,11 +319,11 @@
     - '0.00'
     LTPayable: !!python/object/apply:decimal.Decimal
     - '0.00'
-    Language: NL
+    Language: ZS
     Markup: !!python/object/apply:decimal.Decimal
-    - '76.72'
+    - '4.74'
     MemberID: 0
-    MerchantCurrency: CZK
+    MerchantCurrency: AUD
     MerchantID: 27001
     MerchantPartnerID: ''
     MgrComm: !!python/object/apply:decimal.Decimal
@@ -572,10 +341,10 @@
     - '0.00'
     ProcessorTransFee: !!python/object/apply:decimal.Decimal
     - '0.00'
-    ProcessorTransID: 99W59226JM452745T
-    PurchaseID: 200095153
+    ProcessorTransID: 27F70425CJ473514G
+    PurchaseID: 200101785
     REF1: null
-    REF10: x2sqiDFi054=
+    REF10: null
     REF2: null
     REF3: null
     REF4: null
@@ -583,9 +352,9 @@
     REF6: null
     REF7: null
     REF8: null
-    REF9: hRjZ5WVJSF8=
+    REF9: null
     RefURL: wwww.regressesion.com/
-    RelatedTransID: 223687827
+    RelatedTransID: 223708050
     SOURCEMACHINE: QAWEB1
     SRComm: !!python/object/apply:decimal.Decimal
     - '0.00'
@@ -600,55 +369,55 @@
     SalesRep: N/A
     SettleFee: !!python/object/apply:decimal.Decimal
     - '0.00'
-    TRANSGUID: baa5b446-560a-465d-b7fd-735207efd2e5
+    TRANSGUID: 32e938d9-fed6-41cb-90f4-216d44e905cc
     TaxRate: !!python/object/apply:decimal.Decimal
     - '0.00'
     TimeZoneOffset: 0
     TransAmount: !!python/object/apply:decimal.Decimal
     - '2.95'
     TransBin: 411111
-    TransDate: 2019-12-27
+    TransDate: 2020-01-03
     TransFee: !!python/object/apply:decimal.Decimal
     - '0.00'
-    TransID: 223688164
+    TransID: 223711349
     TransSource: 121
     TransStatus: 186
-    TransTime: 2019-12-27 19:46:14
+    TransTime: 2020-01-03 16:19:13.063000
     TransType: 1011
     TxStatus: !!python/object/apply:decimal.Decimal
     - '2'
     URL: www.google.com
     URLID: 29166
-    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><OCTOKEN>200081737</OCTOKEN><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><DMCURRENCY>CZK</DMCURRENCY><TESTCASE>3</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><ISPAYPALTRANS>true</ISPAYPALTRANS><ISNEWPURCHASEID>true</ISNEWPURCHASEID><PP-ETICKETID>900%253A27010</PP-ETICKETID><NONONECLICKPAYPAGELINK>%2fPayPage%2fposet.cgi%3fx-eticketid%3d900%253A27010%26ref9%3dbbjzj%26ref10%3doyfi%26x-billname%3dQA%2bSegpay%26x-billemail%3dqateam%2540segpay.com%26x-billaddr%3d123%2bSegpay%2bStreet%26x-billcity%3dPhilladelphia%26x-billstate%3dPA%26x-billzip%3d19116%26x-billcntry%3dUS%26x-auth-link%3dhttps%253A%252F%252Fwww.cnn.com%26x-auth-text%3dyou%2bare%2bapproved%26x-decl-link%3dhttps%253A%252F%252Fwww.trump.com%26x-decl-text%3dyou%2blose%26refurl%3dwwww.regressesion.com%252F%26DMCURRENCY%3dCZK%26paypagelanguage%3dNL%26testcase%3d3%26x-billnamefirst%3dQA%26x-billnamelast%3dSegpay%26isPayPalTrans%3dtrue%26isNewPurchaseId%3dtrue%26fromoneclick%3d1</NONONECLICKPAYPAGELINK><CARDMASK>411111XXXXXX1111</CARDMASK><FIRSTANDLASTNAME>test+buyer</FIRSTANDLASTNAME><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYTYPE>paypal</PAYTYPE><PAYMENTOPTION>1301</PAYMENTOPTION><USERNAME>williamjames346</USERNAME><PASSWORD>david57900</PASSWORD><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
-  ref_variables: '&ref9=bbjzj&ref10=oyfi'
+    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><OCTOKEN>200081737</OCTOKEN><DMCURRENCY>AUD</DMCURRENCY><TESTCASE>12</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><ISPAYPALTRANS>true</ISPAYPALTRANS><ISNEWPURCHASEID>true</ISNEWPURCHASEID><PP-ETICKETID>900%253A27010</PP-ETICKETID><NONONECLICKPAYPAGELINK>%2fPayPage%2fposet.cgi%3fx-eticketid%3d900%253A27010%26x-billaddr%3d123%2bSegpay%2bStreet%26x-billstate%3dPA%26refurl%3dwwww.regressesion.com%252F%26DMCURRENCY%3dAUD%26testcase%3d12%26isPayPalTrans%3dtrue%26isNewPurchaseId%3dtrue%26fromoneclick%3d1</NONONECLICKPAYPAGELINK><CARDMASK>411111XXXXXX1111</CARDMASK><FIRSTANDLASTNAME>test+buyer</FIRSTANDLASTNAME><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYMENTOPTION>1301</PAYMENTOPTION><USERNAME>veronica65649</USERNAME><PASSWORD>sparkssara500</PASSWORD><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
+  ref_variables: ''
   refurl: '&refurl=wwww.regressesion.com/'
   scope: true
   statusDate: CurrentDate
-  test_case_number: 3
+  test_case_number: 12
   transaction_type: OneClick_POS
-  transguid: baa5b446-560a-465d-b7fd-735207efd2e5
-  url_options: '&ref9=bbjzj&ref10=oyfi&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  transguid: 32e938d9-fed6-41cb-90f4-216d44e905cc
+  url_options: '&x-billaddr=123+Segpay+Street&x-billstate=PA&refurl=wwww.regressesion.com/'
   userinfo: 1
   visa_secure: 1
   xSell1: null
   xSell1Checked: false
   xSell2: null
   xSell2Checked: false
-4:US:Paypal:Signup:No_action:
+1:EU_EUR:CC:OneClick_WS:Void_Refund:
 - !!set
-  4:US:Paypal:Signup:No_action: null
+  1:EU_EUR:CC:OneClick_WS:Void_Refund: null
 - 3ds: true
   '510': !!python/object/apply:decimal.Decimal
-  - '11.68'
+  - '18.74'
   AddlFields: null
   AllowShopping: 1
   AllowStandin: 0
-  BillConfigID: 20000110
+  BillConfigID: 20000085
   Category: 651
-  CollectUserInfo: 1
-  Currency: USD
-  DMCStatus: 471
-  Description: All price points 3ds on PPID74
+  CollectUserInfo: 2
+  Currency: EUR
+  DMCStatus: 473
+  Description: 501,502,503,504,505,506  3DS on 44
   DirectDebitPinPage: directdebit
   ICAdjustTrial: 0
   ICDiscountPrice: !!python/object/apply:decimal.Decimal
@@ -663,40 +432,868 @@
   - '1.00'
   IsReactivateEnabled: true
   LanguageID: 401
-  Merchant: US
-  MerchantID: 21621
+  Merchant: EU
+  MerchantID: 27001
   ModBy: qateam@segpay.com
-  ModDate: 2019-12-16 19:08:05.413000
+  ModDate: 2020-01-03 15:50:38.700000
   OCPayTemplate: defaultPayPal
   OCReceiptTemplate: defaultpsd2
   OneClickEnabled: true
   PPDescription: AutoTest
-  PackageID: 800
+  PackageID: 901
   PackageStatus: 433
   PayPageTemplate: defaultPayPal
   PayTypes: '          '
-  PostBackID: 8934
+  PostBackID: 8962
   PostPayEnabled: true
-  PrefProcessorID: 74
+  PrefProcessorID: 65
   PurchTotal: 1
-  PurchaseID: 200095154
+  PurchaseID: 200080821
   RebillLen: 0
   RebillPeriod: 1
   RebillPrice: !!python/object/apply:decimal.Decimal
   - '0.00'
   ReceiptTemplate: defaultpsd2
   ReportID: 0
-  RiskID: 666
+  RiskID: 0
   ShoppingBlurb: ''
-  TransID: 223688165
+  TransID: 223711341
   Type: 510
-  URLID: 29188
-  action: Signup
-  action_bep: No_action
+  URLID: 29166
+  action: OneClick_WS
+  action_bep: Void_Refund
   actual:
-  - 'PurchaseID: 200095154 | TransId:223688165 | TransGuid: d10a0894-0355-4f4e-a603-28ca1e8085d6'
+  - 'PurchaseID: 200080821 | TransId:223711341 | TransGuid: c62097c5-d47b-4c4c-a9b8-3f21c87a1554'
   aprove_or_decline: true
-  aproved_transids: 223688165
+  authorized: true
+  cancelDate: null
+  card_type: EU
+  cc: '4000000000001000'
+  convDate: null
+  cross_merchant: null
+  currency_base: EUR
+  dmc: USD
+  dmc_from: p
+  eticket: 901:20000085
+  expiredDate: 2019-12-05 15:26:20
+  joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
+  joinlink_xbill: ''
+  lang: DE
+  lang_from: p
+  lastDate: null
+  link: https://qasvc.segpay.com/OneClickSales.asmx/SalesServiceDynamic?eticketid=901:20000085&amount=18.74&dynamictrans=meu5zO%2b4KSiC%2fLQuvcqrl0fSHro%3d&dynamicdesc=QA+TEST&octoken=200080821&ref5=wzjlv&ref6=qsvn&ref7=prnjn&ref8=rpjq&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=1
+  merchant: EU
+  name: 1:EU_EUR:CC:OneClick_WS:Void_Refund
+  nextDate: 2019-12-05 15:26:20
+  octoken: 200080821
+  payment: CC
+  pp_type: 510
+  pricepoint: '20000085'
+  processor_name: SPKAISO1
+  purchDate: 2019-12-02 15:26:20
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: null
+    AuthCode: OK:0
+    Authorized: true
+    BillConfigID: 20000085
+    BinCountry: ZZ
+    CardExpiration: '0225'
+    CardType: 171
+    CardholderLocale: N/A
+    CustAddress: ''
+    CustCity: ''
+    CustCountry: US
+    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+    CustIP: 192.168.1.98
+    CustName: Christine Charles
+    CustPhone: ''
+    CustState: ''
+    CustZip: '33333'
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '1.22'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: N/A
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: DE
+    Markup: !!python/object/apply:decimal.Decimal
+    - '22.82'
+    MemberID: 0
+    MerchantCurrency: USD
+    MerchantID: 27001
+    MerchantPartnerID: null
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 901
+    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+    PaymentRouting: N/A
+    PaymentType: 131
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: SPKAISO1
+    ProcessorCurrency: EUR
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: 532383999:1754120027
+    PurchaseID: 200080821
+    REF1: null
+    REF10: null
+    REF2: null
+    REF3: null
+    REF4: null
+    REF5: +X0XbXFka0c=
+    REF6: 8FHxyrWX4XU=
+    REF7: lv7okrVIH48=
+    REF8: 8HHKusRMFMI=
+    REF9: null
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 223711339
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: c62097c5-d47b-4c4c-a9b8-3f21c87a1554
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '18.74'
+    TransBin: 400000
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711341
+    TransSource: 123
+    TransStatus: 186
+    TransTime: 2020-01-03 16:16:48
+    TransType: 1011
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><ETICKETID>901%3a20000085</ETICKETID><AMOUNT>18.74</AMOUNT><DYNAMICTRANS>meu5zO%2b4KSiC%2fLQuvcqrl0fSHro%3d</DYNAMICTRANS><DYNAMICDESC>QA+TEST</DYNAMICDESC><OCTOKEN>200080821</OCTOKEN><TESTCASE>1</TESTCASE></EXTRA_DATA>
+  ref_variables: '&ref5=wzjlv&ref6=qsvn&ref7=prnjn&ref8=rpjq'
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: 2019-12-02 15:26:20
+  test_case_number: 1
+  transaction_type: OneClick_WS
+  url_options: '&ref5=wzjlv&ref6=qsvn&ref7=prnjn&ref8=rpjq&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  userinfo: 2
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+2:EU_US:CC:OneClick_WS:Void_Refund:
+- !!set
+  2:EU_US:CC:OneClick_WS:Void_Refund: null
+- 3ds: true
+  '510': !!python/object/apply:decimal.Decimal
+  - '11.13'
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 20000078
+  Category: 651
+  CollectUserInfo: 1
+  Currency: USD
+  DMCStatus: 473
+  Description: 501,502,503,504,505,506  3DS on 44
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultPayPal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultPayPal
+  ICSupportStandin: 0
+  InitialLen: 1
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '1.00'
+  IsReactivateEnabled: true
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2020-01-03 15:50:38.700000
+  OCPayTemplate: defaultPayPal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: AutoTest
+  PackageID: 901
+  PackageStatus: 433
+  PayPageTemplate: defaultPayPal
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: true
+  PrefProcessorID: 65
+  PurchTotal: 1
+  PurchaseID: 200101779
+  RebillLen: 0
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  TransID: 223711342
+  Type: 510
+  URLID: 29166
+  action: OneClick_WS
+  action_bep: Void_Refund
+  actual:
+  - 'PurchaseID: 200101779 | TransId:223711342 | TransGuid: 985bc4eb-7894-4f52-883c-888aa9ba934c'
+  aprove_or_decline: true
+  authorized: true
+  cancelDate: null
+  card_type: EU
+  cc: '4000000000001000'
+  convDate: 2019-12-18 16:20:36.397000
+  cross_merchant: CrossMerchant EU to US
+  currency_base: USD
+  dmc: USD
+  dmc_from: p
+  eticket: 901:20000078
+  expiredDate: 2020-02-17 20:38:30
+  joinlink_param: '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
+  joinlink_xbill: '&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US'
+  lang: JA
+  lang_from: p
+  lastDate: 2020-01-19 00:00:08.937000
+  link: https://qasvc.segpay.com/OneClickSales.asmx/SalesServiceDynamic?eticketid=901:20000078&amount=11.13&dynamictrans=Pj5C6pkb5fp0HET9gvyNrVl5diU%3d&dynamicdesc=QA+TEST&octoken=200082305&ref1=pfpjh&ref2=llmq&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=2
+  merchant: EU
+  name: 2:EU_US:CC:OneClick_WS:Void_Refund
+  nextDate: 2020-02-17 20:38:30
+  octoken: 200082305
+  payment: CC
+  pp_type: 510
+  pricepoint: '20000078'
+  processor_name: SPKAISO1
+  purchDate: 2019-12-17 20:38:30
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: null
+    AuthCode: OK:0
+    Authorized: true
+    BillConfigID: 20000078
+    BinCountry: ZZ
+    CardExpiration: '0123'
+    CardType: 171
+    CardholderLocale: N/A
+    CustAddress: ''
+    CustCity: ''
+    CustCountry: US
+    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+    CustIP: 192.168.1.98
+    CustName: Kelsey Tracy
+    CustPhone: ''
+    CustState: ''
+    CustZip: '33333'
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '1.00'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: N/A
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: JA
+    Markup: !!python/object/apply:decimal.Decimal
+    - '11.13'
+    MemberID: 0
+    MerchantCurrency: USD
+    MerchantID: 27001
+    MerchantPartnerID: rgvalitor
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 901
+    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+    PaymentRouting: N/A
+    PaymentType: 131
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: SPKAISO1
+    ProcessorCurrency: USD
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: 532384027:1754120079
+    PurchaseID: 200101779
+    REF1: Mw+gk1qNTLU=
+    REF10: null
+    REF2: 2dJ1ko2pXRM=
+    REF3: null
+    REF4: null
+    REF5: null
+    REF6: null
+    REF7: null
+    REF8: null
+    REF9: null
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 223708049
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: 985bc4eb-7894-4f52-883c-888aa9ba934c
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '11.13'
+    TransBin: 400000
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711342
+    TransSource: 121
+    TransStatus: 186
+    TransTime: 2020-01-03 16:16:55
+    TransType: 1011
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><ETICKETID>901%3a20000078</ETICKETID><AMOUNT>11.13</AMOUNT><DYNAMICTRANS>Pj5C6pkb5fp0HET9gvyNrVl5diU%3d</DYNAMICTRANS><DYNAMICDESC>QA+TEST</DYNAMICDESC><OCTOKEN>200082305</OCTOKEN><MERCHANTPARTNERID>rgvalitor</MERCHANTPARTNERID><FOREIGNID>validmember1</FOREIGNID><NATSSESS>djslkafq3rf0i3wmefk34q434</NATSSESS><TESTCASE>2</TESTCASE></EXTRA_DATA>
+  ref_variables: '&ref1=pfpjh&ref2=llmq'
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: 2019-12-17 20:38:30
+  test_case_number: 2
+  transaction_type: OneClick_WS
+  url_options: '&ref1=pfpjh&ref2=llmq&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  userinfo: 1
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+3:EU:CC:OneClick_WS:Void_Refund:
+- !!set
+  3:EU:CC:OneClick_WS:Void_Refund: null
+- 3ds: true
+  '510': !!python/object/apply:decimal.Decimal
+  - '10.4'
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 20000078
+  Category: 651
+  CollectUserInfo: 1
+  Currency: USD
+  DMCStatus: 473
+  Description: 501,502,503,504,505,506  3DS on 44
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultPayPal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultPayPal
+  ICSupportStandin: 0
+  InitialLen: 1
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '1.00'
+  IsReactivateEnabled: true
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2020-01-03 15:50:38.700000
+  OCPayTemplate: defaultPayPal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: AutoTest
+  PackageID: 901
+  PackageStatus: 433
+  PayPageTemplate: defaultPayPal
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: true
+  PrefProcessorID: 65
+  PurchTotal: 1
+  PurchaseID: 200080821
+  RebillLen: 0
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  TransID: 223711343
+  Type: 510
+  URLID: 29166
+  action: OneClick_WS
+  action_bep: Void_Refund
+  actual:
+  - 'PurchaseID: 200080821 | TransId:223711343 | TransGuid: 1113c487-7154-4fb3-99b5-68bf6f1e4de5'
+  aprove_or_decline: true
+  authorized: true
+  cancelDate: null
+  card_type: EU
+  cc: '4000000000001000'
+  convDate: null
+  cross_merchant: null
+  currency_base: USD
+  dmc: USD
+  dmc_from: p
+  eticket: 901:20000078
+  expiredDate: 2019-12-05 15:26:20
+  joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
+  joinlink_xbill: '&x-billname=QA+Segpay&x-billemail=qateam@segpay.com'
+  lang: DE
+  lang_from: p
+  lastDate: null
+  link: https://qasvc.segpay.com/OneClickSales.asmx/SalesServiceDynamic?eticketid=901:20000078&amount=10.4&dynamictrans=FlWT1gWJ6SERL8SwEmE%2bffPka5g%3d&dynamicdesc=QA+TEST&octoken=200080821&ref1=bbkxj&ref2=uqtz&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=3
+  merchant: EU
+  name: 3:EU:CC:OneClick_WS:Void_Refund
+  nextDate: 2019-12-05 15:26:20
+  octoken: 200080821
+  payment: CC
+  pp_type: 510
+  pricepoint: '20000078'
+  processor_name: SPKAISO1
+  purchDate: 2019-12-02 15:26:20
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: null
+    AuthCode: OK:0
+    Authorized: true
+    BillConfigID: 20000078
+    BinCountry: ZZ
+    CardExpiration: '0225'
+    CardType: 171
+    CardholderLocale: N/A
+    CustAddress: ''
+    CustCity: ''
+    CustCountry: US
+    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+    CustIP: 192.168.1.98
+    CustName: Christine Charles
+    CustPhone: ''
+    CustState: ''
+    CustZip: '33333'
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '1.00'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: N/A
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: DE
+    Markup: !!python/object/apply:decimal.Decimal
+    - '10.40'
+    MemberID: 0
+    MerchantCurrency: USD
+    MerchantID: 27001
+    MerchantPartnerID: null
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 901
+    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+    PaymentRouting: N/A
+    PaymentType: 131
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: SPKAISO1
+    ProcessorCurrency: USD
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: 532384055:1754120127
+    PurchaseID: 200080821
+    REF1: xWjOpfbzW4E=
+    REF10: null
+    REF2: pNRitzPmwRQ=
+    REF3: null
+    REF4: null
+    REF5: null
+    REF6: null
+    REF7: null
+    REF8: null
+    REF9: null
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 223711339
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: 1113c487-7154-4fb3-99b5-68bf6f1e4de5
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '10.40'
+    TransBin: 400000
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711343
+    TransSource: 123
+    TransStatus: 186
+    TransTime: 2020-01-03 16:17:01
+    TransType: 1011
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><ETICKETID>901%3a20000078</ETICKETID><AMOUNT>10.4</AMOUNT><DYNAMICTRANS>FlWT1gWJ6SERL8SwEmE%2bffPka5g%3d</DYNAMICTRANS><DYNAMICDESC>QA+TEST</DYNAMICDESC><OCTOKEN>200080821</OCTOKEN><TESTCASE>3</TESTCASE></EXTRA_DATA>
+  ref_variables: '&ref1=bbkxj&ref2=uqtz'
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: 2019-12-02 15:26:20
+  test_case_number: 3
+  transaction_type: OneClick_WS
+  url_options: '&ref1=bbkxj&ref2=uqtz&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  userinfo: 1
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+4:EU:CC:FreeTrial_Signup:Cancel:
+- !!set
+  4:EU:CC:FreeTrial_Signup:Cancel: null
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 100252
+  Category: 651
+  CollectUserInfo: 0
+  Currency: USD
+  DMCStatus: 473
+  Description: Dynamic Recurring
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 1
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '2.00'
+  ICNoStandInTemplate: defaultPayPal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultPayPal
+  ICSupportStandin: 0
+  InitialLen: 3
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  IsReactivateEnabled: false
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2020-01-03 15:51:27.980000
+  OCPayTemplate: defaultPayPal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Dynamic Recurring 0
+  PackageID: 902
+  PackageStatus: 433
+  PayPageTemplate: defaultPayPal
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: false
+  PrefProcessorID: 65
+  PurchTotal: 1
+  PurchaseID: 200101780
+  RebillLen: 54
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '3.95'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  TransID: 223711344
+  Type: 511
+  URLID: 29166
+  action: FreeTrial_Signup
+  action_bep: Cancel
+  actual:
+  - 'PurchaseID: 200101780 | TransId:223711344 | TransGuid: 1092e286-9dfb-467b-a440-9b79e5406181'
+  aprove_or_decline: true
+  aproved_transids: 223711344
+  authorized: true
+  cancelDate: 'Null'
+  card_encrypted: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+  card_type: EU
+  cc: '4000000000001000'
+  convDate: 'Null'
+  cross_merchant: null
+  currency_base: USD
+  dmc: HKD
+  dmc_from: p
+  email: qateam@segpay.com
+  email_encrypt: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+  eticket: 902:100252
+  expiration_date: '01'
+  expiredDate: CurrentDate + 0
+  firstname: Tony
+  joinlink_param: ''
+  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US'
+  lang: IT
+  lang_from: u
+  lastDate: 'Null'
+  lastname: Tyler
+  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=902:100252&DynamicPricingID=cd377db7-304f-40f5-a6e3-1f784c611ab2&ref9=oumyt&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/&paypagelanguage=IT&testcase=4
+  merchant: EU
+  merchant_country: US
+  merchant_currency: HKD
+  name: 4:EU:CC:FreeTrial_Signup:Cancel
+  nextDate: CurrentDate + 0
+  octoken: 200080821
+  payment: CC
+  paypage_lnaguage: IT
+  pp_type: 511
+  pricepoint: '100252'
+  processor_name: SPKAISO1
+  purchDate: CurrentDate
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: 0
+    AuthCode: OK:0
+    Authorized: true
+    BillConfigID: 100252
+    BinCountry: ZZ
+    CardExpiration: '0123'
+    CardType: 171
+    CardholderLocale: N/A
+    CustAddress: 123 Segpay Street
+    CustCity: Philladelphia
+    CustCountry: US
+    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+    CustIP: 192.168.1.98
+    CustName: Tony Tyler
+    CustPhone: ''
+    CustState: ''
+    CustZip: '33333'
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '8.65'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: US
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: IT
+    Markup: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    MemberID: 0
+    MerchantCurrency: HKD
+    MerchantID: 27001
+    MerchantPartnerID: null
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 902
+    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+    PaymentRouting: N/A
+    PaymentType: 131
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: SPKAISO1
+    ProcessorCurrency: USD
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: FREETRIAL
+    PurchaseID: 200101780
+    REF1: null
+    REF10: null
+    REF2: null
+    REF3: null
+    REF4: null
+    REF5: null
+    REF6: null
+    REF7: null
+    REF8: null
+    REF9: kArLEFyZOKE=
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 0
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: 1092e286-9dfb-467b-a440-9b79e5406181
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransBin: 400000
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711344
+    TransSource: 121
+    TransStatus: 187
+    TransTime: 2020-01-03 16:17:12
+    TransType: 101
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><DYNAMICPRICINGID>cd377db7-304f-40f5-a6e3-1f784c611ab2</DYNAMICPRICINGID><TESTCASE>4</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><PP-ETICKETID>902%253A100252</PP-ETICKETID><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultPayPal</TEMPLATE><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
+  ref_variables: '&ref9=oumyt'
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: CurrentDate
+  test_case_number: 4
+  transaction_type: FreeTrial_Signup
+  transbin: 400000
+  transguid: 1092e286-9dfb-467b-a440-9b79e5406181
+  url_options: '&ref9=oumyt&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/'
+  userinfo: 0
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+  year: '2023'
+  zip: '33333'
+5:EU:CC:Signup:Cancel:
+- !!set
+  5:EU:CC:Signup:Cancel: null
+- 3ds: true
+  '510': !!python/object/apply:decimal.Decimal
+  - '6.87'
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 20000077
+  Category: 651
+  CollectUserInfo: 2
+  Currency: USD
+  DMCStatus: 473
+  Description: 501,502,503,504,505,506  3DS on 44
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultPayPal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultPayPal
+  ICSupportStandin: 0
+  InitialLen: 1
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '1.00'
+  IsReactivateEnabled: true
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2020-01-03 15:50:38.700000
+  OCPayTemplate: defaultPayPal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: AutoTest
+  PackageID: 901
+  PackageStatus: 433
+  PayPageTemplate: defaultPayPal
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: true
+  PrefProcessorID: 65
+  PurchTotal: 1
+  PurchaseID: 200101781
+  RebillLen: 0
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 0
+  ShoppingBlurb: ''
+  TransID: 223711345
+  Type: 510
+  URLID: 29166
+  action: Signup
+  action_bep: Cancel
+  actual:
+  - 'PurchaseID: 200101781 | TransId:223711345 | TransGuid: 5c62d623-9d1f-47bb-8f67-9fe4cf82985e'
+  aprove_or_decline: true
+  aproved_transids: 223711345
   authorized: true
   cancelDate: CurrentDate
   card_encrypted: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
@@ -705,39 +1302,456 @@
   convDate: CurrentDate
   cross_merchant: null
   currency_base: USD
-  dmc: USD
+  dmc: NOK
   dmc_from: p
   email: qateam@segpay.com
   email_encrypt: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
-  eticket: 800:20000110
+  eticket: 901:20000077
   expiration_date: '01'
   expiredDate: CurrentDate
-  firstname: Cynthia
+  firstname: Peggy
   joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
-  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billstate=PA'
-  lang: SL
+  joinlink_xbill: ''
+  lang: EN
   lang_from: u
   lastDate: CurrentDate
-  lastname: Stephen
-  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=800:20000110&amount=11.68&dynamictrans=e6TQ2Y8ZYeExrjUsj2%2fZ2ww3D20%3d&dynamicdesc=QA+TEST&ref9=esigi&ref10=ubjz&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=SL&testcase=4
-  merchant: US
+  lastname: James
+  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=901:20000077&amount=6.87&dynamictrans=uhED%2fvMPrYLGPYB5yiKO%2frMGKV4%3d&dynamicdesc=QA+TEST&ref1=wfnye&ref2=ecrd&ref3=yrggv&ref4=mkga&ref5=hihbq&ref6=hnwh&ref7=lhjhq&ref8=pryw&ref9=homfx&ref10=dqnd&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&paypagelanguage=EN&testcase=5
+  merchant: EU
   merchant_country: US
-  merchant_currency: USD
-  name: 4:US:Paypal:Signup:No_action
+  merchant_currency: NOK
+  name: 5:EU:CC:Signup:Cancel
   nextDate: 'Null'
-  octoken: 200095084
-  payment: Paypal
-  paypage_lnaguage: SL
+  octoken: 200080821
+  payment: CC
+  paypage_lnaguage: EN
   pp_type: 510
-  pricepoint: '20000110'
-  processor_name: SPHBIPSP
+  pricepoint: '20000077'
+  processor_name: SPKAISO1
   purchDate: CurrentDate
   purchStatus: 804
   record_to_check:
     AffiliateID: 0
     AuthCode: OK:0
     Authorized: true
-    BillConfigID: 20000110
+    BillConfigID: 20000077
+    BinCountry: ZZ
+    CardExpiration: '0123'
+    CardType: 171
+    CardholderLocale: N/A
+    CustAddress: ''
+    CustCity: ''
+    CustCountry: US
+    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+    CustIP: 192.168.1.98
+    CustName: Peggy James
+    CustPhone: ''
+    CustState: ''
+    CustZip: '33333'
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '9.89'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: US
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: EN
+    Markup: !!python/object/apply:decimal.Decimal
+    - '67.97'
+    MemberID: 0
+    MerchantCurrency: NOK
+    MerchantID: 27001
+    MerchantPartnerID: null
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 901
+    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+    PaymentRouting: N/A
+    PaymentType: 131
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: SPKAISO1
+    ProcessorCurrency: USD
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: 532384171:1754120323
+    PurchaseID: 200101781
+    REF1: ZXqP6UXHXjc=
+    REF10: TOlVbYsi2QA=
+    REF2: FFX0SO3BHfQ=
+    REF3: SZlid9+lWFw=
+    REF4: 79uSfln10vg=
+    REF5: 1FU9tuhZcwM=
+    REF6: 31IdIBbYc3I=
+    REF7: +tPBIoZDRxM=
+    REF8: QHF0f9B5NjI=
+    REF9: RaxNCHdB9VY=
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 0
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: 5c62d623-9d1f-47bb-8f67-9fe4cf82985e
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '6.87'
+    TransBin: 400000
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711345
+    TransSource: 121
+    TransStatus: 184
+    TransTime: 2020-01-03 16:17:21
+    TransType: 101
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><AMOUNT>6.87</AMOUNT><DYNAMICTRANS>uhED%2fvMPrYLGPYB5yiKO%2frMGKV4%3d</DYNAMICTRANS><DYNAMICDESC>QA+TEST</DYNAMICDESC><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><TESTCASE>5</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><DYNAMICDESCRIPTOR>QA+TEST</DYNAMICDESCRIPTOR><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultPayPal</TEMPLATE><PASSWORD>lewisshawn507</PASSWORD><USERNAME>qateam@segpay.com</USERNAME><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
+  ref_variables: '&ref1=wfnye&ref2=ecrd&ref3=yrggv&ref4=mkga&ref5=hihbq&ref6=hnwh&ref7=lhjhq&ref8=pryw&ref9=homfx&ref10=dqnd'
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: CurrentDate
+  test_case_number: 5
+  transaction_type: Signup
+  transbin: 400000
+  transguid: 5c62d623-9d1f-47bb-8f67-9fe4cf82985e
+  url_options: '&ref1=wfnye&ref2=ecrd&ref3=yrggv&ref4=mkga&ref5=hihbq&ref6=hnwh&ref7=lhjhq&ref8=pryw&ref9=homfx&ref10=dqnd&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  userinfo: 2
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+  year: '2023'
+  zip: '33333'
+6:EU:Paypal:OneClick_POS:Void_Refund_Expire:
+- !!set
+  6:EU:Paypal:OneClick_POS:Void_Refund_Expire: null
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 27112
+  Category: 651
+  CollectUserInfo: 2
+  Currency: USD
+  DMCStatus: 473
+  Description: All price-points from this merchant 3ds not configured ppid 65
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '5.00'
+  ICNoStandInTemplate: defaultpaypal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultpaypal
+  ICSupportStandin: 0
+  InitialLen: 3
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '2.95'
+  IsReactivateEnabled: false
+  LanguageID: 401
+  Merchant: EU
+  MerchantID: 27001
+  ModBy: qateam@segpay.com
+  ModDate: 2019-12-17 09:34:58.937000
+  OCPayTemplate: defaultpaypal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Instant Conversion with Discount Pricing
+  PackageID: 900
+  PackageStatus: 433
+  PayPageTemplate: defaultpaypal
+  PayTypes: '          '
+  PostBackID: 8962
+  PostPayEnabled: false
+  PrefProcessorID: 65
+  PurchTotal: 1
+  PurchaseID: 200101782
+  RebillLen: 30
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '11.95'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 6
+  ShoppingBlurb: ''
+  TransID: 223711346
+  Type: 506
+  URLID: 29166
+  action: OneClick_POS
+  action_bep: Void_Refund_Expire
+  aprove_or_decline: false
+  cancelDate: 'Null'
+  card_type: EU
+  cc: '4111111111111111'
+  convDate: 'Null'
+  cross_merchant: null
+  currency_base: USD
+  dmc: NOK
+  dmc_from: u
+  eticket: 900:27112
+  expiredDate: CurrentDate + 33
+  ic_istrial: false
+  joinlink_param: '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
+  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US'
+  lang: SK
+  lang_from: u
+  lastDate: 'Null'
+  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:27112&octoken=200081737&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=NOK&paypagelanguage=SK&testcase=6
+  merchant: EU
+  name: 6:EU:Paypal:OneClick_POS:Void_Refund_Expire
+  nextDate: CurrentDate + 33
+  octoken: 200081737
+  payment: Paypal
+  pp_type: 506
+  pricepoint: '27112'
+  processor_name: SPKAISO1
+  purchDate: CurrentDate
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: 0
+    AuthCode: PAYPAL:PayPalOrderCapturingStatus=NoAuthorizations:No authorizations
+    Authorized: false
+    BillConfigID: 27112
+    BinCountry: N/A
+    CardExpiration: '9999'
+    CardType: 1704
+    CardholderLocale: N/A
+    CustAddress: ''
+    CustCity: ''
+    CustCountry: US
+    CustEMail: w2nMk0ozBbSpaz1vfCN+Rg==
+    CustIP: 192.168.1.98
+    CustName: Yan Karob
+    CustPhone: ''
+    CustState: ''
+    CustZip: ''
+    ExchRate: !!python/object/apply:decimal.Decimal
+    - '9.89'
+    FeeRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    IPCountry: US
+    IntCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPDueDate: null
+    LTPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    LTPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Language: SK
+    Markup: !!python/object/apply:decimal.Decimal
+    - '29.19'
+    MemberID: 0
+    MerchantCurrency: NOK
+    MerchantID: 27001
+    MerchantPartnerID: rgvalitor
+    MgrComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    PCID: null
+    PackageID: 900
+    PaymentAcct: rWdXYj56QxCwTxPFzux5Rt8DqpSknfe2
+    PaymentRouting: N/A
+    PaymentType: 1301
+    ProcessingFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    Processor: PAYPAL
+    ProcessorCurrency: USD
+    ProcessorReserve: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    ProcessorTransID: 42K62693H98854611
+    PurchaseID: 200101782
+    REF1: null
+    REF10: null
+    REF2: null
+    REF3: null
+    REF4: null
+    REF5: null
+    REF6: null
+    REF7: null
+    REF8: null
+    REF9: null
+    RefURL: wwww.regressesion.com/
+    RelatedTransID: 223708050
+    SOURCEMACHINE: QAWEB1
+    SRComm: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STANDIN: 0
+    STPCost: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPDueDate: null
+    STPReceived: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    STPayable: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    SalesRep: N/A
+    SettleFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TRANSGUID: 8a89d6c8-76a3-4960-b3cf-c988c0f6cae3
+    TaxRate: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TimeZoneOffset: 0
+    TransAmount: !!python/object/apply:decimal.Decimal
+    - '2.95'
+    TransBin: 411111
+    TransDate: 2020-01-03
+    TransFee: !!python/object/apply:decimal.Decimal
+    - '0.00'
+    TransID: 223711346
+    TransSource: 121
+    TransStatus: 186
+    TransTime: 2020-01-03 16:17:56.810000
+    TransType: 1011
+    TxStatus: !!python/object/apply:decimal.Decimal
+    - '2'
+    URL: www.google.com
+    URLID: 29166
+    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><OCTOKEN>200081737</OCTOKEN><MERCHANTPARTNERID>rgvalitor</MERCHANTPARTNERID><FOREIGNID>validmember1</FOREIGNID><NATSSESS>djslkafq3rf0i3wmefk34q434</NATSSESS><DMCURRENCY>NOK</DMCURRENCY><TESTCASE>6</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><ISPAYPALTRANS>true</ISPAYPALTRANS><ISNEWPURCHASEID>true</ISNEWPURCHASEID><PP-ETICKETID>900%253A27112</PP-ETICKETID><NONONECLICKPAYPAGELINK>%2fPayPage%2fposet.cgi%3fx-eticketid%3d900%253A27112%26x-billaddr%3d123%2bSegpay%2bStreet%26x-billcity%3dPhilladelphia%26x-billcntry%3dUS%26merchantpartnerid%3drgvalitor%26foreignid%3dvalidmember1%26natssess%3ddjslkafq3rf0i3wmefk34q434%26refurl%3dwwww.regressesion.com%252F%26DMCURRENCY%3dNOK%26paypagelanguage%3dSK%26testcase%3d6%26isPayPalTrans%3dtrue%26isNewPurchaseId%3dtrue%26fromoneclick%3d1</NONONECLICKPAYPAGELINK><CARDMASK>411111XXXXXX1111</CARDMASK><FIRSTANDLASTNAME>test+buyer</FIRSTANDLASTNAME><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYMENTOPTION>1301</PAYMENTOPTION><PASSWORD>bradley59485</PASSWORD><USERNAME>yan%40segpay.com</USERNAME><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
+  ref_variables: ''
+  refurl: '&refurl=wwww.regressesion.com/'
+  scope: true
+  statusDate: CurrentDate
+  test_case_number: 6
+  transaction_type: OneClick_POS
+  transguid: 8a89d6c8-76a3-4960-b3cf-c988c0f6cae3
+  url_options: '&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/'
+  userinfo: 2
+  visa_secure: 1
+  xSell1: null
+  xSell1Checked: false
+  xSell2: null
+  xSell2Checked: false
+7:US:Paypal:Signup:No_action:
+- !!set
+  7:US:Paypal:Signup:No_action: null
+- 3ds: true
+  AddlFields: null
+  AllowShopping: 1
+  AllowStandin: 0
+  BillConfigID: 27091
+  Category: 651
+  CollectUserInfo: 1
+  Currency: USD
+  DMCStatus: 471
+  Description: All price points 3ds on PPID74
+  DirectDebitPinPage: directdebit
+  ICAdjustTrial: 0
+  ICDiscountPrice: !!python/object/apply:decimal.Decimal
+  - '0.00'
+  ICNoStandInTemplate: defaultPayPal
+  ICReceiptTemplate: defaultpsd2
+  ICStandInTemplate: defaultPayPal
+  ICSupportStandin: 0
+  InitialLen: 2
+  InitialPeriod: 1
+  InitialPrice: !!python/object/apply:decimal.Decimal
+  - '1.00'
+  IsReactivateEnabled: true
+  LanguageID: 401
+  Merchant: US
+  MerchantID: 21621
+  ModBy: qateam@segpay.com
+  ModDate: 2019-12-16 19:08:05.413000
+  OCPayTemplate: defaultPayPal
+  OCReceiptTemplate: defaultpsd2
+  OneClickEnabled: true
+  PPDescription: Recurring USD
+  PackageID: 800
+  PackageStatus: 433
+  PayPageTemplate: defaultPayPal
+  PayTypes: '          '
+  PostBackID: 8934
+  PostPayEnabled: false
+  PrefProcessorID: 74
+  PurchTotal: 1
+  PurchaseID: 200101783
+  RebillLen: 30
+  RebillPeriod: 1
+  RebillPrice: !!python/object/apply:decimal.Decimal
+  - '2.95'
+  ReceiptTemplate: defaultpsd2
+  ReportID: 0
+  RiskID: 666
+  ShoppingBlurb: ''
+  TransID: 223711347
+  Type: 501
+  URLID: 29188
+  action: Signup
+  action_bep: No_action
+  actual:
+  - 'PurchaseID: 200101783 | TransId:223711347 | TransGuid: 6ae6f51a-fae7-4907-ad69-7fa52a3ef6df'
+  aprove_or_decline: true
+  aproved_transids: 223711347
+  authorized: true
+  cancelDate: 'Null'
+  card_encrypted: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
+  card_type: EU
+  cc: '4000000000001000'
+  convDate: 'Null'
+  cross_merchant: null
+  currency_base: USD
+  dmc: USD
+  dmc_from: p
+  email: qateam@segpay.com
+  email_encrypt: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
+  eticket: 800:27091
+  expiration_date: '01'
+  expiredDate: CurrentDate + 2
+  firstname: Thomas
+  joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
+  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US'
+  lang: SL
+  lang_from: p
+  lastDate: 'Null'
+  lastname: Cristina
+  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=800:27091&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=7
+  merchant: US
+  merchant_country: US
+  merchant_currency: USD
+  name: 7:US:Paypal:Signup:No_action
+  nextDate: CurrentDate + 2
+  octoken: 200101776
+  payment: Paypal
+  paypage_lnaguage: SL
+  pp_type: 501
+  pricepoint: '27091'
+  processor_name: SPHBIPSP
+  purchDate: CurrentDate
+  purchStatus: 801
+  record_to_check:
+    AffiliateID: 0
+    AuthCode: OK:0
+    Authorized: true
+    BillConfigID: 27091
     BinCountry: N/A
     CardExpiration: '9999'
     CardType: 1704
@@ -767,7 +1781,7 @@
     - '0.00'
     Language: SL
     Markup: !!python/object/apply:decimal.Decimal
-    - '11.68'
+    - '1.00'
     MemberID: 0
     MerchantCurrency: USD
     MerchantID: 21621
@@ -787,10 +1801,10 @@
     - '0.00'
     ProcessorTransFee: !!python/object/apply:decimal.Decimal
     - '0.00'
-    ProcessorTransID: 0MM007343J467690A
-    PurchaseID: 200095154
+    ProcessorTransID: 60H623732F959233X
+    PurchaseID: 200101783
     REF1: null
-    REF10: W5YCQn1AgMw=
+    REF10: null
     REF2: null
     REF3: null
     REF4: null
@@ -798,7 +1812,7 @@
     REF6: null
     REF7: null
     REF8: null
-    REF9: fhsG0OcYGbc=
+    REF9: null
     RefURL: wwww.regressesion.com/
     RelatedTransID: 0
     SOURCEMACHINE: QAWEB1
@@ -815,35 +1829,35 @@
     SalesRep: N/A
     SettleFee: !!python/object/apply:decimal.Decimal
     - '0.00'
-    TRANSGUID: d10a0894-0355-4f4e-a603-28ca1e8085d6
+    TRANSGUID: 6ae6f51a-fae7-4907-ad69-7fa52a3ef6df
     TaxRate: !!python/object/apply:decimal.Decimal
     - '0.00'
     TimeZoneOffset: 0
     TransAmount: !!python/object/apply:decimal.Decimal
-    - '11.68'
+    - '1.00'
     TransBin: 411111
-    TransDate: 2019-12-27
+    TransDate: 2020-01-03
     TransFee: !!python/object/apply:decimal.Decimal
     - '0.00'
-    TransID: 223688165
+    TransID: 223711347
     TransSource: 121
     TransStatus: 184
-    TransTime: 2019-12-27 19:46:41.080000
+    TransTime: 2020-01-03 16:18:28.843000
     TransType: 101
     TxStatus: !!python/object/apply:decimal.Decimal
     - '2'
     URL: google.com
     URLID: 29188
-    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><AMOUNT>11.68</AMOUNT><DYNAMICTRANS>e6TQ2Y8ZYeExrjUsj2%2fZ2ww3D20%3d</DYNAMICTRANS><DYNAMICDESC>QA+TEST</DYNAMICDESC><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><TESTCASE>4</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><DYNAMICDESCRIPTOR>QA+TEST</DYNAMICDESCRIPTOR><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>QA+US</MERCHANTNAME><TEMPLATE>defaultPayPal</TEMPLATE><PAYTYPE>paypal</PAYTYPE><PAYMENTOPTION>1301</PAYMENTOPTION><USERNAME>davidgalvan932</USERNAME><PASSWORD>aanderson463</PASSWORD><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
-  ref_variables: '&ref9=esigi&ref10=ubjz'
+    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><TESTCASE>7</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>QA+US</MERCHANTNAME><TEMPLATE>defaultPayPal</TEMPLATE><PAYMENTOPTION>1301</PAYMENTOPTION><USERNAME>angela15992</USERNAME><PASSWORD>abradford623</PASSWORD><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
+  ref_variables: ''
   refurl: '&refurl=wwww.regressesion.com/'
   scope: false
   statusDate: CurrentDate
-  test_case_number: 4
+  test_case_number: 7
   transaction_type: Signup
   transbin: 400000
-  transguid: d10a0894-0355-4f4e-a603-28ca1e8085d6
-  url_options: '&ref9=esigi&ref10=ubjz&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
+  transguid: 6ae6f51a-fae7-4907-ad69-7fa52a3ef6df
+  url_options: '&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billcntry=US&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
   userinfo: 1
   visa_secure: 2
   xSell1: null
@@ -852,411 +1866,3 @@
   xSell2Checked: false
   year: '2023'
   zip: '33333'
-5:EU:CC:OneClick_POS:Void_Refund_Cancel:
-- !!set
-  5:EU:CC:OneClick_POS:Void_Refund_Cancel: null
-- 3ds: true
-  AddlFields: null
-  AllowShopping: 1
-  AllowStandin: 0
-  BillConfigID: 27002
-  Category: 651
-  CollectUserInfo: 0
-  Currency: USD
-  DMCStatus: 473
-  Description: All price-points from this merchant 3ds not configured ppid 65
-  DirectDebitPinPage: directdebit
-  ICAdjustTrial: 0
-  ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  ICNoStandInTemplate: defaultpaypal
-  ICReceiptTemplate: defaultpsd2
-  ICStandInTemplate: defaultpaypal
-  ICSupportStandin: 0
-  InitialLen: 3
-  InitialPeriod: 1
-  InitialPrice: !!python/object/apply:decimal.Decimal
-  - '2.95'
-  IsReactivateEnabled: false
-  LanguageID: 401
-  Merchant: EU
-  MerchantID: 27001
-  ModBy: qateam@segpay.com
-  ModDate: 2019-12-17 09:34:58.937000
-  OCPayTemplate: defaultpaypal
-  OCReceiptTemplate: defaultpsd2
-  OneClickEnabled: true
-  PPDescription: Instant Conversion One Click
-  PackageID: 900
-  PackageStatus: 433
-  PayPageTemplate: defaultpaypal
-  PayTypes: '          '
-  PostBackID: 8962
-  PostPayEnabled: false
-  PrefProcessorID: 65
-  PurchTotal: 1
-  PurchaseID: 200095155
-  RebillLen: 30
-  RebillPeriod: 1
-  RebillPrice: !!python/object/apply:decimal.Decimal
-  - '29.95'
-  ReceiptTemplate: defaultpsd2
-  ReportID: 0
-  RiskID: 666
-  ShoppingBlurb: ''
-  TransID: 223688166
-  Type: 506
-  URLID: 29166
-  action: OneClick_POS
-  action_bep: Void_Refund_Cancel
-  actual:
-  - 'PurchaseID: 200095155 | TransId:223688166 | TransGuid: 98204588-94d2-433e-a5a6-2aff5d2c2106'
-  aprove_or_decline: true
-  authorized: true
-  cancelDate: 'Null'
-  card_type: EU
-  cc: '4000000000001000'
-  convDate: 'Null'
-  cross_merchant: null
-  currency_base: USD
-  dmc: USD
-  dmc_from: u
-  eticket: 900:27002
-  expiredDate: CurrentDate + 33
-  ic_istrial: true
-  joinlink_param: '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
-  joinlink_xbill: '&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US'
-  lang: IT
-  lang_from: u
-  lastDate: 'Null'
-  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&octoken=200080821&ref1=znvch&ref2=cuub&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/&DMCURRENCY=USD&paypagelanguage=IT&testcase=5
-  merchant: EU
-  name: 5:EU:CC:OneClick_POS:Void_Refund_Cancel
-  nextDate: CurrentDate + 33
-  octoken: 200080821
-  payment: CC
-  pp_type: 506
-  pricepoint: '27002'
-  processor_name: SPKAISO1
-  purchDate: CurrentDate
-  purchStatus: 801
-  record_to_check:
-    AffiliateID: 0
-    AuthCode: OK:0
-    Authorized: true
-    BillConfigID: 27002
-    BinCountry: ZZ
-    CardExpiration: '0225'
-    CardType: 171
-    CardholderLocale: N/A
-    CustAddress: ''
-    CustCity: ''
-    CustCountry: US
-    CustEMail: /vxqq2VIy3YumbDgguw9Oz/swz8hYPX2
-    CustIP: 192.168.1.98
-    CustName: Christine Charles
-    CustPhone: ''
-    CustState: ''
-    CustZip: '33333'
-    ExchRate: !!python/object/apply:decimal.Decimal
-    - '1.00'
-    FeeRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    IPCountry: US
-    IntCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPDueDate: null
-    LTPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Language: IT
-    Markup: !!python/object/apply:decimal.Decimal
-    - '2.95'
-    MemberID: 0
-    MerchantCurrency: USD
-    MerchantID: 27001
-    MerchantPartnerID: rgvalitor
-    MgrComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    PCID: null
-    PackageID: 900
-    PaymentAcct: zvVzZ58Ume9EFrZMdCgi4TVi0UVJwnJe
-    PaymentRouting: N/A
-    PaymentType: 131
-    ProcessingFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Processor: SPKAISO1
-    ProcessorCurrency: USD
-    ProcessorReserve: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransID: 529629739:1748993111
-    PurchaseID: 200095155
-    REF1: x3aWzuVX34Y=
-    REF10: null
-    REF2: SHiV9ItDxlw=
-    REF3: null
-    REF4: null
-    REF5: null
-    REF6: null
-    REF7: null
-    REF8: null
-    REF9: null
-    RefURL: wwww.regressesion.com/
-    RelatedTransID: 223687829
-    SOURCEMACHINE: QAWEB1
-    SRComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STANDIN: 0
-    STPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPDueDate: null
-    STPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    SalesRep: N/A
-    SettleFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TRANSGUID: 98204588-94d2-433e-a5a6-2aff5d2c2106
-    TaxRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TimeZoneOffset: 0
-    TransAmount: !!python/object/apply:decimal.Decimal
-    - '2.95'
-    TransBin: 400000
-    TransDate: 2019-12-27
-    TransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TransID: 223688166
-    TransSource: 121
-    TransStatus: 186
-    TransTime: 2019-12-27 19:46:53
-    TransType: 1011
-    TxStatus: !!python/object/apply:decimal.Decimal
-    - '2'
-    URL: www.google.com
-    URLID: 29166
-    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><OCTOKEN>200080821</OCTOKEN><MERCHANTPARTNERID>rgvalitor</MERCHANTPARTNERID><FOREIGNID>validmember1</FOREIGNID><NATSSESS>djslkafq3rf0i3wmefk34q434</NATSSESS><DMCURRENCY>USD</DMCURRENCY><TESTCASE>5</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><PP-ETICKETID>900%253A27002</PP-ETICKETID><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
-  ref_variables: '&ref1=znvch&ref2=cuub'
-  refurl: '&refurl=wwww.regressesion.com/'
-  scope: true
-  statusDate: CurrentDate
-  test_case_number: 5
-  transaction_type: OneClick_POS
-  transguid: 98204588-94d2-433e-a5a6-2aff5d2c2106
-  url_options: '&ref1=znvch&ref2=cuub&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434&refurl=wwww.regressesion.com/'
-  userinfo: 0
-  visa_secure: 1
-  xSell1: null
-  xSell1Checked: false
-  xSell2: null
-  xSell2Checked: false
-6:EU:Paypal:OneClick_POS:Void_Refund_Expire:
-- !!set
-  6:EU:Paypal:OneClick_POS:Void_Refund_Expire: null
-- 3ds: true
-  AddlFields: null
-  AllowShopping: 1
-  AllowStandin: 0
-  BillConfigID: 27002
-  Category: 651
-  CollectUserInfo: 0
-  Currency: USD
-  DMCStatus: 473
-  Description: All price-points from this merchant 3ds not configured ppid 65
-  DirectDebitPinPage: directdebit
-  ICAdjustTrial: 0
-  ICDiscountPrice: !!python/object/apply:decimal.Decimal
-  - '0.00'
-  ICNoStandInTemplate: defaultpaypal
-  ICReceiptTemplate: defaultpsd2
-  ICStandInTemplate: defaultpaypal
-  ICSupportStandin: 0
-  InitialLen: 3
-  InitialPeriod: 1
-  InitialPrice: !!python/object/apply:decimal.Decimal
-  - '2.95'
-  IsReactivateEnabled: false
-  LanguageID: 401
-  Merchant: EU
-  MerchantID: 27001
-  ModBy: qateam@segpay.com
-  ModDate: 2019-12-17 09:34:58.937000
-  OCPayTemplate: defaultpaypal
-  OCReceiptTemplate: defaultpsd2
-  OneClickEnabled: true
-  PPDescription: Instant Conversion One Click
-  PackageID: 900
-  PackageStatus: 433
-  PayPageTemplate: defaultpaypal
-  PayTypes: '          '
-  PostBackID: 8962
-  PostPayEnabled: false
-  PrefProcessorID: 65
-  PurchTotal: 1
-  PurchaseID: 200095156
-  RebillLen: 30
-  RebillPeriod: 1
-  RebillPrice: !!python/object/apply:decimal.Decimal
-  - '29.95'
-  ReceiptTemplate: defaultpsd2
-  ReportID: 0
-  RiskID: 666
-  ShoppingBlurb: ''
-  TransID: 223688167
-  Type: 506
-  URLID: 29166
-  action: OneClick_POS
-  action_bep: Void_Refund_Expire
-  actual:
-  - 'PurchaseID: 200095156 | TransId:223688167 | TransGuid: ed7910a2-4673-489f-b081-ea00bd7903a3'
-  aprove_or_decline: true
-  authorized: true
-  cancelDate: 'Null'
-  card_type: EU
-  cc: '4111111111111111'
-  convDate: 'Null'
-  cross_merchant: null
-  currency_base: USD
-  dmc: HKD
-  dmc_from: p
-  eticket: 900:27002
-  expiredDate: CurrentDate + 33
-  ic_istrial: false
-  joinlink_param: '&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose'
-  joinlink_xbill: '&x-billaddr=123+Segpay+Street&x-billstate=PA'
-  lang: DE
-  lang_from: p
-  lastDate: 'Null'
-  link: https://qas2.segpay.com/billing/poset.cgi?x-eticketid=900:27002&octoken=200081737&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/&testcase=6
-  merchant: EU
-  name: 6:EU:Paypal:OneClick_POS:Void_Refund_Expire
-  nextDate: CurrentDate + 33
-  octoken: 200081737
-  payment: Paypal
-  pp_type: 506
-  pricepoint: '27002'
-  processor_name: SPKAISO1
-  purchDate: CurrentDate
-  purchStatus: 801
-  record_to_check:
-    AffiliateID: 0
-    AuthCode: OK:0
-    Authorized: true
-    BillConfigID: 27002
-    BinCountry: N/A
-    CardExpiration: '9999'
-    CardType: 1704
-    CardholderLocale: N/A
-    CustAddress: ''
-    CustCity: ''
-    CustCountry: US
-    CustEMail: w2nMk0ozBbSpaz1vfCN+Rg==
-    CustIP: 192.168.1.98
-    CustName: Yan Karob
-    CustPhone: ''
-    CustState: ''
-    CustZip: ''
-    ExchRate: !!python/object/apply:decimal.Decimal
-    - '8.65'
-    FeeRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    IPCountry: US
-    IntCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPDueDate: null
-    LTPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    LTPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Language: DE
-    Markup: !!python/object/apply:decimal.Decimal
-    - '25.52'
-    MemberID: 0
-    MerchantCurrency: HKD
-    MerchantID: 27001
-    MerchantPartnerID: ''
-    MgrComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    PCID: null
-    PackageID: 900
-    PaymentAcct: rWdXYj56QxCwTxPFzux5Rt8DqpSknfe2
-    PaymentRouting: N/A
-    PaymentType: 1301
-    ProcessingFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    Processor: PAYPAL
-    ProcessorCurrency: USD
-    ProcessorReserve: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    ProcessorTransID: 6TA20024GA1118307
-    PurchaseID: 200095156
-    REF1: null
-    REF10: null
-    REF2: null
-    REF3: null
-    REF4: null
-    REF5: null
-    REF6: null
-    REF7: null
-    REF8: null
-    REF9: null
-    RefURL: wwww.regressesion.com/
-    RelatedTransID: 223687827
-    SOURCEMACHINE: QAWEB1
-    SRComm: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STANDIN: 0
-    STPCost: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPDueDate: null
-    STPReceived: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    STPayable: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    SalesRep: N/A
-    SettleFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TRANSGUID: ed7910a2-4673-489f-b081-ea00bd7903a3
-    TaxRate: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TimeZoneOffset: 0
-    TransAmount: !!python/object/apply:decimal.Decimal
-    - '2.95'
-    TransBin: 411111
-    TransDate: 2019-12-27
-    TransFee: !!python/object/apply:decimal.Decimal
-    - '0.00'
-    TransID: 223688167
-    TransSource: 121
-    TransStatus: 186
-    TransTime: 2019-12-27 19:47:30.723000
-    TransType: 1011
-    TxStatus: !!python/object/apply:decimal.Decimal
-    - '2'
-    URL: www.google.com
-    URLID: 29166
-    USERDATA: <EXTRA_DATA><BROWSERTYPE>Chrome</BROWSERTYPE><BROWSERVERSION>79.0</BROWSERVERSION><IPADDRESS>192.168.1.98</IPADDRESS><ISMOBILEDEVICE>false</ISMOBILEDEVICE><PLATFORM>Mozilla%2f5.0+(Windows+NT+10.0%3b+Win64%3b+x64)+AppleWeb</PLATFORM><OCTOKEN>200081737</OCTOKEN><X-AUTH-LINK>https%3a%2f%2fwww.cnn.com</X-AUTH-LINK><X-AUTH-TEXT>you+are+approved</X-AUTH-TEXT><X-DECL-LINK>https%3a%2f%2fwww.trump.com</X-DECL-LINK><X-DECL-TEXT>you+lose</X-DECL-TEXT><TESTCASE>6</TESTCASE><SOURCEMACHINE>QAWEB1</SOURCEMACHINE><POSVERSION>2.0.1.0</POSVERSION><ISPAYPALTRANS>true</ISPAYPALTRANS><ISNEWPURCHASEID>true</ISNEWPURCHASEID><PP-ETICKETID>900%253A27002</PP-ETICKETID><NONONECLICKPAYPAGELINK>%2fPayPage%2fposet.cgi%3fx-eticketid%3d900%253A27002%26x-billaddr%3d123%2bSegpay%2bStreet%26x-billstate%3dPA%26x-auth-link%3dhttps%253A%252F%252Fwww.cnn.com%26x-auth-text%3dyou%2bare%2bapproved%26x-decl-link%3dhttps%253A%252F%252Fwww.trump.com%26x-decl-text%3dyou%2blose%26refurl%3dwwww.regressesion.com%252F%26testcase%3d6%26isPayPalTrans%3dtrue%26isNewPurchaseId%3dtrue%26fromoneclick%3d1</NONONECLICKPAYPAGELINK><CARDMASK>411111XXXXXX1111</CARDMASK><FIRSTANDLASTNAME>test+buyer</FIRSTANDLASTNAME><IPCOUNTRY>US</IPCOUNTRY><MERCHANTNAME>SegPay+EU+QA+2</MERCHANTNAME><TEMPLATE>defaultpaypal</TEMPLATE><PAYTYPE>paypal</PAYTYPE><PAYMENTOPTION>1301</PAYMENTOPTION><PAYPAGELANGUAGES>en-US%2cen%3bq%3d0.9%7cChrome+79.0</PAYPAGELANGUAGES></EXTRA_DATA>
-  ref_variables: ''
-  refurl: '&refurl=wwww.regressesion.com/'
-  scope: true
-  statusDate: CurrentDate
-  test_case_number: 6
-  transaction_type: OneClick_POS
-  transguid: ed7910a2-4673-489f-b081-ea00bd7903a3
-  url_options: '&x-billaddr=123+Segpay+Street&x-billstate=PA&x-auth-link=https://www.cnn.com&x-auth-text=you%20are%20approved&x-decl-link=https://www.trump.com&x-decl-text=you%20lose&refurl=wwww.regressesion.com/'
-  userinfo: 0
-  visa_secure: 1
-  xSell1: null
-  xSell1Checked: false
-  xSell2: null
-  xSell2Checked: false

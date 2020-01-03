@@ -1,8 +1,11 @@
+EU_EUR,CC,OneClick_WS,Void_Refund,510
+EU_US,CC,OneClick_WS,Void_Refund,510
+EU,CC,OneClick_WS,Void_Refund,510
 EU,CC,FreeTrial_Signup,Cancel,511,random,random,random,random,custom_default,,,,
-EU,CC,Signup,Cancel,511,random,random,random,random,custom_default,,,,
+EU,CC,Signup,Cancel,510,random,random,random,random,custom_default,,,,
 EU,Paypal,OneClick_POS,Void_Refund_Expire,506,1
-US,Paypal,Signup,No_action,510
-EU,CC,OneClick_POS,Decline,510
+US,Paypal,Signup,No_action,501
+EU,CC,OneClick_POS,Decline,502
 EU,Paypal,OneClick_POS,Decline,510
 EU,Paypal,OneClick_POS,Decline,510
 EU,CC,OneClick_POS,Void_Refund_Cancel,506,0

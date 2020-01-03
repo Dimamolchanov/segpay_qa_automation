@@ -96,7 +96,7 @@ def joinlink():
             if config.test_data['pp_type'] == 511:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options + dmc_from + lang_from
             elif config.test_data['pp_type'] == 510:
-                joinlink = f"{config.urlws}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}{url_options}{dmc_from}" + lang_from
+                joinlink = f"{dynamiclink_websrevices}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}{url_options}{dmc_from}" + lang_from
             else:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&octoken={octoken}" + url_options + dmc_from + lang_from
 
@@ -629,7 +629,8 @@ def create_test_case(scenario):
                 config.test_data['ic_istrial'] = True
             elif scenario[5] == '1':
                 config.test_data['ic_istrial'] = False
-        config.test_case_number = test_case_number = config.test_case_number + 1
+        test_case_number = config.test_case_number
+        #config.test_case_number = test_case_number = config.test_case_number + 1
         find_pp_package = None
         cnt = 0
         config.test_data['name'] = f"{test_case_number}:{scenario[0]}:{scenario[1]}:{scenario[2]}:{scenario[3]}"
@@ -757,18 +758,25 @@ def find_package_pricepoint():
         traceback.print_exc()
         pass
 
+def print_failed_scenarios(failed_scenarios):
+    for sc in failed_scenarios:
+        print(sc)
+        
 
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
 
 saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
 count_transactions = 0
+failed_scenarios = []
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
     merchantid = ''
-    test_case_number = 0
-    # heading = scenario_heading()
+    #test_case_number = 0
+    config.test_case_number = 0
     for scenario in tc_reader:
         try:
+            config.test_case_number = config.test_case_number + 1
+            #test_case_number
             if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS') or ( 'OneClick' in  scenario[2] and scenario[3]) == 'Decline' or ( scenario[1] == 'Paypal' and scenario[3]) == 'Decline':
                 print()  # ("skiping for now \n") # EU_EUR
 
@@ -785,9 +793,11 @@ with open(filename, newline='') as csvfile:
                             passed_test_cases[config.test_data['name']] = config.test_data
                         else:
                             failed_test_cases[config.test_data['name']] = config.test_data
+                            failed_scenarios.append(scenario)
                     else:
                         print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
                         failed_test_cases[config.test_data['name']] = config.test_data
+                        failed_scenarios.append(scenario)
                         raise Exception('Transaction was not created')
                 
         except Exception as ex:
@@ -795,6 +805,10 @@ with open(filename, newline='') as csvfile:
             print()
             pass
 br.close()
+print("Failed Scenarios")
+print_failed_scenarios(failed_scenarios)
+
+
 try:
     with open(saved_test_cases, 'w') as f:
         data = yaml.dump(test_cases_list, f)

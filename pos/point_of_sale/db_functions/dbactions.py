@@ -124,11 +124,21 @@ class DBActions:
         package_for_pp = None
         package = None
         if config.test_data['MerchantID'] == 27001:
-            package = self.package(900)
-            package_for_pp = 900
+            if pp_type == 510:
+                package = self.package(901)
+            elif pp_type == 511:
+                package = self.package(902)
+            else:
+                package = self.package(900)
+            package_for_pp = package['PackageID']
         elif config.test_data['MerchantID'] == 21621:
-            package = self.package(800)
-            package_for_pp = 800
+            if pp_type == 510:
+                package = self.package(801)
+            elif pp_type == 511:
+                package = self.package(802)
+            else:
+                package = self.package(800)
+            package_for_pp = package['PackageID']
         cnt = 0
         currency = config.test_data['currency_base']
         pp_list = []
@@ -498,7 +508,8 @@ class DBActions:
             #     rows = self.cursor.fetchall()
             #     time.sleep(1)
             for pp in rows:
-                pp_list.append(pp['BillConfigID'])
+                pp_item = (pp['BillConfigID'],pp['Type'])
+                pp_list.append(pp_item)
             return pp_list
         except Exception as ex:
             if config.test_data['traceback']:
