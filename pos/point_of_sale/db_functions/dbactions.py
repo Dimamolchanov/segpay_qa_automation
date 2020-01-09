@@ -270,7 +270,12 @@ class DBActions:
         if not response:
             return None
         return response
-    
+    def execute_select_with_no_params_all(self, sql):
+        cnt_sql(sql, 'execute_select_with_no_params')
+        # cnt_sql(sql, 'execute_select_with_no_params')
+        self.cursor.execute(sql)
+        response = self.cursor.fetchall()
+        return response
     def execute_select_with_no_params(self, sql):
         cnt_sql(sql, 'execute_select_with_no_params')
         # cnt_sql(sql, 'execute_select_with_no_params')

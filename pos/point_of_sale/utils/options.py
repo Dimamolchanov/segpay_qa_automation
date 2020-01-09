@@ -1,35 +1,19 @@
-import random
-import string
-from pos.point_of_sale.utils import constants
-from pos.point_of_sale.config import config
-import traceback
-import simplexml
-from termcolor import colored
-from pos.point_of_sale.db_functions.dbactions import DBActions
-import pymssql
-from pos.point_of_sale.config import config
+import decimal
 import json
 import random
-import decimal
-from splinter import Browser
-from faker import Faker
-import subprocess
-from selenium import webdriver
-import time
-from datetime import datetime
-from xml.etree.ElementTree import fromstring
-import simplexml
-import requests
-import copy
+import string
 import traceback
-import os
+from datetime import datetime
+from datetime import timedelta
+from xml.etree.ElementTree import fromstring
+
+import requests
+import simplexml
+from termcolor import colored
+
 from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
-from pos.point_of_sale.bep import bep
-from selenium.common.exceptions import *
 from pos.point_of_sale.utils import constants
-from pos.point_of_sale.utils import options
-from termcolor import colored
 
 db_agent = DBActions()
 
@@ -52,21 +36,26 @@ def collect_userinfo():
         traceback.print_exc()
         return False
 
+def get_error_before_action(condition):
+    date_and_time = datetime.now()
+    if condition == "initial_time":
+        date_and_time = date_and_time.strftime('%Y-%m-%d %H:%M:%S.%f')
+        config.test_data['initial_error_time'] = date_and_time[:-3]
+    else:
+        date_and_time = date_and_time + timedelta(seconds = 5)
+        date_and_time = date_and_time.strftime('%Y-%m-%d %H:%M:%S.%f')
+        config.test_data['cutoff_error_time'] = date_and_time[:-3]
+
 def get_error_from_log():
-    connection = pymssql.connect(config.server, "SPStaff", 'Toccata200e', "aspnetdb")
-    cur = connection.cursor(as_dict=True)
-    cur.execute(constants.GET_ERRORS_FROM_THE_LOG)
-    response = cur.fetchall()
+    sql = constants.GET_ERRORS_FROM_THE_LOG.format(config.test_data['initial_error_time'], config.test_data['cutoff_error_time'])
+    response = db_agent.execute_select_with_no_params_all(sql)
     if not response:
-        print(colored(f"No errors in the SegPayLogs in last 1 minute", 'blue', attrs=['bold', 'underline', 'dark']))
-        connection.close()
+        print(colored(f"No errors in the SegPayLogs for the last transaction", 'blue', attrs=['bold', 'underline', 'dark']))
         return None
     else:
+        print(colored(f"Errors in the SegPayLogs for the last transaction:", 'red', attrs=['bold', 'underline', 'dark']))
         for line in response:
-            
             print(f"ID: {line['Id']} Message: {line['Message']}")
-        print(colored(f"Errors in the SegPayLogs in last 1 minute:", 'red', attrs=['bold', 'underline', 'dark']))
-        connection.close()
 
 def joinlink_param():
     extra_param = '&merchantpartnerid=rgvalitor&foreignid=validmember1&natssess=djslkafq3rf0i3wmefk34q434'
@@ -155,7 +144,10 @@ def oc_tokens(merchant):
             elif config.test_data['payment'] == 'Paypal':
                 sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
         octoken = db_agent.execute_select_with_no_params(sql)
-        return octoken['PurchaseID']
+        if not octoken['PurchaseID'] :
+            print('no octoken')
+        else:
+            return octoken['PurchaseID']
     
     
     except Exception as ex:

@@ -562,6 +562,7 @@ def verify_transaction(transaction_type, current_transaction_record):
 def create_transaction():
     transaction_type = config.test_data['transaction_type']
     current_transaction_record = {}
+    options.get_error_before_action("initial_time")
     try:
         if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
             current_transaction_record = br.oc_pos()
@@ -577,7 +578,7 @@ def create_transaction():
             config.test_data['record_to_check'] = current_transaction_record
             config.test_data['PurchaseID'] = current_transaction_record['PurchaseID']
             config.test_data['TransID'] = current_transaction_record['TransID']
-
+        options.get_error_before_action("cutoff_time")
         return current_transaction_record
     except Exception as ex:
         traceback.print_exc()
