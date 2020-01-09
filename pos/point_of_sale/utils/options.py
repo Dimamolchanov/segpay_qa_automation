@@ -218,7 +218,7 @@ def is_EU(merchantid):
 
 def random_dmc():
     dmc = ''
-    currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "NOK", 'RUB', "ILS", "INR", 'CZK', "HKD", "JPY", "SEK"]
+    currencies = ['USD', "AUD", "CAD", "CHF", "DKK", "EUR", "GBP", "NOK", 'RUB', "ILS",  'CZK', "HKD", "JPY", "SEK"] #"INR",
     try:
         dmc = random.choice(currencies)
         return dmc

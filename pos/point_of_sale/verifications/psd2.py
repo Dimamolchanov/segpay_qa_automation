@@ -19,6 +19,8 @@ def cardinal3dsrequests(transid):  # card
 	item = ''
 	response = {}
 	sca = False
+	if config.test_data['payment'] == 'Paypal':
+		return False
 	try:
 		visa_secure = config.test_data['visa_secure']
 		base_field = ''

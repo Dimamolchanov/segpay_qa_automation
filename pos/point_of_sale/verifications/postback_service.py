@@ -221,7 +221,7 @@ def verify_postback_url(action, package_id, trans_id):
 
             if trans_type == 102:
 
-                expected_trantype = "credit"
+                expected_trantype = "credit.csv"
 
             elif trans_type == 107:
 

@@ -117,8 +117,6 @@ def joinlink():
         traceback.print_exc()
         print(f"Function joinglink \n {Exception}")
         pass
-
-
 def asset_verification(test_case):
     type = config.test_data['pp_type']
     dates = {}
@@ -192,8 +190,6 @@ def asset_verification(test_case):
     except Exception as ex:
         traceback.print_exc()
         pass
-
-
 def mt_verification(test_case):
     try:
         transsource = 0
@@ -239,8 +235,6 @@ def mt_verification(test_case):
     except Exception as ex:
         traceback.print_exc()
         pass
-
-
 def scenario_heading():
     scn_heading = []
     print("==================================================== *** Scenario - Recurring *** ==========================================================================")
@@ -259,8 +253,6 @@ def scenario_heading():
     scn_heading.append(
         "============================================================================================================================================================\n")
     return scn_heading
-
-
 def pricepoint_type():
     pp = ''
     try:
@@ -285,8 +277,6 @@ def pricepoint_type():
         traceback.print_exc()
         print(f"{Exception}")
         pass
-
-
 def ifpostbacks():
     try:
         if config.test_data['PostBackID']:
@@ -297,14 +287,10 @@ def ifpostbacks():
     except Exception as ex:
         traceback.print_exc()
         pass
-
-
 def visa_secure():
     if config.test_data['merchant'] == 'EU': visa_secure_msg = "3DS                | Cardinal3dsRequests should have the response from Cardinal"
     if config.test_data['merchant'] == 'US': visa_secure_msg = '3DS                | Multitrans UserData should have responce from Cardinal'
     return visa_secure_msg
-
-
 def lang_dmc():
     dmc_msg = ''
     lang_msg = ''
@@ -322,8 +308,6 @@ def lang_dmc():
         dmc_msg = "DMC From :"
         lang_msg = "Language From :"
     return lang_msg, dmc_msg
-
-
 def print_scenario():
     action = ''
     bep_msg = ''
@@ -530,8 +514,6 @@ def print_scenario():
     except Exception as ex:
         traceback.print_exc()
         pass
-
-
 def verify_transaction(transaction_type, current_transaction_record):
     pass_fail = ''
     aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
@@ -577,8 +559,6 @@ def verify_transaction(transaction_type, current_transaction_record):
             print(
                 "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
             return False
-
-
 def create_transaction():
     transaction_type = config.test_data['transaction_type']
     current_transaction_record = {}
@@ -602,8 +582,6 @@ def create_transaction():
     except Exception as ex:
         traceback.print_exc()
         pass
-
-
 def random_lang_cur():
     config.test_data['lang'] = options.random_lang()
     opt_lang = random.choice(['p', 'u'])
@@ -617,8 +595,6 @@ def random_lang_cur():
             config.test_data['dmc_from'] = 'u'
     else:
         config.test_data['dmc'] = 'USD'
-
-
 def create_test_case(scenario):
     merchantid = ''
     try:
@@ -732,11 +708,6 @@ def create_test_case(scenario):
     except Exception as ex:
         traceback.print_exc()
         print()
-
-
-# pass
-
-
 def find_package_pricepoint():
     find_pp_package = None
     cnt = 0
@@ -757,17 +728,15 @@ def find_package_pricepoint():
     except Exception as ex:
         traceback.print_exc()
         pass
-
 def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
-        
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\p.csv"
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\p.yaml"
 count_transactions = 0
-failed_scenarios = []
+failed_scenarios = ['Failed']
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
     merchantid = ''
