@@ -25,6 +25,7 @@ IS_3DSAUTHENTICATED = "select * from Cardinal3dsRequests where TransGuid = '{}'"
 GET_DATA_FROM_3D_SECURE_CONFIG = 'select top 1 * from [CardinalMerchantConfigurations] where merchantid = {} and ProcessorId = (select top 1 ProcessorID from ProcessorPoolsDetail where  ppid = ( select  PrefProcessorID from package where packageid = {}))'
 GET_DATA_FROM_GLOBALBINDETAILS = "select * from Globalbindatabasedetail where bin9 = '{}'"
 GET_DATA_FROM_MERCHANT_EXTENSION = 'select VISARegion from Merchants_Extension where merchantid = {}'
+GET_OC_TOKEN_EMAIL = "select dbo.DecryptEMail(custemail) as email from multitrans where purchaseid = {}"
 
 #-----------------------------options----------------------------------------
 GET_ERRORS_FROM_THE_LOG = "select * from [aspnetdb].[dbo].[SegPayLogs] (nolock) where timestamp>'{}'  and timestamp<'{}' and EntryType in ( 2,1)  and Category != 'Cardinal Cruise' order by timestamp desc"

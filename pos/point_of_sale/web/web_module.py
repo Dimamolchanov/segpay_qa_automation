@@ -464,7 +464,7 @@ class Signup:
                     self.br.find_by_id('SecurePurchaseButton').click()
                 elif config.test_data['payment'] == 'Paypal':
                     if self.br.find_by_id('EMailInput').first.visible:
-                        self.br.find_by_id('EMailInput').fill('yan-buyer@segpay.com')
+                        self.br.find_by_id('EMailInput').fill(config.test_data['octoken_email'])
                         self.br.find_by_id('SecurePurchaseButton').click()
                         time.sleep(2)
                     else:

@@ -517,6 +517,8 @@ def print_scenario():
 def verify_transaction(transaction_type, current_transaction_record):
     pass_fail = ''
     aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
+    
+    #options.get_error_from_log()
     if current_transaction_record['Authorized']:
         config.test_data['authorized'] = True
         
@@ -546,16 +548,16 @@ def verify_transaction(transaction_type, current_transaction_record):
         pass_fail = TransActionService.verify_signup_transaction(current_transaction_record)
     elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
         pass_fail = TransActionService.verify_oc(current_transaction_record, 'ws')
+    
     if current_transaction_record:
         if pass_fail:
             print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
-            options.get_error_from_log()
             print(
                 "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
             return True
         else:
             print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
-            options.get_error_from_log()
+            #options.get_error_from_log()
             print(
                 "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
             return False
@@ -571,15 +573,22 @@ def create_transaction():
             current_transaction_record = br.create_signup()
         elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
             current_transaction_record = br.oc_ws()
-
+        #options.get_error_before_action("cutoff_time")
         if current_transaction_record:
             print(f"{transaction_type} => Eticket: {config.test_data['eticket']}  | Processor: {current_transaction_record['Processor']} "
                   f"| Lnaguage: {config.test_data['lang']} | Type: {config.test_data['Type']} | DMC: {config.test_data['dmc']}")
             config.test_data['record_to_check'] = current_transaction_record
             config.test_data['PurchaseID'] = current_transaction_record['PurchaseID']
             config.test_data['TransID'] = current_transaction_record['TransID']
-        options.get_error_before_action("cutoff_time")
-        return current_transaction_record
+            options.get_error_before_action("cutoff_time")
+            options.get_error_from_log()
+            return current_transaction_record
+        else:
+            options.get_error_before_action("cutoff_time")
+            options.get_error_from_log()
+
+        
+        
     except Exception as ex:
         traceback.print_exc()
         pass
@@ -768,7 +777,8 @@ with open(filename, newline='') as csvfile:
                         print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
                         failed_test_cases[config.test_data['name']] = config.test_data
                         failed_scenarios.append(scenario)
-                        raise Exception('Transaction was not created')
+                        print("\n\n")
+                        #raise Exception('Transaction was not created')
                 
         except Exception as ex:
             traceback.print_exc()

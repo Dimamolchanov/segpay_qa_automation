@@ -37,10 +37,21 @@ def collect_userinfo():
         return False
 
 def get_error_before_action(condition):
-    date_and_time = datetime.now()
+    date_and_time = ''
+    if config.enviroment == 'qa':
+        date_and_time =  datetime.utcnow()
+    else:
+        date_and_time = datetime.now()
+    
+    #date_and_time = db_agent.execute_select_with_no_params('select getdate() as d') #datetime.utcnow()
+   
     if condition == "initial_time":
+        date_and_time = date_and_time - timedelta(seconds=15)
         date_and_time = date_and_time.strftime('%Y-%m-%d %H:%M:%S.%f')
+        
         config.test_data['initial_error_time'] = date_and_time[:-3]
+        #print(config.test_data['initial_error_time'])
+        #print(db_agent.execute_select_with_no_params('select getdate() as d'))
     else:
         date_and_time = date_and_time + timedelta(seconds = 5)
         date_and_time = date_and_time.strftime('%Y-%m-%d %H:%M:%S.%f')
@@ -48,6 +59,7 @@ def get_error_before_action(condition):
 
 def get_error_from_log():
     sql = constants.GET_ERRORS_FROM_THE_LOG.format(config.test_data['initial_error_time'], config.test_data['cutoff_error_time'])
+    #print(sql)
     response = db_agent.execute_select_with_no_params_all(sql)
     if not response:
         print(colored(f"No errors in the SegPayLogs for the last transaction", 'blue', attrs=['bold', 'underline', 'dark']))
@@ -135,18 +147,20 @@ def oc_tokens(merchant):
     try:
         if merchant == 'EU':
             if config.test_data['payment'] == 'CC':
-                sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor = 'SPKAISO1' and PurchDate > '2019-12-01 17:44:03.000'"
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor = 'SPKAISO1'  and Purchases = 1 order by PurchDate desc"
             elif config.test_data['payment'] == 'Paypal':
-                sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 27001 and PurchStatus = 801 and Processor like 'PAYPAL%'   and Purchases = 1 order by PurchDate desc"
         elif merchant == 'US':
             if config.test_data['payment'] == 'CC':
-                sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor = 'SPHBIPSP' and PurchDate > '2019-12-01 17:44:03.000'"
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor = 'SPHBIPSP'  and Purchases = 1 order by PurchDate desc"
             elif config.test_data['payment'] == 'Paypal':
-                sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor like 'PAYPAL%'  and PurchDate > '2019-12-01 17:44:03.000'"
+                sql = "select TOP 1 PurchaseID from assets where merchantid = 21621 and PurchStatus = 801 and Processor like 'PAYPAL%'   and Purchases = 1 order by PurchDate desc"
         octoken = db_agent.execute_select_with_no_params(sql)
         if not octoken['PurchaseID'] :
             print('no octoken')
         else:
+            config.test_data['octoken_email'] = db_agent.execute_select_one_parameter(constants.GET_OC_TOKEN_EMAIL,octoken['PurchaseID'])['email']
+
             return octoken['PurchaseID']
     
     
