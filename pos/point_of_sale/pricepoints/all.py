@@ -517,8 +517,6 @@ def print_scenario():
 def verify_transaction(transaction_type, current_transaction_record):
     pass_fail = ''
     aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
-    
-    #options.get_error_from_log()
     if current_transaction_record['Authorized']:
         config.test_data['authorized'] = True
         

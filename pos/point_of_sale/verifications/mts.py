@@ -134,10 +134,6 @@ def build_mt_oneclick(one_click_record, action):
         multitrans['TransStatus'] = 186
         multitrans['TransType'] = 1011
 
-        # if pp_type == 511:
-        #     trans_amount = one_click_record['511']['InitialPrice']
-        #     multitrans['TransAmount'] = trans_amount
-        #     multitrans['Markup'] = round(trans_amount * exchange_rate, 2)
         if d['Type'] == 510:
             trans_amount = config.test_data['510']
             multitrans['TransAmount'] = trans_amount
@@ -149,24 +145,40 @@ def build_mt_oneclick(one_click_record, action):
             # multitrans['RelatedTransID'] = 0
             multitrans['TransDate'] = transdate
 
-        if d['Type'] in [501, 506] and d['InitialPrice'] == 0.00:
-            multitrans['TransAmount'] = 1.00
-        elif d['Type'] == 511 and one_click_record['511']['InitialPrice'] == 0.00:
-            multitrans['TransAmount'] = 1.00
+        if d['Type'] in [501, 506,511] and d['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
+            sql = "select Enabled from PricePointFeatureDetail where FeatureId = 3 and pricepointid={}"
+            is_freetrial_checked = db_agent.execute_select_one_parameter(sql,d['BillConfigID'])
+            if is_freetrial_checked:
+                multitrans['TransStatus'] = 186
+                multitrans['TransAmount'] = 1.00
+                multitrans['Markup'] = 1.00
+            else:
+                multitrans['TransStatus'] = 187
+                multitrans['TransAmount'] = 0.00
+                multitrans['Markup'] = 0.00
+                multitrans['ProcessorTransID'] = 'FREETRIAL'
+
+
+
+
+        # if d['Type'] in [501, 506] and d['InitialPrice'] == 0.00:
+        #     multitrans['TransAmount'] = 1.00
+        # elif d['Type'] == 511 and one_click_record['511']['InitialPrice'] == 0.00:
+        #     multitrans['TransAmount'] = 1.00
 
         exchange_rate = round(exchange_rate, 2)
         multitrans['ExchRate'] = exchange_rate
         if multitrans['MerchantCurrency'] == 'JPY':
             multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
         one_click_record['PCID'] = None
-        if one_click_record['ProcessorTransID'] == 'FREETRIAL':
-            multitrans['TransStatus'] = 187
-            multitrans['TransAmount'] = 0.00
-        sql = 'select * from MultiTransValues where transid = {}'
-
-        result = db_agent.execute_select_one_parameter(sql, one_click_record['TransID'])
-        if 'PREAUTHFREETRIAL' in result:
-            multitrans['Markup'] = 1.00
+        # if one_click_record['ProcessorTransID'] == 'FREETRIAL':
+        #     multitrans['TransStatus'] = 187
+        #     multitrans['TransAmount'] = 0.00
+        # sql = 'select * from MultiTransValues where transid = {}'
+        #
+        # result = db_agent.execute_select_one_parameter(sql, one_click_record['TransID'])
+        # if 'PREAUTHFREETRIAL' in result:
+        #     multitrans['Markup'] = 1.00
         if config.test_data['payment'] == 'Paypal':
             multitrans['CardExpiration'] = '9999'
             multitrans['CustAddress'] = ''
@@ -336,51 +348,69 @@ def build_multitrans():
                 multitrans['Markup'] = round(config.test_data['InitialPrice'] * exchange_rate, 2)
                 multitrans['RelatedTransID'] = 0
         type = config.test_data['Type']
-        if type in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
-            multitrans['TransStatus'] = 186
-            multitrans['TransAmount'] = 1.00
-        elif type in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] == False:
-            multitrans['TransStatus'] = 184
-            multitrans['TransAmount'] = 0.00
+        # if type in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
+        #     multitrans['TransStatus'] = 186
+        #     multitrans['TransAmount'] = 1.00
+        # elif type in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] == False:
+        #     multitrans['TransStatus'] = 184
+        #     multitrans['TransAmount'] = 0.00
 
-        # if config.test_data['Type'] in [501, 506] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
-        # 	multitrans['TransStatus'] = 186
-        # 	multitrans['TransAmount'] = 1.00
-        # elif config.test_data['Type'] == 501 and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] ==False:
-        # 	multitrans['TransStatus'] = 184
-        # 	multitrans['TransAmount'] = 1.00
-        # elif config.test_data['Type'] == 506 and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] ==False:
-        # 	multitrans['TransStatus'] = 186
-        # 	multitrans['TransAmount'] = 1.00
+        if d['Type'] in [501, 506,511] and d['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline']:
+            sql = "select Enabled from PricePointFeatureDetail where FeatureId = 3 and pricepointid={}"
+            is_freetrial_checked = db_agent.execute_select_one_parameter(sql,d['BillConfigID'])
+            if is_freetrial_checked:
+                multitrans['TransStatus'] = 186
+                multitrans['TransAmount'] = 1.00
+                multitrans['Markup'] = 1.00
+            else:
+                multitrans['TransStatus'] = 187
+                multitrans['TransAmount'] = 0.00
+                multitrans['Markup'] = 0.00
+                multitrans['ProcessorTransID'] = 'FREETRIAL'
+        # elif type in [501, 506,511] and config.test_data['InitialPrice'] == 0.00 and config.test_data['aprove_or_decline'] == False:
+        #     multitrans['TransStatus'] = 184
+        #     multitrans['TransAmount'] = 0.00
+        
+        
         exchange_rate = round(exchange_rate, 2)
         multitrans['ExchRate'] = exchange_rate
         if multitrans['MerchantCurrency'] == 'JPY':
             multitrans['Markup'] = round(round(multitrans['TransAmount'] * exchange_rate, 2))
 
-        if config.test_data['scope']:
-            if 'aprove_or_decline' in config.test_data:
-                if config.test_data['aprove_or_decline'] == False:
-                    multitrans['Authorized'] = 0
-                    multitrans['Markup'] = 0.00
-                    multitrans['ExchRate'] = 0.00
-                    multitrans['MerchantCurrency'] = 'USD'
-                    del multitrans['AuthCode']
-        else:
-            if config.test_data['record_to_check']['Authorized'] == False:
-                if config.test_data['aprove_or_decline'] == False:
-                    multitrans['Authorized'] = 0
-                    multitrans['Markup'] = 0.00
-                    multitrans['ExchRate'] = 0.00
-                    multitrans['MerchantCurrency'] = 'USD'
-                    del multitrans['AuthCode']
-        sql = 'select * from MultiTransValues where transid = {}'
-        result = db_agent.execute_select_one_parameter(sql, config.test_data['TransID'])
-        if 'PREAUTHFREETRIAL' in result:
-            multitrans['Markup'] = 1.00
+        if config.test_data['record_to_check']['Authorized'] == False:
+            multitrans['Authorized'] = 0
+            multitrans['Markup'] = 0.00
+            multitrans['ExchRate'] = 0.00
+            multitrans['MerchantCurrency'] = 'USD'
+            del multitrans['AuthCode']
+            
 
-        if config.test_data['record_to_check']['ProcessorTransID'] == 'FREETRIAL':
-            multitrans['TransStatus'] = 187
-            multitrans['TransAmount'] = 0.00
+        
+        
+        # if config.test_data['scope']:
+        #     if 'aprove_or_decline' in config.test_data:
+        #         if config.test_data['aprove_or_decline'] == False:
+        #             multitrans['Authorized'] = 0
+        #             multitrans['Markup'] = 0.00
+        #             multitrans['ExchRate'] = 0.00
+        #             multitrans['MerchantCurrency'] = 'USD'
+        #             del multitrans['AuthCode']
+        # else:
+        #     if config.test_data['record_to_check']['Authorized'] == False:
+        #         if config.test_data['aprove_or_decline'] == False:
+        #             multitrans['Authorized'] = 0
+        #             multitrans['Markup'] = 0.00
+        #             multitrans['ExchRate'] = 0.00
+        #             multitrans['MerchantCurrency'] = 'USD'
+        #             del multitrans['AuthCode']
+        # sql = 'select * from MultiTransValues where transid = {}'
+        # result = db_agent.execute_select_one_parameter(sql, config.test_data['TransID'])
+        # if 'PREAUTHFREETRIAL' in result:
+        #     multitrans['Markup'] = 1.00
+
+        # if config.test_data['record_to_check']['ProcessorTransID'] == 'FREETRIAL':
+        #     multitrans['TransStatus'] = 187
+        #     multitrans['TransAmount'] = 0.00
         if config.test_data['payment'] == 'Paypal':
             multitrans['CardExpiration'] = '9999'
             multitrans['CustAddress'] = ''

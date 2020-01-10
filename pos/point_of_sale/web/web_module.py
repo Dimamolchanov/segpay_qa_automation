@@ -139,8 +139,8 @@ class Signup:
     
     def paypal_payment(self):
         elem = ''
-        print(
-                'PayPal----- payment *********************************************************************************************')
+        
+        
         self.br.find_by_css("input[name='paymentoption'][value='1301']")[0].click()
         time.sleep(1)
         id = self.br.find_by_tag("iframe")[1]['id']
@@ -463,12 +463,22 @@ class Signup:
                     self.br.find_by_id('CVVInputNumeric').fill('333')
                     self.br.find_by_id('SecurePurchaseButton').click()
                 elif config.test_data['payment'] == 'Paypal':
-                    if self.br.find_by_id('EMailInput').first.visible:
-                        self.br.find_by_id('EMailInput').fill(config.test_data['octoken_email'])
-                        self.br.find_by_id('SecurePurchaseButton').click()
-                        time.sleep(2)
-                    else:
+                    if config.test_data['pp_type'] in [501,506,511]:
+                        self.br.find_by_css("input[name='paymentoption'][value='1301']")[0].click()
+                        time.sleep(1)
                         self.paypal_paymentoc()
+                    else:
+                        if self.br.find_by_id('EMailInput').first.visible:
+                            self.br.find_by_id('EMailInput').fill(config.test_data['octoken_email'])
+                            self.br.find_by_id('SecurePurchaseButton').click()
+                            time.sleep(2)
+                    
+                    # if self.br.find_by_id('EMailInput').first.visible:
+                    #     self.br.find_by_id('EMailInput').fill(config.test_data['octoken_email'])
+                    #     self.br.find_by_id('SecurePurchaseButton').click()
+                    #     time.sleep(2)
+                    # else:
+                    #     self.paypal_paymentoc()
                         # id = self.br.find_by_tag("iframe")[1]['id']
                         # with self.br.get_iframe(id) as iframe:
                         #     iframe.find_by_id("buttons-container").first.click()
