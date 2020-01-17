@@ -566,7 +566,6 @@ def create_transaction():
     try:
         if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
             current_transaction_record = br.oc_pos()
-
         elif transaction_type == 'Signup' or transaction_type == 'Signup_Decline'  or transaction_type == 'FreeTrial_Signup':
             current_transaction_record = br.create_signup()
         elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
@@ -740,9 +739,9 @@ def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\p.csv"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\p.yaml"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
 count_transactions = 0
 failed_scenarios = ['Failed']
 with open(filename, newline='') as csvfile:

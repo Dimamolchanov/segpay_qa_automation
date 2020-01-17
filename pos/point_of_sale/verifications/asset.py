@@ -176,12 +176,12 @@ def build_asset_oneclick(merchantbillconfig, multitrans_base_record, multitrans_
 			         'REF9': multitrans_base_record['REF9'],
 			         'REF10': multitrans_base_record['REF10']
 			         }
-			if type == 511:
-				asset['InitialAmount'] = multitrans_live_record['511']['InitialPrice']
-				asset['RecurringAmount'] = multitrans_live_record['511']['RecurringPrice']
-				asset['PurchPeriod'] = multitrans_live_record['511']['RecurringLength']
-			elif type == 510:
-				asset['InitialAmount'] = multitrans_live_record['510']
+			# if type == 511:
+			# 	#asset['InitialAmount'] = multitrans_live_record['511']['InitialPrice']
+			# 	#asset['RecurringAmount'] = multitrans_live_record['511']['RecurringPrice']
+			# 	asset['PurchPeriod'] = multitrans_live_record['511']['RecurringLength']
+			# elif type == 510:
+			# 	asset['InitialAmount'] = multitrans_live_record['510']
 
 			purchtype_recurring = [501, 506, 511]
 			if multitrans_live_record['Authorized'] == 1:

@@ -470,8 +470,11 @@ class Signup:
                     else:
                         if self.br.find_by_id('EMailInput').first.visible:
                             self.br.find_by_id('EMailInput').fill(config.test_data['octoken_email'])
-                            self.br.find_by_id('SecurePurchaseButton').click()
                             time.sleep(2)
+                        if self.br.find_by_id('SecurePurchaseButton').first.visible:
+                            self.br.find_by_id('SecurePurchaseButton').click()
+                        else:
+                            self.paypal_paymentoc()
                     
                     # if self.br.find_by_id('EMailInput').first.visible:
                     #     self.br.find_by_id('EMailInput').fill(config.test_data['octoken_email'])
