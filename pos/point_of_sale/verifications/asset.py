@@ -190,12 +190,12 @@ def build_asset_oneclick(merchantbillconfig, multitrans_base_record, multitrans_
 					asset['PurchStatus'] = 801
 					asset['StatusDate'] = current_date
 					asset['PurchDate'] = current_date
-					if type == 511:
-						asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['511']['InitialLength'])
-						asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['511']['InitialLength'])
-					else:
-						asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
-						asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+					# if type == 511:
+					# 	asset['NextDate'] = current_date + timedelta(days=multitrans_live_record['511']['InitialLength'])
+					# 	asset['ExpiredDate'] = current_date + timedelta(days=multitrans_live_record['511']['InitialLength'])
+					# else:
+					asset['NextDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
+					asset['ExpiredDate'] = current_date + timedelta(days=merchantbillconfig['InitialLen'])
 					asset['CancelDate'] = None
 					asset['ConvDate'] = None
 					asset['LastDate'] = None

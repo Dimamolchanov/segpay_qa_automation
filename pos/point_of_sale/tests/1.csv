@@ -1,3 +1,5 @@
+EU,CC,OneClick_POS,No_action,511
+EU,Paypal,OneClick_POS,No_action,511
 US,CC,OneClick_POS,No_action,503
 US,CC,OneClick_POS,No_action,506,1
 US,CC,OneClick_POS,No_action,510
@@ -17,10 +19,8 @@ EU,CC,OneClick_POS,No_action,501
 EU,CC,OneClick_POS,No_action,503
 EU,CC,OneClick_POS,No_action,506,0
 EU,CC,OneClick_POS,No_action,510
-EU,CC,OneClick_POS,No_action,511
 EU_US,Paypal,OneClick_POS,Void_Refund,503
 EU_EUR,Paypal,OneClick_POS,Void_Refund,503
-EU,Paypal,OneClick_POS,No_action,511
 EU,Paypal,FreeTrial_Signup,Cancel,511
 EU,CC,Signup,Cancel,503
 EU,CC,Signup,Cancel,510
