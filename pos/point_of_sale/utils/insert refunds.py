@@ -19,26 +19,11 @@ db_agent = DBActions()
 # total_records = db_agent.sql(sql)
 # tids = total_records['transid']
 
-total_records = [1000078274,
-1000078342,
-1000078341,
-1000078225,
-1000078224,
-1000078353,
-1000078352,
-1000078351,
-1000078350,
-1000078349,
-1000078348,
-1000078347,
-1000078346,
-1000078345,
-1000078344,
-1000078343]
+total_records = [223768521, 223768524, 223768525, 223768527, 223768528, 223768530, 223768532, 223768534]
 
 
 for tid in total_records:
-    refund_tasks = db_agent.refund_task(841, tid)
+    refund_tasks = db_agent.refund_task(843, tid)
     #refund_tasks = db_agent.refund_task(841, tid['TransID'])
 
 

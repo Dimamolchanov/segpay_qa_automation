@@ -101,14 +101,13 @@ def joinlink():
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&octoken={octoken}" + url_options + dmc_from + lang_from
 
 
-
-
         elif config.test_data['transaction_type'] == 'IC_WS':
             joinlink = f"{config.urlic}[InstantCondersion ICtoken => transguid from the original transaction]"
         elif config.test_data['transaction_type'] == 'IC_POS':
             joinlink = f"{config.urlicws}[InstantCondersion ICtoken => transguid from the original transaction]"
 
-        joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}"
+        #joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}"   #&template=default
+        joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}&template=default"   #&template=default
         #print(joinlink)
         config.test_data['link'] = joinlink
         config.test_data['url_options'] = url_options
@@ -739,9 +738,12 @@ def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.csv"
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
+pruchase_ids = []
+trans_ids = []
+
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.yaml"
 count_transactions = 0
 failed_scenarios = ['Failed']
 with open(filename, newline='') as csvfile:
@@ -761,6 +763,8 @@ with open(filename, newline='') as csvfile:
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
                     transaction_created = create_transaction()
                     if transaction_created:
+                        pruchase_ids.append(config.test_data['PurchaseID'])
+                        trans_ids.append(config.test_data['record_to_check']['TransID'])
                         count_transactions += 1
                         pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
                         test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
@@ -775,13 +779,15 @@ with open(filename, newline='') as csvfile:
                         failed_test_cases[config.test_data['name']] = config.test_data
                         failed_scenarios.append(scenario)
                         print("\n\n")
-                        #raise Exception('Transaction was not created')
+                    
                 
         except Exception as ex:
             traceback.print_exc()
             print()
             pass
 br.close()
+print(pruchase_ids)
+print(trans_ids)
 print("Failed Scenarios")
 print_failed_scenarios(failed_scenarios)
 

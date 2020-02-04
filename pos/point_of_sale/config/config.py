@@ -153,6 +153,8 @@ elif enviroment == 'qa':
     rebill_url = 'http://qabep1:54908/jobs/execute/rebills?Time='  # time format 2019-07-10%2023:59:59
     captures_url = 'http://qabep1:54908/jobs/execute/captures?SkipTimeValidation=true&IgnoreFraudScrub=true&Dates='  # 2019
     reactivation_url = 'https://qas2.segpay.com/reactivation?tguid='  # -07-07
+    postpay_auth_url = 'https://qatrans.segpay.com/PostPay/PostPayAuth/'
+    postpay_capt_url = 'https://qatrans.segpay.com/PostPay/PostPayCapture/'
 elif enviroment == 'stage2':
     server = "DEVSQL2\stg2db1"
     url = 'https://stg2s2.segpay.com/billing/poset.cgi?x-eticketid='  # POS and 1 Click
