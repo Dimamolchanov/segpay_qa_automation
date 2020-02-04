@@ -737,7 +737,11 @@ def find_package_pricepoint():
 def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
-
+def insert_refunds(transids):
+    for tid in transids:
+        refund_tasks = db_agent.refund_task(842, tid)
+        # refund_tasks = db_agent.refund_task(841, tid['TransID'])
+        print(tid)  # tid['transid']
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.csv"
 
 pruchase_ids = []
@@ -788,6 +792,7 @@ with open(filename, newline='') as csvfile:
 br.close()
 print(pruchase_ids)
 print(trans_ids)
+insert_refunds(trans_ids)
 print("Failed Scenarios")
 print_failed_scenarios(failed_scenarios)
 
