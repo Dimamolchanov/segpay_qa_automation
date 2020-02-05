@@ -737,6 +737,16 @@ def find_package_pricepoint():
 def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
+
+def insert_cancel_srs(purchaseids):
+    for pid in purchaseids:
+        url = f"https://qasrs.segpay.com/ADM.asmx/CancelMembership?Userid=yan&UserAccessKey=yan&PurchaseID={pid}&CancelReason=SRSCancel"
+        br.navigate_to_url(url)
+
+        # refund_tasks = db_agent.refund_task(842, tid)
+        # refund_tasks = db_agent.refund_task(841, tid['TransID'])
+        #print(tid)  # tid['transid']
+        
 def insert_refund_srs(transids):
     for tid in transids:
         
@@ -801,6 +811,7 @@ with open(filename, newline='') as csvfile:
 
 print(pruchase_ids)
 print(trans_ids)
+insert_cancel_srs(pruchase_ids)
 insert_refund_srs(trans_ids)
 #insert_refunds(trans_ids)
 print("Failed Scenarios")
