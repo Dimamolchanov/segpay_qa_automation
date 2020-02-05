@@ -155,6 +155,8 @@ elif enviroment == 'qa':
     reactivation_url = 'https://qas2.segpay.com/reactivation?tguid='  # -07-07
     postpay_auth_url = 'https://qatrans.segpay.com/PostPay/PostPayAuth/'
     postpay_capt_url = 'https://qatrans.segpay.com/PostPay/PostPayCapture/'
+    srs_refund_url = 'https://qasrs.segpay.com/ADM.asmx/RefundTransaction?Userid=yan&UserAccessKey=yan&TransID=223772901&RefundReason=SRSRefund'
+    srs_cancel_url = 'https://qasrs.segpay.com/ADM.asmx/CancelMembership?Userid=yan&UserAccessKey=yan&PurchaseID=200132536&CancelReason=SRSCancel'
 elif enviroment == 'stage2':
     server = "DEVSQL2\stg2db1"
     url = 'https://stg2s2.segpay.com/billing/poset.cgi?x-eticketid='  # POS and 1 Click

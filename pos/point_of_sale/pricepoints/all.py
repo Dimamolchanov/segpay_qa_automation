@@ -737,9 +737,18 @@ def find_package_pricepoint():
 def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
+def insert_refund_srs(transids):
+    for tid in transids:
+        
+        url = f"https://qasrs.segpay.com/ADM.asmx/RefundTransaction?Userid=yan&UserAccessKey=yan&TransID={tid}&RefundReason=SRSRefund"
+        br.navigate_to_url(url)
+        
+        #refund_tasks = db_agent.refund_task(842, tid)
+        # refund_tasks = db_agent.refund_task(841, tid['TransID'])
+        print(tid)  # tid['transid']
 def insert_refunds(transids):
     for tid in transids:
-        refund_tasks = db_agent.refund_task(842, tid)
+        refund_tasks = db_agent.refund_task(841, tid)
         # refund_tasks = db_agent.refund_task(841, tid['TransID'])
         print(tid)  # tid['transid']
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.csv"
@@ -789,13 +798,14 @@ with open(filename, newline='') as csvfile:
             traceback.print_exc()
             print()
             pass
-br.close()
+
 print(pruchase_ids)
 print(trans_ids)
-insert_refunds(trans_ids)
+insert_refund_srs(trans_ids)
+#insert_refunds(trans_ids)
 print("Failed Scenarios")
 print_failed_scenarios(failed_scenarios)
-
+br.close()
 
 try:
     with open(saved_test_cases, 'w') as f:
