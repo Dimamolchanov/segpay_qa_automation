@@ -26,6 +26,9 @@ packageid = 0
 test_cases_list = {}
 failed_test_cases = {}
 passed_test_cases = {}
+pruchase_ids = []
+trans_ids = []
+scenario = ''
 
 br = web_module.Signup()
 
@@ -422,11 +425,11 @@ def print_scenario():
         print("SegPayLogs:     | Please check SegpayLogs after each transaction to see if there are any related errors.\n\n")
         
         print(
-            "Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
+                "Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
         print(
-            "PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
+                "PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
         print(
-            "|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
+                "|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
         
         if not (config.test_data['action_bep'] == 'Decline' or config.test_data['action_bep'] == 'No_action'):
             print(f"Expected After {config.test_data['action_bep']}:")
@@ -795,11 +798,10 @@ def insert_refunds(transids, taskid):
             not_processed.append(tid)
             pass
     print(f"Tasks inserted : {tasks}")
-    #tmp = web_service.process_request("Refund", config.refund_url, 200)
+    # tmp = web_service.process_request("Refund", config.refund_url, 200)
     config.tasks_type = tasks_type
     config.refunds = refunds[0], refunds[1], not_processed
     return refunds[0], refunds[1], not_processed
-    
 
 def insert_refunds_tasks(refund_job, taskid, transids):
     refunds = bep.get_data_before_action(transids, 'refund')
@@ -808,7 +810,6 @@ def insert_refunds_tasks(refund_job, taskid, transids):
     tasks_type = {}
     tasks = []
     if refund_job == 'bep':
-        
         for tid in refunds[1]:
             try:
                 if refunds[1][tid]['Authorized']:
@@ -826,7 +827,7 @@ def insert_refunds_tasks(refund_job, taskid, transids):
                 traceback.print_exc()
                 not_processed.append(tid)
                 pass
-
+    
     
     elif refund_job == 'srs' and taskid == 841:
         for tid in transids:
@@ -859,7 +860,7 @@ def bep_actions(action, transids):
         
         elif action == 'refund':
             refunds = bep.get_data_before_action(transids, 'refund')
-            insert_task = insert_refunds_tasks('bep', 841, trans_ids)
+            insert_task = insert_refunds_tasks('bep', 842, trans_ids)
             tmp = web_service.process_request("Refund", config.refund_url, 200)
             check_refunds_mt = mt.multitrans_check_refunds()
             check_refunds_asset = asset.asseets_check_refunds()
@@ -867,12 +868,38 @@ def bep_actions(action, transids):
         traceback.print_exc()
         pass
 
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
+def save_and_print():
+    print('PurchaseIDs')
+    print(pruchase_ids)
+    print('TransIDs')
+    print(trans_ids)
+    print('Failed Scenarious')
+    print_failed_scenarios(failed_scenarios)
+    try:
+        with open(saved_test_cases, 'w') as f:
+            data = yaml.dump(test_cases_list, f)
+    except Exception as ex:
+        traceback.print_exc()
+        pass
+    try:
+        for item in test_cases_list:
+            x = test_cases_list[item][0]
+            if len(x) < 30:
+                for i in x:
+                    print(i)
+    
+    except Exception as ex:
+        traceback.print_exc()
+        pass
+    end_time = datetime.now()
+    print('Full test Duration: {}'.format(end_time - start_time))
+    print(f"Number of scenarious: {count_transactions}")
 
-pruchase_ids = []
-trans_ids = []
+# Beginning of the transactions
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
+test_file_name = 'dc'
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\{test_file_name}.csv"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\{test_file_name}.yaml"
 count_transactions = 0
 failed_scenarios = ['Failed']
 with open(filename, newline='') as csvfile:
@@ -916,43 +943,9 @@ with open(filename, newline='') as csvfile:
             print()
             pass
 
-print(pruchase_ids)
-print(trans_ids)
 bep_actions('cap', trans_ids)
 bep_actions('rebill', trans_ids)
 bep_actions('refund', trans_ids)
 
-
-
-
-
-
-# print()
-# #insert_cancel_srs(pruchase_ids)
-# print()
-# insert_refund_srs(trans_ids)
-# print()
-# #insert_refunds(trans_ids)
-# print("Failed Scenarios")
-print_failed_scenarios(failed_scenarios)
+save_and_print()
 br.close()
-
-try:
-    with open(saved_test_cases, 'w') as f:
-        data = yaml.dump(test_cases_list, f)
-except Exception as ex:
-    traceback.print_exc()
-    pass
-try:
-    for item in test_cases_list:
-        x = test_cases_list[item][0]
-        if len(x) < 30:
-            for i in x:
-                print(i)
-
-except Exception as ex:
-    traceback.print_exc()
-    pass
-end_time = datetime.now()
-print('Full test Duration: {}'.format(end_time - start_time))
-print(f"Number of scenarious: {count_transactions}")
