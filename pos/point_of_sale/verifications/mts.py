@@ -547,13 +547,13 @@ def multitrans_check_conversion(rebills):
 
 
 def multitrans_check_refunds():
-    refunds = config.results[1]
-    rkeys = refunds.keys();
-    live_record = {};
+    refunds = config.refunds[1]
+    rkeys = refunds.keys()
+    live_record = {}
     tasks_type_status = []
-    refunds_completed_mt = [];
-    base_record = {};
-    sql = '';
+    refunds_completed_mt = []
+    base_record = {}
+    sql = ''
     pid = 0
     refunds_failed_mt = []
 

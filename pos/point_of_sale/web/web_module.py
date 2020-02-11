@@ -528,6 +528,7 @@ class Signup:
         pricepoint_type = d['pp_type']
         merchantid = d['MerchantID']
         try:
+            print(d['link'])
             resp = requests.get(d['link'])
             xml_return_string = simplexml.loads(resp.content)
             transid = int(xml_return_string['TransReturn']['TransID'])

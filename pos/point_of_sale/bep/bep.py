@@ -98,7 +98,7 @@ def process_refund(transids, taskid=0):
 				pass
 
 		print(f"Tasks inserted : {tasks}")
-		config.logging.info(f"Tasks inserted : {tasks}")
+		#config.logging.info(f"Tasks inserted : {tasks}")
 		tmp = web_service.process_request("Refund", config.refund_url, 200)
 		config.tasks_type = tasks_type
 		config.refunds = refunds[0], refunds[1], not_processed

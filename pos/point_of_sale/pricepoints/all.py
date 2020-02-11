@@ -12,6 +12,10 @@ import random
 import decimal
 import requests
 from xml.etree.ElementTree import fromstring
+from pos.point_of_sale.bep import bep
+from pos.point_of_sale.verifications import asset
+from pos.point_of_sale.verifications import mts as mt
+from pos.point_of_sale.utils import web_service
 
 start_time = datetime.now()
 packages = [197216, 197215]  # 197215 65 no 3ds  | 3ds 197216 44
@@ -22,7 +26,6 @@ packageid = 0
 test_cases_list = {}
 failed_test_cases = {}
 passed_test_cases = {}
-
 
 br = web_module.Signup()
 
@@ -56,26 +59,25 @@ def joinlink():
         config.test_data['RebillLen'] = pricingguid['RecurringLength']
         config.test_data['RebillPrice'] = pricingguid['RecurringPrice']
         config.test_data['InitialPrice'] = pricingguid['InitialPrice']
-
-
+    
     try:
         dmc_from = config.test_data['dmc_from']
-
+        
         if dmc_from == 'p':
             dmc_from = ''
         elif dmc_from == 'u':
             dmc_from = f"&DMCURRENCY={config.test_data['dmc']}"
-
+        
         lang_from = config.test_data['lang_from']
         if lang_from == 'p':
             lang_from = ''
         elif lang_from == 'u':
             lang_from = f"&paypagelanguage={config.test_data['lang']}"
-
+        
         if config.test_data['transaction_type'] == 'IC_POS' or config.test_data['transaction_type'] == 'IC_WS':
             dmc_from = ''
             lang_from = ''
-
+        
         if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type'] == 'FreeTrial_Signup':
             if config.test_data['pp_type'] == 511:
                 joinlink = f"{config.url}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}{url_options}{dmc_from}" + lang_from  # PricingGuid, InitialPrice
@@ -83,7 +85,7 @@ def joinlink():
                 joinlink = f"{config.url}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST{url_options}{dmc_from}" + lang_from
             else:
                 joinlink = config.url + config.test_data['eticket'] + url_options + dmc_from + lang_from
-
+        
         elif config.test_data['transaction_type'] == 'OneClick_POS' or config.test_data['transaction_type'] == 'FreeTrial_POS':
             if config.test_data['pp_type'] == 511:
                 joinlink = f"{config.url}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}{dmc_from}" + url_options + lang_from
@@ -91,7 +93,7 @@ def joinlink():
                 joinlink = f"{config.url}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}{url_options}{dmc_from}" + lang_from
             else:
                 joinlink = f"{config.url}{config.test_data['eticket']}&octoken={octoken}" + url_options + dmc_from + lang_from
-
+        
         elif config.test_data['transaction_type'] == 'OneClick_WS' or config.test_data['transaction_type'] == 'FreeTrial_WS':
             if config.test_data['pp_type'] == 511:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&DynamicPricingID={pricingguid['PricingGuid']}&octoken={octoken}" + url_options + dmc_from + lang_from
@@ -99,16 +101,16 @@ def joinlink():
                 joinlink = f"{dynamiclink_websrevices}{config.test_data['eticket']}&amount={dynamic_price}&dynamictrans={dynamic_hash}&dynamicdesc=QA+TEST&octoken={octoken}{url_options}{dmc_from}" + lang_from
             else:
                 joinlink = f"{config.urlws}{config.test_data['eticket']}&octoken={octoken}" + url_options + dmc_from + lang_from
-
-
+        
+        
         elif config.test_data['transaction_type'] == 'IC_WS':
             joinlink = f"{config.urlic}[InstantCondersion ICtoken => transguid from the original transaction]"
         elif config.test_data['transaction_type'] == 'IC_POS':
             joinlink = f"{config.urlicws}[InstantCondersion ICtoken => transguid from the original transaction]"
-
-        #joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}"   #&template=default
-        joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}&template=default"   #&template=default
-        #print(joinlink)
+        
+        joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}"  # &template=default
+        # joinlink = f"{joinlink}&testcase={config.test_data['test_case_number']}&template=default"   #&template=default
+        # print(joinlink)
         config.test_data['link'] = joinlink
         config.test_data['url_options'] = url_options
         return joinlink  # , url_options, octoken
@@ -116,10 +118,11 @@ def joinlink():
         traceback.print_exc()
         print(f"Function joinglink \n {Exception}")
         pass
+
 def asset_verification(test_case):
     type = config.test_data['pp_type']
     dates = {}
-
+    
     try:
         purchtype = config.test_data['pp_type']
         purchtype_recurring = [501, 505, 506, 511]
@@ -131,7 +134,7 @@ def asset_verification(test_case):
                 config.test_data['PurchTotal'] = 0
                 purchases = 0
                 statusDate = 'CurrentDate'
-
+                
                 nextDate = None
                 expiredDate = 'CurrentDate'
                 cancelDate = 'CurrentDate'
@@ -161,7 +164,7 @@ def asset_verification(test_case):
                 config.test_data['PurchTotal'] = 0
                 purchases = 0
                 statusDate = 'CurrentDate'
-
+                
                 nextDate = None
                 expiredDate = 'CurrentDate'
                 cancelDate = 'CurrentDate'
@@ -177,7 +180,7 @@ def asset_verification(test_case):
                     expiredDate = f"CurrentDate + " + str(config.test_data['InitialLen'])
                 else:
                     expiredDate = f"CurrentDate"
-
+        
         config.test_data['statusDate'] = statusDate
         config.test_data['purchDate'] = purchDate
         config.test_data['cancelDate'] = cancelDate
@@ -189,6 +192,7 @@ def asset_verification(test_case):
     except Exception as ex:
         traceback.print_exc()
         pass
+
 def mt_verification(test_case):
     try:
         transsource = 0
@@ -203,7 +207,7 @@ def mt_verification(test_case):
         #         transsource = 123
         #     else:
         #         transsource = 121
-        if config.test_data['transaction_type'] == 'Signup' :
+        if config.test_data['transaction_type'] == 'Signup':
             transstatus = 184
             transsource = 121
             transtype = 101
@@ -218,22 +222,23 @@ def mt_verification(test_case):
                 transsource = 123
             else:
                 transsource = 121
-        elif config.test_data['transaction_type'] == 'OneClick_WS'  or config.test_data['transaction_type'] == 'OneClick_POS':
+        elif config.test_data['transaction_type'] == 'OneClick_WS' or config.test_data['transaction_type'] == 'OneClick_POS':
             transstatus = 186
             transtype = 1011
             if pp_type in (502, 503, 510):
                 transsource = 123
             else:
                 transsource = 121
-
+        
         mt['transstatus'] = transstatus
         mt['transtype'] = transtype
         mt['transsource'] = transsource
-
+        
         return mt
     except Exception as ex:
         traceback.print_exc()
         pass
+
 def scenario_heading():
     scn_heading = []
     print("==================================================== *** Scenario - Recurring *** ==========================================================================")
@@ -242,16 +247,17 @@ def scenario_heading():
     print(f"| -----------------------------------------------  Base Currencies | USD | EUR | GPB |----------------------------------------------------------------------|")
     print("============================================================================================================================================================\n")
     scn_heading.append(
-        "==================================================== *** Scenario - Recurring *** ==========================================================================")
+            "==================================================== *** Scenario - Recurring *** ==========================================================================")
     scn_heading.append(
-        f"| ------------------------------------ | Merchants: EU and US | 3DS Configured | Payments: CC and PayPal |--------------------------------------------------|")
+            f"| ------------------------------------ | Merchants: EU and US | 3DS Configured | Payments: CC and PayPal |--------------------------------------------------|")
     scn_heading.append(
-        f"| TestCases: | SignUp | OneClick POS | OneClick WS | OneClick POS to Different Merchant | Void | Capture | Refund | Rebill | Reactivate | Aprove | Decline -|")
+            f"| TestCases: | SignUp | OneClick POS | OneClick WS | OneClick POS to Different Merchant | Void | Capture | Refund | Rebill | Reactivate | Aprove | Decline -|")
     scn_heading.append(
-        f"| -----------------------------------------------  Base Currencies | USD | EUR | GPB |----------------------------------------------------------------------|")
+            f"| -----------------------------------------------  Base Currencies | USD | EUR | GPB |----------------------------------------------------------------------|")
     scn_heading.append(
-        "============================================================================================================================================================\n")
+            "============================================================================================================================================================\n")
     return scn_heading
+
 def pricepoint_type():
     pp = ''
     try:
@@ -276,6 +282,7 @@ def pricepoint_type():
         traceback.print_exc()
         print(f"{Exception}")
         pass
+
 def ifpostbacks():
     try:
         if config.test_data['PostBackID']:
@@ -286,10 +293,12 @@ def ifpostbacks():
     except Exception as ex:
         traceback.print_exc()
         pass
+
 def visa_secure():
     if config.test_data['merchant'] == 'EU': visa_secure_msg = "3DS                | Cardinal3dsRequests should have the response from Cardinal"
     if config.test_data['merchant'] == 'US': visa_secure_msg = '3DS                | Multitrans UserData should have responce from Cardinal'
     return visa_secure_msg
+
 def lang_dmc():
     dmc_msg = ''
     lang_msg = ''
@@ -297,16 +306,17 @@ def lang_dmc():
         dmc_msg = "DMC From PayPage:"
     elif config.test_data['dmc_from'] == 'u':
         dmc_msg = "DMC From JoinLink:"
-
+    
     if config.test_data['lang_from'] == 'p':
         lang_msg = "Language From PayPage:"
     elif config.test_data['lang_from'] == 'u':
         lang_msg = "Language From JoinLink:"
-
+    
     if config.test_data['transaction_type'] == 'IC_POS' or config.test_data['transaction_type'] == 'IC_WS':
         dmc_msg = "DMC From :"
         lang_msg = "Language From :"
     return lang_msg, dmc_msg
+
 def print_scenario():
     action = ''
     bep_msg = ''
@@ -314,7 +324,7 @@ def print_scenario():
     lang_msg = 'Language:'
     test_case = config.test_data
     authcode = 'AuthCode: OK:0'
-
+    
     try:
         pp = pricepoint_type()
         postbacks = ifpostbacks()
@@ -326,11 +336,11 @@ def print_scenario():
         dmc_msg = tmp[1]
         # d = asset_verification(test_case)
         mt = mt_verification(test_case)
-
+        
         if config.test_data['payment'] == 'CC':
             if config.test_data['action_bep'] == 'Decline':
                 config.test_data['cc'] = '4000000000001042'
-
+            
             payment = f"Payment Method: Credit Card [ {config.test_data['cc']} ]"
             cardtype = 171
             paymenttype = 131
@@ -340,10 +350,12 @@ def print_scenario():
             processor = 'PayPal For Adult | PayPalMS for MainStream'
             cardtype = 1704
             paymenttype = 1301
-
+        
         if config.test_data['action_bep'] == 'Cancel': bep_msg = '| This Transaction need to be Canceled in Merchant Portal after Completion'
-        if config.test_data['action_bep'] == 'Void_Refund_Cancel': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Cancel]  in Merchant Portal after Completion'
-        if config.test_data['action_bep'] == 'Void_Refund_Expire': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Expire]  in Merchant Portal after Completion'
+        if config.test_data[
+            'action_bep'] == 'Void_Refund_Cancel': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Cancel]  in Merchant Portal after Completion'
+        if config.test_data[
+            'action_bep'] == 'Void_Refund_Expire': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Expire]  in Merchant Portal after Completion'
         if config.test_data['action_bep'] == 'No_action': bep_msg = '| No BEP actions'
         if config.test_data['action_bep'] == 'Decline':
             if config.test_data['transaction_type'] == 'OneClick_POS':
@@ -358,45 +370,41 @@ def print_scenario():
             cross_merchant = config.test_data['cross_merchant']
         else:
             cross_merchant = config.test_data['merchant']
-
+        
         print(
-            f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
+                f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
         print(
-            f"| {pp} | Merchant: {cross_merchant}| 3DS Configured | Action: {config.test_data['transaction_type']} | CollectUserInfo: {config.test_data['userinfo']}")
+                f"| {pp} | Merchant: {cross_merchant}| 3DS Configured | Action: {config.test_data['transaction_type']} | CollectUserInfo: {config.test_data['userinfo']}")
         print(
-            f"| Processor: {processor}  | DMCStatus: {config.test_data['DMCStatus']} | {dmc_msg} {config.test_data['dmc']} | {lang_msg} {config.test_data['lang']} | PostBackID: {config.test_data['PostBackID']}")
+                f"| Processor: {processor}  | DMCStatus: {config.test_data['DMCStatus']} | {dmc_msg} {config.test_data['dmc']} | {lang_msg} {config.test_data['lang']} | PostBackID: {config.test_data['PostBackID']}")
         print(f"| {aprove_msg} | Eticket: {config.test_data['eticket']} | {payment}")
         print(bep_msg)
         print("|________________________________________________________________________________________________________________________________\n")
         print(f"JoinLink : {config.test_data['link']}\n")
         print("Expected after the transaction has been created:")
         print(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
-
-        
-       
-        
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
         
         if config.test_data['pp_type'] == 505:
             print("Note:              | Delay Capture will have 2 transaction in Multitrans | Please check all PostBacks and Emails")
             print(
-                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                    f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(
-                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                    f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
             print(
-                f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
-
+                    f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+        
         elif config.test_data['pp_type'] == 506 and (config.test_data['transaction_type'] == 'IC_POS' or config.test_data['transaction_type'] == 'IC_WS'):
             print("Note:              | Please check all PostBacks and Emails")
             print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 "
                   f"| Processor: {processor} | PaymentType: {paymenttype}"
                   f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: 507")
-
+            
             print(
-                f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
-
+                    f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+        
         else:
             print("Note:              | Please check all PostBacks and Emails")
             print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} "
@@ -404,26 +412,27 @@ def print_scenario():
                   f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
             print(
-                f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} |"
-                f" Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+                    f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} |"
+                    f" Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
         print(f"Email:             | {email_msg}  ")
         print(f"PostBacks       | {postbacks} ")
-
+        
         if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type'] == 'FreeTrial_Signup':
             print(visa_secure_msg)
         print("SegPayLogs:     | Please check SegpayLogs after each transaction to see if there are any related errors.\n\n")
-
         
-        
-        print("Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
-        print("PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
-        print("|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
+        print(
+            "Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
+        print(
+            "PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
+        print(
+            "|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
         
         if not (config.test_data['action_bep'] == 'Decline' or config.test_data['action_bep'] == 'No_action'):
             print(f"Expected After {config.test_data['action_bep']}:")
             print(
-                "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
-
+                    "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
+            
             if config.test_data['action_bep'] == 'Void_Refund_Expire':
                 purchstatus = 803
                 nextdate = 'Null'
@@ -444,7 +453,7 @@ def print_scenario():
                     nextdate = 'CurrentDate'
                     expiredate = 'CurrentDate'
                     postbacks_bep = "No additional postbacks"
-
+            
             elif config.test_data['action_bep'] == 'Cancel':
                 purchstatus = 802
                 mt_msg = f"No Additional records in Multitrans"
@@ -464,55 +473,56 @@ def print_scenario():
                 email = 'Cancelation'
                 email_type = 991
                 postbacks_bep = "Cancelation postback type 4"
-
+            
             print(f"Multitranse: | {mt_msg} ")
             print(f"Assets:      | PurchStatus: {purchstatus} | RetryDate: Null |  LastResult: Null | CustAddress,CustCity,CustState,CustPhone => Blank or Value")
             print(
-                f"Dates :      | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: {nextdate} | Expire: {expiredate} ")
+                    f"Dates :      | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: {nextdate} | Expire: {expiredate} ")
             print(f"Email:       | PointOfSaleEmailQueue should  have {email} email | EmailTypeID: {email_type}  ")
             print(f"PostBacks    | {postbacks} + {postbacks_bep}")
-
+        
         print(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
-
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
+        
         # print(colored("Actual Results:", 'cyan', attrs=['bold']))
         # print(
         #         "________________________________________________________________________________________________________________________________________________________________________Results\n")
         print()
-
+        
         # test cases
         tc = []
         tc.append(
-            f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
+                f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
         tc.append(
-            f"| {pp} | Merchant: {config.test_data['merchant']}| 3DS Configured | Action: {config.test_data['transaction_type']} | CollectUserInfo: {config.test_data['userinfo']}")
+                f"| {pp} | Merchant: {config.test_data['merchant']}| 3DS Configured | Action: {config.test_data['transaction_type']} | CollectUserInfo: {config.test_data['userinfo']}")
         tc.append(
-            f"| Processor: {config.test_data['processor_name']}  | DMCStatus: {config.test_data['DMCStatus']} | DMC: {config.test_data['dmc']} | Language: {config.test_data['lang']} | PostBackID: {config.test_data['PostBackID']}")
+                f"| Processor: {config.test_data['processor_name']}  | DMCStatus: {config.test_data['DMCStatus']} | DMC: {config.test_data['dmc']} | Language: {config.test_data['lang']} | PostBackID: {config.test_data['PostBackID']}")
         tc.append(f"| This Transactions should be aproved | Eticket: {config.test_data['eticket']} | {payment}")
         tc.append(bep_msg)
         tc.append("|________________________________________________________________________________________________________________________________\n")
         tc.append(f"JoinLink : {config.test_data['link']}\n")
         tc.append("Expected:")
         tc.append(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
         tc.append("Note:        | Please check all PostBacks and Emails")
         tc.append(
-            f"Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} |"
-            f" CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                f"Multitranse: | AuthCode: 'OK:0' | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} |"
+                f" CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
         tc.append(f"Assets:      | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  Purchases: 1 | PurchType: {scenario[1]}")
         tc.append(
-            f"Dates :      | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+                f"Dates :      | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
         tc.append(f"Email:       | PointOfSaleEmailQueue should  have email | EmailTypeID: 981  ")
         tc.append(f"PostBacks    | {postbacks} ")
         tc.append(visa_secure_msg)
         tc.append("SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are any related errors.")
         tc.append(
-            "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
+                "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
         return tc
-
+    
     except Exception as ex:
         traceback.print_exc()
         pass
+
 def verify_transaction(transaction_type, current_transaction_record):
     pass_fail = ''
     aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
@@ -526,8 +536,8 @@ def verify_transaction(transaction_type, current_transaction_record):
         config.test_data['aprove_or_decline'] = aprove_or_decline
         # aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
         print(colored(
-            f"PurchaseID: {current_transaction_record['PurchaseID']} | TransId:{current_transaction_record['TransID']} | TransGuid: {current_transaction_record['TRANSGUID']}",
-            'yellow'))
+                f"PurchaseID: {current_transaction_record['PurchaseID']} | TransId:{current_transaction_record['TransID']} | TransGuid: {current_transaction_record['TRANSGUID']}",
+                'yellow'))
         config.test_data['actual'] = [
             f"PurchaseID: {current_transaction_record['PurchaseID']} | TransId:{current_transaction_record['TransID']} | TransGuid: {current_transaction_record['TRANSGUID']}"]
         config.oc_tokens[current_transaction_record['PurchaseID']] = [config.test_data['Type'], current_transaction_record['MerchantCurrency'],
@@ -538,7 +548,7 @@ def verify_transaction(transaction_type, current_transaction_record):
         config.test_data['aprove_or_decline'] = False
         tmpstr = f"Transaction DECLINED : AuthCode:{current_transaction_record['AuthCode']}"
         print(colored(tmpstr, 'red', attrs=['bold']))
-
+    
     if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
         pass_fail = TransActionService.verify_oc(current_transaction_record, 'pos')
     elif transaction_type == 'Signup' or transaction_type == 'Signup_Decline' or transaction_type == 'FreeTrial_Signup':
@@ -550,14 +560,15 @@ def verify_transaction(transaction_type, current_transaction_record):
         if pass_fail:
             print(colored(f"Scenario completed: All Passed", 'green', attrs=['bold', 'underline', 'dark']))
             print(
-                "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
+                    "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
             return True
         else:
             print(colored(f"Scenario had some issues: Failed | Re-Check Manually |", 'red', attrs=['bold', 'underline', 'dark']))
-            #options.get_error_from_log()
+            # options.get_error_from_log()
             print(
-                "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
+                    "____________________________________________________________________________________________________________________________________________________________________End_Results\n\n")
             return False
+
 def create_transaction():
     transaction_type = config.test_data['transaction_type']
     current_transaction_record = {}
@@ -565,11 +576,11 @@ def create_transaction():
     try:
         if transaction_type == 'OneClick_POS' or transaction_type == 'FreeTrial_POS':
             current_transaction_record = br.oc_pos()
-        elif transaction_type == 'Signup' or transaction_type == 'Signup_Decline'  or transaction_type == 'FreeTrial_Signup':
+        elif transaction_type == 'Signup' or transaction_type == 'Signup_Decline' or transaction_type == 'FreeTrial_Signup':
             current_transaction_record = br.create_signup()
         elif transaction_type == 'OneClick_WS' or transaction_type == 'FreeTrial_WS':
             current_transaction_record = br.oc_ws()
-        #options.get_error_before_action("cutoff_time")
+        # options.get_error_before_action("cutoff_time")
         if current_transaction_record:
             print(f"{transaction_type} => Eticket: {config.test_data['eticket']}  | Processor: {current_transaction_record['Processor']} "
                   f"| Lnaguage: {config.test_data['lang']} | Type: {config.test_data['Type']} | DMC: {config.test_data['dmc']}")
@@ -582,12 +593,13 @@ def create_transaction():
         else:
             options.get_error_before_action("cutoff_time")
             options.get_error_from_log()
-
-        
-        
+    
+    
+    
     except Exception as ex:
         traceback.print_exc()
         pass
+
 def random_lang_cur():
     config.test_data['lang'] = options.random_lang()
     opt_lang = random.choice(['p', 'u'])
@@ -601,6 +613,7 @@ def random_lang_cur():
             config.test_data['dmc_from'] = 'u'
     else:
         config.test_data['dmc'] = 'USD'
+
 def create_test_case(scenario):
     merchantid = ''
     try:
@@ -612,7 +625,7 @@ def create_test_case(scenario):
             elif scenario[5] == '1':
                 config.test_data['ic_istrial'] = False
         test_case_number = config.test_case_number
-        #config.test_case_number = test_case_number = config.test_case_number + 1
+        # config.test_case_number = test_case_number = config.test_case_number + 1
         find_pp_package = None
         cnt = 0
         config.test_data['name'] = f"{test_case_number}:{scenario[0]}:{scenario[1]}:{scenario[2]}:{scenario[3]}"
@@ -677,12 +690,12 @@ def create_test_case(scenario):
                     config.test_data['statusDate'] = result['StatusDate']
                 else:
                     random_lang_cur()
-
+            
             else:
                 config.test_data['dmc'] = result['AuthCurrency']
                 config.test_data['lang'] = result['CustLang']
                 config.test_data['purchStatus'] = result['PurchStatus']
-
+                
                 config.test_data['purchDate'] = result['PurchDate']
                 config.test_data['cancelDate'] = result['CancelDate']
                 config.test_data['convDate'] = result['ConvDate']
@@ -692,9 +705,9 @@ def create_test_case(scenario):
                 config.test_data['statusDate'] = result['StatusDate']
         else:
             random_lang_cur()
-
+        
         if config.test_data['action_bep'] == 'Decline': config.test_data['purchStatus'] = 806
-
+        
         if find_pp_package:
             link = joinlink()
             config.test_data['visa_secure'] = options.is_visa_secure()
@@ -707,17 +720,18 @@ def create_test_case(scenario):
                 74: 'SPHBIPSP'
             }
             config.test_data['processor_name'] = processor_name[config.test_data['PrefProcessorID']]
-
+            
             return True
         else:
             return False
     except Exception as ex:
         traceback.print_exc()
         print()
+
 def find_package_pricepoint():
     find_pp_package = None
     cnt = 0
-
+    
     try:
         while find_pp_package == None and cnt < 3:
             cnt += 1
@@ -734,6 +748,7 @@ def find_package_pricepoint():
     except Exception as ex:
         traceback.print_exc()
         pass
+
 def print_failed_scenarios(failed_scenarios):
     for sc in failed_scenarios:
         print(sc)
@@ -742,45 +757,137 @@ def insert_cancel_srs(purchaseids):
     for pid in purchaseids:
         url = f"https://qasrs.segpay.com/ADM.asmx/CancelMembership?Userid=yan&UserAccessKey=yan&PurchaseID={pid}&CancelReason=SRSCancel"
         br.navigate_to_url(url)
-
+        print(url)
         # refund_tasks = db_agent.refund_task(842, tid)
         # refund_tasks = db_agent.refund_task(841, tid['TransID'])
-        #print(tid)  # tid['transid']
-        
+        # print(tid)  # tid['transid']
+
 def insert_refund_srs(transids):
     for tid in transids:
-        
         url = f"https://qasrs.segpay.com/ADM.asmx/RefundTransaction?Userid=yan&UserAccessKey=yan&TransID={tid}&RefundReason=SRSRefund"
         br.navigate_to_url(url)
+        print(url)
+        # refund_tasks = db_agent.refund_task(842, tid)
+        # refund_tasks = db_agent.refund_task(841, tid['TransID'])
+        print(tid)  # tid['transid']
+
+def insert_refunds(transids, taskid):
+    tid = 0
+    not_processed = []
+    tasks_type = {}
+    refunds = bep.get_data_before_action(transids, 'refund')
+    tasks = []
+    for tid in refunds[1]:
+        try:
+            if refunds[1][tid]['Authorized']:
+                if taskid == 0:
+                    tasktype = random.choice([841, 842, 843, 844])
+                else:
+                    tasktype = taskid
+                tasks.append(tasktype)
+                refund_tasks = db_agent.refund_task(tasktype, tid)
+                pid = refunds[1][tid]['PurchaseID']
+                tasks_type[pid] = tasktype
+            else:
+                del refunds[1][tid]
+        except Exception as ex:
+            traceback.print_exc()
+            not_processed.append(tid)
+            pass
+    print(f"Tasks inserted : {tasks}")
+    #tmp = web_service.process_request("Refund", config.refund_url, 200)
+    config.tasks_type = tasks_type
+    config.refunds = refunds[0], refunds[1], not_processed
+    return refunds[0], refunds[1], not_processed
+    
+
+def insert_refunds_tasks(refund_job, taskid, transids):
+    refunds = bep.get_data_before_action(transids, 'refund')
+    tid = 0
+    not_processed = []
+    tasks_type = {}
+    tasks = []
+    if refund_job == 'bep':
         
-        #refund_tasks = db_agent.refund_task(842, tid)
-        # refund_tasks = db_agent.refund_task(841, tid['TransID'])
-        print(tid)  # tid['transid']
-def insert_refunds(transids):
-    for tid in transids:
-        refund_tasks = db_agent.refund_task(841, tid)
-        # refund_tasks = db_agent.refund_task(841, tid['TransID'])
-        print(tid)  # tid['transid']
-filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.csv"
+        for tid in refunds[1]:
+            try:
+                if refunds[1][tid]['Authorized']:
+                    if taskid == 0:
+                        tasktype = random.choice([841, 842, 843, 844])
+                    else:
+                        tasktype = taskid
+                    tasks.append(tasktype)
+                    refund_tasks = db_agent.refund_task(tasktype, tid)
+                    pid = refunds[1][tid]['PurchaseID']
+                    tasks_type[pid] = tasktype
+                else:
+                    del refunds[1][tid]
+            except Exception as ex:
+                traceback.print_exc()
+                not_processed.append(tid)
+                pass
+
+    
+    elif refund_job == 'srs' and taskid == 841:
+        for tid in transids:
+            url = f"https://qasrs.segpay.com/ADM.asmx/RefundTransaction?Userid=yan&UserAccessKey=yan&TransID={tid}&RefundReason=SRSRefund"
+            br.navigate_to_url(url)
+            # print(url)
+            # print(tid)  # tid['transid']
+    elif refund_job == 'srs' and taskid == 842:
+        for pid in transids:  # its purchaseids for refund and cancel on SRS
+            url = f"https://qasrs.segpay.com/ADM.asmx/CancelMembership?Userid=yan&UserAccessKey=yan&PurchaseID={pid}&CancelReason=SRSCancel"
+            br.navigate_to_url(url)
+            print(url)
+    print(f"Tasks inserted : {tasks}")
+    config.tasks_type = tasks_type
+    config.refunds = refunds[0], refunds[1], not_processed
+    return refunds[0], refunds[1], not_processed
+
+def bep_actions(action, transids):
+    try:
+        if action == 'cap':
+            captures = bep.process_captures()
+            if captures == 'Captured':
+                check_captures = db_agent.verify_captures(trans_ids)
+        
+        elif action == 'rebill':
+            conversion = bep.process_rebills(transids)  # bep.process_rebills(rebills_pids)
+            if conversion:
+                check_rebills_asset = asset.asseets_check_rebills(conversion[0])
+                check_rebills_mt = mt.multitrans_check_conversion(conversion[1])
+        
+        elif action == 'refund':
+            refunds = bep.get_data_before_action(transids, 'refund')
+            insert_task = insert_refunds_tasks('bep', 841, trans_ids)
+            tmp = web_service.process_request("Refund", config.refund_url, 200)
+            check_refunds_mt = mt.multitrans_check_refunds()
+            check_refunds_asset = asset.asseets_check_refunds()
+    except Exception as ex:
+        traceback.print_exc()
+        pass
+
+filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.csv"
 
 pruchase_ids = []
 trans_ids = []
 
-saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\dc.yaml"
+saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\1.yaml"
 count_transactions = 0
 failed_scenarios = ['Failed']
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
     merchantid = ''
-    #test_case_number = 0
+    # test_case_number = 0
     config.test_case_number = 0
     for scenario in tc_reader:
         try:
             config.test_case_number = config.test_case_number + 1
-            #test_case_number
-            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS') or ( 'OneClick' in  scenario[2] and scenario[3]) == 'Decline' or ( scenario[1] == 'Paypal' and scenario[3]) == 'Decline':
+            # test_case_number
+            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS') or ('OneClick' in scenario[2] and scenario[3]) == 'Decline' or (
+                    scenario[1] == 'Paypal' and scenario[3]) == 'Decline':
                 print()  # ("skiping for now \n") # EU_EUR
-
+            
             else:
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
@@ -802,8 +909,8 @@ with open(filename, newline='') as csvfile:
                         failed_test_cases[config.test_data['name']] = config.test_data
                         failed_scenarios.append(scenario)
                         print("\n\n")
-                    
-                
+        
+        
         except Exception as ex:
             traceback.print_exc()
             print()
@@ -811,10 +918,22 @@ with open(filename, newline='') as csvfile:
 
 print(pruchase_ids)
 print(trans_ids)
-insert_cancel_srs(pruchase_ids)
-insert_refund_srs(trans_ids)
-#insert_refunds(trans_ids)
-print("Failed Scenarios")
+bep_actions('cap', trans_ids)
+bep_actions('rebill', trans_ids)
+bep_actions('refund', trans_ids)
+
+
+
+
+
+
+# print()
+# #insert_cancel_srs(pruchase_ids)
+# print()
+# insert_refund_srs(trans_ids)
+# print()
+# #insert_refunds(trans_ids)
+# print("Failed Scenarios")
 print_failed_scenarios(failed_scenarios)
 br.close()
 

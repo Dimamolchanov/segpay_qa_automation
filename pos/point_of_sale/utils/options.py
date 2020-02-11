@@ -27,7 +27,7 @@ def refurl():
     return refurl
 
 def collect_userinfo():
-    collectinfo = [0, 1, 2]
+    collectinfo = [1, 1, 1]
     selected_option = ''
     try:
         selected_option = random.choice(collectinfo)

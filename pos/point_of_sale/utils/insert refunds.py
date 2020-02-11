@@ -19,7 +19,9 @@ db_agent = DBActions()
 # total_records = db_agent.sql(sql)
 # tids = total_records['transid']
 
-total_records = [223773089]
+total_records = [223776968,
+223776972,
+223776977]
 
 
 for tid in total_records:
