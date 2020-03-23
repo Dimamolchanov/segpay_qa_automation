@@ -141,7 +141,7 @@ class Signup:
         elem = ''
         
         
-        self.br.find_by_css("input[name='paymentoption'][value='1301']")[0].click()
+        self.br.find_by_css("input[name='paymentchoice'][value='pp']")[0].click()
         time.sleep(1)
         id = self.br.find_by_tag("iframe")[1]['id']
         with self.br.get_iframe(id) as iframe:

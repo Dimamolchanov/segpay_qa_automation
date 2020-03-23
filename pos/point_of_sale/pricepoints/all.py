@@ -631,7 +631,7 @@ def create_test_case(scenario):
         # config.test_case_number = test_case_number = config.test_case_number + 1
         find_pp_package = None
         cnt = 0
-        config.test_data['name'] = f"{test_case_number}:{scenario[0]}:{scenario[1]}:{scenario[2]}:{scenario[3]}"
+        config.test_data['name'] = f"{test_case_number}|{scenario[0]}:{scenario[1]}:{scenario[2]}:{scenario[3]}"
         config.test_data['test_case_number'] = test_case_number
         config.test_data['pp_type'] = int(scenario[4])
         config.test_data['payment'] = scenario[1]
@@ -874,18 +874,28 @@ def save_and_print():
     print('TransIDs')
     print(trans_ids)
     print('Failed Scenarious')
-    print_failed_scenarios(failed_scenarios)
+
+
     try:
-        with open(saved_test_cases, 'w') as f:
-            data = yaml.dump(test_cases_list, f)
+        for item in failed_scenarios:
+            if isinstance(item, list):
+                print(f"TestCase #: {item[0].split('|')[0]}  | Scenario: {item[0].split('|')[1]} | Results: {item[1]} | Configuration: {item[2]}")
+    except Exception as ex:
+        traceback.print_exc()
+        pass
+        
+        
+    try: # save yaml
+            with open(saved_test_cases, 'w') as f:
+                data = yaml.dump(test_cases_list, f) #
     except Exception as ex:
         traceback.print_exc()
         pass
     try:
         for item in test_cases_list:
-            x = test_cases_list[item][0]
-            if len(x) < 30:
-                for i in x:
+            tmp = test_cases_list[item][0]
+            if len(tmp) < 30:
+                for i in tmp:
                     print(i)
     
     except Exception as ex:
@@ -895,9 +905,9 @@ def save_and_print():
     print('Full test Duration: {}'.format(end_time - start_time))
     print(f"Number of scenarious: {count_transactions}")
 
-# Beginning of the transactions
+####################################################################################################### Beginning of the transactions
 
-test_file_name = 'dc'
+test_file_name = 'all'
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\{test_file_name}.csv"
 saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\{test_file_name}.yaml"
 count_transactions = 0
@@ -905,16 +915,13 @@ failed_scenarios = ['Failed']
 with open(filename, newline='') as csvfile:
     tc_reader = csv.reader(csvfile, delimiter=',', quotechar='"', escapechar='\\')
     merchantid = ''
-    # test_case_number = 0
     config.test_case_number = 0
     for scenario in tc_reader:
         try:
             config.test_case_number = config.test_case_number + 1
-            # test_case_number
             if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS') or ('OneClick' in scenario[2] and scenario[3]) == 'Decline' or (
                     scenario[1] == 'Paypal' and scenario[3]) == 'Decline':
-                print()  # ("skiping for now \n") # EU_EUR
-            
+                print()
             else:
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
@@ -929,12 +936,15 @@ with open(filename, newline='') as csvfile:
                         if pass_fail:
                             passed_test_cases[config.test_data['name']] = config.test_data
                         else:
-                            failed_test_cases[config.test_data['name']] = config.test_data
-                            failed_scenarios.append(scenario)
+                            failed = [config.test_data['name'],'MissMatch',config.test_data]
+                            failed_scenarios.append(failed)
+                            #failed_test_cases[config.test_data['name']] = config.test_data
+                            
+                           
                     else:
                         print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
-                        failed_test_cases[config.test_data['name']] = config.test_data
-                        failed_scenarios.append(scenario)
+                        failed = [config.test_data['name'], 'Transaction did not get created', config.test_data]
+                        failed_scenarios.append(failed)
                         print("\n\n")
         
         
@@ -945,7 +955,7 @@ with open(filename, newline='') as csvfile:
 
 bep_actions('cap', trans_ids)
 bep_actions('rebill', trans_ids)
-bep_actions('refund', trans_ids)
+#bep_actions('refund', trans_ids)
 
 save_and_print()
 br.close()

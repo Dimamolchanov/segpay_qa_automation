@@ -1,9 +1,31 @@
 import random
 
-n = 0
+#n = 0
 bstr = ''
-div = 32
+
 d = {}
+
+#n = random.randint(2**18,2**19)
+
+for z in range(2**18,2**19):
+    n  = z
+   # n = 262144
+    cnt = 0
+    div = 512
+    rem = 0
+    #print(n % div)
+    while n % div > 16:
+        rem = n % div
+        cnt +=1
+        div = div + 5
+    print(f"Rem: {n % div} | Div: {div} | Cnt: {cnt}")
+        
+    
+
+
+
+
+
 after_bstr = ''
 for z in range(2**18,2**17,-1):
     n = z
