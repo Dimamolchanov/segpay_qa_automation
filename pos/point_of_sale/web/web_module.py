@@ -139,7 +139,7 @@ class Signup:
     
     def paypal_payment(self):
         elem = ''
-        
+      
         
         self.br.find_by_css("input[name='paymentchoice'][value='pp']")[0].click()
         time.sleep(1)
