@@ -133,12 +133,18 @@ def verify_postback_url(action, package_id, trans_id):
             postback_type = db_agent.get_postback_type_by_postback_id(id)
             if postback_type == 1:
                 expected_action = "Probe"
+                expected_postback_status = 863
             elif postback_type == 2:
                 expected_action = "Enable"
+                expected_postback_status = 863
             elif postback_type == 5:
                 expected_action = "auth"
+                if "OneClick_WS"  in config.test_data['name']:
+                    expected_postback_status = 861
+                else:
+                    expected_postback_status = 863
+                
             actual_postback_status = db_agent.get_postback_status_by_id(id, trans_id)
-            expected_postback_status = 863
             expected_trantype = "sale"
             if  trans_type == 108:
                 expected_stage = "instantconversion"
