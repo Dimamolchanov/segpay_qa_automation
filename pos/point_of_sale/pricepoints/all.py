@@ -6,6 +6,7 @@ from pos.point_of_sale.config.TransActionService import TransActionService
 from pos.point_of_sale.utils import options
 from termcolor import colored
 from pos.point_of_sale.web import web_module
+from pos.point_of_sale.utils.HTML import HTML
 import yaml
 import csv
 import random
@@ -29,6 +30,7 @@ passed_test_cases = {}
 pruchase_ids = []
 trans_ids = []
 scenario = ''
+t = '' # html table
 
 br = web_module.Signup()
 
@@ -388,8 +390,70 @@ def print_scenario():
         print(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
         
+        # html code generation
+        # HTMLFILE = 'C:\html\\test_cases.html'
+        # f = open(HTMLFILE, 'w')
+        
+       # t = HTML.Table(header_row=['Test Case', 'Details', 'Comments'], col_align=['left', 'char', 'right'])
+       #  tmp_step = ['Creating Scenario', tc]
+       #  config.test_steps.append(tmp_step)
+        
+        
+        
+        tmp = {f"Test_Case_{config.test_data['test_case_number']}",''}
+        config.test_steps.append({f"Test_Case_{config.test_data['test_case_number']}",f"Action:{config.test_data['transaction_type']}"})
+        
+        
+        
+        t.rows.append([HTML.TableCell(f"Test_Case_{config.test_data['test_case_number']}", bgcolor='LightGoldenRodYellow'), HTML.TableCell('', bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        
+        t.rows.append([HTML.TableCell('Action', bgcolor='LightGoldenRodYellow'), HTML.TableCell(
+                config.test_data['transaction_type'],
+                bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        
+        t.rows.append([HTML.TableCell('Status', bgcolor='LightGoldenRodYellow'), HTML.TableCell(
+                f"| {aprove_msg}",
+                bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        t.rows.append([HTML.TableCell('Eticket', bgcolor='LightGoldenRodYellow'), HTML.TableCell(
+                config.test_data['eticket'],
+                bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        
+        t.rows.append([HTML.TableCell('Payment Method', bgcolor='LightGoldenRodYellow'), HTML.TableCell(
+                payment.split(':')[1],
+                bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        
+        t.rows.append([HTML.TableCell('Configuration', bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell(f"| {pp} | Merchant: {config.test_data['merchant']}| 3DS Configured | CollectUserInfo: {config.test_data['userinfo']}",
+                                      bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        t.rows.append([HTML.TableCell('Configuration', bgcolor='LightGoldenRodYellow'), HTML.TableCell(
+                f"| Processor: {config.test_data['processor_name']}  | DMCStatus: {config.test_data['DMCStatus']} | DMC: {config.test_data['dmc']} | Language: {config.test_data['lang']} | PostBackID: {config.test_data['PostBackID']}",
+                bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        
+        t.rows.append([HTML.TableCell('BEP Action', bgcolor='LightGoldenRodYellow'), HTML.TableCell(
+                bep_msg,
+                bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        t.rows.append([HTML.TableCell('Link', bgcolor='LightGoldenRodYellow'), HTML.TableCell(HTML.link('Join Link', config.test_data['link']), bgcolor='LightGoldenRodYellow'),
+                       HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
+        
+        # =======================================================================================================
+        t.rows.append([HTML.TableCell('Verifications - SignUp', bgcolor='BurlyWood'),
+                       HTML.TableCell('Expected after the transaction has been created:', bgcolor='BurlyWood'),
+                       HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        
+        # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         if config.test_data['pp_type'] == 505:
             print("Note:              | Delay Capture will have 2 transaction in Multitrans | Please check all PostBacks and Emails")
+            t.rows.append([HTML.TableCell('Note:', bgcolor='BurlyWood'),
+                           HTML.TableCell('Delay Capture will have 2 transaction in Multitrans', bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
             print(
                     f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(
@@ -397,32 +461,116 @@ def print_scenario():
             print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
             print(
                     f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+            
+            t.rows.append([HTML.TableCell('Multitrans', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                               '{authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink',
+                               bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            t.rows.append([HTML.TableCell('Multitrans', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                                   '{authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink',
+                                   bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
+            t.rows.append([HTML.TableCell('Assets:', bgcolor='BurlyWood'),
+                           HTML.TableCell("PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}",
+                                          bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            t.rows.append([HTML.TableCell('Assets Dates:', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                               "Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}",
+                               bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        
+        
+        
+        
         
         elif config.test_data['pp_type'] == 506 and (config.test_data['transaction_type'] == 'IC_POS' or config.test_data['transaction_type'] == 'IC_WS'):
             print("Note:              | Please check all PostBacks and Emails")
-            print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 "
-                  f"| Processor: {processor} | PaymentType: {paymenttype}"
-                  f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+            print(
+                f"Multitrans:    | {authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+            
             print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: 507")
             
             print(
                     f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+            
+            t.rows.append([HTML.TableCell('Multitrans:', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                               f"{authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink",
+                               bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
+            t.rows.append([HTML.TableCell('Assets:', bgcolor='BurlyWood'),
+                           HTML.TableCell(f"PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: 507",
+                                          bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
+            t.rows.append([HTML.TableCell('Assets Dates:', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                               f"Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}",
+                               bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        
         
         else:
             print("Note:              | Please check all PostBacks and Emails")
-            print(f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} "
-                  f"| Processor: {processor} | PaymentType: {paymenttype}"
-                  f" | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+            print(
+                f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+            
             print(f"Assets:            | PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
             print(
-                    f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} |"
-                    f" Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
+                    f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}")
+            
+            t.rows.append([HTML.TableCell('Multitrans:', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                                   f"{authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink",
+                                   bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
+            t.rows.append([HTML.TableCell('Assets:', bgcolor='BurlyWood'),
+                           HTML.TableCell(f"PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}",
+                                          bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
+            t.rows.append([HTML.TableCell('Assets Dates:', bgcolor='BurlyWood'),
+                           HTML.TableCell(
+                                   f"Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}",
+                                   bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
+        
         print(f"Email:             | {email_msg}  ")
         print(f"PostBacks       | {postbacks} ")
+        t.rows.append([HTML.TableCell('EMail:', bgcolor='BurlyWood'),
+                       HTML.TableCell(f"{email_msg}",
+                                      bgcolor='BurlyWood'),
+                       HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        t.rows.append([HTML.TableCell('PostBacks:', bgcolor='BurlyWood'),
+                       HTML.TableCell(f"{postbacks}",
+                                      bgcolor='BurlyWood'),
+                       HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        
+        
+        
         
         if config.test_data['transaction_type'] == 'Signup' or config.test_data['transaction_type'] == 'FreeTrial_Signup':
             print(visa_secure_msg)
+            t.rows.append([HTML.TableCell('3DS:', bgcolor='BurlyWood'),HTML.TableCell(visa_secure_msg,bgcolor='BurlyWood'),HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+          
         print("SegPayLogs:     | Please check SegpayLogs after each transaction to see if there are any related errors.\n\n")
+        t.rows.append(
+                [HTML.TableCell('SegPay Logs:', bgcolor='BurlyWood'), HTML.TableCell('Please check SegpayLogs after each transaction to see if there are any related errors.', bgcolor='BurlyWood'), HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        
+        t.rows.append([HTML.TableCell('Actual Results', bgcolor='LightGray'), HTML.TableCell("PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ", bgcolor='LightGray'),HTML.TableCell('Actual Results', bgcolor='LightGray')])
+        
+        
+        
+        
+        
+        
         
         print(
                 "Actual Result:____________________________________________________________________________________________________________________________________________________________________________________________\n")
@@ -430,8 +578,13 @@ def print_scenario():
                 "PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        ")
         print(
                 "|_________________________________________________________________________________________________________________________________________________________________________________________________________\n\n")
+
+        
         
         if not (config.test_data['action_bep'] == 'Decline' or config.test_data['action_bep'] == 'No_action'):
+            t.rows.append([HTML.TableCell('Verifications - BEP', bgcolor='BurlyWood'),
+                           HTML.TableCell(f"Expected After {config.test_data['action_bep']}:", bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
             print(f"Expected After {config.test_data['action_bep']}:")
             print(
                     "------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n")
@@ -477,12 +630,29 @@ def print_scenario():
                 email_type = 991
                 postbacks_bep = "Cancelation postback type 4"
             
-            print(f"Multitranse: | {mt_msg} ")
+            print(f"Multitrans: | {mt_msg} ")
             print(f"Assets:      | PurchStatus: {purchstatus} | RetryDate: Null |  LastResult: Null | CustAddress,CustCity,CustState,CustPhone => Blank or Value")
             print(
                     f"Dates :      | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: {nextdate} | Expire: {expiredate} ")
             print(f"Email:       | PointOfSaleEmailQueue should  have {email} email | EmailTypeID: {email_type}  ")
             print(f"PostBacks    | {postbacks} + {postbacks_bep}")
+
+            t.rows.append([HTML.TableCell('Multitrans', bgcolor='BurlyWood'),
+                           HTML.TableCell(mt_msg, bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            t.rows.append([HTML.TableCell('Assets', bgcolor='BurlyWood'),
+                           HTML.TableCell("{purchstatus} | RetryDate: Null |  LastResult: Null | CustAddress,CustCity,CustState,CustPhone => Blank or Value', bgcolor='BurlyWood"),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            t.rows.append([HTML.TableCell('Assets Dates', bgcolor='BurlyWood'),
+                           HTML.TableCell(f"Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: {nextdate} | Expire: {expiredate} ", bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            t.rows.append([HTML.TableCell('Email', bgcolor='BurlyWood'),
+                           HTML.TableCell(f"PointOfSaleEmailQueue should  have {email} email | EmailTypeID: {email_type}  ", bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            t.rows.append([HTML.TableCell('PostBacks', bgcolor='BurlyWood'),
+                           HTML.TableCell(f"{postbacks} + {postbacks_bep}", bgcolor='BurlyWood'),
+                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+            
         
         print(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
@@ -493,6 +663,13 @@ def print_scenario():
         print()
         
         # test cases
+        htmlcode = str(t)
+        #print(htmlcode)
+        f.write(htmlcode)
+        f.write('<p>')
+        print('-' * 79)
+        #f.close()
+        
         tc = []
         tc.append(
                 f"TestCase_____________________________________________________________________________________________________________________{config.test_data['test_case_number']}")
@@ -520,6 +697,7 @@ def print_scenario():
         tc.append("SegPayLogs:  | Please check SegpayLogs after each transaction to see if there are any related errors.")
         tc.append(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
+        
         return tc
     
     except Exception as ex:
@@ -537,6 +715,7 @@ def verify_transaction(transaction_type, current_transaction_record):
         else:
             aprove_or_decline = True
         config.test_data['aprove_or_decline'] = aprove_or_decline
+        config.test_steps.append(f"Transaction should be approved: {aprove_or_decline}")
         # aprove_or_decline = options.aprove_decline(current_transaction_record['TransID'])
         print(colored(
                 f"PurchaseID: {current_transaction_record['PurchaseID']} | TransId:{current_transaction_record['TransID']} | TransGuid: {current_transaction_record['TRANSGUID']}",
@@ -860,7 +1039,7 @@ def bep_actions(action, transids):
         
         elif action == 'refund':
             refunds = bep.get_data_before_action(transids, 'refund')
-            insert_task = insert_refunds_tasks('bep', 842, trans_ids)
+            insert_task = insert_refunds_tasks('bep', 843, trans_ids)
             tmp = web_service.process_request("Refund", config.refund_url, 200)
             check_refunds_mt = mt.multitrans_check_refunds()
             check_refunds_asset = asset.asseets_check_refunds()
@@ -874,8 +1053,7 @@ def save_and_print():
     print('TransIDs')
     print(trans_ids)
     print('Failed Scenarious')
-
-
+    
     try:
         for item in failed_scenarios:
             if isinstance(item, list):
@@ -883,11 +1061,10 @@ def save_and_print():
     except Exception as ex:
         traceback.print_exc()
         pass
-        
-        
-    try: # save yaml
-            with open(saved_test_cases, 'w') as f:
-                data = yaml.dump(test_cases_list, f) #
+    
+    try:  # save yaml
+        with open(saved_test_cases, 'w') as f:
+            data = yaml.dump(test_cases_list, f)  #
     except Exception as ex:
         traceback.print_exc()
         pass
@@ -907,7 +1084,9 @@ def save_and_print():
 
 ####################################################################################################### Beginning of the transactions
 
-test_file_name = 'all'
+HTMLFILE = 'Test Cases.html'
+f = open(HTMLFILE, 'w')
+test_file_name = 'credit'
 filename = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\{test_file_name}.csv"
 saved_test_cases = f"C:/segpay_qa_automation/pos/point_of_sale\\tests\\{test_file_name}.yaml"
 count_transactions = 0
@@ -918,44 +1097,47 @@ with open(filename, newline='') as csvfile:
     config.test_case_number = 0
     for scenario in tc_reader:
         try:
-            config.test_case_number = config.test_case_number + 1
-            if scenario[0] == 'Merchant' or (scenario[1] == 'Paypal' and scenario[2] == 'OneClick_WS') or ('OneClick' in scenario[2] and scenario[3]) == 'Decline' or (
-                    scenario[1] == 'Paypal' and scenario[3]) == 'Decline':
+            if len(scenario) == 0:
                 print()
             else:
+                config.test_case_number = config.test_case_number + 1
                 if create_test_case(scenario):
+                    t = HTML.Table(header_row=['Test Case', 'Details', 'Comments'], col_align=['left', 'char', 'right'])
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
-                    transaction_created = create_transaction()
-                    if transaction_created:
-                        pruchase_ids.append(config.test_data['PurchaseID'])
-                        trans_ids.append(config.test_data['record_to_check']['TransID'])
-                        count_transactions += 1
-                        pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
-                        test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
-                        config.test_data['action'] = scenario[2]
-                        if pass_fail:
-                            passed_test_cases[config.test_data['name']] = config.test_data
-                        else:
-                            failed = [config.test_data['name'],'MissMatch',config.test_data]
-                            failed_scenarios.append(failed)
-                            #failed_test_cases[config.test_data['name']] = config.test_data
-                            
-                           
-                    else:
-                        print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
-                        failed = [config.test_data['name'], 'Transaction did not get created', config.test_data]
-                        failed_scenarios.append(failed)
-                        print("\n\n")
-        
+                    # transaction_created = create_transaction()
+                    # if transaction_created:
+                    #     pruchase_ids.append(config.test_data['PurchaseID'])
+                    #     trans_ids.append(config.test_data['record_to_check']['TransID'])
+                    #     count_transactions += 1
+                    #     config.test_steps.append('Starting verifications:')
+                    #     pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
+                    #     test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
+                    #     config.test_data['action'] = scenario[2]
+                    #     if pass_fail:
+                    #         passed_test_cases[config.test_data['name']] = config.test_data
+                    #     else:
+                    #         failed = [config.test_data['name'], 'MissMatch', config.test_data]
+                    #         failed_scenarios.append(failed)
+                    #         # failed_test_cases[config.test_data['name']] = config.test_data
+                    #
+                    #
+                    # else:
+                    #     print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
+                    #     failed = [config.test_data['name'], 'Transaction did not get created', config.test_data]
+                    #     failed_scenarios.append(failed)
+                    #     print("\n\n")
         
         except Exception as ex:
             traceback.print_exc()
             print()
             pass
 
+
+f.close()
 bep_actions('cap', trans_ids)
 bep_actions('rebill', trans_ids)
-#bep_actions('refund', trans_ids)
+bep_actions('refund', trans_ids)
 
 save_and_print()
+
 br.close()

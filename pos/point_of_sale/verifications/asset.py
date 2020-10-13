@@ -289,7 +289,7 @@ def asset_compare(asset_base_record):  # signup
 				tmp = k + " " + v
 				options.append_list(tmp)
 				print(k, v)
-
+		config.test_steps.append('Verifying Assets table')
 	except Exception as ex:
 		traceback.print_exc()
 		print(f"{Exception}")

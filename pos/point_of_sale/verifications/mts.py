@@ -450,6 +450,7 @@ def multitrans_compare(multitrans_base_record, live_record):
                 tmp = k + " " + v
                 options.append_list(tmp)
                 print(k, v)
+        config.test_steps.append('Verifying Mtitrans table')
     # config.logging.info(k,v)
     except Exception as ex:
         traceback.print_exc()

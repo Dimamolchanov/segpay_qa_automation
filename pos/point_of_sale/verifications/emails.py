@@ -1,5 +1,5 @@
 from termcolor import colored
-
+from pos.point_of_sale.config import config
 from pos.point_of_sale.db_functions.dbactions import DBActions
 from pos.point_of_sale.utils import options
 
@@ -38,3 +38,4 @@ def check_email_que(pricepoint_type, multitrans_base_record, action):
 		else:
 			options.append_list("Could not find the email or error")
 			return "Could not find the email or error"
+	config.test_steps.append('Verifying PointOfSaleEmailQueue table')

@@ -1,4 +1,5 @@
 Merchant,Payments,Actions,Void,PP Type,DMC,UserInfo,Variables,Xbill,PostBacks
+US,Paypal,Signup,Void_Refund,503
 US,CC,OneClick_POS,Void_Refund,503
 EU_EUR,Paypal,OneClick_POS,Void_Refund,503
 EU_US,Paypal,OneClick_POS,Void_Refund,503

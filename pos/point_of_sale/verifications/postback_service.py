@@ -325,7 +325,7 @@ def verify_postback_url(action, package_id, trans_id):
              tmp = param + " " + value
              options.append_list(tmp)
              print(param, value)
-
+    config.test_steps.append('Verifying PostBackNotifications table')
     return errors_dictionary
 
 
