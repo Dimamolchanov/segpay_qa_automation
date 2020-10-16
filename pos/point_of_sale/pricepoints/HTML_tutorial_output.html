@@ -1,0 +1,333 @@
+<TABLE border="1" style="border: 1px solid #000000; border-collapse: collapse;" cellpadding="4">
+ <TR>
+  <TH>Test_Case_1</TH>
+  <TH>Scenario:  2|EU:CC:Signup:Cancel  |   Action: Signup</TH>
+  <TH>Comments</TH>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGrey" align="left" style="font-weight: bold">Prerequisites</TD>
+  <TD bgcolor="LightGrey" align="char">Prerequisites</TD>
+  <TD bgcolor="LightGrey" align="right">Prerequisites</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Merchant </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char">  EU</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Select </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Recurring 501 Pricepoint</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> CollectUserInfo </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Set CollectUserInfo = 1</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Eticket </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> 900:27072</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> PostBackID </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select PostBackID 8962</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> 3DS </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> 3DS Enabled</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Currency </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select DMC From JoinLink: | JPY |</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> DMCStatus </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> 473</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Language </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select Language From PayPage: | ES |</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Payment </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> CreditCard: 4000000000001091</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Processor </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select from Package processor  SPKAISO1</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Link </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"><a href="https://qas2.segpay.com/billing/poset.cgi?x-eticketid=902:20000087&DynamicPricingID=1533b5b5-d2b4-4757-9fde-1a0e3321fe84&ref1=fuxym&ref2=mdxf&ref3=lbasw&ref4=juat&ref5=jtsrt&ref6=djlk&ref7=dlnev&ref8=vdsr&ref9=gmevr&ref10=pvcp&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/defaultpaypal&testcase=2">JoinLink</a></TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left" style="font-weight: bold"> Action </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char">  Create Transaction</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGrey" align="left" style="font-weight: bold">Expected Results</TD>
+  <TD bgcolor="LightGrey" align="char">Expected Results</TD>
+  <TD bgcolor="LightGrey" align="right">Expected Results</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Aprove/Decline </TD>
+  <TD bgcolor="Wheat" align="char">  This Transactions should be Approved</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Payment </TD>
+  <TD bgcolor="Wheat" align="char">  Payment Method: Credit Card [ 4000000000001091 ]</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Multitrans </TD>
+  <TD bgcolor="Wheat" align="char">  AuthCode: OK:0 | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | Processor: SPKAISO1 | PaymentType: 131 | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char">  PurchStatus: 801 | AuthCurrency: JPY |  PurchType: CC</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char">  Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv: Null | Last: Null | Next: CurrentDate + 3 | Expire: CurrentDate + 3</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Email </TD>
+  <TD bgcolor="Wheat" align="char">  PointOfSaleEmailQueue should  have email | EmailTypeID: 981</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> PostBacks </TD>
+  <TD bgcolor="Wheat" align="char">  PostBackNotifications  should have postbacks for PostBackID: 8962</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> 3DS </TD>
+  <TD bgcolor="Wheat" align="char">  3DS                | Cardinal3dsRequests should have the response from Cardinal</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> SegPayLogs </TD>
+  <TD bgcolor="Wheat" align="char">  Please check SegpayLogs after each transaction to see if there are any related errors</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGrey" align="left" style="font-weight: bold">Post-Transaction BEP </TD>
+  <TD bgcolor="LightGrey" align="char"> Actions to perform in BEP and MP : | Cancel current transaction |</TD>
+  <TD bgcolor="LightGrey" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> BEP </TD>
+  <TD bgcolor="Wheat" align="char">  Expected After Cancel</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Multitrans </TD>
+  <TD bgcolor="Wheat" align="char">  No Additional records in Multitrans</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char">  PurchaseStatus: 802 | RetryDate: Null |  LastResult: Null | CustAddress,CustCity,CustState,CustPhone => Blank or Value'</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char"> Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: Null | Expire: CurrentDate + 3</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Email </TD>
+  <TD bgcolor="Wheat" align="char">  PointOfSaleEmailQueue should  have Cancelation email | EmailTypeID: 991</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> PostBacks </TD>
+  <TD bgcolor="Wheat" align="char">  PostBackNotifications  should have postbacks for PostBackID: 8962 + Cancelation postback type 4</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="HoneyDew" align="left" style="font-weight: bold"> Actual Results </TD>
+  <TD bgcolor="HoneyDew" align="char">  PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        </TD>
+  <TD bgcolor="HoneyDew" align="right">&nbsp;</TD>
+ </TR>
+</TABLE><p><TABLE border="1" style="border: 1px solid #000000; border-collapse: collapse;" cellpadding="4">
+ <TR>
+  <TH>Test_Case_2</TH>
+  <TH>Scenario:  2|EU:CC:Signup:Cancel  |   Action: Signup</TH>
+  <TH>Comments</TH>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGrey" align="left" style="font-weight: bold">Prerequisites</TD>
+  <TD bgcolor="LightGrey" align="char">Prerequisites</TD>
+  <TD bgcolor="LightGrey" align="right">Prerequisites</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Merchant </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char">  EU</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Select </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Dynamic Recurring 511 Pricepoint</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> CollectUserInfo </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Set CollectUserInfo = 1</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Eticket </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> 902:20000087</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> PostBackID </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select PostBackID 8962</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> 3DS </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> 3DS Enabled</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Currency </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select DMC From PayPage: | RUB |</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> DMCStatus </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> 473</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Language </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select Language From PayPage: | JA |</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Payment </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> CreditCard: 4000000000001091</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Processor </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"> Select from Package processor  SPKAISO1</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left"> Link </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char"><a href="https://qas2.segpay.com/billing/poset.cgi?x-eticketid=902:20000087&DynamicPricingID=1533b5b5-d2b4-4757-9fde-1a0e3321fe84&ref1=fuxym&ref2=mdxf&ref3=lbasw&ref4=juat&ref5=jtsrt&ref6=djlk&ref7=dlnev&ref8=vdsr&ref9=gmevr&ref10=pvcp&x-billname=QA+Segpay&x-billemail=qateam@segpay.com&x-billaddr=123+Segpay+Street&x-billcity=Philladelphia&x-billstate=PA&x-billzip=19116&x-billcntry=US&refurl=wwww.regressesion.com/defaultpaypal&testcase=2">JoinLink</a></TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGoldenRodYellow" align="left" style="font-weight: bold"> Action </TD>
+  <TD bgcolor="LightGoldenRodYellow" align="char">  Create Transaction</TD>
+  <TD bgcolor="LightGoldenRodYellow" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGrey" align="left" style="font-weight: bold">Expected Results</TD>
+  <TD bgcolor="LightGrey" align="char">Expected Results</TD>
+  <TD bgcolor="LightGrey" align="right">Expected Results</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Aprove/Decline </TD>
+  <TD bgcolor="Wheat" align="char">  This Transactions should be Approved</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Payment </TD>
+  <TD bgcolor="Wheat" align="char">  Payment Method: Credit Card [ 4000000000001091 ]</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Multitrans </TD>
+  <TD bgcolor="Wheat" align="char">  AuthCode: OK:0 | TxStatus: 2 | TransSource: 121 | TransStatus: 184 | TransType: 101 | Processor: SPKAISO1 | PaymentType: 131 | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char">  PurchStatus: 801 | AuthCurrency: RUB |  PurchType: CC</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char">  Status: CurrentDate | Purch: CurrentDate  | Cancel: Null | Conv: Null | Last: Null | Next: CurrentDate + 1 | Expire: CurrentDate + 1</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Email </TD>
+  <TD bgcolor="Wheat" align="char">  PointOfSaleEmailQueue should  have email | EmailTypeID: 981</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> PostBacks </TD>
+  <TD bgcolor="Wheat" align="char">  PostBackNotifications  should have postbacks for PostBackID: 8962</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> 3DS </TD>
+  <TD bgcolor="Wheat" align="char">  3DS                | Cardinal3dsRequests should have the response from Cardinal</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> SegPayLogs </TD>
+  <TD bgcolor="Wheat" align="char">  Please check SegpayLogs after each transaction to see if there are any related errors</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="LightGrey" align="left" style="font-weight: bold">Post-Transaction BEP </TD>
+  <TD bgcolor="LightGrey" align="char"> Actions to perform in BEP and MP : | Cancel current transaction |</TD>
+  <TD bgcolor="LightGrey" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> BEP </TD>
+  <TD bgcolor="Wheat" align="char">  Expected After Cancel</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Multitrans </TD>
+  <TD bgcolor="Wheat" align="char">  No Additional records in Multitrans</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char">  PurchaseStatus: 802 | RetryDate: Null |  LastResult: Null | CustAddress,CustCity,CustState,CustPhone => Blank or Value'</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Assets </TD>
+  <TD bgcolor="Wheat" align="char"> Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: Null | Expire: CurrentDate + 1</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> Email </TD>
+  <TD bgcolor="Wheat" align="char">  PointOfSaleEmailQueue should  have Cancelation email | EmailTypeID: 991</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="Wheat" align="left"> PostBacks </TD>
+  <TD bgcolor="Wheat" align="char">  PostBackNotifications  should have postbacks for PostBackID: 8962 + Cancelation postback type 4</TD>
+  <TD bgcolor="Wheat" align="right">&nbsp;</TD>
+ </TR>
+ <TR>
+  <TD bgcolor="HoneyDew" align="left" style="font-weight: bold"> Actual Results </TD>
+  <TD bgcolor="HoneyDew" align="char">  PurchaseID =             | UserName:                   | Email:                | Pass/Fail =         | Comments:           |  ScreenShot if there is a problem:                                        </TD>
+  <TD bgcolor="HoneyDew" align="right">&nbsp;</TD>
+ </TR>
+</TABLE><p>
