@@ -80,6 +80,7 @@ for tc in d:
     print(htmlcode)
     f.write(htmlcode)
     f.write('<p>')
+    f.write('<p>')
     print('-' * 79)
 
 f.close()

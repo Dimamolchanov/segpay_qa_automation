@@ -335,21 +335,15 @@ def html_test_steps():
             cnt += 1
             
             t = HTML.Table(
-                header_row=[f"Test_Case_{cnt}", f"Scenario:  {config.test_data['name']}  |   Action: {config.test_data['transaction_type']}",
-                            'Comments'], col_align=['left', 'char', 'right'],
-                # col_styles=['font-weight: bold', '', '', 'background-color:yellow']
-                )
+                    header_row=[f"Test_Case_{cnt}", f"Scenario:  {config.test_data['name']}  |   Action: {config.test_data['transaction_type']}",
+                                'Comments'], col_align=['left', 'left', 'left'],
+                    #col_width=['6', '30%', '5'],
+            )
             
             for testcase in tc:
                 if 'Creating Scenario' in testcase:
-                    # t.rows.append([HTML.TableCell('Scenario', bgcolor='LightGoldenRodYellow'), HTML.TableCell(config.test_data['name'], bgcolor='LightGoldenRodYellow'),
-                    #                HTML.TableCell('Prerequisites', bgcolor='LightGoldenRodYellow')])
-                    t.rows.append([HTML.TableCell('Prerequisites', bgcolor='LightGrey',style='font-weight: bold'), HTML.TableCell('Prerequisites', bgcolor='LightGrey' ),
+                    t.rows.append([HTML.TableCell('Prerequisites', bgcolor='LightGrey', style='font-weight: bold'), HTML.TableCell('Prerequisites', bgcolor='LightGrey'),
                                    HTML.TableCell('Prerequisites', bgcolor='LightGrey')])
-                    # t.rows.append([HTML.TableCell(f"Test_Case_{config.test_data['test_case_number']}", bgcolor='LightGrey', style='font-weight: bold'), HTML.TableCell('Prerequisites', bgcolor='LightGrey'),
-                    #                HTML.TableCell('Prerequisites', bgcolor='LightGrey')])
-                    
-                    
                 elif 'Config' in testcase:
                     tmp = testcase.split('&')
                     
@@ -357,7 +351,6 @@ def html_test_steps():
                         t.rows.append([HTML.TableCell(tmp[1], bgcolor='LightGoldenRodYellow'),
                                        HTML.TableCell(HTML.link('JoinLink', config.test_data['link']), bgcolor='LightGoldenRodYellow'),
                                        HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
-                        # t.rows.append( HTML.link('Decalage website', 'http://www.decalage.info'))
                     
                     else:
                         t.rows.append([HTML.TableCell(tmp[1], bgcolor='LightGoldenRodYellow'), HTML.TableCell(tmp[2], bgcolor='LightGoldenRodYellow'),
@@ -365,11 +358,11 @@ def html_test_steps():
                 
                 elif 'Action &' in testcase:
                     tmp = testcase.split('&')
-                    t.rows.append([HTML.TableCell(tmp[1], bgcolor='LightGoldenRodYellow',style='font-weight: bold'), HTML.TableCell(tmp[2], bgcolor='LightGoldenRodYellow'),
+                    t.rows.append([HTML.TableCell(tmp[1], bgcolor='LightGoldenRodYellow', style='font-weight: bold'), HTML.TableCell(tmp[2], bgcolor='LightGoldenRodYellow'),
                                    HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
                 
                 elif 'Expectation' in testcase:
-                    t.rows.append([HTML.TableCell('Expected Results', bgcolor='LightGrey',style='font-weight: bold'), HTML.TableCell('Expected Results', bgcolor='LightGrey'),
+                    t.rows.append([HTML.TableCell('Expected Results', bgcolor='LightGrey', style='font-weight: bold'), HTML.TableCell('Expected Results', bgcolor='LightGrey'),
                                    HTML.TableCell('Expected Results', bgcolor='LightGrey')])
                 elif 'Expec &' in testcase:
                     tmp = testcase.split('&')
@@ -377,18 +370,20 @@ def html_test_steps():
                                    HTML.TableCell('', bgcolor='Wheat')])
                 elif 'Results &' in testcase:
                     tmp = testcase.split('&')
-                    t.rows.append([HTML.TableCell(tmp[1], bgcolor='HoneyDew',style='font-weight: bold'), HTML.TableCell(tmp[2], bgcolor='HoneyDew'),
+                    t.rows.append([HTML.TableCell(tmp[1], bgcolor='HoneyDew', style='font-weight: bold'), HTML.TableCell(tmp[2], bgcolor='HoneyDew'),
                                    HTML.TableCell('', bgcolor='HoneyDew')])
                 
                 elif 'Post-Transaction BEP' in testcase:
                     tmp = testcase.split('&')
-                    t.rows.append([HTML.TableCell(tmp[0], bgcolor='LightGrey',style='font-weight: bold'), HTML.TableCell(tmp[1], bgcolor='LightGrey'),
+                    t.rows.append([HTML.TableCell(tmp[0], bgcolor='LightGrey', style='font-weight: bold'), HTML.TableCell(tmp[1], bgcolor='LightGrey'),
                                    HTML.TableCell('', bgcolor='LightGrey')])
             
             htmlcode = str(t)
             f.write(htmlcode)
             f.write('<p>')
-            print('-' * 79)
+            # print('-' * 79)
+            # print('-' * 79)
+            # print('-' * 79)
     
     except Exception as ex:
         traceback.print_exc()
@@ -400,8 +395,7 @@ def teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, p
     tc_list = []
     mt = mt_verification(test_case)
     tc_list.append(['Creating Scenario', ''])
-    #tc_list.append(f"Test_Case_{config.test_data['test_case_number']}")
-    
+    # tc_list.append(f"Test_Case_{config.test_data['test_case_number']}")
     # tc_list.append(f"Config & Test_Case_{config.test_data['test_case_number']} & Action:{config.test_data['transaction_type']}")
     if config.test_data['cross_merchant']:
         tc_list.append(f"Config & Merchant &  {config.test_data['cross_merchant']}")
@@ -429,23 +423,24 @@ def teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, p
     tc_list.append(f"Expectation")
     tc_list.append(f"Expec & Aprove/Decline &  {aprove_msg}")
     tc_list.append(f"Expec & Payment &  {payment}")
+    tc_list.append("Expec & Multitrans/Assets &  CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
     if config.test_data['pp_type'] == 505:
         tc_list.append(
-                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  ")
         tc_list.append(
-                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource Pay record:  122 | TransStatus: 184 | TransType: 105 | TransAmount: Conversion Amount | Processor: {processor} | PaymentType: {paymenttype} ")
         tc_list.append(f"Expec & Assets &  PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
         tc_list.append(
                 f"Expec & Assets Dates &  Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}")
     elif config.test_data['pp_type'] == 506 and (config.test_data['transaction_type'] == 'IC_POS' or config.test_data['transaction_type'] == 'IC_WS'):
         tc_list.append(
-                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 | Processor: {processor} | PaymentType: {paymenttype}  ")
         tc_list.append(f"Expec & Assets &  PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: 507")
         tc_list.append(
                 f"Expec & Assets &  Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}")
     else:
         tc_list.append(
-                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} | Processor: {processor} | PaymentType: {paymenttype} | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
+                f"Expec & Multitrans &  {authcode} | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: {mt['transstatus']} | TransType: {mt['transtype']} | Processor: {processor} | PaymentType: {paymenttype} ")
         tc_list.append(f"Expec & Assets &  PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
         tc_list.append(
                 f"Expec & Assets &  Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: {config.test_data['convDate']} | Last: {config.test_data['lastDate']} | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}")
@@ -458,11 +453,11 @@ def teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, p
     tc_list.append(f"Expec & SegPayLogs &  Please check SegpayLogs after each transaction to see if there are any related errors")
     
     tc_list.append(f"Post-Transaction BEP & Actions to perform in BEP and MP : | {config.test_data['action_bep']} current transaction |")
-    #tc_list.append(f"Config & BEP &  Actions to perform in BEP and MP : {config.test_data['action_bep']} current transaction")
+    # tc_list.append(f"Config & BEP &  Actions to perform in BEP and MP : {config.test_data['action_bep']} current transaction")
     tc_list.append(f"Expec & BEP &  Expected After {config.test_data['action_bep']}")
     tc_list.append(f"Expec & Multitrans &  {mt_msg}")
     tc_list.append(
-            f"Expec & Assets &  PurchaseStatus: {purchstatus} | RetryDate: Null |  LastResult: Null | CustAddress,CustCity,CustState,CustPhone => Blank or Value'")
+            f"Expec & Assets &  PurchaseStatus: {purchstatus} | RetryDate: Null |  LastResult: Null ")
     tc_list.append(
             f"Expec & Assets & Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: CurrentDate | Conv: Null | Last: Null | Next: {nextdate} | Expire: {expiredate}")
     tc_list.append(f"Expec & Email &  PointOfSaleEmailQueue should  have {email} email | EmailTypeID: {email_type}")
@@ -543,9 +538,6 @@ def print_scenario():
         # -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         if config.test_data['pp_type'] == 505:
             print("Note:              | Delay Capture will have 2 transaction in Multitrans | Please check all PostBacks and Emails")
-            t.rows.append([HTML.TableCell('Note:', bgcolor='BurlyWood'),
-                           HTML.TableCell('Delay Capture will have 2 transaction in Multitrans', bgcolor='BurlyWood'),
-                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
             print(
                     f"Multitranse:    | {authcode} | TxStatus: 2 | TransSource free record: 121 | TransStatus: 187 | TransType: 105 | TransAmount: 0.00 | ProcessorTransID: FREETRIAL | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
             print(
@@ -562,23 +554,7 @@ def print_scenario():
             
             print(
                     f"Dates :            | Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']} ")
-            
-            t.rows.append([HTML.TableCell('Multitrans:', bgcolor='BurlyWood'),
-                           HTML.TableCell(
-                                   f"{authcode} | TxStatus: 2 | TransSource: 122 | TransStatus: 186 | TransType: 108 | Processor: {processor} | PaymentType: {paymenttype}  | CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink",
-                                   bgcolor='BurlyWood'),
-                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
-            
-            t.rows.append([HTML.TableCell('Assets:', bgcolor='BurlyWood'),
-                           HTML.TableCell(f"PurchStatus: {config.test_data['purchStatus']} | AuthCurrency: {config.test_data['dmc']} |  PurchType: 507",
-                                          bgcolor='BurlyWood'),
-                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
-            
-            t.rows.append([HTML.TableCell('Assets Dates:', bgcolor='BurlyWood'),
-                           HTML.TableCell(
-                                   f"Status: {config.test_data['statusDate']} | Purch: {config.test_data['statusDate']}  | Cancel: {config.test_data['cancelDate']} | Conv: CurrentDate | Last: CurrentDate | Next: {config.test_data['nextDate']} | Expire: {config.test_data['expiredDate']}",
-                                   bgcolor='BurlyWood'),
-                           HTML.TableCell('Verifications Steps', bgcolor='BurlyWood')])
+        
         else:
             print("Note:              | Please check all PostBacks and Emails")
             print(
@@ -1124,8 +1100,6 @@ with open(filename, newline='') as csvfile:
             print()
             pass
 html_test_steps()
-
-
 
 bep_actions('cap', trans_ids)
 bep_actions('rebill', trans_ids)
