@@ -333,11 +333,10 @@ def html_test_steps():
     try:
         for tc in config.test_steps:
             cnt += 1
-            
+            sc = scenario
             t = HTML.Table(
-                    header_row=[f"Test_Case_{cnt}", f"Scenario:  {config.test_data['name']}  |   Action: {config.test_data['transaction_type']}",
+                    header_row=[f"Test_Case_{cnt}", f"Scenario: | {sc[0]} | {sc[1]} | {sc[2]} | {sc[3]} | {sc[4]} |                                            ",
                                 'Comments'], col_align=['left', 'left', 'left'],
-                    #col_width=['6', '30%', '5'],
             )
             
             for testcase in tc:
@@ -376,14 +375,12 @@ def html_test_steps():
                 elif 'Post-Transaction BEP' in testcase:
                     tmp = testcase.split('&')
                     t.rows.append([HTML.TableCell(tmp[0], bgcolor='LightGrey', style='font-weight: bold'), HTML.TableCell(tmp[1], bgcolor='LightGrey'),
-                                   HTML.TableCell('', bgcolor='LightGrey')])
+                                   HTML.TableCell('Post-Transaction BEP', bgcolor='LightGrey')])
             
             htmlcode = str(t)
             f.write(htmlcode)
             f.write('<p>')
-            # print('-' * 79)
-            # print('-' * 79)
-            # print('-' * 79)
+
     
     except Exception as ex:
         traceback.print_exc()
@@ -1069,6 +1066,7 @@ with open(filename, newline='') as csvfile:
             if len(scenario) == 0:
                 print()
             else:
+                config.test_data['scenario'] = scenario
                 config.test_case_number = config.test_case_number + 1
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
