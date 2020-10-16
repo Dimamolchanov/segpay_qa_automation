@@ -470,6 +470,7 @@ def print_scenario():
     lang_msg = 'Language:'
     test_case = config.test_data
     authcode = 'AuthCode: OK:0'
+    config.test_data['scenario'] = scenario
     
     try:
         pp = pricepoint_type()
@@ -1066,7 +1067,7 @@ with open(filename, newline='') as csvfile:
             if len(scenario) == 0:
                 print()
             else:
-                config.test_data['scenario'] = scenario
+                
                 config.test_case_number = config.test_case_number + 1
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
