@@ -337,6 +337,9 @@ def html_test_steps():
             t = HTML.Table(
                     header_row=[f"Test_Case_{cnt}", f"Scenario: | {sc[0]} | {sc[1]} | {sc[2]} | {sc[3]} | {sc[4]} |                                            ",
                                 'Comments'], col_align=['left', 'left', 'left'],
+                    col_width=['15%', '', '15%'],
+                    style=["table-layout: fixed"],
+                    width='1500',
             )
             
             for testcase in tc:
@@ -344,7 +347,14 @@ def html_test_steps():
                     t.rows.append([HTML.TableCell('Prerequisites', bgcolor='LightGrey', style='font-weight: bold'), HTML.TableCell('Prerequisites', bgcolor='LightGrey'),
                                    HTML.TableCell('Prerequisites', bgcolor='LightGrey')])
                 elif 'Config' in testcase:
-                    tmp = testcase.split('&')
+                    if 'REF variables' in testcase:
+                        tmp = testcase.split('|')
+                    
+                    elif 'URL variables' in testcase:
+                        tmp = testcase.split('|')
+                    
+                    else:
+                        tmp = testcase.split('&')
                     
                     if 'Link &' in testcase:
                         t.rows.append([HTML.TableCell(tmp[1], bgcolor='LightGoldenRodYellow'),
@@ -380,7 +390,7 @@ def html_test_steps():
             htmlcode = str(t)
             f.write(htmlcode)
             f.write('<p>')
-
+    
     
     except Exception as ex:
         traceback.print_exc()
@@ -415,11 +425,22 @@ def teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, p
         tc_list.append(f"Config & Processor &  {processor}")
     
     tc_list.append(f"Config & Processor & Select from Package processor  {config.test_data['processor_name']}")
+    tc_list.append(f"Config | REF variables |  {config.test_data['ref_variables']}")
+    tc_list.append(f"Config | URL variables |  {config.test_data['url_options']}")
     tc_list.append(f"Config & Link &  {config.test_data['link']}")
     tc_list.append(f"Action & Action &  Create Transaction")
     tc_list.append(f"Expectation")
     tc_list.append(f"Expec & Aprove/Decline &  {aprove_msg}")
     tc_list.append(f"Expec & Payment &  {payment}")
+    if config.test_data['action_bep'] == 'Decline':
+        tc_list.append(
+                f"Expec & Multitrans &  Authorized = 0 | TxStatus: 2 | TransSource: {mt['transsource']} | TransStatus: 184 | TransType: {mt['transtype']} | Processor: {processor} | PaymentType: {paymenttype} ")
+        tc_list.append(f"Expec & Assets &  PurchStatus: 806 | AuthCurrency: {config.test_data['dmc']} |  PurchType: {scenario[1]}")
+        tc_list.append(
+                f"Expec & Assets &  Status: CurrentDate | Purch: CurrentDate  | Cancel: CurrentDate | Conv: CurrentDate | Last: CurrentDate | Next: Null | Expire: CurrentDate  | RetryDate: Null")
+        config.test_steps.append(tc_list)
+        return
+    
     tc_list.append("Expec & Multitrans/Assets &  CustAddress,CustCity,CustState,CustPhone => Blank or Value from JoinLink")
     if config.test_data['pp_type'] == 505:
         tc_list.append(
@@ -505,6 +526,8 @@ def print_scenario():
             'action_bep'] == 'Void_Refund_Cancel': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Cancel]  in Merchant Portal after Completion'
         if config.test_data[
             'action_bep'] == 'Void_Refund_Expire': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund and Expire]  in Merchant Portal after Completion'
+        if config.test_data[
+            'action_bep'] == 'Void_Refund': bep_msg = '| This Transaction will be voided (before capture) or refunded (after capture) - Select [Refund only]  in Merchant Portal after Completion'
         if config.test_data['action_bep'] == 'No_action': bep_msg = '| No BEP actions'
         if config.test_data['action_bep'] == 'Decline':
             if config.test_data['transaction_type'] == 'OneClick_POS':
@@ -515,6 +538,18 @@ def print_scenario():
             config.test_data['transaction_type'] = config.test_data['transaction_type'] + '_Decline'
             aprove_msg = 'This Transactions should be Declined'
             email_msg = 'No Email for Declined transaction'
+            mt_msg = ''
+            purchstatus = 806
+            email = 'No Email on decline transactions'
+            email_type = 0
+            nextdate = 'Null'
+            expiredate = 'Current Date'
+            postbacks_bep = ''
+            scenario_test_cases = teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, paymenttype, email_msg, postbacks, visa_secure_msg, mt_msg,
+                                            purchstatus,
+                                            email, email_type, nextdate, expiredate, postbacks_bep)
+            return
+        
         if config.test_data['cross_merchant']:
             cross_merchant = config.test_data['cross_merchant']
         else:
@@ -590,9 +625,15 @@ def print_scenario():
             elif config.test_data['action_bep'] == 'Void_Refund':
                 mt_msg = f"Multitranse: | TransAmount: Negative | TxStatus: 7 (Void) or 8 (refund) | TransSource: 125 | TransStatus: 186 | TransType:  107 (Void) or 102 (Refund) | CustAddress,CustCity,CustState,CustPhone => Blank or Value"
                 transamount = 'TransAmount: Negative'
+                purchstatus = config.test_data['purchStatus']
                 email = 'Refund'
                 email_type = 993
-                if config.test_data['pp_type'] in (503, 510):
+                canceldate = config.test_data['cancelDate']
+                nextdate = config.test_data['nextDate']
+                expiredate = config.test_data['expiredDate']
+                postbacks_bep = "No additional postbacks"
+                
+                if config.test_data['pp_type'] in (502, 503, 510):
                     purchstatus = config.test_data['purchStatus']
                     canceldate = 'CurrentDate'
                     nextdate = 'CurrentDate'
@@ -626,12 +667,12 @@ def print_scenario():
             print(f"Email:       | PointOfSaleEmailQueue should  have {email} email | EmailTypeID: {email_type}  ")
             print(f"PostBacks    | {postbacks} + {postbacks_bep}")
         
+        else:
+            mt_msg = "No BEP actions"
+        
         print(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
         
-        # print(colored("Actual Results:", 'cyan', attrs=['bold']))
-        # print(
-        #         "________________________________________________________________________________________________________________________________________________________________________Results\n")
         print()
         
         tc = []
@@ -1067,7 +1108,6 @@ with open(filename, newline='') as csvfile:
             if len(scenario) == 0:
                 print()
             else:
-                
                 config.test_case_number = config.test_case_number + 1
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
