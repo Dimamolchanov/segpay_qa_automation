@@ -32,7 +32,7 @@ trans_ids = []
 scenario = ''
 t = ''  # html table
 
-# br = web_module.Signup()
+#br = web_module.Signup()
 
 def joinlink():
     dynamiclink_websrevices = 'https://qasvc.segpay.com/OneClickSales.asmx/SalesServiceDynamic?eticketid='
@@ -327,13 +327,13 @@ def lang_dmc():
     return lang_msg, dmc_msg
 
 def html_test_steps():
-    HTMLFILE = 'HTML_tutorial_output.html'
+    HTMLFILE = 'OneClick POS_1011.html'
     f = open(HTMLFILE, 'w')
     cnt = 0
     try:
         for tc in config.test_steps:
             cnt += 1
-            sc = scenario
+            sc = tc[0][1]
             t = HTML.Table(
                     header_row=[f"Test_Case_{cnt}", f"Scenario: | {sc[0]} | {sc[1]} | {sc[2]} | {sc[3]} | {sc[4]} |                                            ",
                                 'Comments'], col_align=['left', 'left', 'left'],
@@ -352,13 +352,15 @@ def html_test_steps():
                     
                     elif 'URL variables' in testcase:
                         tmp = testcase.split('|')
+                    elif 'Link |' in testcase:
+                        tmp = testcase.split('|')
                     
                     else:
                         tmp = testcase.split('&')
                     
-                    if 'Link &' in testcase:
+                    if 'Link |' in testcase:
                         t.rows.append([HTML.TableCell(tmp[1], bgcolor='LightGoldenRodYellow'),
-                                       HTML.TableCell(HTML.link('JoinLink', config.test_data['link']), bgcolor='LightGoldenRodYellow'),
+                                       HTML.TableCell(HTML.link('JoinLink', tmp[2]), bgcolor='LightGoldenRodYellow'),
                                        HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
                     
                     else:
@@ -398,9 +400,10 @@ def html_test_steps():
     f.close()
 
 def teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, paymenttype, email_msg, postbacks, visa_secure_msg, mt_msg, purchstatus, email, email_type, nextdate,
-              expiredate, postbacks_bep):
+              expiredate, postbacks_bep,join_link):
     tc_list = []
     mt = mt_verification(test_case)
+    tc_list.append(['Scenario', scenario])
     tc_list.append(['Creating Scenario', ''])
     # tc_list.append(f"Test_Case_{config.test_data['test_case_number']}")
     # tc_list.append(f"Config & Test_Case_{config.test_data['test_case_number']} & Action:{config.test_data['transaction_type']}")
@@ -427,7 +430,7 @@ def teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, p
     tc_list.append(f"Config & Processor & Select from Package processor  {config.test_data['processor_name']}")
     tc_list.append(f"Config | REF variables |  {config.test_data['ref_variables']}")
     tc_list.append(f"Config | URL variables |  {config.test_data['url_options']}")
-    tc_list.append(f"Config & Link &  {config.test_data['link']}")
+    tc_list.append(f"Config | Link |  {join_link}")
     tc_list.append(f"Action & Action &  Create Transaction")
     tc_list.append(f"Expectation")
     tc_list.append(f"Expec & Aprove/Decline &  {aprove_msg}")
@@ -547,7 +550,7 @@ def print_scenario():
             postbacks_bep = ''
             scenario_test_cases = teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, paymenttype, email_msg, postbacks, visa_secure_msg, mt_msg,
                                             purchstatus,
-                                            email, email_type, nextdate, expiredate, postbacks_bep)
+                                            email, email_type, nextdate, expiredate, postbacks_bep,config.test_data['link'])
             return
         
         if config.test_data['cross_merchant']:
@@ -703,8 +706,9 @@ def print_scenario():
         tc.append(
                 "------------------------------------------------------------------------------------------------------------------------------------------------------------------------End_TestCase\n")
         # 11111111111111111111
+        join_link = config.test_data['link']
         scenario_test_cases = teststeps(pp, dmc_msg, lang_msg, processor, aprove_msg, payment, authcode, paymenttype, email_msg, postbacks, visa_secure_msg, mt_msg, purchstatus,
-                                        email, email_type, nextdate, expiredate, postbacks_bep)
+                                        email, email_type, nextdate, expiredate, postbacks_bep,join_link)
         
         return tc
     
@@ -1111,7 +1115,7 @@ with open(filename, newline='') as csvfile:
                 config.test_case_number = config.test_case_number + 1
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
-                    # transaction_created = create_transaction()
+                    #transaction_created = create_transaction()
                     # if transaction_created:
                     #     pruchase_ids.append(config.test_data['PurchaseID'])
                     #     trans_ids.append(config.test_data['record_to_check']['TransID'])
