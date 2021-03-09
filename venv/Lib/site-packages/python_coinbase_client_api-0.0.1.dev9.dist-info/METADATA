@@ -1,0 +1,26 @@
+Metadata-Version: 2.0
+Name: python-coinbase-client-api
+Version: 0.0.1.dev9
+Summary: Coinbase client API
+Home-page: http://www.bixority.com
+Author: Oleg Korsak
+Author-email: bixority@gmail.com
+License: GPLv3
+Keywords: coinbase client api wallet exchange merchant
+Platform: UNKNOWN
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires: requests
+
+UNKNOWN
+
+

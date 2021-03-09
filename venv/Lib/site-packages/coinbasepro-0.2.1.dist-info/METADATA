@@ -1,0 +1,251 @@
+Metadata-Version: 2.1
+Name: coinbasepro
+Version: 0.2.1
+Summary: A Python interface for the Coinbase Pro API.
+Home-page: https://github.com/acontry/coinbasepro
+Author: Alex Contryman
+Author-email: acontry@gmail.com
+License: MIT
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.4.x
+Description-Content-Type: text/x-rst
+Requires-Dist: requests (>=2.20.0)
+
+CoinbasePro: A Python API
+=========================
+
+.. image:: https://img.shields.io/pypi/v/coinbasepro.svg
+    :target: https://pypi.org/project/coinbasepro/
+
+.. image:: https://img.shields.io/pypi/l/coinbasepro.svg
+    :target: https://pypi.org/project/coinbasepro/
+
+.. image:: https://img.shields.io/pypi/pyversions/coinbasepro.svg
+    :target: https://pypi.org/project/coinbasepro/
+
+Features
+--------
+- Full support of Coinbase Pro REST API
+- Rate-limiting - no more 429 error responses!
+- Pythonic abstractions for a clean interface
+    - Return values are returned as Python data types instead of all string values:
+
+    .. code-block:: python
+
+        >>> import coinbasepro as cbp
+        >>> client = cbp.PublicClient()
+        # datetime and Decimal are among the return types in the dict returned
+        # by this call:
+        >>> client.get_product_ticker('BTC-USD')
+        {'trade_id': 2845680,
+        'price': Decimal('2496.69000000'),
+        'size': Decimal('0.00100000'),
+        'time': datetime.datetime(2019, 3, 20, 23, 53, 59, 596000),
+        'bid': Decimal('2496.69'), 'ask': Decimal('2496.7'),
+        'volume': Decimal('771.51495215')}
+
+    - Paginated endpoints are abstracted as generators:
+
+    .. code-block:: python
+
+        >>> import itertools
+        # get_product_trades is a generator
+        >>> client.get_product_trades('BTC-USD')
+        <generator object PublicClient.get_product_trades.<locals>.<genexpr> at 0x1098d6f68>
+
+        # Get 2 most recent trades. For many trade requests (>100), multiple
+        # HTTP requests will be made under the hood.
+        >>> list(itertools.islice(client.get_product_trades('BTC-USD'), 2))
+        [{'time': datetime.datetime(2019, 3, 21, 0, 2, 45, 609000),
+        'trade_id': 2845779,
+        'price': Decimal('2463.38000000'),
+        'size': Decimal('0.00100000'),
+        'side': 'buy'},
+        {'time': datetime.datetime(2019, 3, 21, 0, 2, 39, 877000),
+        'trade_id': 2845778,
+        'price': Decimal('2463.39000000'),
+        'size': Decimal('0.00100000'),
+        'side': 'sell'}]
+
+    - Warts in the Coinbase REST API are smoothed out:
+
+    .. code-block:: python
+
+        # CBPro API returns raw candles from this call as tuples, which would
+        # require user to look up value meaning in API docs. This python API
+        # returns candles as a list of dicts, similar to other API endpoints.
+
+        # Get first candle:
+        >>> client.get_product_historic_rates('BTC-USD')[0]
+        {'time': datetime.datetime(2019, 3, 21, 0, 6),
+        'low': Decimal('2463.3'),
+        'high': Decimal('2463.31'),
+        'open': Decimal('2463.3'),
+        'close': Decimal('2463.31'),
+        'volume': Decimal('0.006')}
+
+    - Python API uses typing available in Python3:
+
+    .. code-block:: python
+
+        # Example function prototype in API
+        def get_product_ticker(self, product_id: str) -> Dict[str, Any]:
+
+- Exceptions to enable easy handling of Coinbase error responses
+
+.. code-block:: python
+
+    >>> client.get_product_ticker(product_id='fake_product')
+    coinbasepro.exceptions.CoinbaseAPIError: NotFound
+
+.. code-block:: python
+
+    >>> auth_client = cbp.AuthenticatedClient(key='fake',
+                                              secret='fake',
+                                              passphrase='fake')
+    >>> auth_client.get_accounts()
+    coinbasepro.exceptions.BadRequest: Invalid API Key
+
+.. code-block:: python
+
+    # Authenticated client using API key which doesn't have withdrawal
+    # privileges:
+    >>> auth_client.withdraw_to_coinbase(0.01, 'BTC', 'fake_acct_id')
+    coinbasepro.exceptions.InvalidAuthorization: Forbidden
+
+.. code-block:: python
+
+    # This call throws a BadRequest exception
+    >>> auth_client.get_order('invalid_order_num')
+    coinbasepro.exceptions.BadRequest: Invalid order id
+
+    # CoinbaseAPIError is the parent exception for all exceptions the API
+    # throws, so catching this will catch anything
+    >>> try:
+    >>>     auth_client.get_order('invalid_order_num')
+    >>> except cbp.exceptions.CoinbaseAPIError as e:
+    >>>     print('Caught error: {}'.format(e))
+    Caught error: Invalid order id
+
+
+Installation
+------------
+
+.. code-block:: bash
+
+    $ pip install coinbasepro
+
+.. :changelog:
+
+Release History
+---------------
+
+dev
++++
+
+- [change here]
+
+0.2.1 (2020-01-09)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Fix volume parsing error in `get_fills`.
+
+0.2.0 (2019-11-10)
+++++++++++++++++++
+
+**Improvements**
+
+- Added rate-limiting to all public and authenticated endpoints. Dropping support for Python 3.4 to keep the implemenation simple.
+
+0.1.1 (2019-07-23)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Parameters used for historic rates (start/end) were not being sent in query parameters (thanks imalovitsa-exos!).
+
+0.1.0 (2019-03-20)
+++++++++++++++++++
+
+**Improvements**
+
+- Return values are now Pythonic types (i.e Decimal, datetime) instead of all string types.
+- Python3 typing now used to help with development using this API.
+- Docstring improvements and changes to match updated interface.
+- A bit more documentation in the readme.
+
+**Bugfixes**
+
+- Update requests version to >=2.20.0 to address security vulnerability.
+
+0.0.7 (2018-09-09)
+++++++++++++++++++
+
+**Bugfixes**
+
+- Fix parameter name for `get_product_historic_rates`.
+
+0.0.6 (2018-08-23)
+++++++++++++++++++
+
+**Improvements**
+
+- Update parameter validation for `get_fills` to reflect Coinbase API change.
+
+**Bugfixes**
+
+- Fixed bug where parameters had no effect in `get_product_historic_rates`.
+- Fixed bug where `product_id` parameter had no effect in `cancel_all`.
+
+0.0.5 (2018-08-21)
+++++++++++++++++++
+
+**Improvements**
+
+- Add exceptions for Coinbase error responses.
+
+0.0.4 (2018-07-15)
+++++++++++++++++++
+
+**Improvements**
+
+- Updated stop orders to latest API.
+
+**Bugfixes**
+
+- Fix issue with time in force error checking.
+
+0.0.3 (2018-07-07)
+++++++++++++++++++
+
+**Improvements**
+
+- Rename deposit and withdraw methods to clarify action.
+
+**Bugfixes**
+
+- Removed margin endpoints - now unsupported.
+
+0.0.2 (2018-07-01)
++++++++++++++++++++
+
+**Improvements**
+
+- Client request timeout is now configurable.
+
+0.0.1 (2018-06-27)
++++++++++++++++++++
+
+- Hello world.
+

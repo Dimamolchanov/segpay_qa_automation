@@ -26,7 +26,7 @@ for pricepoint in pricepoints:
         pp_type = pricepoint[1]
         if config.test_data['MerchantID'] == 27001:
             if pp_type == 510:
-                packageid = 901
+                packageid = 903
             elif pp_type == 511:
                 packageid = 902
             else:

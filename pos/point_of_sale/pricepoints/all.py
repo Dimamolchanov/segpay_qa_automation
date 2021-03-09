@@ -32,7 +32,7 @@ trans_ids = []
 scenario = ''
 t = ''  # html table
 
-#br = web_module.Signup()
+br = web_module.Signup()
 
 def joinlink():
     dynamiclink_websrevices = 'https://qasvc.segpay.com/OneClickSales.asmx/SalesServiceDynamic?eticketid='
@@ -911,7 +911,8 @@ def create_test_case(scenario):
                 57: 'SPCATISO',
                 44: 'PAYVISIONPRIVMS',
                 65: 'SPKAISO1',
-                74: 'SPHBIPSP'
+                74: 'SPHBIPSP',
+                95: 'SPKAEUISO1'
             }
             config.test_data['processor_name'] = processor_name[config.test_data['PrefProcessorID']]
             
@@ -1115,28 +1116,28 @@ with open(filename, newline='') as csvfile:
                 config.test_case_number = config.test_case_number + 1
                 if create_test_case(scenario):
                     test_cases_list[f"{config.test_data['name']}"] = print_scenario()
-                    #transaction_created = create_transaction()
-                    # if transaction_created:
-                    #     pruchase_ids.append(config.test_data['PurchaseID'])
-                    #     trans_ids.append(config.test_data['record_to_check']['TransID'])
-                    #     count_transactions += 1
-                    #     config.test_steps.append('Starting verifications:')
-                    #     pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
-                    #     test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
-                    #     config.test_data['action'] = scenario[2]
-                    #     if pass_fail:
-                    #         passed_test_cases[config.test_data['name']] = config.test_data
-                    #     else:
-                    #         failed = [config.test_data['name'], 'MissMatch', config.test_data]
-                    #         failed_scenarios.append(failed)
-                    #         # failed_test_cases[config.test_data['name']] = config.test_data
-                    #
-                    #
-                    # else:
-                    #     print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
-                    #     failed = [config.test_data['name'], 'Transaction did not get created', config.test_data]
-                    #     failed_scenarios.append(failed)
-                    #     print("\n\n")
+                    transaction_created = create_transaction()
+                    if transaction_created:
+                        pruchase_ids.append(config.test_data['PurchaseID'])
+                        trans_ids.append(config.test_data['record_to_check']['TransID'])
+                        count_transactions += 1
+                        config.test_steps.append('Starting verifications:')
+                        pass_fail = verify_transaction(config.test_data['transaction_type'], transaction_created)
+                        test_cases_list[f"{config.test_data['name']}"] = [{config.test_data['name']}, config.test_data]
+                        config.test_data['action'] = scenario[2]
+                        if pass_fail:
+                            passed_test_cases[config.test_data['name']] = config.test_data
+                        else:
+                            failed = [config.test_data['name'], 'MissMatch', config.test_data]
+                            failed_scenarios.append(failed)
+                            # failed_test_cases[config.test_data['name']] = config.test_data
+
+
+                    else:
+                        print(colored("Transaction did not get created - retry Manually", 'red', attrs=['bold']))
+                        failed = [config.test_data['name'], 'Transaction did not get created', config.test_data]
+                        failed_scenarios.append(failed)
+                        print("\n\n")
         
         except Exception as ex:
             traceback.print_exc()
