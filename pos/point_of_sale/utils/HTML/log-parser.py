@@ -8,8 +8,8 @@ import traceback
 
 
 
-log_file_path = r"C:\html\mini\PostbackParametersTests.txt"
-HTMLFILE = 'C:\html\mini\PostbackParametersTests.html'
+log_file_path = r"C:\html\mini\PrepaidCard.OneClickShortPage - Updated.txt"
+HTMLFILE = 'C:\html\mini\PrepaidCard.OneClickShortPage - Updated.html'
 # log_file_path = r"C:\test_cases\ParsedLog.txt"
 log_file = open(log_file_path, 'r', encoding='utf-8')
 
@@ -31,24 +31,22 @@ tmp_list = []
 for line in lines:
     if not re.match(r'^\s*$', line):
         if '---' in line:
-            #group = ["GroupX:", {line}]
-            #tmp_list.append(group)
+            tmp_list = []
+            group = ["GroupX:", {line}]
+            tmp_list.append(group)
+            if not tmp_list == []:
+                d.append(tmp_list)
+                
             # if '---' in line:
             #     if not tmp_list == []:
             #         d.append(tmp_list)
             #         tmp_list = []
-            #
-            #     current_testcase = [f"Test_Case_{cnt_scenario}", line]
-            
-            
-            
-            
-            
-            
-       # elif 'Master ' in line:
-            if not tmp_list == []:
-                d.append(tmp_list)
-                tmp_list = []
+
+                current_testcase = [f"Test_Case_{cnt_scenario}", line]
+        elif 'Master ' in line:
+            # if not tmp_list == []:
+            #     d.append(tmp_list)
+            #     tmp_list = []
             
             current_testcase = [f"Test_Case_{cnt_scenario}", line]
             cnt_prep_data = 1
@@ -123,8 +121,8 @@ for tc in d:
                        HTML.TableCell('', bgcolor='LightGoldenRodYellow')])
         for testcase in tc:
             if 'GroupX' in testcase[0]:
-                t.rows.append([HTML.TableCell('Test Cases Group', bgcolor='LightGoldenRodYellow'), HTML.TableCell(testcase[1], bgcolor='LightGoldenRodYellow'),
-                               HTML.TableCell('Group', bgcolor='LightGoldenRodYellow')])
+                t.rows.append([HTML.TableCell('Test Case Name', bgcolor='LightGoldenRodYellow'), HTML.TableCell(testcase[1], bgcolor='LightGoldenRodYellow'),
+                               HTML.TableCell('Test Case Name', bgcolor='LightGoldenRodYellow')])
             
             if 'Data Preparation Step:1' in testcase:
                 t.rows.append([HTML.TableCell('', bgcolor='LightGoldenRodYellow'), HTML.TableCell('Prerequisites', bgcolor='LightGoldenRodYellow'),
